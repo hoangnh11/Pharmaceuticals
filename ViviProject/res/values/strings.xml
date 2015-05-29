@@ -4,5 +4,9 @@
     <string name="app_name">ViviProject</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="BLANK"></string>
+    <string name="USERNAME">Tên đăng nhập</string>
+    <string name="PASSWORD">Mật khẩu</string>
+    <string name="LOGIN">ĐĂNG NHẬP</string>
 
 </resources>
