@@ -148,6 +148,24 @@ public class StringUtils
     }
     
     /**
+     * Check the string has at least number
+     * @param str
+     * @return
+     */
+    public static boolean isAtLeatNumber(String str) {
+    	return str.matches(".*\\d+.*");
+    }
+    
+    /**
+     * Check the string has at least letter upper case
+     * @param str
+     * @return
+     */
+    public static boolean isAtLeatLetterUppercase(String str) {
+    	return str.matches("^(.*?[A-Z]){1,}.*$");
+    }
+    
+    /**
      * This method is used to check a number is float format or not
      * 
      * @param str String input

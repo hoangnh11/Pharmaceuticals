@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.fptsoftware.ultilities.AppPreferences;
+import com.fptsoftware.ultilities.Logger;
 import com.fptsoftware.ultilities.StringUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
@@ -40,13 +41,21 @@ public class LoginActivity extends Activity implements OnClickListener{
 		// Get user name and password from screen
 		String username = edtUsername.getEditableText().toString();
 		String password = edtPassword.getEditableText().toString();
-
+		
 		if (StringUtils.isBlank(username)) {
 			errorCode = R.string.USERNAME_NOT_BLANK;
+		} else if (StringUtils.isNumeric(username.substring(0, 1))) {			
+			errorCode = R.string.BEGIN_NOT_NUMBER;
 		} else if (StringUtils.isBlank(password)) {
 			errorCode = R.string.PASSWORD_NOT_BLANK;
+		} else if (password.length() < 7) {
+			errorCode = R.string.PASSWORD_MORE_SEVEN;
+		} else if (!StringUtils.isAtLeatNumber(password)) {
+			errorCode = R.string.PASSWORD_HAS_NUMBER;
+		} else if (!StringUtils.isAtLeatLetterUppercase(password)) {
+			errorCode = R.string.PASSWORD_HAS_LETTER_UPPER_;
 		}
-
+		
 		return errorCode;
 	}
 
