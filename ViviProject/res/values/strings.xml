@@ -3,10 +3,22 @@
 
     <string name="app_name">ViviProject</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Settings</string>    
     <string name="BLANK"></string>
+    <string name="COMMON_ERROR">Lỗi</string>
+    <string name="COMMON_OK">OK</string>
+    <string name="COMMON_NO">NO</string>
+    <string name="COMMON_YES">YES</string>
+    <string name="COMMON_CANCEL">Cancel</string>
+    <string name="COMMON_MESSAGE">Lời nhắn</string>
+    
+    <!--================================================== Login screen =======================================================-->
+    <string name="USERNAME_REQUIRE">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890</string>
     <string name="USERNAME">Tên đăng nhập</string>
     <string name="PASSWORD">Mật khẩu</string>
     <string name="LOGIN">ĐĂNG NHẬP</string>
+    <string name="USERNAME_NOT_BLANK">Tên đăng nhập không được để trống</string>
+    <string name="PASSWORD_NOT_BLANK">Mật khẩu không được để trống</string>
+    <string name="LOGIN_FAILE">Đăng nhập bị lỗi</string>
 
 </resources>

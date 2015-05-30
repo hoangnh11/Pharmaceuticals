@@ -31,11 +31,13 @@
             android:src="@drawable/access_new_account" />
 
         <EditText
+            android:id="@+id/edtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/WHITE"
             android:hint="@string/USERNAME"
             android:padding="12dp"
+            android:digits="@string/USERNAME_REQUIRE"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -56,15 +58,18 @@
             android:src="@drawable/access_new_account" />
 
         <EditText
+            android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/WHITE"
             android:hint="@string/PASSWORD"
+            android:inputType="textPassword"
             android:padding="12dp"
             android:textSize="14sp" />
     </LinearLayout>
 
     <Button
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
