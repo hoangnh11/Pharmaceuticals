@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/GREEN"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/linBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/BLANK"
+            android:src="@drawable/access_new_account" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="invisible"
+        android:text="@string/action_settings"
+        android:textColor="@color/WHITE"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/linSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/BLANK"
+            android:src="@drawable/access_new_account" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/imgUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/BLANK"
+            android:src="@drawable/access_new_account" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/imgRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/BLANK"
+            android:src="@drawable/access_new_account" />
+    </LinearLayout>
+
+</LinearLayout>
