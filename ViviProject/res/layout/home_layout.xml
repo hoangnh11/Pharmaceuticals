@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvName"
                 android:layout_marginTop="4dp"
-                android:text="Trinh duoc vien khu vuc Ha Noi aaaaaaaaaaaaabb"
+                android:text="Trinh duoc vien khu vuc Ha Noi aaaaaaabb"
                 android:textColor="@color/GREY_TEXT_COLOR"
                 android:textSize="14sp" />
 
@@ -56,12 +56,14 @@
                 android:src="@drawable/ic_launcher" />
 
             <LinearLayout
+                android:id="@+id/linSetting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/imgSetting"
                 android:background="@color/WHITE"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:visibility="invisible" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -69,7 +71,8 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="@string/CHANGE_PASSWORD"
-                    android:textColor="@color/BLACK" />
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -87,12 +90,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/LOGOUT"
-                        android:textColor="@color/BLACK" />
+                        android:textColor="@color/BLACK"
+                        android:textSize="14sp" />
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="4dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="8dp"
                         android:contentDescription="@string/BLANK"
                         android:scaleType="fitXY"
                         android:src="@drawable/ic_launcher" />
@@ -105,7 +109,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadeScrollbars="false"
-        android:fadingEdge="none" >
+        android:fadingEdge="none"
+        android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -165,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="24dp"
-                    android:text="@string/GENERAL"
+                    android:text="@string/DIRECT_CUSTOMER"
                     android:textColor="@color/BLACK"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -198,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="24dp"
-                    android:text="@string/GENERAL"
+                    android:text="@string/VISIT"
                     android:textColor="@color/BLACK"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -231,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="24dp"
-                    android:text="@string/GENERAL"
+                    android:text="@string/SALE"
                     android:textColor="@color/BLACK"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -264,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="24dp"
-                    android:text="@string/GENERAL"
+                    android:text="@string/DELIVER"
                     android:textColor="@color/BLACK"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -297,7 +302,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="24dp"
-                    android:text="@string/GENERAL"
+                    android:text="@string/SLIDE_SHOW"
                     android:textColor="@color/BLACK"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -330,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="24dp"
-                    android:text="@string/GENERAL"
+                    android:text="@string/MANAGE_GIMIC"
                     android:textColor="@color/BLACK"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -363,40 +368,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="24dp"
-                    android:text="@string/GENERAL"
-                    android:textColor="@color/BLACK"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/BLANK"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@color/WHITE"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:contentDescription="@string/BLANK"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="24dp"
-                    android:text="@string/GENERAL"
+                    android:text="@string/REPORT"
                     android:textColor="@color/BLACK"
                     android:textSize="16sp"
                     android:textStyle="bold" />

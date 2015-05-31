@@ -1,6 +1,7 @@
 package com.fptsoftware.viviproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -8,13 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.fptsoftware.ultilities.AppPreferences;
-import com.fptsoftware.ultilities.Logger;
 import com.fptsoftware.ultilities.StringUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
 	private EditText edtUsername, edtPassword;
 	private Button btnLogin;
 	private AppPreferences app;
+	private Intent intent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 			if (errorCode == 0) {
 //				loginAsyncTask = new LoginAsyncTask();
 //				loginAsyncTask.execute();
+				intent = new Intent(this, HomeActivity.class);
+				startActivity(intent);
 			} else {				
 				app.alertErrorMessageInt(errorCode, getString(R.string.COMMON_MESSAGE), this);
 			}
