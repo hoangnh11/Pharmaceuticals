@@ -25,4 +25,15 @@
     <string name="PASSWORD_HAS_LETTER_UPPER_">Mật khẩu phải có ít nhất một chữ cái viết hoa</string>  
     <string name="LOGIN_FAILE">Đăng nhập bị lỗi</string>
 
+    <!--================================================== Home screen =======================================================-->
+    <string name="CHANGE_PASSWORD">Đổi mật khẩu</string>
+    <string name="LOGOUT">Đăng xuất</string>
+    <string name="GENERAL">Tổng quan</string>
+    <string name="DIRECT_CUSTOMER">Tuyến và khách hàng</string>
+    <string name="VISIT">Ghé thăm</string>
+    <string name="SALE">Bán hàng</string>
+    <string name="DILIVER">Giao hàng</string>
+    <string name="SLIDE_SHOW">Trình chiếu</string>
+    <string name="MANAGE_GIMIC">Quản lý GIMIC</string>
+    <string name="REPORT">Báo cáo</string>
 </resources>

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="GREEN">#408000</color>
+    <color name="GREEN">#74cc52</color>
     <color name="TEXT_COLOR_GREY">#afb0ac</color>
     <color name="WHITE">#FFFFFF</color>
     <color name="BLACK">#000000</color>
     <color name="BLUE">#2d3e4f</color>
+    <color name="GREY_BACKGROUND_SCREEN">#e6e6e6</color>
+    <color name="GREY_BACKGROUND_IMAGE">#cccccc</color>
+    <color name="GREY_TEXT_IMAGE">#9c9c9c</color>
+    <color name="GREY_TEXT_COLOR">#636363</color>
 </resources>
