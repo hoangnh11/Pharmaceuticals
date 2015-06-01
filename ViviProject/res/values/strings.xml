@@ -6,10 +6,10 @@
     <string name="action_settings">Settings</string>    
     <string name="BLANK"></string>
     <string name="COMMON_ERROR">Lỗi</string>
-    <string name="COMMON_OK">OK</string>
-    <string name="COMMON_NO">NO</string>
-    <string name="COMMON_YES">YES</string>
-    <string name="COMMON_CANCEL">Cancel</string>
+    <string name="COMMON_OK">Đồng ý</string>
+    <string name="COMMON_NO">Không</string>
+    <string name="COMMON_YES">Đồng ý</string>
+    <string name="COMMON_CANCEL">Hủy</string>
     <string name="COMMON_MESSAGE">Lời nhắn</string>
     
     <!--================================================== Login screen =======================================================-->
@@ -36,4 +36,5 @@
     <string name="SLIDE_SHOW">Trình chiếu</string>
     <string name="MANAGE_GIMIC">Quản lý GIMIC</string>
     <string name="REPORT">Báo cáo</string>
+    <string name="MORE_ARE_YOU_SURE">Bạn chắc chắn muốn thoát?</string>
 </resources>

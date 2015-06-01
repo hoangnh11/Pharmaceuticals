@@ -7,17 +7,20 @@
  */
 package com.fptsoftware.ultilities;
 
-import com.fptsoftware.viviproject.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
+
+import com.fptsoftware.viviproject.HomeActivity;
+import com.fptsoftware.viviproject.LoginActivity;
+import com.fptsoftware.viviproject.R;
 
 /**
  * @author HoangNH11
@@ -79,7 +82,46 @@ public class AppPreferences {
 		return "";
 	}
 	
-
+	/**
+	 * go to home screen and finish current activity
+	 * @param activity
+	 * @return
+	 */
+	public boolean goHome(Activity activity)
+	{
+		boolean bRet = false;
+		if (null == activity)
+		{
+			return bRet;
+		}
+		activity.finish();
+		Intent intent = new Intent(activity, HomeActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		activity.startActivity(intent);
+		bRet = true;
+		return bRet;
+	}
+	
+	/**
+	 * go to home screen and finish current activity
+	 * @param activity
+	 * @return
+	 */
+	public boolean goLogin(Activity activity)
+	{
+		boolean bRet = false;
+		if (null == activity)
+		{
+			return bRet;
+		}
+		activity.finish();
+		Intent intent = new Intent(activity, LoginActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		activity.startActivity(intent);
+		bRet = true;
+		return bRet;
+	}
+	
 	/**
 	 * Alert error Message
 	 * 

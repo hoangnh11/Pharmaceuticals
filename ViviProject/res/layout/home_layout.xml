@@ -80,6 +80,7 @@
                     android:background="@color/GREY_BACKGROUND_SCREEN" />
 
                 <LinearLayout
+                    android:id="@+id/linLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

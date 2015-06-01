@@ -9,20 +9,26 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.fptsoftware.ultilities.AppPreferences;
+import com.fptsoftware.ultilities.SharedPreferenceManager;
 import com.fptsoftware.ultilities.StringUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
+	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";
 	private EditText edtUsername, edtPassword;
 	private Button btnLogin;
 	private AppPreferences app;
 	private Intent intent;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login_layout);
+		super.onCreate(savedInstanceState);		
 		app = new AppPreferences(this);
-		InitLayout();
+		if (LoginActivity.checkLogin(this)) {
+			app.goHome(this);
+		} else {
+			setContentView(R.layout.login_layout);
+			InitLayout();
+		}		
 	}
 
 	public void InitLayout() {
@@ -68,8 +74,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 			if (errorCode == 0) {
 //				loginAsyncTask = new LoginAsyncTask();
 //				loginAsyncTask.execute();
-				intent = new Intent(this, HomeActivity.class);
-				startActivity(intent);
+				saveStatusLoginningCompleted();
+				app.goHome(LoginActivity.this);				
 			} else {				
 				app.alertErrorMessageInt(errorCode, getString(R.string.COMMON_MESSAGE), this);
 			}
@@ -78,5 +84,15 @@ public class LoginActivity extends Activity implements OnClickListener{
 		default:
 			break;
 		}		
+	}
+	
+	private void saveStatusLoginningCompleted() {
+		SharedPreferenceManager sharedPreference = new SharedPreferenceManager(this);
+		sharedPreference.saveBoolean(LOGIN_SHARE_PREFERENT_KEY, true);
+	}
+	
+	public static final boolean checkLogin(Activity activity) {
+		SharedPreferenceManager sharedPreference = new SharedPreferenceManager(activity);
+		return sharedPreference.getBoolean(LOGIN_SHARE_PREFERENT_KEY, false);
 	}
 }
