@@ -1,53 +1,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/GREEN"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:fadeScrollbars="false"
-        android:background="@color/GREEN"
         android:fadingEdge="none"
         android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"        
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical" >
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="48dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginBottom="96dp"
+                android:layout_marginTop="96dp"
                 android:contentDescription="@string/BLANK"
                 android:scaleType="fitXY"
-                android:src="@drawable/logo_pharmacy" />
+                android:src="@drawable/logo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="12dp" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/access_new_account" />
+                    android:src="@drawable/icon_username" />
 
                 <EditText
                     android:id="@+id/edtUsername"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="@color/WHITE"
                     android:digits="@string/USERNAME_REQUIRE"
                     android:hint="@string/USERNAME"
@@ -58,23 +59,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="12dp" >
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/access_new_account" />
+                    android:src="@drawable/icon_password" />
 
                 <EditText
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="@color/WHITE"
                     android:hint="@string/PASSWORD"
                     android:inputType="textPassword"
@@ -88,7 +92,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 android:background="@drawable/bg_btn_blue"
-                android:padding="12dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="12dp"
                 android:text="@string/LOGIN"
                 android:textColor="@color/WHITE" />
         </LinearLayout>
