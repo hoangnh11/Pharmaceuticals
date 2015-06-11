@@ -12,12 +12,14 @@ import android.widget.LinearLayout;
 
 import com.fptsoftware.ultilities.AppPreferences;
 import com.fptsoftware.ultilities.SharedPreferenceManager;
+import com.fptsoftware.viviproject.projection.AcProducts;
 
 public class HomeActivity extends Activity implements OnClickListener{
 	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";
 	private ImageView imgSetting;
 	private LinearLayout linSetting, linLogout, linRefresh;
 	private LinearLayout linTongquan, linSubTongquan, linBaocaodoanhso, linBaocaodophu, linkhachhangchuaphatsinhdoanhso;
+	private LinearLayout linProjection;
 	private boolean showSetting;
 	SharedPreferenceManager sm;
 	private AppPreferences appPreferences;
@@ -50,6 +52,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 		linBaocaodophu.setOnClickListener(this);
 		linkhachhangchuaphatsinhdoanhso = (LinearLayout) findViewById(R.id.linkhachhangchuaphatsinhdoanhso);
 		linkhachhangchuaphatsinhdoanhso.setOnClickListener(this);
+		linProjection = (LinearLayout) findViewById(R.id.linProjection);
+		linProjection.setOnClickListener(this);
 	}
 	
 	@Override
@@ -72,6 +76,10 @@ public class HomeActivity extends Activity implements OnClickListener{
 			
 		case R.id.linRefresh:
 			
+			break;
+		case R.id.linProjection:
+			Intent intentProject = new Intent(HomeActivity.this, AcProducts.class);
+			startActivity(intentProject);
 			break;
 			
 		case R.id.linTongquan:
