@@ -55,6 +55,7 @@ public class TabPageIndicator extends HorizontalScrollView implements PageIndica
 
     private Runnable mTabSelector;
 
+    
     private final OnClickListener mTabClickListener = new OnClickListener() {
         @Override
 		public void onClick(View view) {
