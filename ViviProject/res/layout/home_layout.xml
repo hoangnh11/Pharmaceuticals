@@ -23,7 +23,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"           
+            android:layout_height="wrap_content"
             android:paddingLeft="8dp"
             android:paddingTop="8dp" >
 
@@ -118,12 +118,13 @@
             android:orientation="vertical" >
 
             <LinearLayout
+                android:id="@+id/linTongquan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/WHITE"
+                android:background="@drawable/bg_item_press"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -153,6 +154,90 @@
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
                     android:src="@drawable/arrow_down" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linSubTongquan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/WHITE"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:id="@+id/linBaocaodoanhso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/PROFIT_REPORT"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linBaocaodophu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/COVER_REPORT"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linkhachhangchuaphatsinhdoanhso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/CUSTOMER_NOT_PROFIT"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

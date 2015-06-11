@@ -15,12 +15,12 @@ import com.fptsoftware.ultilities.SharedPreferenceManager;
 public class HomeActivity extends Activity implements OnClickListener{
 	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";
 	private ImageView imgSetting;
-	private LinearLayout linSetting, linLogout;
-	private LinearLayout linRefresh;
+	private LinearLayout linSetting, linLogout, linRefresh;
+	private LinearLayout linTongquan, linSubTongquan, linBaocaodoanhso, linBaocaodophu, linkhachhangchuaphatsinhdoanhso;
 	private boolean showSetting;
 	SharedPreferenceManager sm;
 	private AppPreferences appPreferences;
-	AlertDialog _alertDialog;
+	AlertDialog _alertDialog;	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,17 @@ public class HomeActivity extends Activity implements OnClickListener{
 		imgSetting.setOnClickListener(this);
 		linSetting = (LinearLayout) findViewById(R.id.linSetting);
 		linLogout = (LinearLayout) findViewById(R.id.linLogout);
-		linLogout.setOnClickListener(this);
+		linLogout.setOnClickListener(this);		
+		
+		linTongquan = (LinearLayout) findViewById(R.id.linTongquan);
+		linTongquan.setOnClickListener(this);
+		linSubTongquan = (LinearLayout) findViewById(R.id.linSubTongquan);
+		linBaocaodoanhso = (LinearLayout) findViewById(R.id.linBaocaodoanhso);
+		linBaocaodoanhso.setOnClickListener(this);
+		linBaocaodophu = (LinearLayout) findViewById(R.id.linBaocaodophu);
+		linBaocaodophu.setOnClickListener(this);
+		linkhachhangchuaphatsinhdoanhso = (LinearLayout) findViewById(R.id.linkhachhangchuaphatsinhdoanhso);
+		linkhachhangchuaphatsinhdoanhso.setOnClickListener(this);
 	}
 	
 	@Override
@@ -59,6 +69,26 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linRefresh:
+			
+			break;
+			
+		case R.id.linTongquan:
+			if (linSubTongquan.getVisibility() == View.GONE) {
+				linSubTongquan.setVisibility(View.VISIBLE);
+			} else {
+				linSubTongquan.setVisibility(View.GONE);
+			}
+			break;
+			
+		case R.id.linBaocaodoanhso:
+			
+			break;
+			
+		case R.id.linBaocaodophu:
+	
+			break;
+			
+		case R.id.linkhachhangchuaphatsinhdoanhso:
 			
 			break;
 			

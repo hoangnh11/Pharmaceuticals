@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="GREEN">#74cc52</color>
     <color name="TEXT_COLOR_GREY">#afb0ac</color>
     <color name="WHITE">#FFFFFF</color>
@@ -11,4 +12,6 @@
     <color name="GREY_TEXT_IMAGE">#9c9c9c</color>
     <color name="GREY_TEXT_COLOR">#636363</color>
     <color name="BG_HEADER">#74ce52</color>
+    <color name="BLUE_SKY">#ddeaf7</color>
+
 </resources>

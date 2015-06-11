@@ -37,4 +37,8 @@
     <string name="MANAGE_GIMIC">Quản lý GIMIC</string>
     <string name="REPORT">Báo cáo</string>
     <string name="MORE_ARE_YOU_SURE">Bạn chắc chắn muốn thoát?</string>
+    <string name="PROFIT_REPORT">Báo cáo doanh số</string>
+    <string name="COVER_REPORT">Báo cáo độ phủ</string>
+    <string name="CUSTOMER_NOT_PROFIT">Khách hàng chưa phát sinh doanh số</string>
+    
 </resources>
