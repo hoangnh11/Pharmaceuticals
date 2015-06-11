@@ -4,4 +4,26 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="totalHeightViewPagerFlightSummary">150dp</dimen>
+    <dimen name="totalHeightViewPagerFlightSummaryVisible">200dp</dimen>
+    <dimen name="totalHeightViewPagerTripSummaryVisible">250dp</dimen>
+    <dimen name="totalHeightViewPagerTripSummary">160dp</dimen>
+    <dimen name="totalHeightViewPagerPaymentTripSummaryVisible">300dp</dimen>
+    <dimen name="totalHeightViewPagerPaymentTripSummary">210dp</dimen>
+    <dimen name="totalHeightViewPager">0.4dp</dimen>
+    <dimen name="totalHeightListView">50dp</dimen>
+    <dimen name="totalHeightHeader">194dp</dimen>
+    <dimen name="headerListView">30dp</dimen>
+    <dimen name="headStringSize">20sp</dimen>
+    <dimen name="margin_left_function_home">15dp</dimen>
+    <dimen name="margin_right_function_home">15dp</dimen>
+    <dimen name="margin_top_function_home">15dp</dimen>
+    <dimen name="padding_function_home">15dp</dimen>
+    <dimen name="padding_childlayout_function_home">15dp</dimen>
+    <dimen name="text_size_small_function_home">14sp</dimen>
+    <dimen name="text_size_large_function_home">17sp</dimen>
+	<dimen name="padding_left_star">5dp</dimen>
+	<dimen name="padding_top_star">10dp</dimen>
+	<dimen name="hearder_bar_hight">50dp</dimen>
 </resources>

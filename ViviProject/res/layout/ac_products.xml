@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/WHITE"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/header_layout"/>"
+	
+    <com.fptsoftware.library.TabPageIndicator
+        android:id="@+id/product_type_title_indicator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/BLUE" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/product_type_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
