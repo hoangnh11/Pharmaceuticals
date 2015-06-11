@@ -16,6 +16,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";
 	private ImageView imgSetting;
 	private LinearLayout linSetting, linLogout;
+	private LinearLayout linRefresh;
 	private boolean showSetting;
 	SharedPreferenceManager sm;
 	private AppPreferences appPreferences;
@@ -31,6 +32,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 
 	public void InitLayout() {
 		showSetting = true;
+		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
+		linRefresh.setOnClickListener(this);
 		imgSetting = (ImageView) findViewById(R.id.imgSetting);
 		imgSetting.setOnClickListener(this);
 		linSetting = (LinearLayout) findViewById(R.id.linSetting);
@@ -50,9 +53,15 @@ public class HomeActivity extends Activity implements OnClickListener{
 				showSetting = true;
 			}
 			break;
+			
 		case R.id.linLogout:
 			logout();
 			break;
+			
+		case R.id.linRefresh:
+			
+			break;
+			
 		default:
 			break;
 		}

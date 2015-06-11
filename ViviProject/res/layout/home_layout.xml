@@ -19,12 +19,11 @@
             android:background="@color/GREY_BACKGROUND_IMAGE"
             android:contentDescription="@string/BLANK"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/bg_avatar" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="8dp"
+            android:layout_height="wrap_content"           
             android:paddingLeft="8dp"
             android:paddingTop="8dp" >
 
@@ -32,7 +31,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
+                android:text="Trương Như Hổ"
                 android:textColor="@color/BLACK"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -43,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvName"
                 android:layout_marginTop="4dp"
-                android:text="Trinh duoc vien khu vuc Ha Noi aaaaaaabb"
+                android:text="Trình dược viên khu vực Hà Nội"
                 android:textColor="@color/GREY_TEXT_COLOR"
                 android:textSize="14sp" />
 
@@ -53,7 +52,7 @@
                 android:layout_height="28dp"
                 android:layout_alignParentRight="true"
                 android:contentDescription="@string/BLANK"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/icon_setting" />
 
             <LinearLayout
                 android:id="@+id/linSetting"
@@ -95,12 +94,12 @@
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
                         android:layout_marginLeft="8dp"
                         android:contentDescription="@string/BLANK"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_launcher" />
+                        android:src="@drawable/icon_logout" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -121,17 +120,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/icon_tongquan" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -146,25 +149,30 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/icon_tuyenkhachhang" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -179,25 +187,30 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/icon_ghetham" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -212,25 +225,30 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/icon_banhang" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -245,25 +263,30 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/icon_giaohang" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -278,25 +301,30 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/icon_trinhchieu" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -311,25 +339,30 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/icon_gimic" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -344,25 +377,30 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/WHITE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
+                    android:padding="12dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/icon_baocao" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -377,9 +415,10 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/arrow_down" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
