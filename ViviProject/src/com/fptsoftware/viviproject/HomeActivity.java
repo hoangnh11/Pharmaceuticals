@@ -3,6 +3,7 @@ package com.fptsoftware.viviproject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,6 +54,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
+		Intent intent;
 		switch (v.getId()) {
 		case R.id.imgSetting:
 			if (showSetting) {
@@ -89,7 +91,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linkhachhangchuaphatsinhdoanhso:
-			
+			intent = new Intent(this, CutomerProfitActivity.class);
+			startActivity(intent);
 			break;
 			
 		default:

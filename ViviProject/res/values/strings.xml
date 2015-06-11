@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ViviProject</string>
+    <string name="app_name">Pharmacy</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>    
     <string name="BLANK"></string>
@@ -40,5 +40,6 @@
     <string name="PROFIT_REPORT">Báo cáo doanh số</string>
     <string name="COVER_REPORT">Báo cáo độ phủ</string>
     <string name="CUSTOMER_NOT_PROFIT">Khách hàng chưa phát sinh doanh số</string>
+    <string name="CUSTOMER_NOT_PROFIT_TITLE">KH chưa phát sinh doanh số</string>
     
 </resources>

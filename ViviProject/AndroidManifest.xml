@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.fptsoftware.viviproject.HomeActivity" />
+        <activity android:name="com.fptsoftware.viviproject.CutomerProfitActivity" />
     </application>
 
 </manifest>
