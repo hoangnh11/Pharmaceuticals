@@ -42,4 +42,12 @@
     <string name="CUSTOMER_NOT_PROFIT">Khách hàng chưa phát sinh doanh số</string>
     <string name="CUSTOMER_NOT_PROFIT_TITLE">KH chưa phát sinh doanh số</string>
     
+    <!--================================================== Tong Quan screen =======================================================-->
+    <string name="ADDRESS">Địa chỉ: </string>
+    <string name="ROUND">Tuyến: </string>
+    <string name="LIST_AGO_MONTH">DS tháng trước: </string>
+    <string name="VISIT_TIME">Số lần ghé thăm: </string>
+    <string name="LAST_ORDER">Đơn hàng cuối: </string>
+        
+    
 </resources>
