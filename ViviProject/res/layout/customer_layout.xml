@@ -12,8 +12,10 @@
         android:layout_height="match_parent" >
 
         <ListView
-            android:id="@+id/lvAirlineAward"
+            android:id="@+id/lvCustomer"
             style="@style/NormalListView"
+            android:background="@color/WHITE"
+            android:scrollbarSize="3dp"         
             android:fadingEdge="none" />
 
         <ImageView

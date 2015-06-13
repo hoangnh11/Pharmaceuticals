@@ -1,21 +1,33 @@
 package com.viviproject;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class CutomerProfitActivity extends Activity implements OnClickListener{
+import com.viviproject.adapter.CustomerAdapter;
+import com.viviproject.entities.EnCustomer;
+
+public class CustomerProfitActivity extends Activity implements OnClickListener{
 	
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
+	private ListView lvCustomer;
+	private CustomerAdapter customerAdapter;
+	private ArrayList<EnCustomer> listCustomer;
+	private EnCustomer enCustomer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.customer_layout);
+		listCustomer = new ArrayList<EnCustomer>();				
+		enCustomer = new EnCustomer();
 		initLayout();
 	}
 
@@ -38,12 +50,20 @@ public class CutomerProfitActivity extends Activity implements OnClickListener{
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
-	
+		
+		lvCustomer = (ListView) findViewById(R.id.lvCustomer);
+		
+		
+		for (int i = 0; i < 10; i++) {
+			listCustomer.add(enCustomer);
+		}
+		
+		customerAdapter = new CustomerAdapter(this, listCustomer);
+		lvCustomer.setAdapter(customerAdapter);
 	}
 	
 	@Override
 	public void onClick(View v) {
 		
 	}
-
 }

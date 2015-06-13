@@ -100,7 +100,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linkhachhangchuaphatsinhdoanhso:
-			intent = new Intent(this, CutomerProfitActivity.class);
+			intent = new Intent(this, CustomerProfitActivity.class);
 			startActivity(intent);
 			break;
 			

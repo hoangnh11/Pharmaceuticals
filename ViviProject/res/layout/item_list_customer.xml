@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/WHITE"
     android:padding="12dp" >
 
     <LinearLayout
@@ -12,6 +13,7 @@
         android:orientation="horizontal" >
 
         <TextView
+            android:id="@+id/tvId"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:background="@color/RED"
@@ -20,6 +22,7 @@
             android:textColor="@color/WHITE" />
 
         <TextView
+            android:id="@+id/tvNamePharmacy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -30,6 +33,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvCodeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BD1001"
@@ -52,6 +56,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -87,6 +92,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvRound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="4dp"
@@ -109,6 +115,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvProfit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="4dp"
@@ -138,6 +145,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvVisitTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="4dp"
@@ -160,6 +168,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvLateOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="4dp"
@@ -190,6 +199,7 @@
                 android:layout_alignParentBottom="true"
                 android:contentDescription="@string/BLANK"
                 android:scaleType="fitXY"
+                android:layout_marginBottom="2dp"
                 android:src="@drawable/icon_location_gray" />
 
             <TextView
