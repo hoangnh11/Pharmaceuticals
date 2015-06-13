@@ -1,4 +1,4 @@
-package com.fptsoftware.viviproject;
+package com.viviproject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,9 +8,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.fptsoftware.ultilities.AppPreferences;
-import com.fptsoftware.ultilities.SharedPreferenceManager;
-import com.fptsoftware.ultilities.StringUtils;
+import com.viviproject.R;
+import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.SharedPreferenceManager;
+import com.viviproject.ultilities.StringUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
 	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";

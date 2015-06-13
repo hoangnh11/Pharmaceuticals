@@ -6,7 +6,7 @@
  * Copyright (C) 2013 FPT Software, Inc. All rights reserved.
  */
 
-package com.fptsoftware.ultilities;
+package com.viviproject.ultilities;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -42,7 +42,7 @@ import android.view.animation.Transformation;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.fptsoftware.viviproject.R;
+import com.viviproject.R;
 import com.google.android.maps.GeoPoint;
 
 /**

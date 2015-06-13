@@ -7,7 +7,7 @@
     
     <include layout="@layout/header_layout"/>"
 	
-    <com.fptsoftware.library.TabPageIndicator
+    <com.viviproject.library.TabPageIndicator
         android:id="@+id/product_type_title_indicator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

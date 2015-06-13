@@ -1,4 +1,4 @@
-package com.fptsoftware.viviproject.projection;
+package com.viviproject.projection;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.fptsoftware.viviproject.R;
+import com.viviproject.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.fptsoftware.library;
+package com.viviproject.library;
 
 import android.support.v4.view.ViewPager;
 

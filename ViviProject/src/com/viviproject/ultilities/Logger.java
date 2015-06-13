@@ -5,7 +5,7 @@
  *
  * Copyright (C) 2013 FPT Software. All rights reserved.
  */
-package com.fptsoftware.ultilities;
+package com.viviproject.ultilities;
 
 import android.util.Log;
 

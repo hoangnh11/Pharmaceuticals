@@ -4,7 +4,7 @@
  * Date: $Date: Jun 6, 2013 3:30:20 PM $
  * Copyright (C) 2013 FPT Software, Inc. All rights reserved.
  */
-package com.fptsoftware.ultilities;
+package com.viviproject.ultilities;
 
 import java.io.File;
 import java.io.FileInputStream;

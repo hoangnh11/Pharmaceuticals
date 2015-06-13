@@ -1,4 +1,4 @@
-package com.fptsoftware.viviproject.projection;
+package com.viviproject.projection;
 
 import java.util.ArrayList;
 
@@ -11,9 +11,9 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fptsoftware.adapter.AdapterFrgProducts;
-import com.fptsoftware.library.TabPageIndicator;
-import com.fptsoftware.viviproject.R;
+import com.viviproject.R;
+import com.viviproject.adapter.AdapterFrgProducts;
+import com.viviproject.library.TabPageIndicator;
 
 public class AcProducts extends FragmentActivity implements OnClickListener{
 	private LinearLayout linBack;

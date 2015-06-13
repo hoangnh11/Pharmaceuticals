@@ -1,4 +1,4 @@
-package com.fptsoftware.viviproject;
+package com.viviproject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,9 +10,10 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.fptsoftware.ultilities.AppPreferences;
-import com.fptsoftware.ultilities.SharedPreferenceManager;
-import com.fptsoftware.viviproject.projection.AcProducts;
+import com.viviproject.R;
+import com.viviproject.projection.AcProducts;
+import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.SharedPreferenceManager;
 
 public class HomeActivity extends Activity implements OnClickListener{
 	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";

@@ -1,4 +1,4 @@
-package com.fptsoftware.adapter;
+package com.viviproject.adapter;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 
-import com.fptsoftware.viviproject.projection.FrgBaseFragmentProducts;
-import com.fptsoftware.viviproject.projection.InfFrgProducts;
+import com.viviproject.projection.FrgBaseFragmentProducts;
+import com.viviproject.projection.InfFrgProducts;
 
 public class AdapterFrgProducts extends FragmentPagerAdapter{
 	ArrayList<Fragment> listFragment = new ArrayList<Fragment>();

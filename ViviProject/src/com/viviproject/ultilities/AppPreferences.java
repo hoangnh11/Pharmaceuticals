@@ -5,7 +5,7 @@
  *
  * Copyright (C) 2015 FPT Software. All rights reserved.
  */
-package com.fptsoftware.ultilities;
+package com.viviproject.ultilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,9 +18,9 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 
-import com.fptsoftware.viviproject.HomeActivity;
-import com.fptsoftware.viviproject.LoginActivity;
-import com.fptsoftware.viviproject.R;
+import com.viviproject.R;
+import com.viviproject.HomeActivity;
+import com.viviproject.LoginActivity;
 
 /**
  * @author HoangNH11

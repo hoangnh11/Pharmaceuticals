@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2013 FPT Software, Inc. All rights reserved.
  */
-package com.fptsoftware.ultilities;
+package com.viviproject.ultilities;
 
 import com.google.gson.Gson;
 

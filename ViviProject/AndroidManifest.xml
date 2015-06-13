@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fptsoftware.viviproject"
+    package="com.viviproject"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".LoginActivity"
+            android:name="com.viviproject.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.fptsoftware.viviproject.HomeActivity" />
-        <activity android:name="com.fptsoftware.viviproject.CutomerProfitActivity" />
+        <activity android:name="com.viviproject.HomeActivity" />
+        <activity android:name="com.viviproject.CutomerProfitActivity" />
         <activity
-            android:name="com.fptsoftware.viviproject.projection.AcProducts"
-            android:screenOrientation="portrait"
+            android:name="com.viviproject.projection.AcProducts"       
             android:theme="@style/StyledIndicatorsBlue"
             android:windowSoftInputMode="stateHidden" >
         </activity>

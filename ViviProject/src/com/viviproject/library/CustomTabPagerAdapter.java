@@ -1,4 +1,4 @@
-package com.fptsoftware.library;
+package com.viviproject.library;
 
 import android.view.View;
 

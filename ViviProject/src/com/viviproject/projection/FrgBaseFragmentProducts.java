@@ -1,4 +1,4 @@
-package com.fptsoftware.viviproject.projection;
+package com.viviproject.projection;
 
 import android.support.v4.app.Fragment;
 
