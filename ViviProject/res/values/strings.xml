@@ -12,6 +12,9 @@
     <string name="COMMON_CANCEL">Hủy</string>
     <string name="COMMON_MESSAGE">Lời nhắn</string>
     
+    <!-- Content descriptions -->
+	<string name="descr_image">Image</string>
+	
     <!--================================================== Login screen =======================================================-->
     <string name="USERNAME_REQUIRE">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 _</string>
     <string name="USERNAME">Tên đăng nhập</string>

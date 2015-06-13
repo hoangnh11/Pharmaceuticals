@@ -43,6 +43,7 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 		
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
 		tvHeader.setText("Sản phẩm");
+		tvHeader.setVisibility(View.VISIBLE);
 		
 		linOptionSearch = (LinearLayout) findViewById(R.id.linSearch);
 		linOptionSearch.setVisibility(View.VISIBLE);
@@ -57,9 +58,16 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 		productIndicator = (TabPageIndicator) findViewById(R.id.product_type_title_indicator);
 		
 		listFrgProducts = new ArrayList<Fragment>();
-		listFrgProducts.add(FrgProducts.newInstance("12"));
-		listFrgProducts.add(FrgProducts.newInstance("14"));
-		listFrgProducts.add(FrgProducts.newInstance("16"));
+		ArrayList<String> listUrl = new ArrayList<String>();
+		listUrl.add("https://google.com.vn");
+		listUrl.add("http://www.t-mobile.com/content/dam/tmo/en-g/hero/hp-tileA-LG-C40.jpg");
+		listUrl.add("https://ithemes.com/wp-content/uploads/2012/07/mobile300.png");
+		
+		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), " TPL ", listUrl));
+		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), "TPL Plus", listUrl));
+		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), "TPL Fast", listUrl));
+		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), "Maxxhair", listUrl));
+		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), "Niệu bảo", listUrl));
 		adapterFrgProducts = new AdapterFrgProducts(getSupportFragmentManager(), listFrgProducts);
 		productPager.setAdapter(adapterFrgProducts);
 		productIndicator.setViewPager(productPager);
