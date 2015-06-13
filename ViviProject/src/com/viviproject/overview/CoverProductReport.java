@@ -1,6 +1,4 @@
-package com.viviproject;
-
-import com.viviproject.ultilities.Logger;
+package com.viviproject.overview;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,8 +10,10 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class ProfitReportActivity extends Activity implements OnClickListener{
+import com.viviproject.R;
 
+public class CoverProductReport extends Activity implements OnClickListener{
+	
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	private RadioGroup radioGroupDay;
@@ -22,7 +22,7 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.profit_report_layout);
+		setContentView(R.layout.cover_report_layout);
 		initLayout();
 	}
 	
@@ -32,7 +32,7 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 		linBack.setVisibility(View.VISIBLE);
 		
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
-		tvHeader.setText(getResources().getString(R.string.PROFIT));
+		tvHeader.setText(getResources().getString(R.string.COVER_PRODUCT));
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);

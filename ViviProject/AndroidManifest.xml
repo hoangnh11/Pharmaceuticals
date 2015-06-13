@@ -7,10 +7,10 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
-	
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -26,16 +26,16 @@
             </intent-filter>
         </activity>
         <activity android:name="com.viviproject.HomeActivity" />
-        <activity android:name="com.viviproject.CustomerProfitActivity" />
-        <activity android:name="com.viviproject.ProfitReportActivity" />
-        <activity android:name="com.viviproject.CoverProductReport" />
+        <activity android:name="com.viviproject.overview.CustomerProfitActivity" />
+        <activity android:name="com.viviproject.overview.ProfitReportActivity" />
+        <activity android:name="com.viviproject.overview.CoverProductReport" />
+        <activity android:name="com.viviproject.customerline.ListCustomer" />
+        <activity android:name="com.viviproject.customerline.ListCustomerPending" />
         <activity
-            android:name="com.viviproject.projection.AcProducts"       
+            android:name="com.viviproject.projection.AcProducts"
             android:theme="@style/StyledIndicatorsBlue"
-            android:windowSoftInputMode="stateHidden" 
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="stateHidden" >
         </activity>
-        
     </application>
 
 </manifest>

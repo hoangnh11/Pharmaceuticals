@@ -74,6 +74,9 @@
     <string name="LIST_CUSTOMER">Danh sách khách hàng</string>
     <string name="MAP">Bản đồ</string>
     <string name="CREATE_NEW_CUSTOMER">Tạo khách hàng mới</string>
+    <string name="CREATE_NEW_CUSTOMER_PENDING">Danh sách yêu cầu tạo mới đang chờ duyệt: </string>
+    <string name="LIST_CUSTOMER_PENDING">Danh sách chờ duyệt</string>
+    <string name="PENDING">Đang chờ duyệt&#8230;</string>
     
     <!--================================= Ghe tham screen ================================-->
     
