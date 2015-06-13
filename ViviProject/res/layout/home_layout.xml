@@ -247,7 +247,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/WHITE"
+                android:background="@drawable/bg_item_press"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -291,7 +291,7 @@
                 android:visibility="gone" >
 
                 <LinearLayout
-                 	android:id="@+id/linListCustomer"
+                    android:id="@+id/linListCustomer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_item_press"
@@ -339,7 +339,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-              		android:id="@+id/linCreateNewCustomer"
+                    android:id="@+id/linCreateNewCustomer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_item_press"
@@ -364,12 +364,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linVisit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/WHITE"
+                android:background="@drawable/bg_item_press"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -398,16 +399,18 @@
                     android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/arrow_down" />
+                    android:src="@drawable/arrow_down"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linSales"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/WHITE"
+                android:background="@drawable/bg_item_press"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -436,16 +439,18 @@
                     android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/arrow_down" />
+                    android:src="@drawable/arrow_down"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linDeliver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/WHITE"
+                android:background="@drawable/bg_item_press"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -478,13 +483,97 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linSubDeliver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/WHITE"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:id="@+id/linOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/ORDER"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linDelivedOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/DELIVED_ORDER"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linProductImport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/PRODUCT_IMPORT"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+            
+            <LinearLayout
                 android:id="@+id/linProjection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/WHITE"
+                android:background="@drawable/bg_item_press"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -517,12 +606,145 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linSubProjection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/WHITE"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:id="@+id/linDiscountProgram"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/DISCOUNT_PROGRAM"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/PRODUCT"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/COMPANY"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/linPharmacier"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/PHARMACIER"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/linClip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/CLIP"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/linGimic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/WHITE"
+                android:background="@drawable/bg_item_press"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -551,16 +773,18 @@
                     android:layout_marginRight="16dp"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/arrow_down" />
+                    android:src="@drawable/arrow_down"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/WHITE"
+                android:background="@drawable/bg_item_press"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -590,6 +814,162 @@
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
                     android:src="@drawable/arrow_down" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/linSubReport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/WHITE"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:id="@+id/linSumProfit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/SUM_PROFIT"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linProfitFollowCustomer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/PROFIT_FOLLOW_CUSTOMER"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linProfitGraphic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/PROFIT_GRAPHIC"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/linPosterCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/POSTER_CAMERA"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/linUnfriendCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/UNFRIEND_CAMERA"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/linTradeMarketingCamera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/TRADE_MARKETING_CAMERA"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

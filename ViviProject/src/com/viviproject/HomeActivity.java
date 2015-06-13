@@ -21,7 +21,13 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private LinearLayout linSetting, linLogout, linRefresh;
 	private LinearLayout linTongquan, linSubTongquan, linBaocaodoanhso, linBaocaodophu, linkhachhangchuaphatsinhdoanhso;
 	private LinearLayout linRoundCustomer, linSubRoundCustomer, linListCustomer, linMap, linCreateNewCustomer;
-	private LinearLayout linProjection;
+	private LinearLayout linVisit;
+	private LinearLayout linSales;
+	private LinearLayout linDeliver, linSubDeliver, linOrder, linDelivedOrder, linProductImport;
+	private LinearLayout linProjection, linSubProjection, linDiscountProgram, linProduct, linCompany, linPharmacier, linClip;
+	private LinearLayout linGimic;
+	private LinearLayout linReport, linSubReport, linSumProfit, linProfitFollowCustomer, linProfitGraphic, linPosterCamera,
+							linUnfriendCamera, linTradeMarketingCamera;
 	private boolean showSetting;
 	SharedPreferenceManager sm;
 	private AppPreferences appPreferences;

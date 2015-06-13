@@ -70,9 +70,39 @@
     <string name="CUSTOMER_VISITED">Số KH đã\nghé thăm</string>
     <string name="COVER_PRODUCT">Độ phủ sản phẩm</string>
     
-    <!--============================================ Tuyen & Khach hang screen ===========================================-->
+    <!--================================= Tuyen & Khach hang screen ================================-->
     <string name="LIST_CUSTOMER">Danh sách khách hàng</string>
     <string name="MAP">Bản đồ</string>
     <string name="CREATE_NEW_CUSTOMER">Tạo khách hàng mới</string>
+    
+    <!--================================= Ghe tham screen ================================-->
+    
+    
+    <!--================================= Ban hang screen ================================-->
+    
+    
+    <!--================================= Giao hang screen ================================-->
+    <string name="ORDER">Đơn hàng</string>
+    <string name="DELIVED_ORDER">Đơn hàng đã giao</string>
+    <string name="PRODUCT_IMPORT">Nhập hàng trả lại</string>
+    
+    <!--================================= Trinh chieu screen ================================-->
+    <string name="DISCOUNT_PROGRAM">Chương trình khuyến mại</string>
+    <string name="PRODUCT">Sản phẩm</string>
+    <string name="COMPANY">Công ty</string>
+    <string name="PHARMACIER">Trình dược viên</string>
+    <string name="CLIP">Clip</string>
+    
+    <!--================================= Quan ly GIMIC screen ================================-->
+    
+    
+    <!--================================= Bao cao screen ================================-->
+    <string name="SUM_PROFIT">Tổng doanh số</string>
+    <string name="PROFIT_FOLLOW_CUSTOMER">Doanh số theo khách hàng</string>
+    <string name="PROFIT_GRAPHIC">Biểu đồ doanh số</string>
+    <string name="POSTER_CAMERA">Chụp ảnh poster</string>
+    <string name="UNFRIEND_CAMERA">Chụp ảnh đối thủ</string> 
+    <string name="TRADE_MARKETING_CAMERA">Chụp ảnh Trade Marketing</string>
+    
     
 </resources>
