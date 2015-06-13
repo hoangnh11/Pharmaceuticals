@@ -199,6 +199,7 @@
                 android:layout_alignParentBottom="true"
                 android:contentDescription="@string/BLANK"
                 android:scaleType="fitXY"
+                android:visibility="gone"
                 android:layout_marginBottom="2dp"
                 android:src="@drawable/icon_location_gray" />
 
@@ -208,6 +209,7 @@
                 android:layout_height="wrap_content"
                 android:text="625m"
                 android:paddingLeft="4dp"
+                android:visibility="gone"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/imgLocationGray"
                 android:textColor="@color/GRAY88"

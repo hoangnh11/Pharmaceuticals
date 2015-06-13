@@ -55,7 +55,10 @@ public class CustomerAdapter extends BaseAdapter{
            
             holder = new ViewHolder();
          
-            holder.tvId = (TextView) convertView.findViewById(R.id.tvId);          
+            holder.tvId = (TextView) convertView.findViewById(R.id.tvId);
+            holder.tvLocation = (TextView) convertView.findViewById(R.id.tvLocation);
+            holder.imgLocationBlue = (ImageView) convertView.findViewById(R.id.imgLocationBlue);
+            holder.imgLocationGray = (ImageView) convertView.findViewById(R.id.imgLocationGray);
           
             convertView.setTag(holder);
         }
@@ -67,7 +70,20 @@ public class CustomerAdapter extends BaseAdapter{
         items = _data.get(position);
         
         if (items != null) {        
-        	
+        	holder.tvId.setText(String.valueOf(items.getId()));
+        	if (items.getId() == 3) {
+        		holder.imgLocationGray.setVisibility(View.VISIBLE);
+        		holder.tvLocation.setVisibility(View.VISIBLE);
+        		holder.imgLocationBlue.setVisibility(View.GONE);
+			} else if (items.getId() == 6) {
+				holder.imgLocationGray.setVisibility(View.VISIBLE);
+        		holder.tvLocation.setVisibility(View.VISIBLE);
+        		holder.imgLocationBlue.setVisibility(View.GONE);
+			} else {
+				holder.imgLocationGray.setVisibility(View.GONE);
+        		holder.tvLocation.setVisibility(View.GONE);
+        		holder.imgLocationBlue.setVisibility(View.VISIBLE);
+			}
 		}
         
         ((ItemCustomer) convertView).set_position(position);
