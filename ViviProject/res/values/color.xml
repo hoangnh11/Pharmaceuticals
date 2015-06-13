@@ -14,5 +14,11 @@
     <color name="BG_HEADER">#74ce52</color>
     <color name="BLUE_SKY">#ddeaf7</color>
     <color name="RED">#ec193c</color>
-	<color name="GRAY88">#888888</color>
+    <color name="GRAY88">#888888</color>
+    <color name="PINK_RED">#f9ac97</color>
+    <color name="OCEAN_BLUE">#a7e0f4</color>
+    <color name="PINK">#f7c3c8</color>
+    <color name="GREEN1">#cbf3ad</color>
+    <color name="PINK_LIGHT">#ffded5</color>
+
 </resources>

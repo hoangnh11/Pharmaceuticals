@@ -24,6 +24,8 @@
         </activity>
         <activity android:name="com.viviproject.HomeActivity" />
         <activity android:name="com.viviproject.CustomerProfitActivity" />
+        <activity android:name="com.viviproject.ProfitReportActivity" />
+        <activity android:name="com.viviproject.CoverProductReport" />
         <activity
             android:name="com.viviproject.projection.AcProducts"       
             android:theme="@style/StyledIndicatorsBlue"

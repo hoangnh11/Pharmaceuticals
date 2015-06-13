@@ -15,7 +15,7 @@
     <!-- Content descriptions -->
 	<string name="descr_image">Image</string>
 	
-    <!--================================================== Login screen =======================================================-->
+    <!--================================================== Login screen ===================================================-->
     <string name="USERNAME_REQUIRE">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 _</string>
     <string name="USERNAME">Tên đăng nhập</string>
     <string name="PASSWORD">Mật khẩu</string>
@@ -28,7 +28,7 @@
     <string name="PASSWORD_HAS_LETTER_UPPER_">Mật khẩu phải có ít nhất một chữ cái viết hoa</string>  
     <string name="LOGIN_FAILE">Đăng nhập bị lỗi</string>
 
-    <!--================================================== Home screen =======================================================-->
+    <!--================================================ Home screen ===================================================-->
     <string name="CHANGE_PASSWORD">Đổi mật khẩu</string>
     <string name="LOGOUT">Đăng xuất</string>
     <string name="GENERAL">Tổng quan</string>
@@ -41,16 +41,38 @@
     <string name="REPORT">Báo cáo</string>
     <string name="MORE_ARE_YOU_SURE">Bạn chắc chắn muốn thoát?</string>
     <string name="PROFIT_REPORT">Báo cáo doanh số</string>
-    <string name="COVER_REPORT">Báo cáo độ phủ</string>
+    <string name="COVER_REPORT">Báo cáo độ phủ</string>    
     <string name="CUSTOMER_NOT_PROFIT">Khách hàng chưa phát sinh doanh số</string>
     <string name="CUSTOMER_NOT_PROFIT_TITLE">KH chưa phát sinh doanh số</string>
     
-    <!--================================================== Tong Quan screen =======================================================-->
+    <!--============================================== Tong Quan screen ==================================================-->
     <string name="ADDRESS">Địa chỉ: </string>
     <string name="ROUND">Tuyến: </string>
     <string name="LIST_AGO_MONTH">DS tháng trước: </string>
     <string name="VISIT_TIME">Số lần ghé thăm: </string>
     <string name="LAST_ORDER">Đơn hàng cuối: </string>
-        
+    <string name="PROFIT">Doanh số</string>
+    <string name="PRODUCT_COVER">Độ phủ sản phẩm</string>
+    <string name="PLAN_WORK_DAYS">Số ngày làm việc theo kế hoạch: </string>
+    <string name="PAST_WORK_DAYS">Số ngày làm việc đã qua: </string>
+    <string name="CONTENT">Nội dung</string>
+    <string name="PLANT">Kế hoạch</string>
+    <string name="PROCESS">Thực hiện</string>  
+    <string name="CON_LAI">Còn lại</string> 
+    <string name="TIEN_DO">Tiến độ</string>
+    <string name="PROFIT_VND">Doanh số\n(ngàn đồng)</string>
+    <string name="TPL">TPL</string>
+    <string name="TPL_PLUS">TPL - Plus</string>
+    <string name="MAXXHAIR">Maxxhair</string>
+    <string name="NIEU_BAO">Niệu bảo</string>
+    <string name="TPL_FAST">TPL - Fast</string>
+    <string name="CUSTOMER_NEED_VISIT">Số KH cần\nghé thăm</string>
+    <string name="CUSTOMER_VISITED">Số KH đã\nghé thăm</string>
+    <string name="COVER_PRODUCT">Độ phủ sản phẩm</string>
+    
+    <!--============================================ Tuyen & Khach hang screen ===========================================-->
+    <string name="LIST_CUSTOMER">Danh sách khách hàng</string>
+    <string name="MAP">Bản đồ</string>
+    <string name="CREATE_NEW_CUSTOMER">Tạo khách hàng mới</string>
     
 </resources>

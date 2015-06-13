@@ -20,6 +20,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private ImageView imgSetting;
 	private LinearLayout linSetting, linLogout, linRefresh;
 	private LinearLayout linTongquan, linSubTongquan, linBaocaodoanhso, linBaocaodophu, linkhachhangchuaphatsinhdoanhso;
+	private LinearLayout linRoundCustomer, linSubRoundCustomer, linListCustomer, linMap, linCreateNewCustomer;
 	private LinearLayout linProjection;
 	private boolean showSetting;
 	SharedPreferenceManager sm;
@@ -53,6 +54,18 @@ public class HomeActivity extends Activity implements OnClickListener{
 		linBaocaodophu.setOnClickListener(this);
 		linkhachhangchuaphatsinhdoanhso = (LinearLayout) findViewById(R.id.linkhachhangchuaphatsinhdoanhso);
 		linkhachhangchuaphatsinhdoanhso.setOnClickListener(this);
+		
+		linRoundCustomer = (LinearLayout) findViewById(R.id.linRoundCustomer);
+		linRoundCustomer.setOnClickListener(this);
+		linSubRoundCustomer = (LinearLayout) findViewById(R.id.linSubRoundCustomer);
+		linSubRoundCustomer.setOnClickListener(this);
+		linListCustomer = (LinearLayout) findViewById(R.id.linListCustomer);
+		linListCustomer.setOnClickListener(this);
+		linMap = (LinearLayout) findViewById(R.id.linMap);
+		linMap.setOnClickListener(this);
+		linCreateNewCustomer = (LinearLayout) findViewById(R.id.linCreateNewCustomer);
+		linCreateNewCustomer.setOnClickListener(this);
+		
 		linProjection = (LinearLayout) findViewById(R.id.linProjection);
 		linProjection.setOnClickListener(this);
 	}
@@ -78,6 +91,27 @@ public class HomeActivity extends Activity implements OnClickListener{
 		case R.id.linRefresh:
 			
 			break;
+			
+		case R.id.linRoundCustomer:
+			if (linSubRoundCustomer.getVisibility() == View.GONE) {
+				linSubRoundCustomer.setVisibility(View.VISIBLE);
+			} else {
+				linSubRoundCustomer.setVisibility(View.GONE);
+			}
+			break;
+			
+		case R.id.linListCustomer:
+			
+			break;	
+			
+		case R.id.linMap:
+			
+			break;
+			
+		case R.id.linCreateNewCustomer:
+			
+			break;
+			
 		case R.id.linProjection:
 			Intent intentProject = new Intent(HomeActivity.this, AcProducts.class);
 			startActivity(intentProject);
@@ -92,11 +126,13 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linBaocaodoanhso:
-			
+			intent = new Intent(this, ProfitReportActivity.class);
+			startActivity(intent);
 			break;
 			
 		case R.id.linBaocaodophu:
-	
+			intent = new Intent(this, CoverProductReport.class);
+			startActivity(intent);
 			break;
 			
 		case R.id.linkhachhangchuaphatsinhdoanhso:
