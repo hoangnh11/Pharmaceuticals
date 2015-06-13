@@ -14,13 +14,15 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.viviproject.R;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.viviproject.R;
 
 
 public class FrgProducts extends FrgBaseFragmentProducts{
@@ -110,8 +112,15 @@ public class FrgProducts extends FrgBaseFragmentProducts{
 					.bitmapConfig(Bitmap.Config.RGB_565)
 					.build();
 			
+			ImageLoaderConfiguration imageLoaderConfiguration = 
+					new ImageLoaderConfiguration.Builder(context)
+					.threadPriority(Thread.NORM_PRIORITY - 2)
+					.denyCacheImageMultipleSizesInMemory()
+					.diskCacheFileNameGenerator(new Md5FileNameGenerator())
+					.tasksProcessingOrder(QueueProcessingType.LIFO)
+					.build();
 			imageLoader = ImageLoader.getInstance();
-			imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+			imageLoader.init(imageLoaderConfiguration);
 			
 			IMAGE_URLS = listUrl;
 		}
@@ -179,7 +188,7 @@ public class FrgProducts extends FrgBaseFragmentProducts{
 				}
 			});
 			
-			return convertView;
+			return view;
 		}
 	}
 }
