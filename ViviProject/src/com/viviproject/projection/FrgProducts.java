@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -25,10 +28,11 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.viviproject.R;
 
 
-public class FrgProducts extends FrgBaseFragmentProducts{
+public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickListener{
 	private GridView productsGrid;
 	
 	private ArrayList<String> listUrlPicture;
+	private ImageAdapter imageAdapter;
 	private View mView;
 	private Activity mActivity;
 	private Context mContext;
@@ -85,7 +89,17 @@ public class FrgProducts extends FrgBaseFragmentProducts{
 	 */
 	private void initLayout(LayoutInflater inflater){
 		productsGrid = (GridView) mView.findViewById(R.id.productsGrid);
-		productsGrid.setAdapter(new ImageAdapter(mContext, listUrlPicture));
+		imageAdapter = new ImageAdapter(mContext, listUrlPicture);
+		productsGrid.setAdapter(imageAdapter);
+		productsGrid.setOnItemClickListener(this);
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent i = new Intent(getActivity(), AcImagePager.class);
+		i.putExtra("IMAGE_POSITION", position);
+		i.putExtra("LIST_URL", imageAdapter.getAllList());
+		startActivity(i);
 	}
 	
 	/**
@@ -144,6 +158,10 @@ public class FrgProducts extends FrgBaseFragmentProducts{
 			return 0;
 		}
 
+		public ArrayList<String> getAllList(){
+			return IMAGE_URLS;
+		}
+		
 		static class ViewHolder {
 			ImageView imageView;
 			ProgressBar progressBar;
@@ -191,4 +209,7 @@ public class FrgProducts extends FrgBaseFragmentProducts{
 			return view;
 		}
 	}
+
+
+	
 }
