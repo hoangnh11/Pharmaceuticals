@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-import com.viviproject.R;
 import com.viviproject.projection.AcProducts;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.SharedPreferenceManager;
@@ -28,7 +30,10 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private LinearLayout linGimic;
 	private LinearLayout linReport, linSubReport, linSumProfit, linProfitFollowCustomer, linProfitGraphic, linPosterCamera,
 							linUnfriendCamera, linTradeMarketingCamera;
+	private TextView tvChangePassword;
+	private ScrollView scrollView;
 	private boolean showSetting;
+	private boolean checkScrollBottom = false;
 	SharedPreferenceManager sm;
 	private AppPreferences appPreferences;
 	AlertDialog _alertDialog;	
@@ -49,7 +54,10 @@ public class HomeActivity extends Activity implements OnClickListener{
 		imgSetting.setOnClickListener(this);
 		linSetting = (LinearLayout) findViewById(R.id.linSetting);
 		linLogout = (LinearLayout) findViewById(R.id.linLogout);
-		linLogout.setOnClickListener(this);		
+		linLogout.setOnClickListener(this);
+		tvChangePassword = (TextView) findViewById(R.id.tvChangePassword);
+		tvChangePassword.setOnClickListener(this);
+		scrollView = (ScrollView) findViewById(R.id.scrollView);		
 		
 		linTongquan = (LinearLayout) findViewById(R.id.linTongquan);
 		linTongquan.setOnClickListener(this);
@@ -72,8 +80,57 @@ public class HomeActivity extends Activity implements OnClickListener{
 		linCreateNewCustomer = (LinearLayout) findViewById(R.id.linCreateNewCustomer);
 		linCreateNewCustomer.setOnClickListener(this);
 		
+		linVisit = (LinearLayout) findViewById(R.id.linVisit);
+		linVisit.setOnClickListener(this);
+		
+		linSales = (LinearLayout) findViewById(R.id.linSales);
+		linSales.setOnClickListener(this);
+		
+		linDeliver = (LinearLayout) findViewById(R.id.linDeliver);
+		linDeliver.setOnClickListener(this);
+		linSubDeliver = (LinearLayout) findViewById(R.id.linSubDeliver);
+		linSubDeliver.setOnClickListener(this);
+		linOrder = (LinearLayout) findViewById(R.id.linOrder);
+		linOrder.setOnClickListener(this);
+		linDelivedOrder = (LinearLayout) findViewById(R.id.linDelivedOrder);
+		linDelivedOrder.setOnClickListener(this);
+		linProductImport = (LinearLayout) findViewById(R.id.linProductImport);
+		linProductImport.setOnClickListener(this);
+				
 		linProjection = (LinearLayout) findViewById(R.id.linProjection);
 		linProjection.setOnClickListener(this);
+		linSubProjection = (LinearLayout) findViewById(R.id.linSubProjection);
+		linSubProjection.setOnClickListener(this);
+		linDiscountProgram = (LinearLayout) findViewById(R.id.linDiscountProgram);
+		linDiscountProgram.setOnClickListener(this);
+		linProduct = (LinearLayout) findViewById(R.id.linProduct);
+		linProduct.setOnClickListener(this);
+		linCompany = (LinearLayout) findViewById(R.id.linCompany);
+		linCompany.setOnClickListener(this);
+		linPharmacier = (LinearLayout) findViewById(R.id.linPharmacier);
+		linPharmacier.setOnClickListener(this);
+		linClip = (LinearLayout) findViewById(R.id.linClip);
+		linClip.setOnClickListener(this);
+		
+		linGimic = (LinearLayout) findViewById(R.id.linGimic);
+		linGimic.setOnClickListener(this);
+	
+		linReport = (LinearLayout) findViewById(R.id.linReport);
+		linReport.setOnClickListener(this);
+		linSubReport = (LinearLayout) findViewById(R.id.linSubReport);
+		linSubReport.setOnClickListener(this);
+		linSumProfit = (LinearLayout) findViewById(R.id.linSumProfit);
+		linSumProfit.setOnClickListener(this);
+		linProfitFollowCustomer = (LinearLayout) findViewById(R.id.linProfitFollowCustomer);
+		linProfitFollowCustomer.setOnClickListener(this);
+		linProfitGraphic = (LinearLayout) findViewById(R.id.linProfitGraphic);
+		linProfitGraphic.setOnClickListener(this);
+		linPosterCamera = (LinearLayout) findViewById(R.id.linPosterCamera);
+		linPosterCamera.setOnClickListener(this);
+		linUnfriendCamera = (LinearLayout) findViewById(R.id.linUnfriendCamera);
+		linUnfriendCamera.setOnClickListener(this);
+		linTradeMarketingCamera = (LinearLayout) findViewById(R.id.linTradeMarketingCamera);
+		linTradeMarketingCamera.setOnClickListener(this);
 	}
 	
 	@Override
@@ -98,29 +155,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			
 			break;
 			
-		case R.id.linRoundCustomer:
-			if (linSubRoundCustomer.getVisibility() == View.GONE) {
-				linSubRoundCustomer.setVisibility(View.VISIBLE);
-			} else {
-				linSubRoundCustomer.setVisibility(View.GONE);
-			}
-			break;
+		case R.id.tvChangePassword:
 			
-		case R.id.linListCustomer:
-			
-			break;	
-			
-		case R.id.linMap:
-			
-			break;
-			
-		case R.id.linCreateNewCustomer:
-			
-			break;
-			
-		case R.id.linProjection:
-			Intent intentProject = new Intent(HomeActivity.this, AcProducts.class);
-			startActivity(intentProject);
 			break;
 			
 		case R.id.linTongquan:
@@ -144,7 +180,139 @@ public class HomeActivity extends Activity implements OnClickListener{
 		case R.id.linkhachhangchuaphatsinhdoanhso:
 			intent = new Intent(this, CustomerProfitActivity.class);
 			startActivity(intent);
+			break;	
+			
+		case R.id.linRoundCustomer:
+			if (linSubRoundCustomer.getVisibility() == View.GONE) {
+				linSubRoundCustomer.setVisibility(View.VISIBLE);
+			} else {
+				linSubRoundCustomer.setVisibility(View.GONE);
+			}
 			break;
+			
+		case R.id.linListCustomer:
+			
+			break;	
+			
+		case R.id.linMap:
+			
+			break;
+			
+		case R.id.linCreateNewCustomer:
+			
+			break;
+		
+		case R.id.linVisit:
+			
+			break;
+			
+		case R.id.linSales:
+			
+			break;
+			
+		case R.id.linDeliver:
+			if (linSubDeliver.getVisibility() == View.GONE) {
+				linSubDeliver.setVisibility(View.VISIBLE);
+			} else {
+				linSubDeliver.setVisibility(View.GONE);
+			}
+			break;
+			
+		case R.id.linOrder:
+			
+			break;
+		
+		case R.id.linDelivedOrder:
+			
+			break;	
+			
+		case R.id.linProductImport:
+			
+			break;	
+			
+		case R.id.linProjection:		
+			
+			if (linSubProjection.getVisibility() == View.GONE) {
+				linSubProjection.setVisibility(View.VISIBLE);
+			} else {
+				linSubProjection.setVisibility(View.GONE);
+			}
+			
+			break;
+		
+		case R.id.linDiscountProgram:
+			
+			break;
+		
+		case R.id.linProduct:
+			Intent intentProject = new Intent(HomeActivity.this, AcProducts.class);
+			startActivity(intentProject);
+			break;	
+			
+		case R.id.linCompany:
+			
+			break;
+			
+		case R.id.linPharmacier:
+			
+			break;	
+			
+		case R.id.linClip:
+			
+			break;	
+			
+		case R.id.linGimic:
+			
+			break;
+			
+		case R.id.linReport:
+			checkScrollBottom = true;
+			
+			if (linSubReport.getVisibility() == View.GONE) {
+				linSubReport.setVisibility(View.VISIBLE);
+			} else {
+				linSubReport.setVisibility(View.GONE);
+			}
+			
+			scrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+		        @Override
+		        public void onGlobalLayout() {
+		        	scrollView.post(new Runnable() {
+		                public void run() {
+		                	if (checkScrollBottom) {
+		                		scrollView.fullScroll(View.FOCUS_DOWN);
+		                		checkScrollBottom = false;
+							}
+		                }
+		            });
+		        }
+		    });
+			
+			break;
+			
+		case R.id.linSumProfit:
+	
+			break;
+			
+		case R.id.linProfitFollowCustomer:
+			
+			break;	
+			
+		case R.id.linProfitGraphic:
+			
+			break;	
+			
+		case R.id.linPosterCamera:
+			
+			break;
+			
+		case R.id.linUnfriendCamera:
+			
+			break;	
+			
+		case R.id.linTradeMarketingCamera:
+			
+			break;		
 			
 		default:
 			break;

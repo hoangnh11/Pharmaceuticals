@@ -50,7 +50,7 @@
                 android:id="@+id/imgSetting"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentRight="true"           
                 android:contentDescription="@string/BLANK"
                 android:src="@drawable/icon_setting" />
 
@@ -65,10 +65,12 @@
                 android:visibility="invisible" >
 
                 <TextView
+                    android:id="@+id/tvChangePassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="8dp"
+                    android:background="@drawable/bg_item_press"
                     android:text="@string/CHANGE_PASSWORD"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp" />
@@ -82,6 +84,7 @@
                     android:id="@+id/linLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="8dp" >
@@ -106,6 +109,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadeScrollbars="false"
@@ -565,7 +569,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-            
+
             <LinearLayout
                 android:id="@+id/linProjection"
                 android:layout_width="match_parent"
@@ -687,7 +691,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-                
+
                 <LinearLayout
                     android:id="@+id/linPharmacier"
                     android:layout_width="match_parent"
@@ -711,7 +715,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-                
+
                 <LinearLayout
                     android:id="@+id/linClip"
                     android:layout_width="match_parent"
@@ -736,7 +740,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-            
+
             <LinearLayout
                 android:id="@+id/linGimic"
                 android:layout_width="match_parent"
@@ -815,7 +819,7 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/arrow_down" />
             </LinearLayout>
-            
+
             <LinearLayout
                 android:id="@+id/linSubReport"
                 android:layout_width="match_parent"
@@ -898,7 +902,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-                
+
                 <LinearLayout
                     android:id="@+id/linPosterCamera"
                     android:layout_width="match_parent"
@@ -922,7 +926,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-                
+
                 <LinearLayout
                     android:id="@+id/linUnfriendCamera"
                     android:layout_width="match_parent"
@@ -946,7 +950,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-                
+
                 <LinearLayout
                     android:id="@+id/linTradeMarketingCamera"
                     android:layout_width="match_parent"
