@@ -74,6 +74,10 @@ public class HomeActivity extends Activity implements OnClickListener{
 		
 		linProjection = (LinearLayout) findViewById(R.id.linProjection);
 		linProjection.setOnClickListener(this);
+		linSubProjection = (LinearLayout) findViewById(R.id.linSubProjection);
+		linDiscountProgram = (LinearLayout) findViewById(R.id.linDiscountProgram);
+		linProduct = (LinearLayout) findViewById(R.id.linProduct);
+		linProduct.setOnClickListener(this);
 	}
 	
 	@Override
@@ -117,8 +121,16 @@ public class HomeActivity extends Activity implements OnClickListener{
 		case R.id.linCreateNewCustomer:
 			
 			break;
-			
+		
 		case R.id.linProjection:
+			if(linSubProjection.getVisibility() == View.VISIBLE){
+				linSubProjection.setVisibility(View.GONE);
+			} else {
+				linSubProjection.setVisibility(View.VISIBLE);
+			}
+			break;
+			
+		case R.id.linProduct:
 			Intent intentProject = new Intent(HomeActivity.this, AcProducts.class);
 			startActivity(intentProject);
 			break;
