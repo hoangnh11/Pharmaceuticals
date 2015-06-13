@@ -131,6 +131,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 		linUnfriendCamera.setOnClickListener(this);
 		linTradeMarketingCamera = (LinearLayout) findViewById(R.id.linTradeMarketingCamera);
 		linTradeMarketingCamera.setOnClickListener(this);
+		
 	}
 	
 	@Override
@@ -156,7 +157,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.tvChangePassword:
-			
+
 			break;
 			
 		case R.id.linTongquan:
