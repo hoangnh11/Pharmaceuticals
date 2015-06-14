@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.ListCustomerAdapter;
+import com.viviproject.core.ItemListCustomer;
 import com.viviproject.entities.EnCustomer;
 
 public class ListCustomer extends Activity implements OnClickListener{
@@ -26,6 +27,7 @@ public class ListCustomer extends Activity implements OnClickListener{
 	private ListCustomerAdapter listCustomerAdapter;
 	private ArrayList<EnCustomer> listCustomer;
 	private EnCustomer enCustomer;
+	private EnCustomer items;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -33,6 +35,7 @@ public class ListCustomer extends Activity implements OnClickListener{
 		setContentView(R.layout.list_customer);
 		listCustomer = new ArrayList<EnCustomer>();
 		enCustomer = new EnCustomer();
+		items = new EnCustomer();
 		initLayout();
 	}
 
@@ -68,6 +71,7 @@ public class ListCustomer extends Activity implements OnClickListener{
 		}
 		
 		listCustomerAdapter = new ListCustomerAdapter(this, listCustomer);
+		listCustomerAdapter.setOnItemClickHandler(onItemClickHandler);
 		lvCustomer.setAdapter(listCustomerAdapter);
 	}
 	
@@ -93,4 +97,17 @@ public class ListCustomer extends Activity implements OnClickListener{
 		}
 	}
 
+	OnClickListener onItemClickHandler = new OnClickListener() 
+	{
+		Intent intent;
+		
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemListCustomer) v).get_position();
+            items = listCustomer.get(position);
+            intent = new Intent(ListCustomer.this, CustomerDetails.class);
+            startActivity(intent);
+        }
+    };
 }

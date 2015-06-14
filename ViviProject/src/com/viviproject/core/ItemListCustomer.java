@@ -2,6 +2,7 @@ package com.viviproject.core;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.viviproject.R;
 import com.viviproject.ultilities.BaseLinearLayout;
@@ -9,11 +10,14 @@ import com.viviproject.ultilities.BaseLinearLayout;
 public class ItemListCustomer extends BaseLinearLayout{
 	private int _position;	
 	private OnClickListener _onItemClick;
+	private LinearLayout linItemListView;
 	
 	public ItemListCustomer(Context context)
 	{
 		super(context);
-		initControl(R.layout.item_customer, context);		
+		initControl(R.layout.item_customer, context);
+		linItemListView = (LinearLayout) findViewById(R.id.linItemListView);
+		linItemListView.setOnClickListener(onItemClick);
 	}
 	
 	/**

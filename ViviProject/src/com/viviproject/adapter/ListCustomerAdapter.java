@@ -51,7 +51,7 @@ public class ListCustomerAdapter extends BaseAdapter{
         if (convertView == null)
         {
             convertView = new ItemListCustomer(mActivity.getApplicationContext());
-//            ((ItemListCustomer) convertView).setOnThisItemClickHandler(onItemClickHandler);
+            ((ItemListCustomer) convertView).setOnThisItemClickHandler(onItemClickHandler);
            
             holder = new ViewHolder();
          
@@ -98,7 +98,6 @@ public class ListCustomerAdapter extends BaseAdapter{
 	
 	OnClickListener onItemClickHandler = new OnClickListener() 
 	{
-
         @Override
         public void onClick(View v)
         {

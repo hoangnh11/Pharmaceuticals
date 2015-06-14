@@ -31,6 +31,7 @@
         <activity android:name="com.viviproject.overview.CoverProductReport" />
         <activity android:name="com.viviproject.customerline.ListCustomer" />
         <activity android:name="com.viviproject.customerline.ListCustomerPending" />
+        <activity android:name="com.viviproject.customerline.CustomerDetails" />
         <activity
             android:name="com.viviproject.projection.AcProducts"
             android:theme="@style/StyledIndicatorsBlue"
