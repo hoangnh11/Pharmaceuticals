@@ -19,6 +19,7 @@ import com.viviproject.overview.CoverProductReport;
 import com.viviproject.overview.CustomerProfitActivity;
 import com.viviproject.overview.ProfitReportActivity;
 import com.viviproject.projection.AcCompany;
+import com.viviproject.projection.AcPharmacer;
 import com.viviproject.projection.AcProducts;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.SharedPreferenceManager;
@@ -264,6 +265,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linPharmacier:
+			Intent intentPharmacer = new Intent(HomeActivity.this, AcPharmacer.class);
+			startActivity(intentPharmacer);
 			
 			break;	
 			
