@@ -26,4 +26,8 @@
 	<dimen name="padding_left_star">5dp</dimen>
 	<dimen name="padding_top_star">10dp</dimen>
 	<dimen name="hearder_bar_hight">50dp</dimen>
+	
+	<!-- dimention of projection screen -->
+	<dimen name="padding_body_screen">10dp</dimen>
+	<dimen name="view_margin_top">10dp</dimen>
 </resources>

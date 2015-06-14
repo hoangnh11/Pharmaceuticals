@@ -18,6 +18,7 @@ import com.viviproject.customerline.ListCustomer;
 import com.viviproject.overview.CoverProductReport;
 import com.viviproject.overview.CustomerProfitActivity;
 import com.viviproject.overview.ProfitReportActivity;
+import com.viviproject.projection.AcCompany;
 import com.viviproject.projection.AcProducts;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.SharedPreferenceManager;
@@ -258,7 +259,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;	
 			
 		case R.id.linCompany:
-			
+			Intent intentCompany = new Intent(HomeActivity.this, AcCompany.class);
+			startActivity(intentCompany);
 			break;
 			
 		case R.id.linPharmacier:
