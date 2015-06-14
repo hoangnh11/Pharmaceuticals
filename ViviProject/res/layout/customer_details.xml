@@ -8,6 +8,7 @@
     <include layout="@layout/header_layout" />
 
     <ScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadingEdge="none"
@@ -335,11 +336,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linSaler"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/BG_GRAY9E"
+                android:background="@drawable/bg_gray9e_blue"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="8dp" >
@@ -363,7 +365,7 @@
             </LinearLayout>
 
             <ListView
-                android:id="@+id/lvCustomer"
+                android:id="@+id/lvSaler"
                 style="@style/NormalListView"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
@@ -428,11 +430,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linProfitFive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/BG_GRAY9E"
+                android:background="@drawable/bg_gray9e_blue"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="8dp" >
@@ -456,6 +459,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linSubProfitFive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -467,6 +471,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/BG_GRAY_LIGHT"
                     android:layout_margin="4dp" >
 
                     <View

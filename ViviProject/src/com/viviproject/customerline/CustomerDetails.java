@@ -1,24 +1,45 @@
 package com.viviproject.customerline;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.adapter.SalerAdapter;
+import com.viviproject.entities.EnCustomer;
+import com.viviproject.ultilities.AppPreferences;
 
 public class CustomerDetails extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;	
-	private LinearLayout linEdit, linOwnerPharmacy, linSubOwnerPharmacy;	
+	private LinearLayout linEdit, linOwnerPharmacy, linSubOwnerPharmacy;
+	private LinearLayout linProfitFive, linSubProfitFive;
+	private LinearLayout linSaler;
+	private ListView lvSaler;
+	
+	private SalerAdapter salerAdapter;
+	private ArrayList<EnCustomer> listSaler;
+	private EnCustomer enCustomer;
+	private AppPreferences app;	
+	private boolean checkScrollBottom = false;
+	private ScrollView scrollView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.customer_details);
+		listSaler = new ArrayList<EnCustomer>();
+		enCustomer = new EnCustomer();
+		app = new AppPreferences(this);
 		initLayout();
 	}
 
@@ -49,6 +70,25 @@ public class CustomerDetails extends Activity implements OnClickListener{
 		linOwnerPharmacy.setOnClickListener(this);		
 		linSubOwnerPharmacy = (LinearLayout) findViewById(R.id.linSubOwnerPharmacy);
 		
+		linProfitFive = (LinearLayout) findViewById(R.id.linProfitFive);
+		linProfitFive.setOnClickListener(this);
+		linSubProfitFive = (LinearLayout) findViewById(R.id.linSubProfitFive);
+		
+		scrollView = (ScrollView) findViewById(R.id.scrollview);
+		
+		linSaler = (LinearLayout) findViewById(R.id.linSaler);
+		linSaler.setOnClickListener(this);
+		lvSaler = (ListView) findViewById(R.id.lvSaler);
+		
+		for (int i = 0; i < 2; i++) {
+			enCustomer = new EnCustomer();
+			enCustomer.setId(i + 1);
+			listSaler.add(enCustomer);
+		}
+		
+		salerAdapter = new SalerAdapter(this, listSaler);	
+		lvSaler.setAdapter(salerAdapter);
+		app.setListViewHeight(lvSaler, salerAdapter);
 	}
 	
 	@Override
@@ -70,6 +110,37 @@ public class CustomerDetails extends Activity implements OnClickListener{
 				linSubOwnerPharmacy.setVisibility(View.GONE);
 			}
 			break;	
+			
+		case R.id.linSaler:
+			if (lvSaler.getVisibility() == View.GONE) {
+				lvSaler.setVisibility(View.VISIBLE);
+			} else {
+				lvSaler.setVisibility(View.GONE);
+			}
+			break;
+			
+		case R.id.linProfitFive:
+			checkScrollBottom = true;
+			if (linSubProfitFive.getVisibility() == View.GONE) {
+				linSubProfitFive.setVisibility(View.VISIBLE);
+			} else {
+				linSubProfitFive.setVisibility(View.GONE);
+			}
+			
+			scrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+		        @Override
+		        public void onGlobalLayout() {
+		        	scrollView.post(new Runnable() {
+		                public void run() {
+		                	if (checkScrollBottom) {
+		                		scrollView.fullScroll(View.FOCUS_DOWN);
+		                		checkScrollBottom = false;
+							}
+		                }
+		            });
+		        }
+		    });
+			break;		
 			
 		default:
 			break;

@@ -17,10 +17,14 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ListView;
 
-import com.viviproject.R;
 import com.viviproject.HomeActivity;
 import com.viviproject.LoginActivity;
+import com.viviproject.R;
 
 /**
  * @author HoangNH11
@@ -120,6 +124,23 @@ public class AppPreferences {
 		activity.startActivity(intent);
 		bRet = true;
 		return bRet;
+	}
+	
+	/**
+	 * calculate height for list view
+	 */
+	public void setListViewHeight(ListView lv, Adapter adapter){
+		int totalHeight = 0;
+		for (int h = 0; h < adapter.getCount(); h++) {
+			View listItem = adapter.getView(h, null, lv);
+			listItem.measure(0, 0);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+
+		ViewGroup.LayoutParams params = lv.getLayoutParams();
+		params.height = totalHeight	+ (lv.getDividerHeight() * (adapter.getCount() - 1));
+		lv.setLayoutParams(params);
+		lv.requestLayout();
 	}
 	
 	/**

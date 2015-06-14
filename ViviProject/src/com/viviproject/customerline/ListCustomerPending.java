@@ -3,6 +3,7 @@ package com.viviproject.customerline;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.ListCustomerPendingAdapter;
+import com.viviproject.core.ItemListCustomer;
 import com.viviproject.entities.EnCustomer;
 
 public class ListCustomerPending extends Activity implements OnClickListener{
@@ -25,6 +27,7 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 	private ListCustomerPendingAdapter listCustomerPendingAdapter;
 	private ArrayList<EnCustomer> listCustomer;
 	private EnCustomer enCustomer;
+	private EnCustomer items;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -32,6 +35,7 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 		setContentView(R.layout.list_customer_pending_layout);
 		listCustomer = new ArrayList<EnCustomer>();
 		enCustomer = new EnCustomer();
+		items = new EnCustomer();
 		initLayout();
 	}
 
@@ -67,6 +71,7 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 		}
 		
 		listCustomerPendingAdapter = new ListCustomerPendingAdapter(this, listCustomer);
+		listCustomerPendingAdapter.setOnItemClickHandler(onItemClickHandler);
 		lvCustomer.setAdapter(listCustomerPendingAdapter);
 	}
 	
@@ -85,4 +90,18 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 			break;
 		}
 	}
+	
+	OnClickListener onItemClickHandler = new OnClickListener() 
+	{
+		Intent intent;
+		
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemListCustomer) v).get_position();
+            items = listCustomer.get(position);
+            intent = new Intent(ListCustomerPending.this, CustomerDetails.class);
+            startActivity(intent);
+        }
+    };
 }

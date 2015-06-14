@@ -28,6 +28,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tvSalerName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Đặng Hồng Minh"
@@ -60,7 +61,7 @@
             android:paddingBottom="4dp" >
 
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="68dp"
                 android:layout_height="wrap_content"
                 android:text="@string/BIRTHDAY"
                 android:textColor="@color/GRAY88"
@@ -70,13 +71,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="26/03/1987"
-                android:paddingRight="48dp"
+                android:paddingRight="36dp"
                 android:textColor="@color/BLACK"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="40dp"
+                android:layout_width="32dp"
                 android:layout_height="wrap_content"
                 android:text="@string/PHONE_NUMBER"
                 android:textColor="@color/GRAY88"
