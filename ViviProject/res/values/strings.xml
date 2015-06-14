@@ -97,9 +97,28 @@
     <string name="TIME">Thời gian</string>
     <string name="PROFIT_VND_HORIZION">Doanh số (ngàn đồng)</string>
     <string name="INFORMATION_EDIT">Chỉnh sửa thông tin</string>
-    
-    
+    <string name="PHARMACY_INFORMATION">THÔNG TIN NHÀ THUỐC</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="OWNER_PHARMACY_INFORMATION">THÔNG TIN CHỦ NHÀ THUỐC</string>
+    <string name="ADD_OWNER_PHARMACY">Thêm chủ nhà thuốc</string>
+    <string name="SALER_INFORMATION">THÔNG TIN N.VIÊN BÁN HÀNG</string>
+    <string name="STAFF">N.Viên</string>
+    <string name="ADD_SALER">Thêm nhân viên bán hàng</string>
+    <string name="UPDATE">Cập nhật</string>
     <string name="CUSTOMER_CREATE">Tạo mới khách hàng</string>
+    <string name="PHARMACY_NAME_TWO_DOTS">Tên nhà thuốc</string>
+    <string name="ADDRESS_TWO_DOTS">Địa chỉ</string>
+    <string name="PHONE_NUMBER_DETAILS">Số điện thoại</string>
+    <string name="LINE">Tuyến</string>
+    <string name="ADD_LINE">Thêm tuyến</string>
+    <string name="DAY_OF_BIRTH">Ngày sinh</string>
+    <string name="NOTE_TWO_DOTS">Ghi chú</string>
+    <string name="SEND_REQUEST">Gửi yêu cầu</string>
+    <string name="CONFIRM_REQUEST">Yêu cầu tạo cửa hàng mới sau khi được gửi đi cần chờ xác nhận.</string>
+    <string name="VIEW_LIST_PENDING">Để xem danh sách các yêu cầu đang chờ duyệt click vào</string>
+    <string name="HERE">Đây</string>
     
     <!--================================= Ghe tham screen ================================-->
     

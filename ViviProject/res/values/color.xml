@@ -23,5 +23,6 @@
     <color name="BG_GRAY9E">#9e9e9e</color>
     <color name="TEXT_COLOR_RED">#ee0d37</color>
     <color name="BG_GRAY_LIGHT">#ecebeb</color>
+    <color name="TEXT_COLOR_SKYBLUE">#6ca3ff</color>
 
 </resources>
