@@ -119,6 +119,10 @@
     <string name="CONFIRM_REQUEST">Yêu cầu tạo cửa hàng mới sau khi được gửi đi cần chờ xác nhận.</string>
     <string name="VIEW_LIST_PENDING">Để xem danh sách các yêu cầu đang chờ duyệt click vào</string>
     <string name="HERE">Đây</string>
+    <string name="THREE_QUESTION">\???</string>
+    <string name="SELECT_DAY">Chọn ngày</string>
+    <string name="SELECT_MONTH">Chọn tháng</string>
+    <string name="SELECT_YEAR">Chọn năm</string>    
     
     <!--================================= Ghe tham screen ================================-->
     

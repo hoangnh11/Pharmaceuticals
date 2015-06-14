@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/WHITE"
+    android:orientation="horizontal"
+    android:weightSum="12" >
+
+    <TextView
+        android:id="@+id/tvStatisticSTT"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="1"
+        android:textColor="@color/BLACK"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tvStatisticProduct"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Bút"
+        android:textColor="@color/BLACK"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvStatisticImport"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="150"
+        android:textColor="@color/BLACK"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tvStatisticExport"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="80"
+        android:textColor="@color/BLACK"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tvStatisticInventory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="70"
+        android:textColor="@color/BLACK"
+        android:textSize="14sp"/>
+
+</LinearLayout>
