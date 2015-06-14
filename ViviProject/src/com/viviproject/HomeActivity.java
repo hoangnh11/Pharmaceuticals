@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.viviproject.customerline.CreateCustormer;
 import com.viviproject.customerline.ListCustomer;
+import com.viviproject.gimic.AcGimicMangager;
 import com.viviproject.overview.CoverProductReport;
 import com.viviproject.overview.CustomerProfitActivity;
 import com.viviproject.overview.ProfitReportActivity;
@@ -277,7 +278,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;	
 			
 		case R.id.linGimic:
-			
+			Intent intentGimic = new Intent(HomeActivity.this, AcGimicMangager.class);
+			startActivity(intentGimic);
 			break;
 			
 		case R.id.linReport:

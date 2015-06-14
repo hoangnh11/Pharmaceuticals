@@ -63,6 +63,12 @@
             android:windowSoftInputMode="stateHidden" 
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name="com.viviproject.gimic.AcGimicMangager"       
+            android:theme="@style/StyledIndicatorsBlue"
+            android:windowSoftInputMode="stateHidden" 
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

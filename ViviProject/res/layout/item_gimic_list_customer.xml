@@ -7,7 +7,7 @@
     android:weightSum="18" >
 
     <TextView
-        android:id="@+id/tvCustomerSTTTitle"
+        android:id="@+id/tvCustomerSTT"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
@@ -45,7 +45,7 @@
     </LinearLayout>
     
     <TextView
-        android:id="@+id/tvCustomerPenTitle"
+        android:id="@+id/tvCustomerPen"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
@@ -56,7 +56,7 @@
         android:textSize="14sp"/>
 
     <TextView
-        android:id="@+id/tvCustomerMagazineTitle"
+        android:id="@+id/tvCustomerMagazine"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
@@ -67,7 +67,7 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tvCustomerClockTitle"
+        android:id="@+id/tvCustomerClock"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
@@ -78,7 +78,7 @@
         android:textSize="14sp"/>
 
     <TextView
-        android:id="@+id/tvCustomerWaterBottleTitle"
+        android:id="@+id/tvCustomerWaterBottle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
