@@ -8,13 +8,13 @@
     <include layout="@layout/header_layout"/>
 	
     <com.viviproject.library.TabPageIndicator
-        android:id="@+id/product_type_title_indicator"
+        android:id="@+id/promotions_title_indicator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/BLUE" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/product_type_pager"
+        android:id="@+id/promotions_pager"
         android:layout_width="fill_parent"
         android:layout_height="match_parent" />
 

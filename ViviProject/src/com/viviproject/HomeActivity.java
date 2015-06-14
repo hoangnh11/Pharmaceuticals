@@ -21,6 +21,7 @@ import com.viviproject.overview.ProfitReportActivity;
 import com.viviproject.projection.AcCompany;
 import com.viviproject.projection.AcPharmacer;
 import com.viviproject.projection.AcProducts;
+import com.viviproject.projection.AcPromotions;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.SharedPreferenceManager;
 
@@ -251,7 +252,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 		
 		case R.id.linDiscountProgram:
-			
+			Intent intentPromotions = new Intent(HomeActivity.this, AcPromotions.class);
+			startActivity(intentPromotions);
 			break;
 		
 		case R.id.linProduct:
