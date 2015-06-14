@@ -96,6 +96,10 @@
     <string name="INDEX">STT</string>
     <string name="TIME">Thời gian</string>
     <string name="PROFIT_VND_HORIZION">Doanh số (ngàn đồng)</string>
+    <string name="INFORMATION_EDIT">Chỉnh sửa thông tin</string>
+    
+    
+    <string name="CUSTOMER_CREATE">Tạo mới khách hàng</string>
     
     <!--================================= Ghe tham screen ================================-->
     

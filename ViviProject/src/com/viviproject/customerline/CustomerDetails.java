@@ -100,7 +100,8 @@ public class CustomerDetails extends Activity implements OnClickListener{
 			break;	
 			
 		case R.id.linEdit:
-			
+			intent = new Intent(this, EditCustomer.class);
+			startActivity(intent);
 			break;
 			
 		case R.id.linOwnerPharmacy:

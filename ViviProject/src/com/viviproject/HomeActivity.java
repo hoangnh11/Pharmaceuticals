@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.viviproject.customerline.CreateCustormer;
 import com.viviproject.customerline.ListCustomer;
 import com.viviproject.overview.CoverProductReport;
 import com.viviproject.overview.CustomerProfitActivity;
@@ -205,7 +206,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linCreateNewCustomer:
-			
+			intent = new Intent(this, CreateCustormer.class);
+			startActivity(intent);
 			break;
 		
 		case R.id.linVisit:
