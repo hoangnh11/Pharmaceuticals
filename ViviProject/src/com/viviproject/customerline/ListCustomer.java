@@ -84,8 +84,7 @@ public class ListCustomer extends Activity implements OnClickListener{
 			break;
 	
 		case R.id.linUpdate:
-			intent = new Intent(this, ListCustomerPending.class);
-			startActivity(intent);
+			
 			break;
 			
 		case R.id.imgBackToTop:
