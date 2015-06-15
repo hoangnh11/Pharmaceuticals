@@ -64,6 +64,12 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name="com.viviproject.projection.AcProjectionClip"       
+            android:theme="@style/StyledIndicatorsBlue"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        
+        <activity
             android:name="com.viviproject.gimic.AcGimicMangager"       
             android:theme="@style/StyledIndicatorsBlue"
             android:windowSoftInputMode="stateHidden" 
