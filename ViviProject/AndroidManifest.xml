@@ -34,6 +34,8 @@
         <activity android:name="com.viviproject.customerline.CustomerDetails" />
         <activity android:name="com.viviproject.customerline.EditCustomer" />
         <activity android:name="com.viviproject.customerline.CreateCustormer" />
+        <activity android:name="com.viviproject.visit.VisitAcitvity" />
+        <activity android:name="com.viviproject.visit.VisitDetailsActivity" />
         <activity
             android:name="com.viviproject.projection.AcProducts"
             android:theme="@style/StyledIndicatorsBlue"

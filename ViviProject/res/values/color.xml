@@ -25,4 +25,5 @@
     <color name="BG_GRAY_LIGHT">#ecebeb</color>
     <color name="TEXT_COLOR_SKYBLUE">#6ca3ff</color>
 	<color name="TEXT_COLOR_SKYBLUE1">#6092CA</color>
+	<color name="BG_LIGHT_GREEN">#DCF4D3</color>
 </resources>

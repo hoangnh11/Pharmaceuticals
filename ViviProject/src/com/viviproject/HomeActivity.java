@@ -26,6 +26,7 @@ import com.viviproject.projection.AcProjectionClip;
 import com.viviproject.projection.AcPromotions;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.SharedPreferenceManager;
+import com.viviproject.visit.VisitAcitvity;
 
 public class HomeActivity extends Activity implements OnClickListener{
 	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";
@@ -216,7 +217,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 		
 		case R.id.linVisit:
-			
+			intent = new Intent(this, VisitAcitvity.class);
+			startActivity(intent);
 			break;
 			
 		case R.id.linSales:
