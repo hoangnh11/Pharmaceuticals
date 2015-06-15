@@ -126,7 +126,7 @@
     
     <!--================================= Ghe tham screen ================================-->
     <string name="DEFAULT_FILTER_LOCATIONEST">Mặc định sắp xếp theo vị trí gần nhất</string>
-    <string name="VOTE">Xếp loại</string>
+    <string name="VOTE">Xếp loại: </string>
     <string name="BUY_HISTORY">Lịch sử mua hàng</string>
     <string name="CHECK_WAREHOUSE">Kiểm tra tồn kho</string>
     <string name="UNIT">Đơn vị tính: </string>
@@ -164,6 +164,9 @@
     <string name="WATER_BOTTLE">Bình nước</string>
     <string name="BACK">Trở về</string>
     <string name="ARE_YOU_SURE_SEND_IMAGE">Bạn đồng ý gửi ảnh này?</string>
+    <string name="TRANG_PHUC_LINH">Tràng phục linh</string>
+    <string name="TPL_PLUS_TEXT">TPL Plus</string>
+    <string name="TPL_FAST_TEXT">TPL Fast</string> 
     
     <!--================================= Ban hang screen ================================-->
     
@@ -190,6 +193,8 @@
     <string name="POSTER_CAMERA">Chụp ảnh poster</string>
     <string name="UNFRIEND_CAMERA">Chụp ảnh đối thủ</string> 
     <string name="TRADE_MARKETING_CAMERA">Chụp ảnh Trade Marketing</string>
-    
-    
+    <string name="NUMBERS">Số lượng</string>
+    <string name="MAIN_GROUP">Nhóm chủ lực</string>
+    <string name="NEW_GROUP">Nhóm hàng mới</string>
+    <string name="SUM_PROFIT_LABLE">Tổng doanh số: </string>
 </resources>
