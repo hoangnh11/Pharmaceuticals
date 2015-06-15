@@ -190,6 +190,8 @@
     <string name="POSTER_CAMERA">Chụp ảnh poster</string>
     <string name="UNFRIEND_CAMERA">Chụp ảnh đối thủ</string> 
     <string name="TRADE_MARKETING_CAMERA">Chụp ảnh Trade Marketing</string>
-    
-    
+    <string name="NUMBERS">Số lượng</string>
+    <string name="MAIN_GROUP">Nhóm chủ lực</string>
+    <string name="NEW_GROUP">Nhóm hàng mới</string>
+    <string name="SUM_PROFIT_LABLE">Tổng doanh số: </string>
 </resources>

@@ -77,6 +77,11 @@
             android:windowSoftInputMode="stateHidden" 
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name="com.viviproject.reports.AcTotalSales"       
+            android:theme="@style/StyledIndicatorsBlue"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
     </application>
 
 </manifest>
