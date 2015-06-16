@@ -3,7 +3,7 @@
 
     <string name="app_name">Pharmacy</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>    
+    <string name="action_settings">Settings</string>
     <string name="BLANK"></string>
     <string name="COMMON_ERROR">Lỗi</string>
     <string name="COMMON_OK">Đồng ý</string>
@@ -11,11 +11,11 @@
     <string name="COMMON_YES">Đồng ý</string>
     <string name="COMMON_CANCEL">Hủy</string>
     <string name="COMMON_MESSAGE">Lời nhắn</string>
-    
+
     <!-- Content descriptions -->
-	<string name="descr_image">Image</string>
-	
-    <!--================================================== Login screen ===================================================-->
+    <string name="descr_image">Image</string>
+
+    <!-- ================================================== Login screen =================================================== -->
     <string name="USERNAME_REQUIRE">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 _</string>
     <string name="USERNAME">Tên đăng nhập</string>
     <string name="PASSWORD">Mật khẩu</string>
@@ -25,10 +25,10 @@
     <string name="BEGIN_NOT_NUMBER">Bắt đầu không được là số</string>
     <string name="PASSWORD_MORE_SEVEN">Mật khẩu phải lớn hơn 7 ký tự</string>
     <string name="PASSWORD_HAS_NUMBER">Mật khẩu phải có ít nhất một chữ số</string>
-    <string name="PASSWORD_HAS_LETTER_UPPER_">Mật khẩu phải có ít nhất một chữ cái viết hoa</string>  
+    <string name="PASSWORD_HAS_LETTER_UPPER_">Mật khẩu phải có ít nhất một chữ cái viết hoa</string>
     <string name="LOGIN_FAILE">Đăng nhập bị lỗi</string>
 
-    <!--================================================ Home screen ===================================================-->
+    <!-- ================================================ Home screen =================================================== -->
     <string name="CHANGE_PASSWORD">Đổi mật khẩu</string>
     <string name="LOGOUT">Đăng xuất</string>
     <string name="GENERAL">Tổng quan</string>
@@ -41,11 +41,11 @@
     <string name="REPORT">Báo cáo</string>
     <string name="MORE_ARE_YOU_SURE">Bạn chắc chắn muốn thoát?</string>
     <string name="PROFIT_REPORT">Báo cáo doanh số</string>
-    <string name="COVER_REPORT">Báo cáo độ phủ</string>    
+    <string name="COVER_REPORT">Báo cáo độ phủ</string>
     <string name="CUSTOMER_NOT_PROFIT">Khách hàng chưa phát sinh doanh số</string>
     <string name="CUSTOMER_NOT_PROFIT_TITLE">KH chưa phát sinh doanh số</string>
-    
-    <!--============================================== Tong Quan screen ==================================================-->
+
+    <!-- ============================================== Tong Quan screen ================================================== -->
     <string name="ADDRESS">Địa chỉ: </string>
     <string name="ROUND">Tuyến: </string>
     <string name="LIST_AGO_MONTH">DS tháng trước: </string>
@@ -57,8 +57,8 @@
     <string name="PAST_WORK_DAYS">Số ngày làm việc đã qua: </string>
     <string name="CONTENT">Nội dung</string>
     <string name="PLANT">Kế hoạch</string>
-    <string name="PROCESS">Thực hiện</string>  
-    <string name="CON_LAI">Còn lại</string> 
+    <string name="PROCESS">Thực hiện</string>
+    <string name="CON_LAI">Còn lại</string>
     <string name="TIEN_DO">Tiến độ</string>
     <string name="PROFIT_VND">Doanh số\n(ngàn đồng)</string>
     <string name="TPL">TPL</string>
@@ -69,8 +69,8 @@
     <string name="CUSTOMER_NEED_VISIT">Số KH cần\nghé thăm</string>
     <string name="CUSTOMER_VISITED">Số KH đã\nghé thăm</string>
     <string name="COVER_PRODUCT">Độ phủ sản phẩm</string>
-    
-    <!--================================= Tuyen & Khach hang screen ================================-->
+
+    <!-- ================================= Tuyen & Khach hang screen ================================ -->
     <string name="LIST_CUSTOMER">Danh sách khách hàng</string>
     <string name="MAP">Bản đồ</string>
     <string name="CREATE_NEW_CUSTOMER">Tạo khách hàng mới</string>
@@ -122,9 +122,9 @@
     <string name="THREE_QUESTION">\???</string>
     <string name="SELECT_DAY">Chọn ngày</string>
     <string name="SELECT_MONTH">Chọn tháng</string>
-    <string name="SELECT_YEAR">Chọn năm</string>    
-    
-    <!--================================= Ghe tham screen ================================-->
+    <string name="SELECT_YEAR">Chọn năm</string>
+
+    <!-- ================================= Ghe tham screen ================================ -->
     <string name="DEFAULT_FILTER_LOCATIONEST">Mặc định sắp xếp theo vị trí gần nhất</string>
     <string name="VOTE">Xếp loại: </string>
     <string name="BUY_HISTORY">Lịch sử mua hàng</string>
@@ -166,35 +166,36 @@
     <string name="ARE_YOU_SURE_SEND_IMAGE">Bạn đồng ý gửi ảnh này?</string>
     <string name="TRANG_PHUC_LINH">Tràng phục linh</string>
     <string name="TPL_PLUS_TEXT">TPL Plus</string>
-    <string name="TPL_FAST_TEXT">TPL Fast</string> 
-    
-    <!--================================= Ban hang screen ================================-->
-    
-    
-    <!--================================= Giao hang screen ================================-->
+    <string name="TPL_FAST_TEXT">TPL Fast</string>
+
+    <!-- ================================= Ban hang screen ================================ -->
+
+
+    <!-- ================================= Giao hang screen ================================ -->
     <string name="ORDER">Đơn hàng</string>
     <string name="DELIVED_ORDER">Đơn hàng đã giao</string>
     <string name="PRODUCT_IMPORT">Nhập hàng trả lại</string>
-    
-    <!--================================= Trinh chieu screen ================================-->
+
+    <!-- ================================= Trinh chieu screen ================================ -->
     <string name="DISCOUNT_PROGRAM">Chương trình khuyến mại</string>
     <string name="PRODUCT">Sản phẩm</string>
     <string name="COMPANY">Công ty</string>
     <string name="PHARMACIER">Trình dược viên</string>
     <string name="CLIP">Clip</string>
     <string name="TEXT_NIEU_BAO">Niệu Bảo</string>
-    <!--================================= Quan ly GIMIC screen ================================-->
-    
-    
-    <!--================================= Bao cao screen ================================-->
+    <!-- ================================= Quan ly GIMIC screen ================================ -->
+
+
+    <!-- ================================= Bao cao screen ================================ -->
     <string name="SUM_PROFIT">Tổng doanh số</string>
     <string name="PROFIT_FOLLOW_CUSTOMER">Doanh số theo khách hàng</string>
     <string name="PROFIT_GRAPHIC">Biểu đồ doanh số</string>
     <string name="POSTER_CAMERA">Chụp ảnh poster</string>
-    <string name="UNFRIEND_CAMERA">Chụp ảnh đối thủ</string> 
+    <string name="UNFRIEND_CAMERA">Chụp ảnh đối thủ</string>
     <string name="TRADE_MARKETING_CAMERA">Chụp ảnh Trade Marketing</string>
     <string name="NUMBERS">Số lượng</string>
     <string name="MAIN_GROUP">Nhóm chủ lực</string>
     <string name="NEW_GROUP">Nhóm hàng mới</string>
     <string name="SUM_PROFIT_LABLE">Tổng doanh số: </string>
+
 </resources>
