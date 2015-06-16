@@ -98,6 +98,11 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 			
+		case R.id.tvGivegimic:
+			intent = new Intent(this, GiveGimic.class);
+			startActivity(intent);
+			break;
+			
 		default:
 			break;
 		}
