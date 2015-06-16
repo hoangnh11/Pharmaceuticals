@@ -1,4 +1,4 @@
-package com.viviproject.visit;
+package com.viviproject.deliver;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 
-public class GiveGimic extends Activity implements OnClickListener{
+public class OrderActivity extends Activity implements OnClickListener{
 	
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
@@ -17,7 +17,7 @@ public class GiveGimic extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.give_gimic_layout);
+		setContentView(R.layout.order_list_layout);
 		initLayout();
 	}
 	
@@ -27,7 +27,7 @@ public class GiveGimic extends Activity implements OnClickListener{
 		linBack.setVisibility(View.VISIBLE);
 		
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
-		tvHeader.setText(getResources().getString(R.string.GIVE_GIMIC_TITLE));
+		tvHeader.setText(getResources().getString(R.string.ORDER_LIST));
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
@@ -47,7 +47,7 @@ public class GiveGimic extends Activity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.linBack:
 			finish();
-			break;	
+			break;
 			
 		default:
 			break;

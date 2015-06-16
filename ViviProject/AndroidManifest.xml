@@ -38,6 +38,7 @@
         <activity android:name="com.viviproject.visit.VisitDetailsActivity" />
         <activity android:name="com.viviproject.visit.PlaceOrderActivity" />
         <activity android:name="com.viviproject.visit.GiveGimic" />
+        <activity android:name="com.viviproject.visit.FeedbackActivity" />
         <activity
             android:name="com.viviproject.projection.AcProducts"
             android:theme="@style/StyledIndicatorsBlue"

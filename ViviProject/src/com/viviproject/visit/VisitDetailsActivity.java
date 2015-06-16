@@ -103,6 +103,11 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 			
+		case R.id.tvFeedback:
+			intent = new Intent(this, FeedbackActivity.class);
+			startActivity(intent);
+			break;
+			
 		default:
 			break;
 		}
