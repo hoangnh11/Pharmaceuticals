@@ -106,16 +106,20 @@ public class CustomerDetails extends Activity implements OnClickListener{
 			
 		case R.id.linOwnerPharmacy:
 			if (linSubOwnerPharmacy.getVisibility() == View.GONE) {
+				linOwnerPharmacy.setBackgroundResource(R.color.BG_GRAY9E);
 				linSubOwnerPharmacy.setVisibility(View.VISIBLE);
 			} else {
 				linSubOwnerPharmacy.setVisibility(View.GONE);
+				linOwnerPharmacy.setBackgroundResource(R.color.BLUE);
 			}
 			break;	
 			
 		case R.id.linSaler:
 			if (lvSaler.getVisibility() == View.GONE) {
+				linSaler.setBackgroundResource(R.color.BG_GRAY9E);
 				lvSaler.setVisibility(View.VISIBLE);
 			} else {
+				linSaler.setBackgroundResource(R.color.BLUE);
 				lvSaler.setVisibility(View.GONE);
 			}
 			break;
@@ -123,8 +127,10 @@ public class CustomerDetails extends Activity implements OnClickListener{
 		case R.id.linProfitFive:
 			checkScrollBottom = true;
 			if (linSubProfitFive.getVisibility() == View.GONE) {
+				linProfitFive.setBackgroundResource(R.color.BG_GRAY9E);
 				linSubProfitFive.setVisibility(View.VISIBLE);
 			} else {
+				linProfitFive.setBackgroundResource(R.color.BLUE);
 				linSubProfitFive.setVisibility(View.GONE);
 			}
 			
