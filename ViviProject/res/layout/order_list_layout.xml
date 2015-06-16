@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/BG_LIGHT_GREEN1"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
@@ -19,12 +21,14 @@
         android:paddingTop="4dp" >
 
         <EditText
+            android:id="@+id/edtSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/bg_edittext"
             android:hint="@string/BLANK"
             android:padding="4dp"
+            android:inputType="textNoSuggestions"
             android:textColorHighlight="@color/WHITE" />
 
         <ImageView

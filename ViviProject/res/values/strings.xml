@@ -179,8 +179,10 @@
     <string name="DEFAULT_SORT_FOLLOW_ORDER_OLDEST">Mặc định sắp xếp theo đơn hàng cũ nhất</string>
     <string name="DELIVED">Đã giao</string>
     <string name="ORDER_DAY">Ngày lập đơn hàng</string>
+    <string name="ORDER_DAY_TWO_DOT">Ngày lập đơn hàng: </string>
     <string name="CARD_MOBILE">Thẻ điện thoại</string>
     <string name="SUM_MONEY_FEE">Tổng tiền phải thu</string>
+    <string name="SUM_MONEY_FEE_TWO_DOTS">Tổng tiền phải thu:</string>
     <string name="ORDER_CHANGE">Thay đổi đơn hàng</string>
     <string name="OLD_QUANTITY">SL cũ</string>
     <string name="NEW_QUANTITY">SL mới</string>
@@ -192,6 +194,7 @@
     <string name="ARE_YOU_REASON_CONTINUE">Bạn cần lý do nhập lại hàng để tiếp tục:</string>
     <string name="REQUEST_CONFIRM_PRODUCT">Yêu cầu xác nhận hàng được nhập trả lại đã được gửi đi.</string>
     <string name="CONFIRM">Xác nhận</string>
+    <string name="EDIT_ORDER">Sửa</string>
 
     <!-- ================================= Trinh chieu screen ================================ -->
     <string name="DISCOUNT_PROGRAM">Chương trình khuyến mại</string>

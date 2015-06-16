@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 	
 	private ImageView imgBackToTop, imgSearchTop;	
 	private ListView lvOrder;
+	private EditText edtSearch;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -52,6 +54,9 @@ public class OrderActivity extends Activity implements OnClickListener{
 		imgSearchTop = (ImageView) findViewById(R.id.imgSearchTop);
 		imgSearchTop.setOnClickListener(this);
 		
+		edtSearch = (EditText) findViewById(R.id.edtSearch);
+		edtSearch.clearComposingText();
+			
 		lvOrder = (ListView) findViewById(R.id.lvOrder);
 	}
 	
