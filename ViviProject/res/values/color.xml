@@ -26,4 +26,6 @@
     <color name="TEXT_COLOR_SKYBLUE">#6ca3ff</color>
 	<color name="TEXT_COLOR_SKYBLUE1">#6092CA</color>
 	<color name="BG_LIGHT_GREEN">#DCF4D3</color>
+	<color name="BG_LIGHT_GREEN1">#e3f1ff</color>
+	<color name="TEXT_COLOR_GREEN">#2b9c00</color>
 </resources>

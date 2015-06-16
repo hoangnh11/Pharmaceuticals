@@ -40,57 +40,59 @@
         <activity android:name="com.viviproject.visit.GiveGimic" />
         <activity android:name="com.viviproject.visit.FeedbackActivity" />
         <activity
+            android:name="com.viviproject.deliver.OrderActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name="com.viviproject.projection.AcProducts"
             android:theme="@style/StyledIndicatorsBlue"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.viviproject.projection.AcPromotions"       
+            android:name="com.viviproject.projection.AcPromotions"
+            android:screenOrientation="portrait"
             android:theme="@style/StyledIndicatorsBlue"
-            android:windowSoftInputMode="stateHidden" 
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.viviproject.projection.AcImagePager"       
+            android:name="com.viviproject.projection.AcImagePager"
+            android:screenOrientation="portrait"
             android:theme="@style/StyledIndicatorsBlue"
-            android:windowSoftInputMode="stateHidden" 
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.viviproject.projection.AcCompany"       
+            android:name="com.viviproject.projection.AcCompany"
+            android:screenOrientation="portrait"
             android:theme="@style/StyledIndicatorsBlue"
-            android:windowSoftInputMode="stateHidden" 
-            android:screenOrientation="portrait">
-        </activity> 
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
         <activity
-            android:name="com.viviproject.projection.AcPharmacer"       
+            android:name="com.viviproject.projection.AcPharmacer"
+            android:screenOrientation="portrait"
             android:theme="@style/StyledIndicatorsBlue"
-            android:windowSoftInputMode="stateHidden" 
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.viviproject.projection.AcProjectionClip"       
+            android:name="com.viviproject.projection.AcProjectionClip"
             android:theme="@style/StyledIndicatorsBlue"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" >
         </activity>
-        
         <activity
-            android:name="com.viviproject.gimic.AcGimicMangager"       
+            android:name="com.viviproject.gimic.AcGimicMangager"
+            android:screenOrientation="portrait"
             android:theme="@style/StyledIndicatorsBlue"
-            android:windowSoftInputMode="stateHidden" 
-            android:screenOrientation="portrait">
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.viviproject.reports.AcTotalSales"       
-            android:windowSoftInputMode="stateHidden">
+            android:name="com.viviproject.reports.AcTotalSales"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.viviproject.reports.AcProfitFollowCustomer"       
-            android:windowSoftInputMode="stateHidden">
+            android:name="com.viviproject.reports.AcProfitFollowCustomer"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name="com.viviproject.reports.AcSalesOnCustomer"       
-            android:windowSoftInputMode="stateHidden">
+            android:name="com.viviproject.reports.AcSalesOnCustomer"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
     </application>
 

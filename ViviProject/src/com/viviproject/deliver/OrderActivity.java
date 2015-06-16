@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
@@ -13,6 +15,9 @@ public class OrderActivity extends Activity implements OnClickListener{
 	
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
+	
+	private ImageView imgBackToTop, imgSearchTop;	
+	private ListView lvOrder;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -39,7 +44,15 @@ public class OrderActivity extends Activity implements OnClickListener{
 		linUpdate.setVisibility(View.VISIBLE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
-		linRefresh.setOnClickListener(this);		
+		linRefresh.setOnClickListener(this);
+		
+		imgBackToTop = (ImageView) findViewById(R.id.imgBackToTop);
+		imgBackToTop.setOnClickListener(this);
+		
+		imgSearchTop = (ImageView) findViewById(R.id.imgSearchTop);
+		imgSearchTop.setOnClickListener(this);
+		
+		lvOrder = (ListView) findViewById(R.id.lvOrder);
 	}
 	
 	@Override
@@ -48,6 +61,10 @@ public class OrderActivity extends Activity implements OnClickListener{
 		case R.id.linBack:
 			finish();
 			break;
+			
+		case R.id.imgBackToTop:
+			lvOrder.setSelectionAfterHeaderView();
+			break;	
 			
 		default:
 			break;
