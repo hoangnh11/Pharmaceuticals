@@ -176,5 +176,19 @@
         <item>Chủ nhật</item>
         <item>Tất cả</item>     
     </string-array>
-
+	
+    <string-array name="product_profit_view">
+        <item>Tràng phục linh</item>
+        <item>Tràng phục linh Plus</item>
+        <item>Tràng phục linh Fast</item>
+        <item>Maxxhair</item>
+        <item>Niệu bảo</item>
+        <item>Tất cả</item>
+    </string-array>
+    
+    <string-array name="sort_type">
+        <item>Tên</item>
+        <item>Loại</item>
+        <item>Tất cả</item>
+    </string-array>
 </resources>

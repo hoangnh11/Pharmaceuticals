@@ -29,5 +29,6 @@
 	
 	<!-- dimention of projection screen -->
 	<dimen name="padding_body_screen">10dp</dimen>
+	<dimen name="padding_body_screen_small">5dp</dimen>
 	<dimen name="view_margin_top">10dp</dimen>
 </resources>

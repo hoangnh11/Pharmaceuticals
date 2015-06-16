@@ -24,6 +24,7 @@ import com.viviproject.projection.AcPharmacer;
 import com.viviproject.projection.AcProducts;
 import com.viviproject.projection.AcProjectionClip;
 import com.viviproject.projection.AcPromotions;
+import com.viviproject.reports.AcProfitFollowCustomer;
 import com.viviproject.reports.AcTotalSales;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.SharedPreferenceManager;
@@ -317,7 +318,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linProfitFollowCustomer:
-			
+			Intent intentProfitFollowCustomer = new Intent(HomeActivity.this, AcProfitFollowCustomer.class);
+			startActivity(intentProfitFollowCustomer);
 			break;	
 			
 		case R.id.linProfitGraphic:

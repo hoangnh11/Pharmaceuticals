@@ -197,5 +197,7 @@
     <string name="MAIN_GROUP">Nhóm chủ lực</string>
     <string name="NEW_GROUP">Nhóm hàng mới</string>
     <string name="SUM_PROFIT_LABLE">Tổng doanh số: </string>
-
+	<string name="PRODUCT_PROFIT_VIEW">Xem theo doanh số sản phẩm: </string>
+	<string name="SORT_TYPE_VIEW">Thứ tự sắp xếp: </string>
+	<string name="PRICE_TYPE_VND">vnđ</string>
 </resources>

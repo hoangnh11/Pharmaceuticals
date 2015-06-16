@@ -80,7 +80,10 @@
         </activity>
         <activity
             android:name="com.viviproject.reports.AcTotalSales"       
-            android:theme="@style/StyledIndicatorsBlue"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+            android:name="com.viviproject.reports.AcProfitFollowCustomer"       
             android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
