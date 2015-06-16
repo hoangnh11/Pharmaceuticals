@@ -200,4 +200,5 @@
 	<string name="PRODUCT_PROFIT_VIEW">Xem theo doanh số sản phẩm: </string>
 	<string name="SORT_TYPE_VIEW">Thứ tự sắp xếp: </string>
 	<string name="PRICE_TYPE_VND">vnđ</string>
+	<string name="SALES_STATISTIC">Thống kê doanh số</string>
 </resources>

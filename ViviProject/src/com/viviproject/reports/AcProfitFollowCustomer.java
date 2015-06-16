@@ -9,9 +9,12 @@ import com.viviproject.adapter.AdapterProfitFollowCustomer;
 import com.viviproject.entities.EnCustomer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,7 +22,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class AcProfitFollowCustomer extends Activity implements OnClickListener{
+public class AcProfitFollowCustomer extends Activity implements OnClickListener, OnItemClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
@@ -81,6 +84,7 @@ public class AcProfitFollowCustomer extends Activity implements OnClickListener{
 		
 		adapterProfitFollowCustomer = new AdapterProfitFollowCustomer(getApplicationContext(), listCustomer);
 		lvProfitFollowCustomer.setAdapter(adapterProfitFollowCustomer);
+		lvProfitFollowCustomer.setOnItemClickListener(this);
 		
 		imgBackToTop = (ImageView) findViewById(R.id.imgBackToTop);
 		imgBackToTop.setOnClickListener(this);
@@ -104,4 +108,10 @@ public class AcProfitFollowCustomer extends Activity implements OnClickListener{
 		
 	}
 	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Intent i = new Intent(AcProfitFollowCustomer.this, AcSalesOnCustomer.class);
+		startActivity(i);
+	}
 }
