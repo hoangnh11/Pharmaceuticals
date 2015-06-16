@@ -221,4 +221,5 @@
 	<string name="SORT_TYPE_VIEW">Thứ tự sắp xếp: </string>
 	<string name="PRICE_TYPE_VND">vnđ</string>
 	<string name="SALES_STATISTIC">Thống kê doanh số</string>
+	<string name="PROFIT_BY_DAY">Doanh số theo ngày</string>
 </resources>
