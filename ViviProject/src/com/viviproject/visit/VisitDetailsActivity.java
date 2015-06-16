@@ -1,13 +1,14 @@
 package com.viviproject.visit;
 
-import com.viviproject.R;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.viviproject.R;
 
 public class VisitDetailsActivity extends Activity implements OnClickListener{
 
@@ -31,7 +32,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		linBack.setVisibility(View.VISIBLE);
 		
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
-		tvHeader.setText(getResources().getString(R.string.VISIT));
+		tvHeader.setText(getResources().getString(R.string.CREATE_ORDER));
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
@@ -66,6 +67,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
+		Intent intent;
 		switch (v.getId()) {
 		case R.id.linBack:
 			finish();
@@ -90,6 +92,11 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 				linSubChekcWarehouse.setVisibility(View.GONE);
 			}
 			break;	
+			
+		case R.id.tvBuy:
+			intent = new Intent(this, PlaceOrderActivity.class);
+			startActivity(intent);
+			break;
 			
 		default:
 			break;
