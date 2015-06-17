@@ -1,13 +1,17 @@
 package com.viviproject.reports;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -32,6 +36,9 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
 	private BarChart mChartProductByDay;
 	private BarChart mChartProductByMonth;
+	
+	private Spinner spMonth, spYear;
+	private List<String> listMonth, listYear;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +69,19 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
-	
+		
+		spMonth = (Spinner) findViewById(R.id.spMonth);
+		String[] month = getResources().getStringArray(R.array.month);
+		listMonth = Arrays.asList(month);
+		ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listMonth);
+		spMonth.setAdapter(monthAdapter);
+		
+		spYear = (Spinner) findViewById(R.id.spYear);
+		String[] year = getResources().getStringArray(R.array.year);
+		listYear = Arrays.asList(year);
+		ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listYear);
+		spYear.setAdapter(yearAdapter);
+		
 		mChartProductByDay = (BarChart) findViewById(R.id.chartProduct);
 		setUpChartByDay();
         
