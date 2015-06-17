@@ -10,6 +10,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -39,8 +45,9 @@
         <activity android:name="com.viviproject.visit.PlaceOrderActivity" />
         <activity android:name="com.viviproject.visit.GiveGimic" />
         <activity android:name="com.viviproject.visit.FeedbackActivity" />
+        <activity android:name="com.viviproject.visit.PictureReportActivity" />
         <activity android:name="com.viviproject.deliver.ChangeOrderActivity" />
-        <activity android:name="com.viviproject.deliver.Delived_Order" />
+        <activity android:name="com.viviproject.deliver.Delived_Order" />        
         <activity
             android:name="com.viviproject.deliver.OrderImportActivity"
             android:windowSoftInputMode="stateHidden" />

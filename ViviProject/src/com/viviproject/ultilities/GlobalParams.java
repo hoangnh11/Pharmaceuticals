@@ -1,5 +1,7 @@
 package com.viviproject.ultilities;
 
+import android.os.Environment;
+
 
 
 
@@ -30,6 +32,22 @@ public final class GlobalParams {
     public static final char DOT_CHARACTER = '.';
     public static final String THREE_SHARPS_CHARACTER = "###"; 
     public static final String BLANK_CHARACTER = "";
+    
+    public static final int GALERRY_GET_IMAGE = 4;
+    public static final String SPLASH_STRING = "/";    
+    public static final int THUMBNAIL_SIZE = 160;
+    public static final String TEMP_SCALE_IMG_FOR_SENDING_NAME = "tmpScaledForSending.jpg";
+    public static final String APP_NAME = "Pharmacy";
+    public static final String FOLDER_DATA = Environment
+			.getExternalStorageDirectory().getAbsolutePath()
+			+ SPLASH_STRING
+			+ APP_NAME;
+	public static final String FOLDER_TEMP = FOLDER_DATA
+			+ SPLASH_STRING
+			+ "Pharmacy_MMS";
+	public static final String SUFFIX_FILE_NAME_JPEG = ".jpg";
+	public static final String IMAGE_BACKGROUND_FOLDER_NAME = "Pharmacy_image_background_files";
+	public static final String TEMP_COMMON_FOLDER_NAME = "Pharmacy_temp_files";
 	
 	// key to check language that app using
 	public static final String USING_VI_RESOUCE = "STRING-VI";

@@ -16,9 +16,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Point;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Adapter;
 import android.widget.ListView;
 
@@ -171,4 +173,15 @@ public class AppPreferences {
 							}
 						}).create();
 	}
+	
+	/**
+	 * Get ratio of window screen
+	 */
+    public static float getAspectRatioOfWindow(Activity activity){
+    	Point size = new Point();
+    	WindowManager w = activity.getWindowManager();
+    	w.getDefaultDisplay().getSize(size);
+    	float result = (float) size.x/size.y;
+    	return result;
+    }
 }
