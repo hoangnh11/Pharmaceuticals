@@ -49,13 +49,78 @@
 	        android:id="@+id/chartProduct"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"/>
-    </LinearLayout>"
+    </LinearLayout>
 	
 	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:paddingLeft="@dimen/padding_body_screen"
+        android:paddingRight="@dimen/padding_body_screen"
+        android:paddingBottom="@dimen/padding_body_screen"
         android:orientation="vertical">
         
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_vertical"
+	        android:text="@string/PROFIT_BY_MONTH"
+	        android:textColor="@color/BLACK"
+	        android:textSize="14sp"
+	        android:textStyle="bold" />
+		
+	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_vertical"
+	        android:layout_marginTop="5dp"
+	        android:orientation="horizontal">
+            
+	        <Spinner
+                android:id="@+id/spMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_spinner_day"
+                android:gravity="center"
+                android:paddingRight="22dp"
+                android:prompt="@string/SELECT_MONTH"
+                android:scrollbars="none" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:text="/"
+                android:textColor="@color/BLACK" />
+
+            <Spinner
+                android:id="@+id/spYear"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_spinner_year"
+                android:gravity="center"
+                android:paddingRight="22dp"
+                android:prompt="@string/SELECT_YEAR"
+                android:scrollbars="none" />
+            
+            <Button 
+                android:id="@+id/btOK"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/bg_button_ok"
+                android:textSize="13sp"
+                android:textColor="@color/WHITE"
+                android:text="OK"/>
+	    </LinearLayout>
+	    
+	    <com.github.mikephil.charting.charts.BarChart
+	        android:id="@+id/chartProductByMonth"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"/>
     </LinearLayout>
 </LinearLayout>
