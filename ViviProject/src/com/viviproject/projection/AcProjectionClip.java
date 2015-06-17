@@ -1,20 +1,26 @@
 package com.viviproject.projection;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.viviproject.R;
 import com.viviproject.adapter.AdapterGimicListCutomer;
 import com.viviproject.adapter.AdapterProjectionGridClip;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AcProjectionClip extends Activity implements OnClickListener{
+public class AcProjectionClip extends Activity implements OnClickListener, OnItemClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
@@ -62,8 +68,37 @@ public class AcProjectionClip extends Activity implements OnClickListener{
 		
 		adapterProjectionGridClip = new AdapterProjectionGridClip(getApplicationContext(), listyoutubeUrl);
 		griProjectionClip.setAdapter(adapterProjectionGridClip);
+		griProjectionClip.setOnItemClickListener(this);
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		String url = listyoutubeUrl.get(position);
+		String idVideo = getYoutubeVideoId(url);
+		Intent i = new Intent(AcProjectionClip.this, FullscreenDemoActivity.class);
+		i.putExtra("VIDEO_ID", idVideo);
+		startActivity(i);
+	}
+	
+	private String getYoutubeVideoId(String youbeURL){
+		String url = "";
+		try {
+			String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
+		
+		    Pattern compiledPattern = Pattern.compile(pattern);
+		    Matcher matcher = compiledPattern.matcher(youbeURL);
+		
+		    if(matcher.find()){
+		       String strID =  matcher.group();
+		       return strID;
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -76,5 +111,4 @@ public class AcProjectionClip extends Activity implements OnClickListener{
 		}
 		
 	}
-	
 }

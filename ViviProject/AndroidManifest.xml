@@ -103,6 +103,14 @@
             android:name="com.viviproject.reports.AcSalesChart"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        <activity
+            android:name="com.viviproject.projection.FullscreenDemoActivity"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.viviproject.projection.YouTubeFailureRecoveryActivity">
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
     </application>
 
 </manifest>
