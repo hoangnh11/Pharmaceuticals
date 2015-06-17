@@ -30,7 +30,8 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
-	private BarChart mChart;
+	private BarChart mChartProductByDay;
+	private BarChart mChartProductByMonth;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +63,23 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
 	
-		mChart = (BarChart) findViewById(R.id.chartProduct);
+		mChartProductByDay = (BarChart) findViewById(R.id.chartProduct);
+		setUpChartByDay();
+        
+		mChartProductByMonth = (BarChart) findViewById(R.id.chartProductByMonth);
+		setUpChartByMonth();
+		
+	}
+	
+	/**
+	 * setUpChartByDay
+	 */
+	private void setUpChartByDay(){
 		//mChart.setBackgroundColor(Color.WHITE);
-		mChart.setDrawBarShadow(false);
-        mChart.setDrawValueAboveBar(true);
-        mChart.setDescription("");
-        mChart.setDrawBorders(false);
+		mChartProductByDay.setDrawBarShadow(false);
+        mChartProductByDay.setDrawValueAboveBar(true);
+        mChartProductByDay.setDescription("");
+        mChartProductByDay.setDrawBorders(false);
         
         LimitLine limitLine = new LimitLine(100f, "Đạt");
         limitLine.setLineWidth(0.5f);
@@ -75,7 +87,7 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
         limitLine.setLabelPosition(LimitLabelPosition.POS_RIGHT);
         limitLine.setTextSize(10f);
         
-        YAxis leftAxis = mChart.getAxisLeft();
+        YAxis leftAxis = mChartProductByDay.getAxisLeft();
         leftAxis.setLabelCount(8);
         leftAxis.setDrawGridLines(false);
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
@@ -87,20 +99,59 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
         
-        YAxis rightAxis = mChart.getAxisRight();
+        YAxis rightAxis = mChartProductByDay.getAxisRight();
         rightAxis.setDrawGridLines(false);
         rightAxis.setDrawLabels(false);
         
-        XAxis xAxis  = mChart.getXAxis();
+        XAxis xAxis  = mChartProductByDay.getXAxis();
         xAxis.setSpaceBetweenLabels(2);
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         
-        setData(12, 50);
-        
+        setData(true, 12, 50);
 	}
-
-	private void setData(int count, float range) {
+	
+	/**
+	 * setUpChartByDay
+	 */
+	private void setUpChartByMonth(){
+		//mChartProductByMonth.setBackgroundColor(Color.WHITE);
+		mChartProductByMonth.setDrawBarShadow(false);
+		mChartProductByMonth.setDrawValueAboveBar(true);
+		mChartProductByMonth.setDescription("");
+		mChartProductByMonth.setDrawBorders(false);
+        
+        LimitLine limitLine = new LimitLine(80f, "Đạt");
+        limitLine.setLineWidth(0.5f);
+        limitLine.setLineColor(Color.BLACK);
+        limitLine.setLabelPosition(LimitLabelPosition.POS_RIGHT);
+        limitLine.setTextSize(10f);
+        
+        YAxis leftAxis = mChartProductByMonth.getAxisLeft();
+        leftAxis.setLabelCount(8);
+        leftAxis.setDrawGridLines(false);
+        leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
+        leftAxis.addLimitLine(limitLine);
+        leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setAxisMaxValue(120);
+        leftAxis.setSpaceTop(10);
+        
+        // limit lines are drawn behind data (and not on top)
+        leftAxis.setDrawLimitLinesBehindData(true);
+        
+        YAxis rightAxis = mChartProductByMonth.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setDrawLabels(false);
+        
+        XAxis xAxis  = mChartProductByMonth.getXAxis();
+        xAxis.setSpaceBetweenLabels(2);
+        xAxis.setPosition(XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        
+        setData(false, 12, 50);
+	}
+	
+	private void setData(boolean byDay, int count, float range) {
 		ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
 		entries.add(new BarEntry(40f, 0));
 		entries.add(new BarEntry(100f, 1));
@@ -119,7 +170,11 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
 		dataset.setColors(ColorTemplate.COLORFUL_COLORS);
 		BarData data = new BarData(labels, dataset);
 		
-        mChart.setData(data);
+		if(byDay){
+			mChartProductByDay.setData(data);
+		} else {
+			mChartProductByMonth.setData(data);
+		}
     }
 
 	@Override
