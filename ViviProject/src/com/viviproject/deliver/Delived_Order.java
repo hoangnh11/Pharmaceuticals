@@ -3,10 +3,12 @@ package com.viviproject.deliver;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,9 +17,7 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.DelivedOrderAdapter;
-import com.viviproject.adapter.OrderListAdapter;
 import com.viviproject.core.ItemDelivedOrder;
-import com.viviproject.core.ItemOrderList;
 import com.viviproject.entities.EnCustomer;
 
 public class Delived_Order extends Activity implements OnClickListener{
@@ -26,7 +26,10 @@ public class Delived_Order extends Activity implements OnClickListener{
 	
 	private ImageView imgBackToTop, imgSearchTop;	
 	private ListView lvOrder;
-	private EditText edtSearch;
+	private EditText edtSearch, edtContent;
+	private Dialog dialog;
+	private Button btnOk, btnCancel;
+	
 	private DelivedOrderAdapter delivedOrderAdapter;
 	private ArrayList<EnCustomer> listDelivedOrder;
 	private EnCustomer enDelivedOrder;
@@ -36,6 +39,9 @@ public class Delived_Order extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delived_order);
+		dialog = new Dialog(this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.dialog_cancel_order_layout);
 		listDelivedOrder = new ArrayList<EnCustomer>();
 		items = new EnCustomer();
 		enDelivedOrder = new EnCustomer();
@@ -70,6 +76,12 @@ public class Delived_Order extends Activity implements OnClickListener{
 		
 		edtSearch = (EditText) findViewById(R.id.edtSearch);
 		edtSearch.clearComposingText();
+		
+		edtContent = (EditText) dialog.findViewById(R.id.edtContent);
+		btnOk = (Button) dialog.findViewById(R.id.btnOk);
+		btnOk.setOnClickListener(this);
+		btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+		btnCancel.setOnClickListener(this);
 			
 		lvOrder = (ListView) findViewById(R.id.lvOrder);
 		
@@ -93,7 +105,15 @@ public class Delived_Order extends Activity implements OnClickListener{
 			
 		case R.id.imgBackToTop:
 			lvOrder.setSelectionAfterHeaderView();
-			break;	
+			break;
+			
+		case R.id.btnOk:
+			dialog.dismiss();
+			break;
+			
+		case R.id.btnCancel:
+			dialog.dismiss();
+			break;
 			
 		default:
 			break;
@@ -106,7 +126,8 @@ public class Delived_Order extends Activity implements OnClickListener{
         public void onClick(View v)
         {
         	int position = ((ItemDelivedOrder) v).get_position();
-            items = listDelivedOrder.get(position);            
+            items = listDelivedOrder.get(position);
+            dialog.show();
         }
     };   
 }

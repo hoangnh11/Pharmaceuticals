@@ -9,18 +9,14 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 
-public class ChangeOrderActivity extends Activity implements OnClickListener{
-	
+public class OrderImportActivity extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
-	
-	private TextView tvCreateOrder;	
-	private LinearLayout linSubCreateOrder;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.change_order);
+		setContentView(R.layout.order_import_layout);
 		initLayout();
 	}
 	
@@ -30,11 +26,11 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 		linBack.setVisibility(View.VISIBLE);
 		
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
-		tvHeader.setText(getResources().getString(R.string.ORDER_CHANGE));
+		tvHeader.setText(getResources().getString(R.string.PRODUCT_IMPORT));
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
-		linSearch.setOnClickListener(this);	
+		linSearch.setOnClickListener(this);
 		linSearch.setVisibility(View.VISIBLE);
 		
 		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
@@ -42,11 +38,8 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 		linUpdate.setVisibility(View.VISIBLE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
-		linRefresh.setOnClickListener(this);
+		linRefresh.setOnClickListener(this);	
 	
-		tvCreateOrder = (TextView) findViewById(R.id.tvCreateOrder);
-		tvCreateOrder.setOnClickListener(this);	
-		linSubCreateOrder = (LinearLayout) findViewById(R.id.linSubCreateOrder);
 	}
 	
 	@Override
@@ -56,19 +49,9 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 			finish();
 			break;
 	
-		case R.id.tvCreateOrder:
-			if (linSubCreateOrder.getVisibility() == View.GONE) {
-				tvCreateOrder.setBackgroundResource(R.color.BG_GRAY9E);
-				linSubCreateOrder.setVisibility(View.VISIBLE);
-			} else {
-				linSubCreateOrder.setVisibility(View.GONE);
-				tvCreateOrder.setBackgroundResource(R.color.BLUE);
-			}
-			break;	
 			
 		default:
 			break;
 		}
 	}
-
 }
