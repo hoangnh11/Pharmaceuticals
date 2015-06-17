@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.viviproject.customerline.CreateCustormer;
 import com.viviproject.customerline.ListCustomer;
+import com.viviproject.deliver.Delived_Order;
 import com.viviproject.deliver.OrderActivity;
 import com.viviproject.gimic.AcGimicMangager;
 import com.viviproject.overview.CoverProductReport;
@@ -243,7 +244,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 		
 		case R.id.linDelivedOrder:
-			
+			intent = new Intent(this, Delived_Order.class);
+			startActivity(intent);
 			break;	
 			
 		case R.id.linProductImport:

@@ -39,6 +39,8 @@
         <activity android:name="com.viviproject.visit.PlaceOrderActivity" />
         <activity android:name="com.viviproject.visit.GiveGimic" />
         <activity android:name="com.viviproject.visit.FeedbackActivity" />
+        <activity android:name="com.viviproject.deliver.ChangeOrderActivity" />
+        <activity android:name="com.viviproject.deliver.Delived_Order" />
         <activity
             android:name="com.viviproject.deliver.OrderActivity"
             android:windowSoftInputMode="stateHidden" />

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/WHITE"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/BG_LIGHT_GREEN1"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp" >
+
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_edittext"
+            android:hint="@string/BLANK"
+            android:inputType="textNoSuggestions"
+            android:padding="4dp"
+            android:textColorHighlight="@color/WHITE" />
+
+        <ImageView
+            android:id="@+id/imgSearchTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_blue_gray"
+            android:contentDescription="@string/BLANK"
+            android:padding="4dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_search" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/WHITE"
+            android:text="@string/TWENTY_FOUR_HOUR_LATER"
+            android:textColor="@color/TEXT_COLOR_GREY"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/list_division" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/lvOrder"
+            style="@style/NormalListView"
+            android:background="@color/WHITE"
+            android:fadingEdge="none"
+            android:scrollbarSize="3dp" />
+
+        <ImageView
+            android:id="@+id/imgBackToTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/bg_img"
+            android:contentDescription="@string/BLANK"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_top" />
+    </FrameLayout>
+
+</LinearLayout>

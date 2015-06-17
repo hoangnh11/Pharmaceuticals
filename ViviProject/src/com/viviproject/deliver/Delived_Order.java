@@ -14,31 +14,31 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.adapter.DelivedOrderAdapter;
 import com.viviproject.adapter.OrderListAdapter;
+import com.viviproject.core.ItemDelivedOrder;
 import com.viviproject.core.ItemOrderList;
 import com.viviproject.entities.EnCustomer;
-import com.viviproject.ultilities.Logger;
 
-public class OrderActivity extends Activity implements OnClickListener{
-	
+public class Delived_Order extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	
 	private ImageView imgBackToTop, imgSearchTop;	
 	private ListView lvOrder;
 	private EditText edtSearch;
-	private OrderListAdapter orderListAdapter;
-	private ArrayList<EnCustomer> listOrder;
-	private EnCustomer enOrder;
+	private DelivedOrderAdapter delivedOrderAdapter;
+	private ArrayList<EnCustomer> listDelivedOrder;
+	private EnCustomer enDelivedOrder;
 	private EnCustomer items;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.order_list_layout);
-		listOrder = new ArrayList<EnCustomer>();
+		setContentView(R.layout.delived_order);
+		listDelivedOrder = new ArrayList<EnCustomer>();
 		items = new EnCustomer();
-		enOrder = new EnCustomer();
+		enDelivedOrder = new EnCustomer();
 		initLayout();
 	}
 	
@@ -48,7 +48,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 		linBack.setVisibility(View.VISIBLE);
 		
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
-		tvHeader.setText(getResources().getString(R.string.ORDER_LIST));
+		tvHeader.setText(getResources().getString(R.string.DELIVED_ORDER));
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
@@ -74,15 +74,14 @@ public class OrderActivity extends Activity implements OnClickListener{
 		lvOrder = (ListView) findViewById(R.id.lvOrder);
 		
 		for (int i = 0; i < 10; i++) {
-			enOrder = new EnCustomer();
-			enOrder.setId(i + 1);
-			listOrder.add(enOrder);
+			enDelivedOrder = new EnCustomer();
+			enDelivedOrder.setId(i + 1);
+			listDelivedOrder.add(enDelivedOrder);
 		}
 		
-		orderListAdapter = new OrderListAdapter(this, listOrder);
-		orderListAdapter.setOnItemClickHandler(onItemClickHandler);
-		orderListAdapter.setOnCheckboxItemClickHandler(onCheckboxClickHandler);
-		lvOrder.setAdapter(orderListAdapter);
+		delivedOrderAdapter = new DelivedOrderAdapter(this, listDelivedOrder);
+		delivedOrderAdapter.setOnItemClickHandler(onItemClickHandler);		
+		lvOrder.setAdapter(delivedOrderAdapter);
 	}
 	
 	@Override
@@ -102,27 +101,12 @@ public class OrderActivity extends Activity implements OnClickListener{
 	}
 	
 	OnClickListener onItemClickHandler = new OnClickListener() 
-	{
-		Intent intent;
-		
+	{		
         @Override
         public void onClick(View v)
         {
-        	int position = ((ItemOrderList) v).get_position();
-            items = listOrder.get(position);
-            intent = new Intent(OrderActivity.this, ChangeOrderActivity.class);
-            startActivity(intent);
+        	int position = ((ItemDelivedOrder) v).get_position();
+            items = listDelivedOrder.get(position);            
         }
-    };
-    
-    OnClickListener onCheckboxClickHandler = new OnClickListener() 
-	{
-    	@Override
-        public void onClick(View v)
-        {
-        	int position = ((ItemOrderList) v).get_position();
-            items = listOrder.get(position);
-            Logger.error(":             "+position);
-        }
-    };
+    };   
 }
