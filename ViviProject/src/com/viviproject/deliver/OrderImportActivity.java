@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,10 @@ import com.viviproject.R;
 public class OrderImportActivity extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
+	
+	private TextView tvConfirm;
+	private LinearLayout linSubConfirm;
+	private EditText edtContent;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -40,6 +45,11 @@ public class OrderImportActivity extends Activity implements OnClickListener{
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);	
 	
+		tvConfirm = (TextView) findViewById(R.id.tvConfirm);
+		tvConfirm.setOnClickListener(this);
+		linSubConfirm = (LinearLayout) findViewById(R.id.linSubConfirm);
+		
+		edtContent = (EditText) findViewById(R.id.edtContent);
 	}
 	
 	@Override
@@ -48,7 +58,16 @@ public class OrderImportActivity extends Activity implements OnClickListener{
 		case R.id.linBack:
 			finish();
 			break;
-	
+			
+		case R.id.tvConfirm:
+			if (linSubConfirm.getVisibility() == View.GONE) {
+				tvConfirm.setBackgroundResource(R.color.BLUE);
+				linSubConfirm.setVisibility(View.VISIBLE);
+			} else {
+				tvConfirm.setBackgroundResource(R.color.BG_GRAY9E);
+				linSubConfirm.setVisibility(View.GONE);
+			}
+			break;
 			
 		default:
 			break;
