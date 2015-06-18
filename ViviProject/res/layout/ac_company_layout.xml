@@ -9,6 +9,7 @@
 	    layout="@layout/header_layout"/>
 	    
 	<ScrollView
+	    android:id="@+id/scrollViewCompany"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent">
 	    
@@ -52,12 +53,12 @@
 				<!-- layout buton sumenh tam nhin -->
 				<LinearLayout
 				    android:id="@+id/linButonSuMenhTamNhin"
-				    android:layout_width="wrap_content"
+				    android:layout_width="150dp"
 				    android:layout_height="wrap_content"
 				    android:layout_alignParentBottom="true"
 				    android:layout_alignParentLeft="true"
 				    android:gravity="center_vertical"
-				    android:background="@drawable/bg_button_expand_blue"
+				    android:background="@drawable/bg_button_expand_blue_press"
 				    android:orientation="horizontal">
 				    
 				    <TextView 
@@ -97,6 +98,7 @@
 	        
 	        <!-- layout lich su phat trien -->
 	        <LinearLayout 
+	            android:id="@+id/linLichSuPhatTrienBody"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:orientation="vertical"
@@ -105,7 +107,7 @@
 	            <!-- layout buton Lich su phat trien -->
 				<LinearLayout
 				    android:id="@+id/linButonLichSuPhatTrien"
-				    android:layout_width="wrap_content"
+				    android:layout_width="150dp"
 				    android:layout_height="wrap_content"
 				    android:layout_alignParentBottom="true"
 				    android:layout_alignParentLeft="true"
@@ -132,7 +134,7 @@
 				        android:orientation="horizontal"
 				        android:layout_marginRight="5dp"
 				        android:paddingLeft="10dp"
-				        android:gravity="right">
+				        android:gravity="end">
 				        
 				        <ImageView 
 				            android:layout_width="wrap_content"
@@ -159,7 +161,7 @@
 	            <!-- layout buton chien luoc kinh doanh -->
 				<LinearLayout
 				    android:id="@+id/linButonChienLuocKinhDoanh"
-				    android:layout_width="wrap_content"
+				    android:layout_width="150dp"
 				    android:layout_height="wrap_content"
 				    android:layout_alignParentBottom="true"
 				    android:layout_alignParentLeft="true"
