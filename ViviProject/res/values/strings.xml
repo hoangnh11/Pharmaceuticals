@@ -211,7 +211,23 @@
     <string name="fullscreen_tutorial">This is a demo which shows how to handle fullscreen behaviour. This activity has differents layouts for portrait, landscape and fullscreen. The user can enter fullscreen either by using the player controller or programmatically by the programmer (here using a button). If your activity does not have a landscape layout, you can choose to automatically enter fullscreen when the device is rotated to landscape orientation.</string>
     <string name="enter_fullscreen">Enter Fullscreen</string>
     <string name="landscape_fullscreen">Always fullscreen in landscape</string>
+    <string name="TITLE_PHARMACIER_NAME">Họ và tên:</string>
+    <string name="TITLE_PHARMACIER_QUALIFICATION">Trình độ học vấn:</string>
+    <string name="TITLE_WORKING_TIME">Thời gian bắt đầu làm việc tại công ty:</string>
+    <string name="TITLE_WORKING_POSITION">Vị trí công việc: ASM Phòng:</string>
+    <string name="TITLE_LIFE_OPINION">Quan điểm sống:</string>
+    <string name="TITLE_WORK_OPINION">Quan điểm nghề nghiệp:</string>
+    <string name="TITLE_MUC_TIEU_CONG_VIEC">Mục tiêu công việc:</string>
+    <string name="TITLE_LINK_WEB">Link đến website:</string>
     
+    <string name="EXAMPLE_TRUONG_NHU_HO">Trương Như Hổ</string>
+    <string name="EXAMPLE_TIME">01/08/2012</string>
+    <string name="EXAMPLE_POSITION">Trưởng nhóm đội Bạch Hổ</string>
+    <string name="EXAMPLE_WORK_OPINION">Thẳng thắn, khách quan</string>
+    <string name="EXAMPLE_LIFE_OPINION">Ghét sự giả dối, thích trung thực</string>
+    <string name="EXAMPLE_DUOC_SY_TRUNG_CAP">Dược sỹ trung cấp</string>
+    <string name="EXAMPLE_LINK_WEB">http://tmp.vn/our-people/le-van-minh</string>
+    <string name="EXAMPLE_MUC_TIEU_CONG_VIEC">Làm việc cống hiến vì sự phát triển và đưa thương hiệu, hình ảnh của công ty Thái Minh lên một tầm cao mới</string>
     <!-- ================================= Quan ly GIMIC screen ================================ -->
 	<string name="TEXT_PEN">Bút</string>
 	<string name="TEXT_MAGAZIN">Tạp chí</string>

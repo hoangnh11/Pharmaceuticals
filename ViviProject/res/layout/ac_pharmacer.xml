@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
                     android:textColor="@color/BLACK"
-                    android:text="Họ và tên: Trương Như Hổ"/>
+                    android:text="@string/BLANK"/>
                 
                 <TextView 
                     android:id="@+id/tvQualification"
@@ -49,7 +49,7 @@
                     android:layout_marginTop="5dp"
                     android:textSize="12sp"
                     android:textColor="@color/BLACK"
-                    android:text="Trình độ học vấn: Dược sỹ trung cấp"/>
+                    android:text="@string/BLANK"/>
                 
                 <TextView 
                     android:id="@+id/tvWorkTime"
@@ -58,7 +58,7 @@
                     android:layout_marginTop="5dp"
                     android:textSize="12sp"
                     android:textColor="@color/BLACK"
-                    android:text="Thời gian bắt đầu làm việc tại công ty: 01/08/2012"/>
+                    android:text="@string/BLANK"/>
                 
                 <TextView 
                     android:id="@+id/tvWorkPosition"
@@ -67,7 +67,7 @@
                     android:layout_marginTop="5dp"
                     android:textSize="12sp"
                     android:textColor="@color/BLACK"
-                    android:text="Vị trí công việc: ASM Phòng: Trưởng nhóm đội Bạch Hổ"/>
+                    android:text="@string/BLANK"/>
                 
                 <TextView 
                     android:id="@+id/tvLifeOpinion"
@@ -76,7 +76,7 @@
                     android:layout_marginTop="5dp"
                     android:textSize="12sp"
                     android:textColor="@color/BLACK"
-                    android:text="Quan điểm sống: ghét sự giả dối, thích trung thực"/>
+                    android:text="@string/BLANK"/>
                 
                 <TextView 
                     android:id="@+id/tvCarrierOpinion"
@@ -85,7 +85,7 @@
                     android:layout_marginTop="5dp"
                     android:textSize="12sp"
                     android:textColor="@color/BLACK"
-                    android:text="Quan điểm nghề nghiệp: thẳng thắn, khách quan"/>
+                    android:text="@string/BLANK"/>
             </LinearLayout>
         </LinearLayout>
         
@@ -105,6 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:autoLink="web"
             android:text="Link đến website:\n http://tmp.vn/our-people/le-van-minh"
             android:textColor="@color/BLACK"
             android:textSize="12sp" />
