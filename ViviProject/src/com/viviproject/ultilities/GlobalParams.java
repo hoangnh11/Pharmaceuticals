@@ -33,6 +33,8 @@ public final class GlobalParams {
     public static final String THREE_SHARPS_CHARACTER = "###"; 
     public static final String BLANK_CHARACTER = "";
     
+    public static final String EXTRA_IMAGE_PATH = "com.viviproject.EXTRA_IMAGE_PATH";
+    public static final String EXTRA_IMAGE_ORIENTATION = "EXTRA_IMAGE_ORIENTATION";
     public static final int GALERRY_GET_IMAGE = 4;
     public static final String SPLASH_STRING = "/";    
     public static final int THUMBNAIL_SIZE = 160;
