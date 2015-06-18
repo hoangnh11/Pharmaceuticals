@@ -211,9 +211,15 @@
     <string name="fullscreen_tutorial">This is a demo which shows how to handle fullscreen behaviour. This activity has differents layouts for portrait, landscape and fullscreen. The user can enter fullscreen either by using the player controller or programmatically by the programmer (here using a button). If your activity does not have a landscape layout, you can choose to automatically enter fullscreen when the device is rotated to landscape orientation.</string>
     <string name="enter_fullscreen">Enter Fullscreen</string>
     <string name="landscape_fullscreen">Always fullscreen in landscape</string>
+    
     <!-- ================================= Quan ly GIMIC screen ================================ -->
-
-
+	<string name="TEXT_PEN">Bút</string>
+	<string name="TEXT_MAGAZIN">Tạp chí</string>
+	<string name="TEXT_CLOCK">Đồng hồ</string>
+	<string name="TEXT_WATER_BOTTLE">Bình nước</string>
+	
+	<string name="EXAMPLE_DRUG_STORE">Nhà thuốc Quỳnh Lan</string>
+	<string name="EXAMPLE_DRUG_STORE_ADDRESS">số 32 Ngọc Khánh, Ba Đình, HN</string>
     <!-- ================================= Bao cao screen ================================ -->
     <string name="SUM_PROFIT">Tổng doanh số</string>
     <string name="PROFIT_FOLLOW_CUSTOMER">Doanh số theo khách hàng</string>

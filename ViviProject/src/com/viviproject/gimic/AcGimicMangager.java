@@ -65,17 +65,17 @@ public class AcGimicMangager extends Activity implements OnClickListener{
 
 	private void initSampleData() {
 		//statistic
-		listGimicStatistic.add(new EnGimicStatistic("Bút", 150, 80, 70));
-		listGimicStatistic.add(new EnGimicStatistic("Tạp chí", 30, 10, 20));
-		listGimicStatistic.add(new EnGimicStatistic("Đồng hồ", 30, 30, 0));
-		listGimicStatistic.add(new EnGimicStatistic("Bình nước", 30, 0, 30));
+		listGimicStatistic.add(new EnGimicStatistic(getResources().getString(R.string.TEXT_PEN), 150, 80, 70));
+		listGimicStatistic.add(new EnGimicStatistic(getResources().getString(R.string.TEXT_MAGAZIN), 30, 10, 20));
+		listGimicStatistic.add(new EnGimicStatistic(getResources().getString(R.string.TEXT_CLOCK), 30, 30, 0));
+		listGimicStatistic.add(new EnGimicStatistic(getResources().getString(R.string.TEXT_WATER_BOTTLE), 30, 0, 30));
 		
-		listGimicCustomerLists.add(new EnGimicCustomerList("Nhà thuốc Quỳnh Lan", "số 132 Ngọc Khánh, Ba Đình", 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList("Nhà thuốc Quỳnh Lan", "số 132 Ngọc Khánh, Ba Đình", 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList("Nhà thuốc Quỳnh Lan", "số 132 Ngọc Khánh, Ba Đình", 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList("Nhà thuốc Quỳnh Lan", "số 132 Ngọc Khánh, Ba Đình", 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList("Nhà thuốc Quỳnh Lan", "số 132 Ngọc Khánh, Ba Đình", 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList("Nhà thuốc Quỳnh Lan", "số 132 Ngọc Khánh, Ba Đình", 5, 2, 0, 1));
+		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
+		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
+		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
+		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
+		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
+		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
 	}
 
 	@Override
