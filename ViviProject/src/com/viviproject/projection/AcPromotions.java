@@ -60,10 +60,10 @@ public class AcPromotions extends FragmentActivity implements OnClickListener{
 		promotionsIndicator = (TabPageIndicator) findViewById(R.id.promotions_title_indicator);
 		
 		listFrgPromotion = new ArrayList<Fragment>();
-		listFrgPromotion.add(FrgPromotions.newInstance(getApplicationContext(), "Tích điểm"));
-		listFrgPromotion.add(FrgPromotions.newInstance(getApplicationContext(), "Chiết khấu"));
-		listFrgPromotion.add(FrgPromotions.newInstance(getApplicationContext(), "KM khác"));
-		listFrgPromotion.add(FrgPromotions.newInstance(getApplicationContext(), "KM theo SP"));
+		listFrgPromotion.add(FrgPromotions.newInstance(getApplicationContext(), getResources().getString(R.string.TEXT_EARN_POINTS)));
+		listFrgPromotion.add(FrgPromotions.newInstance(getApplicationContext(), getResources().getString(R.string.TEXT_DISCOUNT)));
+		listFrgPromotion.add(FrgPromotions.newInstance(getApplicationContext(), getResources().getString(R.string.TEXT_ORTHER_PROMOTION)));
+		listFrgPromotion.add(FrgPromotions.newInstance(getApplicationContext(), getResources().getString(R.string.TEXT_PROMOTION_FOR_PRODUCT)));
 		adapterFrgPromotion = new AdapterFrgPromotions(getSupportFragmentManager(), listFrgPromotion);
 		promotionsPager.setAdapter(adapterFrgPromotion);
 		promotionsIndicator.setViewPager(promotionsPager);
