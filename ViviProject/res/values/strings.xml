@@ -63,9 +63,12 @@
     <string name="PROFIT_VND">Doanh số\n(ngàn đồng)</string>
     <string name="TPL">TPL</string>
     <string name="TPL_PLUS">TPL - Plus</string>
+    <string name="TPL_PLUS1">TPL Plus</string>
     <string name="MAXXHAIR">Maxxhair</string>
+    <string name="MXH">MXH</string>
     <string name="NIEU_BAO">Niệu bảo</string>
     <string name="TPL_FAST">TPL - Fast</string>
+    <string name="TPL_FAST1">TPL Fast</string>
     <string name="CUSTOMER_NEED_VISIT">Số KH cần\nghé thăm</string>
     <string name="CUSTOMER_VISITED">Số KH đã\nghé thăm</string>
     <string name="COVER_PRODUCT">Độ phủ sản phẩm</string>

@@ -193,13 +193,13 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		entries.add(new BarEntry(80f, 4));
 		
 		ArrayList<String> labels = new ArrayList<String>();
-		labels.add("TPL"); 
-		labels.add("TPL Plus"); 
-		labels.add("TPL Fast"); 
-		labels.add("MXH"); 
-		labels.add("Niệu bảo");
+		labels.add(getResources().getString(R.string.TPL)); 
+		labels.add(getResources().getString(R.string.TPL_PLUS1)); 
+		labels.add(getResources().getString(R.string.TPL_FAST1)); 
+		labels.add(getResources().getString(R.string.MXH)); 
+		labels.add(getResources().getString(R.string.NIEU_BAO));
 		
-		BarDataSet dataset = new BarDataSet(entries, "Doanh số");
+		BarDataSet dataset = new BarDataSet(entries, getResources().getString(R.string.PROFIT));
 		dataset.setColors(ColorTemplate.COLORFUL_COLORS);
 		BarData data = new BarData(labels, dataset);
 		
