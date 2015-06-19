@@ -46,6 +46,13 @@
                     android:textSize="13sp"
                     android:textColor="@color/TEXT_COLOR_SKYBLUE1"
                     android:text="Từ 15/3/2015 - 15/4/2015"/>
+                
+                <ImageView 
+		            android:id="@+id/imgIconCalendar"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="10dp"
+		            android:src="@drawable/ic_calenda"/>
             </LinearLayout>
             
             <!-- layout list statistic  -->
@@ -172,6 +179,13 @@
                     android:textSize="13sp"
                     android:textColor="@color/TEXT_COLOR_SKYBLUE1"
                     android:text="Từ 15/3/2015 - 15/4/2015"/>
+                
+                <ImageView 
+		            android:id="@+id/imgIconCalendarCusomer"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="10dp"
+		            android:src="@drawable/ic_calenda"/>
             </LinearLayout>
             
             <!-- layout list customer  -->

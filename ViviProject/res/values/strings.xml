@@ -253,4 +253,5 @@
 	<string name="SALES_STATISTIC">Thống kê doanh số</string>
 	<string name="PROFIT_BY_DAY">Doanh số theo ngày</string>
 	<string name="PROFIT_BY_MONTH">Doanh số trong tháng</string>
+	<string name="CURRENT_DEFAUT">(Mặc định hiện tại)</string>
 </resources>
