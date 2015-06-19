@@ -1,18 +1,31 @@
 package com.viviproject.reports;
 
-import com.viviproject.R;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class AcTotalSales extends Activity implements OnClickListener{
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
+import com.viviproject.R;
+
+public class AcTotalSales extends FragmentActivity implements OnClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
+	private ImageView imgCalenDa;
+	
+	private CaldroidListener listener;
+	private SimpleDateFormat formatter;
+	private CaldroidFragment dialogCaldroidFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +56,8 @@ public class AcTotalSales extends Activity implements OnClickListener{
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
 		
+		imgCalenDa = (ImageView) findViewById(R.id.imgIconCalendar);
+		imgCalenDa.setOnClickListener(this);
 	}
 
 	@Override
@@ -51,11 +66,50 @@ public class AcTotalSales extends Activity implements OnClickListener{
 		case R.id.linBack:
 			AcTotalSales.this.finish();
 			break;
-
+			
+		case R.id.imgIconCalendar:
+			showCalender();
+			break;
+			
 		default:
 			break;
 		}
 		
 	}
 	
+	private void showCalender() {
+		formatter = new SimpleDateFormat("yyyy-MM-dd");
+		listener = new CaldroidListener() {
+
+			@Override
+			public void onSelectDate(Date date, View view) {
+				dialogCaldroidFragment.dismiss();
+				
+			}
+
+			@Override
+			public void onChangeMonth(int month, int year) {
+			}
+
+			@Override
+			public void onLongClickDate(Date date, View view) {
+			}
+
+			@Override
+			public void onCaldroidViewCreated() {
+				if (dialogCaldroidFragment.getLeftArrowButton() != null) {
+				}
+			}
+
+			@Override
+			public void onNothingSelected() {
+			}
+
+		};
+		
+		dialogCaldroidFragment = new CaldroidFragment();
+		dialogCaldroidFragment.setCaldroidListener(listener);
+		dialogCaldroidFragment.show(getSupportFragmentManager(),
+				"CalenderAndroid");
+	}
 }
