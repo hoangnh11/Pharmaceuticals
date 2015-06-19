@@ -52,4 +52,5 @@
 	<color name="BG_LIGHT_GREEN">#DCF4D3</color>
 	<color name="BG_LIGHT_GREEN1">#e3f1ff</color>
 	<color name="TEXT_COLOR_GREEN">#2b9c00</color>
+	<color name="MAP_TRANSPARENT_BLACK">#88000000</color>
 </resources>

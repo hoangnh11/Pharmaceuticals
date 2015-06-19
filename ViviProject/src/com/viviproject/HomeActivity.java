@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.viviproject.customerline.CreateCustormer;
 import com.viviproject.customerline.ListCustomer;
+import com.viviproject.customerline.MapActivity;
 import com.viviproject.deliver.Delived_Order;
 import com.viviproject.deliver.OrderActivity;
 import com.viviproject.deliver.OrderImportActivity;
@@ -214,7 +215,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;	
 			
 		case R.id.linMap:
-			
+			intent = new Intent(this, MapActivity.class);
+			startActivity(intent);
 			break;
 			
 		case R.id.linCreateNewCustomer:
