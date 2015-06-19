@@ -91,7 +91,7 @@ public class AdapterProjectionGridClip extends BaseAdapter {
 		final ViewHolder holder;
 		View view = convertView;
 		if (view == null) {
-			view = inflater.inflate(R.layout.item_grid_product, parent, false);
+			view = inflater.inflate(R.layout.item_grid_clip, parent, false);
 			holder = new ViewHolder();
 			assert view != null;
 			holder.imageView = (ImageView) view.findViewById(R.id.product_image);

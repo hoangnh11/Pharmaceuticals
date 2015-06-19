@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Small"
-        android:text="Video name"/>
+        android:text="Phần thi mis Thái Minh - phòng chuyên môn"/>
 
     <CheckBox
         android:id="@+id/landscape_fullscreen_checkbox"
