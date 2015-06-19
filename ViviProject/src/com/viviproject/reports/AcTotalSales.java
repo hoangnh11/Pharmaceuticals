@@ -3,6 +3,7 @@ package com.viviproject.reports;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -77,6 +78,7 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 		
 	}
 	
+	@SuppressLint("SimpleDateFormat")
 	private void showCalender() {
 		formatter = new SimpleDateFormat("yyyy-MM-dd");
 		listener = new CaldroidListener() {

@@ -1,15 +1,19 @@
 package com.viviproject.reports;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,16 +32,23 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Highlight;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 import com.viviproject.R;
 
-public class AcSalesChart extends Activity implements OnClickListener, OnChartValueSelectedListener{
+public class AcSalesChart extends FragmentActivity implements OnClickListener, OnChartValueSelectedListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
 	private BarChart mChartProductByDay;
 	private BarChart mChartProductByMonth;
-	
 	private Spinner spMonth, spYear;
+	private ImageView imgIconCalendar;
+	
+	private CaldroidListener listener;
+	private SimpleDateFormat formatter;
+	private CaldroidFragment dialogCaldroidFragment;
+	
 	private List<String> listMonth, listYear;
 	
 	@Override
@@ -69,6 +80,9 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
+		
+		imgIconCalendar = (ImageView) findViewById(R.id.imgIconCalendar);
+		imgIconCalendar.setOnClickListener(this);
 		
 		spMonth = (Spinner) findViewById(R.id.spMonth);
 		String[] month = getResources().getStringArray(R.array.month);
@@ -202,7 +216,11 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
 		case R.id.linBack:
 			AcSalesChart.this.finish();
 			break;
-
+			
+		case R.id.imgIconCalendar:
+			showCalender();
+			break;
+			
 		default:
 			break;
 		}
@@ -217,5 +235,42 @@ public class AcSalesChart extends Activity implements OnClickListener, OnChartVa
 	@Override
 	public void onNothingSelected() {
 		
+	}
+	
+	@SuppressLint("SimpleDateFormat")
+	private void showCalender() {
+		formatter = new SimpleDateFormat("yyyy-MM-dd");
+		listener = new CaldroidListener() {
+
+			@Override
+			public void onSelectDate(Date date, View view) {
+				dialogCaldroidFragment.dismiss();
+				
+			}
+
+			@Override
+			public void onChangeMonth(int month, int year) {
+			}
+
+			@Override
+			public void onLongClickDate(Date date, View view) {
+			}
+
+			@Override
+			public void onCaldroidViewCreated() {
+				if (dialogCaldroidFragment.getLeftArrowButton() != null) {
+				}
+			}
+
+			@Override
+			public void onNothingSelected() {
+			}
+
+		};
+		
+		dialogCaldroidFragment = new CaldroidFragment();
+		dialogCaldroidFragment.setCaldroidListener(listener);
+		dialogCaldroidFragment.show(getSupportFragmentManager(),
+				"CalenderAndroid");
 	}
 }

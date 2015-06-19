@@ -1,16 +1,22 @@
 package com.viviproject.reports;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 import com.viviproject.R;
 import com.viviproject.adapter.AdapterProfitFollowCustomer;
 import com.viviproject.entities.EnCustomer;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView.OnItemClickListener;
@@ -22,13 +28,18 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class AcProfitFollowCustomer extends Activity implements OnClickListener, OnItemClickListener{
+public class AcProfitFollowCustomer extends FragmentActivity implements OnClickListener, OnItemClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
 	private ListView lvProfitFollowCustomer;
 	private ImageView imgBackToTop;
 	private Spinner spProductProfitView, spSortType;
+	private ImageView imgIconCalendar;
+	
+	private CaldroidListener listener;
+	private SimpleDateFormat formatter;
+	private CaldroidFragment dialogCaldroidFragment;
 	
 	private ArrayList<EnCustomer> listCustomer = new ArrayList<EnCustomer>();
 	private List<String> listProductProfit = new ArrayList<String>();
@@ -63,6 +74,9 @@ public class AcProfitFollowCustomer extends Activity implements OnClickListener,
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
+		
+		imgIconCalendar = (ImageView) findViewById(R.id.imgIconCalendar);
+		imgIconCalendar.setOnClickListener(this);
 		
 		spSortType = (Spinner) findViewById(R.id.spSortType);
 		String[] sort_type = getResources().getStringArray(R.array.sort_type);
@@ -102,6 +116,10 @@ public class AcProfitFollowCustomer extends Activity implements OnClickListener,
 			lvProfitFollowCustomer.setSelectionAfterHeaderView();
 			break;
 			
+		case R.id.imgIconCalendar:
+			showCalender();
+			break;
+			
 		default:
 			break;
 		}
@@ -113,5 +131,42 @@ public class AcProfitFollowCustomer extends Activity implements OnClickListener,
 			long id) {
 		Intent i = new Intent(AcProfitFollowCustomer.this, AcSalesOnCustomer.class);
 		startActivity(i);
+	}
+	
+	@SuppressLint("SimpleDateFormat")
+	private void showCalender() {
+		formatter = new SimpleDateFormat("yyyy-MM-dd");
+		listener = new CaldroidListener() {
+
+			@Override
+			public void onSelectDate(Date date, View view) {
+				dialogCaldroidFragment.dismiss();
+				
+			}
+
+			@Override
+			public void onChangeMonth(int month, int year) {
+			}
+
+			@Override
+			public void onLongClickDate(Date date, View view) {
+			}
+
+			@Override
+			public void onCaldroidViewCreated() {
+				if (dialogCaldroidFragment.getLeftArrowButton() != null) {
+				}
+			}
+
+			@Override
+			public void onNothingSelected() {
+			}
+
+		};
+		
+		dialogCaldroidFragment = new CaldroidFragment();
+		dialogCaldroidFragment.setCaldroidListener(listener);
+		dialogCaldroidFragment.show(getSupportFragmentManager(),
+				"CalenderAndroid");
 	}
 }
