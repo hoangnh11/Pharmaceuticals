@@ -33,6 +33,7 @@
     <color name="GREY_BACKGROUND_SCREEN">#e6e6e6</color>
     <color name="GREY_BACKGROUND_IMAGE">#cccccc</color>
     <color name="GREY_TEXT_IMAGE">#9c9c9c</color>
+    <color name="GREY_TEXT_IMAGE_ALPHA">#CC9c9c9c</color>
     <color name="GREY_TEXT_COLOR">#636363</color>
     <color name="BG_HEADER">#74ce52</color>
     <color name="BLUE_SKY">#ddeaf7</color>

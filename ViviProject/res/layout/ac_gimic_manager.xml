@@ -52,7 +52,9 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_marginLeft="10dp"
-		            android:src="@drawable/ic_calenda"/>
+		            android:padding="5dp"
+		            android:background="@drawable/bg_img_calendar"
+		            android:src="@drawable/ic_calenda_new"/>
             </LinearLayout>
             
             <!-- layout list statistic  -->
@@ -185,7 +187,9 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_marginLeft="10dp"
-		            android:src="@drawable/ic_calenda"/>
+		            android:padding="5dp"
+		            android:background="@drawable/bg_img_calendar"
+		            android:src="@drawable/ic_calenda_new"/>
             </LinearLayout>
             
             <!-- layout list customer  -->
