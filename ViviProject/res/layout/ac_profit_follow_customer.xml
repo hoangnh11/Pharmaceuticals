@@ -114,6 +114,16 @@
             </LinearLayout>
         </LinearLayout>
         
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:gravity="center_vertical"
+            android:textSize="13sp"
+            android:textColor="@color/BLACK"
+            android:text="@string/DEFAULT_SORT_BY_TOP_PROFIT"/>
+        
 		<FrameLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent" 
