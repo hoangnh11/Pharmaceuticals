@@ -39,8 +39,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	private CaldroidFragment dialogCaldroidFragment;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_gimic_manager);
 		initLayout();
@@ -112,7 +111,6 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		default:
 			break;
 		}
-		
 	}
 	
 	@SuppressLint("SimpleDateFormat")
@@ -122,8 +120,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 
 			@Override
 			public void onSelectDate(Date date, View view) {
-				dialogCaldroidFragment.dismiss();
-				
+				dialogCaldroidFragment.dismiss();				
 			}
 
 			@Override
@@ -148,7 +145,6 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		
 		dialogCaldroidFragment = new CaldroidFragment();
 		dialogCaldroidFragment.setCaldroidListener(listener);
-		dialogCaldroidFragment.show(getSupportFragmentManager(),
-				"CalenderAndroid");
+		dialogCaldroidFragment.show(getSupportFragmentManager(), "CalenderAndroid");
 	}
 }

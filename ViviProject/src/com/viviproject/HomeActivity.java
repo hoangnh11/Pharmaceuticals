@@ -178,11 +178,12 @@ public class HomeActivity extends Activity implements OnClickListener{
 
 			break;
 			
-		case R.id.linTongquan:
-			if (linSubTongquan.getVisibility() == View.GONE) {
-				linSubTongquan.setVisibility(View.VISIBLE);
-			} else {
-				linSubTongquan.setVisibility(View.GONE);
+		case R.id.linTongquan:			
+			if (expandLayout(linSubTongquan.getVisibility(), linSubTongquan)) {
+				hideLayout(linSubRoundCustomer);
+				hideLayout(linSubDeliver);
+				hideLayout(linSubProjection);
+				hideLayout(linSubReport);				
 			}
 			break;
 			
@@ -201,11 +202,12 @@ public class HomeActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;	
 			
-		case R.id.linRoundCustomer:
-			if (linSubRoundCustomer.getVisibility() == View.GONE) {
-				linSubRoundCustomer.setVisibility(View.VISIBLE);
-			} else {
-				linSubRoundCustomer.setVisibility(View.GONE);
+		case R.id.linRoundCustomer:			
+			if (expandLayout(linSubRoundCustomer.getVisibility(), linSubRoundCustomer)) {
+				hideLayout(linSubTongquan);
+				hideLayout(linSubDeliver);
+				hideLayout(linSubProjection);
+				hideLayout(linSubReport);				
 			}
 			break;
 			
@@ -233,11 +235,12 @@ public class HomeActivity extends Activity implements OnClickListener{
 			
 			break;
 			
-		case R.id.linDeliver:
-			if (linSubDeliver.getVisibility() == View.GONE) {
-				linSubDeliver.setVisibility(View.VISIBLE);
-			} else {
-				linSubDeliver.setVisibility(View.GONE);
+		case R.id.linDeliver:		
+			if (expandLayout(linSubDeliver.getVisibility(), linSubDeliver)) {
+				hideLayout(linSubTongquan);
+				hideLayout(linSubRoundCustomer);
+				hideLayout(linSubProjection);
+				hideLayout(linSubReport);				
 			}
 			break;
 			
@@ -256,14 +259,13 @@ public class HomeActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;	
 			
-		case R.id.linProjection:		
-			
-			if (linSubProjection.getVisibility() == View.GONE) {
-				linSubProjection.setVisibility(View.VISIBLE);
-			} else {
-				linSubProjection.setVisibility(View.GONE);
+		case R.id.linProjection:
+			if (expandLayout(linSubProjection.getVisibility(), linSubProjection)) {
+				hideLayout(linSubTongquan);
+				hideLayout(linSubRoundCustomer);
+				hideLayout(linSubDeliver);
+				hideLayout(linSubReport);				
 			}
-			
 			break;
 		
 		case R.id.linDiscountProgram:
@@ -297,14 +299,13 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linReport:
-			checkScrollBottom = true;
-			
-			if (linSubReport.getVisibility() == View.GONE) {
-				linSubReport.setVisibility(View.VISIBLE);
-			} else {
-				linSubReport.setVisibility(View.GONE);
+			checkScrollBottom = true;		
+			if (expandLayout(linSubReport.getVisibility(), linSubReport)) {
+				hideLayout(linSubTongquan);
+				hideLayout(linSubRoundCustomer);
+				hideLayout(linSubDeliver);
+				hideLayout(linSubProjection);				
 			}
-			
 			scrollView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 		        @Override
 		        public void onGlobalLayout() {
@@ -337,15 +338,15 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;	
 			
 		case R.id.linPosterCamera:
-			
+
 			break;
 			
 		case R.id.linUnfriendCamera:
-			
+
 			break;	
 			
 		case R.id.linTradeMarketingCamera:
-			
+
 			break;		
 			
 		default:
@@ -353,6 +354,31 @@ public class HomeActivity extends Activity implements OnClickListener{
 		}
 	}
 
+	/**
+	 * Expand layout preferences
+	 * @param visible
+	 * @param lin
+	 * @param tv
+	 */
+	public boolean expandLayout(int visible, LinearLayout lin){		
+		if (visible == View.GONE) {
+			lin.setVisibility(View.VISIBLE);			
+			return true;
+		} else {			
+			lin.setVisibility(View.GONE);				
+			return false;
+		}		
+	}
+	
+	/**
+	 * Hide layout preferences
+	 * @param lin
+	 * @param tv
+	 */
+	public void hideLayout(LinearLayout lin){
+		lin.setVisibility(View.GONE);		
+	}
+	
 	@Override
 	public void onBackPressed()
 	{
