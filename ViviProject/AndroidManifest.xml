@@ -72,6 +72,7 @@
         <activity
             android:name="com.viviproject.projection.AcProducts"
             android:theme="@style/StyledIndicatorsBlue"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
@@ -134,7 +135,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAhGcqViAtX_cih3wPfU2PfIhmE1J_ey1s" />
+            android:value="AIzaSyCGvM_I5LkyLHfqBLGKMg_1WP84NQOl5ds" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

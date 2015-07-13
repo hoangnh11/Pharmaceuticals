@@ -69,7 +69,8 @@ public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickL
     public void onAttach(Activity activity) {
     	// TODO Auto-generated method stub
     	super.onAttach(activity);
-    	this.mActivity = getActivity();
+    	this.mActivity = activity;
+    	this.mContext = activity;
     }
     
 	/**
