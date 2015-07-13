@@ -1,15 +1,27 @@
 package com.viviproject;
 
+import java.io.IOException;
+
 import android.app.Activity;
-import android.content.Intent;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.viviproject.R;
+import com.google.gson.JsonSyntaxException;
+import com.viviproject.entities.ResponseLogin;
+import com.viviproject.entities.UserInformation;
+import com.viviproject.network.NetParameter;
+import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.DataStorage;
+import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.ultilities.StringUtils;
 
@@ -18,18 +30,23 @@ public class LoginActivity extends Activity implements OnClickListener{
 	private EditText edtUsername, edtPassword;
 	private Button btnLogin;
 	private AppPreferences app;
-	private Intent intent;
+	private LoginAsyncTask loginAsyncTask;
+	private ProgressDialog dialog;
+	private ResponseLogin[] responseLogin;
+	private UserInformation userInformation;
+	private static String token;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);		
+		super.onCreate(savedInstanceState);
+		responseLogin = null;
 		app = new AppPreferences(this);
 		if (LoginActivity.checkLogin(this)) {
 			app.goHome(this);
 		} else {
 			setContentView(R.layout.login_layout);
 			InitLayout();
-		}		
+		}
 	}
 
 	public void InitLayout() {
@@ -73,10 +90,8 @@ public class LoginActivity extends Activity implements OnClickListener{
 		case R.id.btnLogin:
 			int errorCode = validateInput();
 			if (errorCode == 0) {
-//				loginAsyncTask = new LoginAsyncTask();
-//				loginAsyncTask.execute();
-				saveStatusLoginningCompleted();
-				app.goHome(LoginActivity.this);				
+				loginAsyncTask = new LoginAsyncTask();
+				loginAsyncTask.execute();								
 			} else {				
 				app.alertErrorMessageInt(errorCode, getString(R.string.COMMON_MESSAGE), this);
 			}
@@ -96,4 +111,89 @@ public class LoginActivity extends Activity implements OnClickListener{
 		SharedPreferenceManager sharedPreference = new SharedPreferenceManager(activity);
 		return sharedPreference.getBoolean(LOGIN_SHARE_PREFERENT_KEY, false);
 	}
+	
+	class LoginAsyncTask extends AsyncTask<Void, Void, String[]> {
+		String username, password;		
+		String data, dataInfor;		
+
+		@Override
+		protected void onPreExecute() {
+			username = StringUtils.trim(edtUsername.getText().toString());
+			password = edtPassword.getText().toString();
+			
+			dialog = new ProgressDialog(LoginActivity.this);
+			dialog.setMessage(getResources().getString(R.string.SIGNING_IN));	
+			dialog.setCancelable(true);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					loginAsyncTask.cancel(true);
+				}
+			});
+			dialog.show();
+		}
+
+		@Override
+		protected String[] doInBackground(Void... params) {
+			String[] result = new String[2];
+			try {
+				NetParameter[] netParameter = new NetParameter[2];					
+				netParameter[0] = new NetParameter("username", username);
+				netParameter[1] = new NetParameter("password", password);
+				data = HttpNetServices.Instance.login(netParameter);
+			
+				if (data.length() == 34) {
+					result[0] = GlobalParams.TRUE;
+					result[1] = data;
+					NetParameter[] netParameterInfor = new NetParameter[1];					
+					netParameterInfor[0] = new NetParameter("access-token", data.substring(1, data.length() - 1));					
+					dataInfor = HttpNetServices.Instance.getUserInformation(netParameterInfor);					
+					userInformation = DataParser.getUserInformation(dataInfor);					
+				} else {
+					responseLogin = DataParser.getLogin(data);
+					result[0] = GlobalParams.FALSE;
+					result[1] = data;
+				}
+				
+			} catch (JsonSyntaxException e) {
+				result[0] = GlobalParams.FALSE;
+				result[1] = data;
+			} catch (Exception e) {
+				result[0] = GlobalParams.FALSE;
+				result[1] = e.getMessage();
+			}
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(String[] result) {
+			dialog.dismiss();
+			if (loginAsyncTask.isCancelled()) {
+				return;
+			} else if (GlobalParams.TRUE.equals(result[0]) && userInformation.getStatus() == 5) {
+				token = result[1];
+				saveStatusLoginningCompleted();
+				DataStorage dataStorage = DataStorage.getInstance();
+				try {
+					dataStorage.save_UserInformation(userInformation, LoginActivity.this);
+				} catch (IOException e) {					
+					e.printStackTrace();
+				}
+				app.goHome(LoginActivity.this);
+			} else if (GlobalParams.TRUE.equals(result[0]) && userInformation.getStatus() != 5) {
+				app.alertErrorMessageString(userInformation.getMessage(),
+						getString(R.string.COMMON_ERROR), LoginActivity.this);
+			} else {
+				try {
+					app.alertErrorMessageString(responseLogin[0].getMessage(),
+							getString(R.string.COMMON_ERROR), LoginActivity.this);
+				} catch (NullPointerException e) {
+					app.alertErrorMessageString(getString(R.string.COMMON_INTERNET_CONNECTION),
+							getString(R.string.COMMON_ERROR), LoginActivity.this);
+				}
+			}
+		}
+	}	
 }

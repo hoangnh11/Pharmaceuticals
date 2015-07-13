@@ -14,6 +14,7 @@
 
     <!-- Content descriptions -->
     <string name="descr_image">Image</string>
+    <string name="COMMON_INTERNET_CONNECTION">Vấn đề kết nối internet</string>
 
     <!-- ================================================== Login screen =================================================== -->
     <string name="USERNAME_REQUIRE">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 _</string>
@@ -27,6 +28,7 @@
     <string name="PASSWORD_HAS_NUMBER">Mật khẩu phải có ít nhất một chữ số</string>
     <string name="PASSWORD_HAS_LETTER_UPPER_">Mật khẩu phải có ít nhất một chữ cái viết hoa</string>
     <string name="LOGIN_FAILE">Đăng nhập bị lỗi</string>
+    <string name="SIGNING_IN">Đang đăng nhập&#8230;</string>
 
     <!-- ================================================ Home screen =================================================== -->
     <string name="CHANGE_PASSWORD">Đổi mật khẩu</string>

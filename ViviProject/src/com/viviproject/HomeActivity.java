@@ -1,5 +1,8 @@
 package com.viviproject;
 
+import java.io.IOException;
+import java.io.StreamCorruptedException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,6 +22,7 @@ import com.viviproject.customerline.MapActivity;
 import com.viviproject.deliver.Delived_Order;
 import com.viviproject.deliver.OrderActivity;
 import com.viviproject.deliver.OrderImportActivity;
+import com.viviproject.entities.UserInformation;
 import com.viviproject.gimic.AcGimicMangager;
 import com.viviproject.overview.CoverProductReport;
 import com.viviproject.overview.CustomerProfitActivity;
@@ -32,6 +36,7 @@ import com.viviproject.reports.AcProfitFollowCustomer;
 import com.viviproject.reports.AcSalesChart;
 import com.viviproject.reports.AcTotalSales;
 import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.DataStorage;
 import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.visit.VisitAcitvity;
 
@@ -48,19 +53,34 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private LinearLayout linGimic;
 	private LinearLayout linReport, linSubReport, linSumProfit, linProfitFollowCustomer, linProfitGraphic, linPosterCamera,
 							linUnfriendCamera, linTradeMarketingCamera;
-	private TextView tvChangePassword;
+	private TextView tvChangePassword, tvName;
 	private ScrollView scrollView;
 	private boolean showSetting;
 	private boolean checkScrollBottom = false;
 	SharedPreferenceManager sm;
 	private AppPreferences appPreferences;
-	AlertDialog _alertDialog;	
+	AlertDialog _alertDialog;
+	private UserInformation userInformation;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_layout);
+		userInformation = new UserInformation();
 		appPreferences = new AppPreferences(this);
+		
+		try {
+			userInformation = DataStorage.getInstance().read_UserInformation(this);					
+		} catch (StreamCorruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {						
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		InitLayout();
 	}
 
@@ -75,7 +95,9 @@ public class HomeActivity extends Activity implements OnClickListener{
 		linLogout.setOnClickListener(this);
 		tvChangePassword = (TextView) findViewById(R.id.tvChangePassword);
 		tvChangePassword.setOnClickListener(this);
-		scrollView = (ScrollView) findViewById(R.id.scrollView);		
+		scrollView = (ScrollView) findViewById(R.id.scrollView);
+		tvName = (TextView) findViewById(R.id.tvName);
+		tvName.setText(userInformation.getUsername());
 		
 		linTongquan = (LinearLayout) findViewById(R.id.linTongquan);
 		linTongquan.setOnClickListener(this);

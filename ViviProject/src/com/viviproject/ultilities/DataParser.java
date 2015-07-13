@@ -7,7 +7,13 @@
  */
 package com.viviproject.ultilities;
 
+import java.lang.reflect.Type;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.viviproject.entities.ResponseLogin;
+import com.viviproject.entities.UserInformation;
 
 /**
  * @author HieuND9
@@ -26,21 +32,35 @@ public final class DataParser {
 		}
 	}
 
-//	public static EnMyProfile getProfile(String jsonData)
-//			throws JsonSyntaxException {
-//		if (StringUtils.isBlank(jsonData)) {
-//			return null;
-//		}
-//		try {
-//			initGson();
-//			Type collectionType = new TypeToken<EnMyProfile>() {
-//			}.getType();
-//
-//			EnMyProfile details = gson.fromJson(jsonData, collectionType);
-//			return details;
-//		} catch (Exception e) {
-//			Logger.error(e);
-//			return null;
-//		}
-//	}
+	public static ResponseLogin[] getLogin(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<ResponseLogin[]>() {}.getType();
+
+			ResponseLogin[] details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static UserInformation getUserInformation(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<UserInformation>() {}.getType();
+
+			UserInformation details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
 }

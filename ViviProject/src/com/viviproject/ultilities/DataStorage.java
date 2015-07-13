@@ -13,19 +13,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
+
+import com.viviproject.entities.UserInformation;
 
 /**
  * @author TiepTD
  */
 public final class DataStorage {
-	private final String FILE_NAME_DATA_ENMYPROFILE = "dataEnMyProfile";
-
-	private final String FILE_NAME_DATA_EXPORTWKCUSTOMERINTERFACE = FILE_NAME_DATA_ENMYPROFILE
-			+ "_ExportWkCustomerInterface";
+	private final String FILE_NAME_DATA_USERINFORMATION = "dataUserInformation";
 
 	private static DataStorage instance = new DataStorage();
 
@@ -39,50 +36,47 @@ public final class DataStorage {
 		return instance;
 	}
 
-//	/**
-//	 * delete all data file
-//	 */
-//	public void deleteAllData(Context context) {
-//		delete_ExportWkCustomerInterface(context);		
-//	}
+	/**
+	 * delete all data file
+	 */
+	public void deleteAllData(Context context) {
+		delete_UserInformation(context);
+	}
 
-//	/**
-//	 * save data of _ExportWkCustomerInterface
-//	 */
-//	public void save_ExportWkCustomerInterface(EnExportWkCustomerInterface enExportWkCustomerInterface,
-//			Context context) throws IOException {
-//		FileOutputStream fos = context.openFileOutput(FILE_NAME_DATA_EXPORTWKCUSTOMERINTERFACE, Context.MODE_PRIVATE);
-//		ObjectOutputStream os = new ObjectOutputStream(fos);
-//		os.writeObject(enExportWkCustomerInterface);
-//		os.close();
-//		Logger.debug("Finished writing _ExportWkCustomerInterface!");
-//	}
-//
-//	/**
-//	 * read data of _ExportWkCustomerInterface
-//	 */
-//	public EnExportWkCustomerInterface read_ExportWkCustomerInterface(
-//			Context context) throws StreamCorruptedException, IOException, ClassNotFoundException {
-//		FileInputStream fis = context.openFileInput(FILE_NAME_DATA_EXPORTWKCUSTOMERINTERFACE);
-//		ObjectInputStream is = new ObjectInputStream(fis);
-//		EnExportWkCustomerInterface enExportWkCustomerInterface = (EnExportWkCustomerInterface) is.readObject();
-//		is.close();
-//		Logger.debug("Finished reading _ExportWkCustomerInterface!");
-//		return enExportWkCustomerInterface;
-//	}
-//
-//	/**
-//	 * delete all data of _ExportWkCustomerInterface
-//	 */
-//	public void delete_ExportWkCustomerInterface(Context context) {
-//		File file = context
-//				.getFileStreamPath(FILE_NAME_DATA_EXPORTWKCUSTOMERINTERFACE);
-//		boolean result = file.delete();
-//		if (result) {
-//			Logger.debug("Deleted _ExportWkCustomerInterface!");
-//		} else {
-//			Logger.debug("Not deleted _ExportWkCustomerInterface!");
-//		}
-//	}
+	/**
+	 * save data of USER INFORMATION
+	 */
+	public void save_UserInformation(UserInformation userInformation, Context context) throws IOException {
+		FileOutputStream fos = context.openFileOutput(FILE_NAME_DATA_USERINFORMATION, Context.MODE_PRIVATE);
+		ObjectOutputStream os = new ObjectOutputStream(fos);
+		os.writeObject(userInformation);
+		os.close();
+		Logger.debug("Finished writing User Information!");
+	}
+
+	/**
+	 * read data of USER INFORMATION
+	 */
+	public UserInformation read_UserInformation(Context context) throws StreamCorruptedException, IOException, ClassNotFoundException {
+		FileInputStream fis = context.openFileInput(FILE_NAME_DATA_USERINFORMATION);
+		ObjectInputStream is = new ObjectInputStream(fis);
+		UserInformation userInformation = (UserInformation) is.readObject();
+		is.close();
+		Logger.debug("Finished reading User Information!");
+		return userInformation;
+	}
+
+	/**
+	 * delete all data of USER INFORMATION
+	 */
+	public void delete_UserInformation(Context context) {
+		File file = context.getFileStreamPath(FILE_NAME_DATA_USERINFORMATION);
+		boolean result = file.delete();
+		if (result) {
+			Logger.debug("Deleted User Information!");
+		} else {
+			Logger.debug("Not deleted User Information!");
+		}
+	}
 
 }
