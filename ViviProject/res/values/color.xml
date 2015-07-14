@@ -23,6 +23,10 @@
     <color name="Yellow">#fff200</color>
     <color name="Blue1">#005f6e</color>
     
+    <!-- tabpage indecator color  -->
+    <color name="color_tab_selected">#4D6A88</color>
+    <color name="color_tab_unselected">#2D3E50</color>
+    <color name="color_tab_focus">#5697D4</color>
     <color name="TRANSPARENT_BLACK">#ff000000</color>
     <color name="GREEN">#74cc52</color>
     <color name="TEXT_COLOR_GREY">#afb0ac</color>
