@@ -1,5 +1,6 @@
 package com.viviproject.reports;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,9 +33,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Highlight;
+import com.github.mikephil.charting.utils.ValueFormatter;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.viviproject.R;
+import com.viviproject.ultilities.MyValueFormatter;
 
 public class AcSalesChart extends FragmentActivity implements OnClickListener, OnChartValueSelectedListener{
 	private LinearLayout linBack;
@@ -113,6 +116,8 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
         mChartProductByDay.setDrawValueAboveBar(true);
         mChartProductByDay.setDescription("");
         mChartProductByDay.setDrawBorders(false);
+        mChartProductByDay.setDoubleTapToZoomEnabled(false);
+        mChartProductByDay.setScaleEnabled(false);
         
         LimitLine limitLine = new LimitLine(100f, "Đạt");
         limitLine.setLineWidth(0.5f);
@@ -128,6 +133,8 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
         leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setAxisMaxValue(120);
         leftAxis.setSpaceTop(10);
+        ValueFormatter valueFormatter = new MyValueFormatter();
+        leftAxis.setValueFormatter(valueFormatter);
         
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
@@ -153,7 +160,9 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		mChartProductByMonth.setDrawValueAboveBar(true);
 		mChartProductByMonth.setDescription("");
 		mChartProductByMonth.setDrawBorders(false);
-        
+		mChartProductByMonth.setDoubleTapToZoomEnabled(false);
+		mChartProductByMonth.setScaleEnabled(false);
+		
         LimitLine limitLine = new LimitLine(80f, "Đạt");
         limitLine.setLineWidth(0.5f);
         limitLine.setLineColor(Color.BLACK);
@@ -168,7 +177,8 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
         leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setAxisMaxValue(120);
         leftAxis.setSpaceTop(10);
-        
+        ValueFormatter valueFormatter = new MyValueFormatter();
+        leftAxis.setValueFormatter(valueFormatter);
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
         
@@ -201,6 +211,14 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		
 		BarDataSet dataset = new BarDataSet(entries, getResources().getString(R.string.PROFIT));
 		dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+		dataset.setValueFormatter(new ValueFormatter() {
+			
+			@Override
+			public String getFormattedValue(float value) {
+				DecimalFormat mFormat = new DecimalFormat("###,###,###,##0");
+				return mFormat.format(value);
+			}
+		});
 		BarData data = new BarData(labels, dataset);
 		
 		if(byDay){

@@ -38,54 +38,54 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textColor="@color/BLACK"
-                    android:text="@string/BLANK"/>
+                    android:text="@string/TITLE_PHARMACIER_NAME"/>
                 
                 <TextView 
                     android:id="@+id/tvQualification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="14sp"
                     android:textColor="@color/BLACK"
-                    android:text="@string/BLANK"/>
+                    android:text="@string/TITLE_PHARMACIER_QUALIFICATION"/>
                 
                 <TextView 
                     android:id="@+id/tvWorkTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="14sp"
                     android:textColor="@color/BLACK"
-                    android:text="@string/BLANK"/>
+                    android:text="@string/TITLE_WORKING_TIME"/>
                 
                 <TextView 
                     android:id="@+id/tvWorkPosition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="14sp"
                     android:textColor="@color/BLACK"
-                    android:text="@string/BLANK"/>
+                    android:text="@string/TITLE_WORKING_POSITION"/>
                 
                 <TextView 
                     android:id="@+id/tvLifeOpinion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="14sp"
                     android:textColor="@color/BLACK"
-                    android:text="@string/BLANK"/>
+                    android:text="@string/TITLE_LIFE_OPINION"/>
                 
                 <TextView 
                     android:id="@+id/tvCarrierOpinion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="14sp"
                     android:textColor="@color/BLACK"
-                    android:text="@string/BLANK"/>
+                    android:text="@string/TITLE_WORK_OPINION"/>
             </LinearLayout>
         </LinearLayout>
         
@@ -94,21 +94,21 @@
             android:id="@+id/tvMucTieuCongViec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Mục tiêu công việc: Làm việc cống hiến vì sự phát triển và đưa thương hiệu, hình ảnh của công ty Thái Minh lên một tầm cao mới"
+            android:layout_marginTop="5dp"
+            android:text="@string/TITLE_MUC_TIEU_CONG_VIEC"
             android:textColor="@color/BLACK"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
          <!-- layout muc tieu cong viec -->
         <TextView
             android:id="@+id/tvLinkWeb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:autoLink="web"
-            android:text="Link đến website:\n http://tmp.vn/our-people/le-van-minh"
+            android:text="@string/TITLE_LINK_WEB"
             android:textColor="@color/BLACK"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </LinearLayout> <!-- layout body :END -->
 
 </LinearLayout>
