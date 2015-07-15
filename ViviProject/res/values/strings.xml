@@ -15,6 +15,7 @@
     <!-- Content descriptions -->
     <string name="descr_image">Image</string>
     <string name="COMMON_INTERNET_CONNECTION">Vấn đề kết nối internet</string>
+    <string name="LOADING">Đang tải...</string>
 
     <!-- ================================================== Login screen =================================================== -->
     <string name="USERNAME_REQUIRE">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 _</string>

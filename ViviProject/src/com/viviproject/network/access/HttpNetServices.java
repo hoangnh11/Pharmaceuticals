@@ -80,4 +80,10 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.getUserInformation(netParameters);
 		return executer(functionInfo);
 	}
+	
+	@Override
+	public String getStores(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.getStores(netParameters);
+		return executer(functionInfo);
+	}
 }

@@ -139,4 +139,12 @@ public final class HttpFunctionFactory {
 		functionInfo.setUrl(viviHostURLshort + "/v1/user/info?" + params);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo getStores(NetParameter[] netParameters) {
+		HttpFunctionInfo functionInfo = createGetMethod("getStores");
+		String params = funcLogParams(netParameters);
+		Log.e("getStores", "getStores: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores?" + params);
+		return functionInfo;
+	}
 }

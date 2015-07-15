@@ -18,4 +18,5 @@ public interface INetServices {
 
 	String login(NetParameter[] netParameters) throws Exception;
 	String getUserInformation(NetParameter[] netParameters) throws Exception;
+	String getStores(NetParameter[] netParameters) throws Exception;
 }

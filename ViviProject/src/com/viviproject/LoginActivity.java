@@ -32,9 +32,9 @@ public class LoginActivity extends Activity implements OnClickListener{
 	private AppPreferences app;
 	private LoginAsyncTask loginAsyncTask;
 	private ProgressDialog dialog;
-	private ResponseLogin[] responseLogin;
+	private ResponseLogin responseLogin;
 	private UserInformation userInformation;
-	private static String token;
+	public static String token;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -143,16 +143,17 @@ public class LoginActivity extends Activity implements OnClickListener{
 				netParameter[0] = new NetParameter("username", username);
 				netParameter[1] = new NetParameter("password", password);
 				data = HttpNetServices.Instance.login(netParameter);
+				responseLogin = DataParser.getLogin(data);
 			
-				if (data.length() == 34) {
+				if (responseLogin != null && responseLogin.getStatus() != null
+						&& responseLogin.getStatus().equalsIgnoreCase("success")) {
 					result[0] = GlobalParams.TRUE;
 					result[1] = data;
 					NetParameter[] netParameterInfor = new NetParameter[1];					
-					netParameterInfor[0] = new NetParameter("access-token", data.substring(1, data.length() - 1));					
+					netParameterInfor[0] = new NetParameter("access-token", responseLogin.getAccessToken());					
 					dataInfor = HttpNetServices.Instance.getUserInformation(netParameterInfor);					
-					userInformation = DataParser.getUserInformation(dataInfor);					
-				} else {
-					responseLogin = DataParser.getLogin(data);
+					userInformation = DataParser.getUserInformation(dataInfor);
+				} else {				
 					result[0] = GlobalParams.FALSE;
 					result[1] = data;
 				}
@@ -173,7 +174,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 			if (loginAsyncTask.isCancelled()) {
 				return;
 			} else if (GlobalParams.TRUE.equals(result[0]) && userInformation.getStatus() == 5) {
-				token = result[1];
+				token = responseLogin.getAccessToken();
 				saveStatusLoginningCompleted();
 				DataStorage dataStorage = DataStorage.getInstance();
 				try {
@@ -187,7 +188,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 						getString(R.string.COMMON_ERROR), LoginActivity.this);
 			} else {
 				try {
-					app.alertErrorMessageString(responseLogin[0].getMessage(),
+					app.alertErrorMessageString(responseLogin.getMessage(),
 							getString(R.string.COMMON_ERROR), LoginActivity.this);
 				} catch (NullPointerException e) {
 					app.alertErrorMessageString(getString(R.string.COMMON_INTERNET_CONNECTION),
