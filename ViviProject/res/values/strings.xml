@@ -11,6 +11,7 @@
     <string name="COMMON_YES">Đồng ý</string>
     <string name="COMMON_CANCEL">Hủy</string>
     <string name="COMMON_MESSAGE">Lời nhắn</string>
+    <string name="API_KEY">AIzaSyAhGcqViAtX_cih3wPfU2PfIhmE1J_ey1s</string>
 
     <!-- Content descriptions -->
     <string name="descr_image">Image</string>
