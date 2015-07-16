@@ -1,9 +1,11 @@
 package com.viviproject.customerline;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +17,13 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.adapter.ListCustomerAdapter;
 import com.viviproject.core.ItemListCustomer;
-import com.viviproject.entities.EnCustomer;
+import com.viviproject.entities.EnArrayStores;
+import com.viviproject.entities.EnStores;
+import com.viviproject.network.NetParameter;
+import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.GlobalParams;
 
 public class ListCustomer extends Activity implements OnClickListener{
 
@@ -25,18 +33,22 @@ public class ListCustomer extends Activity implements OnClickListener{
 	private ImageView imgBackToTop;
 	
 	private ListCustomerAdapter listCustomerAdapter;
-	private ArrayList<EnCustomer> listCustomer;
-	private EnCustomer enCustomer;
-	private EnCustomer items;
+	private ProgressDialog progressDialog;
+	private GetStores getStores;
+	private EnArrayStores enStores;
+	private EnStores items;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_customer);
-		listCustomer = new ArrayList<EnCustomer>();
-		enCustomer = new EnCustomer();
-		items = new EnCustomer();
+		enStores = new EnArrayStores();
+		items = new EnStores();
+		
 		initLayout();
+		
+		getStores = new GetStores();
+		getStores.execute();
 	}
 
 	public void initLayout(){
@@ -61,18 +73,9 @@ public class ListCustomer extends Activity implements OnClickListener{
 		
 		imgBackToTop = (ImageView) findViewById(R.id.imgBackToTop);
 		imgBackToTop.setOnClickListener(this);
+		imgBackToTop.setVisibility(View.GONE);
 		
-		lvCustomer = (ListView) findViewById(R.id.lvCustomer);		
-		
-		for (int i = 0; i < 10; i++) {
-			enCustomer = new EnCustomer();
-			enCustomer.setId(i + 1);
-			listCustomer.add(enCustomer);
-		}
-		
-		listCustomerAdapter = new ListCustomerAdapter(this, listCustomer);
-		listCustomerAdapter.setOnItemClickHandler(onItemClickHandler);
-		lvCustomer.setAdapter(listCustomerAdapter);
+		lvCustomer = (ListView) findViewById(R.id.lvCustomer);
 	}
 	
 	@Override
@@ -104,9 +107,57 @@ public class ListCustomer extends Activity implements OnClickListener{
         public void onClick(View v)
         {
         	int position = ((ItemListCustomer) v).get_position();
-            items = listCustomer.get(position);
+            items = enStores.getStores().get(position);
             intent = new Intent(ListCustomer.this, CustomerDetails.class);
             startActivity(intent);
         }
     };
+    
+    class GetStores extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(ListCustomer.this);
+			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					getStores.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[1];
+				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(ListCustomer.this));
+				try {
+					data = HttpNetServices.Instance.getStores(netParameter);					
+					enStores = DataParser.getStores(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && enStores != null) {
+					listCustomerAdapter = new ListCustomerAdapter(ListCustomer.this, enStores);
+					listCustomerAdapter.setOnItemClickHandler(onItemClickHandler);
+					lvCustomer.setAdapter(listCustomerAdapter);
+					imgBackToTop.setVisibility(View.VISIBLE);
+				}
+			}
+		}
+	}
 }

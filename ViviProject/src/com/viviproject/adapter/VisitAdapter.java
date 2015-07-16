@@ -1,7 +1,5 @@
 package com.viviproject.adapter;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,15 +10,16 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemListCustomer;
-import com.viviproject.entities.EnCustomer;
+import com.viviproject.entities.EnArrayStores;
+import com.viviproject.entities.EnStores;
 
 public class VisitAdapter extends BaseAdapter{
-	private List<EnCustomer> _data;
-    private EnCustomer items;
+	private EnArrayStores _data;
+    private EnStores items;
     private Activity mActivity;
     private OnClickListener _onItemClick;
 	
-    public VisitAdapter(Activity activity, List<EnCustomer> data) 
+    public VisitAdapter(Activity activity, EnArrayStores data) 
 	{
 		 mActivity = activity;
         _data = data;
@@ -29,7 +28,7 @@ public class VisitAdapter extends BaseAdapter{
     @Override
 	public int getCount()
 	{
-		 return (_data == null ? 0 : _data.size());
+		 return (_data == null ? 0 : _data.getStores().size());
 	}
 
 	@Override
@@ -59,7 +58,10 @@ public class VisitAdapter extends BaseAdapter{
             holder.tvLocation = (TextView) convertView.findViewById(R.id.tvLocation);
             holder.imgLocationBlue = (ImageView) convertView.findViewById(R.id.imgLocationBlue);
             holder.imgLocationGray = (ImageView) convertView.findViewById(R.id.imgLocationGray);
-          
+            holder.tvNamePharmacy = (TextView) convertView.findViewById(R.id.tvNamePharmacy);
+            holder.tvCodeName = (TextView) convertView.findViewById(R.id.tvCodeName);
+            holder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
+            holder.tvRound = (TextView) convertView.findViewById(R.id.tvRound);
             convertView.setTag(holder);
         }
         else
@@ -67,15 +69,15 @@ public class VisitAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
         
-        items = _data.get(position);
+        items = _data.getStores().get(position);
         
         if (items != null) {        
         	holder.tvId.setText(String.valueOf(items.getId()));
-        	if (items.getId() == 3) {
-        		holder.imgLocationGray.setVisibility(View.VISIBLE);
-        		holder.tvLocation.setVisibility(View.VISIBLE);
-        		holder.imgLocationBlue.setVisibility(View.GONE);
-			} else if (items.getId() == 6) {
+        	holder.tvNamePharmacy.setText(items.getName());
+        	holder.tvCodeName.setText(items.getCode());
+        	holder.tvAddress.setText(items.getAddress());
+        	holder.tvRound.setText(items.getRegion_id());
+        	if (items.getId().equals("2")) {
 				holder.imgLocationGray.setVisibility(View.VISIBLE);
         		holder.tvLocation.setVisibility(View.VISIBLE);
         		holder.imgLocationBlue.setVisibility(View.GONE);
