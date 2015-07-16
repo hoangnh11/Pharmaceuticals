@@ -50,6 +50,7 @@ public final class GlobalParams {
 	public static final String SUFFIX_FILE_NAME_JPEG = ".jpg";
 	public static final String IMAGE_BACKGROUND_FOLDER_NAME = "Pharmacy_image_background_files";
 	public static final String TEMP_COMMON_FOLDER_NAME = "Pharmacy_temp_files";
+	public static final String TOKEN_SHARE_PREFERENT_KEY = "TOKEN";
 	
 	// key to check language that app using
 	public static final String USING_VI_RESOUCE = "STRING-VI";

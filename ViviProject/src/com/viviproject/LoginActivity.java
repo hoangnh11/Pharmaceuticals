@@ -19,6 +19,7 @@ import com.viviproject.entities.UserInformation;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.DataStorage;
 import com.viviproject.ultilities.GlobalParams;
@@ -26,7 +27,7 @@ import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.ultilities.StringUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
-	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";
+	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";	
 	private EditText edtUsername, edtPassword;
 	private Button btnLogin;
 	private AppPreferences app;
@@ -34,7 +35,6 @@ public class LoginActivity extends Activity implements OnClickListener{
 	private ProgressDialog dialog;
 	private ResponseLogin responseLogin;
 	private UserInformation userInformation;
-	public static String token;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +111,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 		SharedPreferenceManager sharedPreference = new SharedPreferenceManager(activity);
 		return sharedPreference.getBoolean(LOGIN_SHARE_PREFERENT_KEY, false);
 	}
-	
+
 	class LoginAsyncTask extends AsyncTask<Void, Void, String[]> {
 		String username, password;		
 		String data, dataInfor;		
@@ -174,7 +174,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 			if (loginAsyncTask.isCancelled()) {
 				return;
 			} else if (GlobalParams.TRUE.equals(result[0]) && userInformation.getStatus() == 5) {
-				token = responseLogin.getAccessToken();
+				BuManagement.saveToken(LoginActivity.this, responseLogin.getAccessToken());		
 				saveStatusLoginningCompleted();
 				DataStorage dataStorage = DataStorage.getInstance();
 				try {

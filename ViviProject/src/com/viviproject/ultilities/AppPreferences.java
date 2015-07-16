@@ -18,10 +18,12 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Point;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Adapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.viviproject.HomeActivity;
@@ -143,6 +145,37 @@ public class AppPreferences {
 		params.height = totalHeight	+ (lv.getDividerHeight() * (adapter.getCount() - 1));
 		lv.setLayoutParams(params);
 		lv.requestLayout();
+	}
+	
+	/**
+	 * Keep position list view when refresh
+	 * @param lv
+	 * @param adapter
+	 */
+	public void keepPositionListView(ListView lv, ListAdapter adapter){
+		// save index and top position
+		int index = lv.getFirstVisiblePosition();
+		View v = lv.getChildAt(0);
+		int top = (v == null) ? 0 : v.getTop();
+
+		// notify data set changed or re-assign adapter here
+		lv.setAdapter(adapter);
+		
+		// restore the position of list view
+		lv.setSelectionFromTop(index, top);
+	}
+	
+	/**
+	 * @return
+	 */
+	public Bundle getBundle(Activity activity) {
+		Bundle bundle = activity.getIntent().getExtras();
+
+		if (bundle == null) {
+			bundle = new Bundle();
+		}
+
+		return bundle;
 	}
 	
 	/**

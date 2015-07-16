@@ -2,7 +2,6 @@ package com.viviproject;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;
-import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,7 +26,6 @@ import com.viviproject.deliver.Delived_Order;
 import com.viviproject.deliver.OrderActivity;
 import com.viviproject.deliver.OrderImportActivity;
 import com.viviproject.entities.EnArrayStores;
-import com.viviproject.entities.EnStores;
 import com.viviproject.entities.UserInformation;
 import com.viviproject.gimic.AcGimicMangager;
 import com.viviproject.network.NetParameter;
@@ -72,15 +70,11 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private AppPreferences appPreferences;
 	AlertDialog _alertDialog;
 	private UserInformation userInformation;
-	private ProgressDialog progressDialog;
-	private GetStores getStores;
-	private EnArrayStores enStores;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home_layout);
-		enStores = new EnArrayStores();
+		setContentView(R.layout.home_layout);		
 		userInformation = new UserInformation();
 		appPreferences = new AppPreferences(this);
 		
@@ -96,10 +90,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			e.printStackTrace();
 		}
 		
-		InitLayout();
+		InitLayout();	
 		
-		getStores = new GetStores();
-		getStores.execute();
 	}
 
 	public void InitLayout() {
@@ -477,55 +469,4 @@ public class HomeActivity extends Activity implements OnClickListener{
 		_alertDialog.show();
 	}
 	
-	class GetStores extends AsyncTask<Void, Void, String> {
-		String data;
-
-		@Override
-		protected void onPreExecute() {
-			progressDialog = new ProgressDialog(HomeActivity.this);
-			progressDialog.setMessage(getResources().getString(R.string.LOADING));
-			progressDialog.show();
-			progressDialog.setCancelable(false);
-			progressDialog.setOnCancelListener(new OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					getStores.cancel(true);
-				}
-			});
-		}
-
-		@Override
-		protected String doInBackground(Void... params) {
-			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[1];					
-				netParameter[0] = new NetParameter("access-token", LoginActivity.token);				
-				try {
-					data = HttpNetServices.Instance.getStores(netParameter);
-					Logger.error(":          "+data);
-					enStores = DataParser.getStores(data);
-					return GlobalParams.TRUE;
-				} catch (Exception e) {
-					return GlobalParams.FALSE;
-				}
-			} else {
-				return GlobalParams.FALSE;
-			}
-		}
-		
-		@Override
-		protected void onPostExecute(String result) {
-			progressDialog.dismiss();
-			if (!isCancelled()) {
-				if (result.equals(GlobalParams.TRUE)) {
-					if (enStores != null) {
-						
-					}
-				} 
-//				else {
-//					appPreferences.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR),
-//							getString(R.string.COMMON_ERROR), HomeActivity.this);
-//				}
-			}
-		}
-	}
 }

@@ -150,10 +150,8 @@ public final class BuManagement {
 	 * @return
 	 */
 	public static String getPassword(Activity activity) {
-		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(
-				activity);
-		return sharedPreferenceManager.getString(
-				GlobalParams.KEY_PASSWORD_USER, null);
+		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
+		return sharedPreferenceManager.getString(GlobalParams.KEY_PASSWORD_USER, null);
 	}
 
 	/**
@@ -169,6 +167,17 @@ public final class BuManagement {
 		return true;
 	}
 
+	public static String getToken(Activity activity) {
+		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
+		return sharedPreferenceManager.getString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, null);
+	}
+	
+	public static boolean saveToken(Activity activity, String token) {
+		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
+		sharedPreferenceManager.saveString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, token);
+		return true;
+	}
+	
 	/**
 	 * expand view animation
 	 * 
