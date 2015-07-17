@@ -19,6 +19,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -205,6 +206,16 @@ public class AppPreferences {
 								dialog.dismiss();
 							}
 						}).create();
+	}
+	
+	/**
+	 * Get IMEI
+	 * @param activity
+	 * @return
+	 */
+	public String getIMEI(Activity activity){
+		TelephonyManager telephonyManager = (TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE);
+		return telephonyManager.getDeviceId();
 	}
 	
 	/**

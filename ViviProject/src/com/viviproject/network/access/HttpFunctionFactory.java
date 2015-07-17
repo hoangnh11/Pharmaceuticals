@@ -147,4 +147,12 @@ public final class HttpFunctionFactory {
 		functionInfo.setUrl(viviHostURLshort + "/v1/stores?" + params);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo getStoresLine(NetParameter[] netParameters, String day) {
+		HttpFunctionInfo functionInfo = createGetMethod("getStoresLine");
+		String params = funcLogParams(netParameters);
+		Log.e("getStoresLine", "getStoresLine: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/line/" + day + "?" + params);
+		return functionInfo;
+	}
 }

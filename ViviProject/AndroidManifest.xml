@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="com.viviproject.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -38,6 +39,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.viviproject.LoginActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,24 +47,60 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.viviproject.HomeActivity" />
-        <activity android:name="com.viviproject.overview.CustomerProfitActivity" />
-        <activity android:name="com.viviproject.overview.ProfitReportActivity" />
-        <activity android:name="com.viviproject.overview.CoverProductReport" />
-        <activity android:name="com.viviproject.customerline.ListCustomer" />
-        <activity android:name="com.viviproject.customerline.ListCustomerPending" />
-        <activity android:name="com.viviproject.customerline.CustomerDetails" />
-        <activity android:name="com.viviproject.customerline.EditCustomer" />
-        <activity android:name="com.viviproject.customerline.CreateCustormer" />
-        <activity android:name="com.viviproject.customerline.MapActivity" />
-        <activity android:name="com.viviproject.visit.VisitAcitvity" />
-        <activity android:name="com.viviproject.visit.VisitDetailsActivity" />
-        <activity android:name="com.viviproject.visit.PlaceOrderActivity" />
-        <activity android:name="com.viviproject.visit.GiveGimic" />
-        <activity android:name="com.viviproject.visit.FeedbackActivity" />
-        <activity android:name="com.viviproject.visit.PictureReportActivity" />
-        <activity android:name="com.viviproject.deliver.ChangeOrderActivity" />
-        <activity android:name="com.viviproject.deliver.Delived_Order" />
+        <activity
+            android:name="com.viviproject.HomeActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.overview.CustomerProfitActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.overview.ProfitReportActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.overview.CoverProductReport"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.customerline.ListCustomer"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.customerline.ListCustomerPending"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.customerline.CustomerDetails"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.customerline.EditCustomer"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.customerline.CreateCustormer"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.customerline.MapActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.visit.VisitAcitvity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.visit.VisitDetailsActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.visit.PlaceOrderActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.visit.GiveGimic"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.visit.FeedbackActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.visit.PictureReportActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.deliver.ChangeOrderActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.viviproject.deliver.Delived_Order"
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name="com.viviproject.deliver.OrderImportActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -71,8 +109,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.viviproject.projection.AcProducts"
-            android:theme="@style/StyledIndicatorsBlue"
             android:configChanges="orientation|screenSize"
+            android:theme="@style/StyledIndicatorsBlue"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity

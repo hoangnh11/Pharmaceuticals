@@ -1,7 +1,9 @@
 package com.viviproject.visit;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,6 +14,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +33,7 @@ import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.Logger;
 
 public class VisitAcitvity extends Activity implements OnClickListener{
 	
@@ -39,11 +44,14 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 	
 	private Spinner spLine;
 	private List<String> listWeek;
-	private VisitAdapter listCustomerPendingAdapter;
+	private VisitAdapter listVisitAdapter;
 	private ProgressDialog progressDialog;
 	private GetStores getStores;
 	private EnArrayStores enStores;
 	private EnStores items;
+	private GetStoresLine getStoresLine;
+	private String selectDay;
+	private Map<String, String> mapDay;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -54,13 +62,33 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		
 		initLayout();
 		
+		mapDay = new HashMap<String, String>();		
 		String[] week = getResources().getStringArray(R.array.week);
 		listWeek = Arrays.asList(week);
+		
+		for (int j = 0; j < listWeek.size(); j++) {
+			mapDay.put(listWeek.get(j), String.valueOf(j + 1));
+		}
+		
 		ArrayAdapter<String> weekAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listWeek);
 		spLine.setAdapter(weekAdapter);
-		
-		getStores = new GetStores();
-		getStores.execute();
+		spLine.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				selectDay = mapDay.get(listWeek.get(arg2));
+				if (selectDay.equals("1")) {
+					getStores = new GetStores();
+					getStores.execute();
+				} else {
+					getStoresLine = new GetStoresLine();
+					getStoresLine.execute();
+				}				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {}			
+		});		
 	}
 
 	public void initLayout(){
@@ -122,6 +150,11 @@ public class VisitAcitvity extends Activity implements OnClickListener{
         }
     };
     
+    /**
+     * Get Stores list
+     * @author hoangnh11
+     *
+     */
     class GetStores extends AsyncTask<Void, Void, String> {
 		String data;
 
@@ -161,9 +194,63 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 			progressDialog.dismiss();
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && enStores != null) {
-					listCustomerPendingAdapter = new VisitAdapter(VisitAcitvity.this, enStores);
-					listCustomerPendingAdapter.setOnItemClickHandler(onItemClickHandler);
-					lvCustomer.setAdapter(listCustomerPendingAdapter);
+					listVisitAdapter = new VisitAdapter(VisitAcitvity.this, enStores);
+					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
+					lvCustomer.setAdapter(listVisitAdapter);
+					imgBackToTop.setVisibility(View.VISIBLE);
+				}
+			}
+		}
+	}
+    
+    /**
+     * Get Stores list follow line
+     * @author hoangnh11
+     *
+     */
+    class GetStoresLine extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(VisitAcitvity.this);
+			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					getStoresLine.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[2];
+				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(VisitAcitvity.this));
+				netParameter[1] = new NetParameter("line", selectDay);
+				try {
+					data = HttpNetServices.Instance.getStoresLine(netParameter, selectDay);					
+					enStores = DataParser.getStores(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && enStores != null) {
+					listVisitAdapter = new VisitAdapter(VisitAcitvity.this, enStores);
+					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
+					lvCustomer.setAdapter(listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
 				}
 			}

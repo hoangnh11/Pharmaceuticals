@@ -27,7 +27,7 @@ import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.ultilities.StringUtils;
 
 public class LoginActivity extends Activity implements OnClickListener{
-	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";	
+	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";
 	private EditText edtUsername, edtPassword;
 	private Button btnLogin;
 	private AppPreferences app;
@@ -139,9 +139,10 @@ public class LoginActivity extends Activity implements OnClickListener{
 		protected String[] doInBackground(Void... params) {
 			String[] result = new String[2];
 			try {
-				NetParameter[] netParameter = new NetParameter[2];					
+				NetParameter[] netParameter = new NetParameter[3];					
 				netParameter[0] = new NetParameter("username", username);
 				netParameter[1] = new NetParameter("password", password);
+				netParameter[2] = new NetParameter("deviceUUID", app.getIMEI(LoginActivity.this));
 				data = HttpNetServices.Instance.login(netParameter);
 				responseLogin = DataParser.getLogin(data);
 			

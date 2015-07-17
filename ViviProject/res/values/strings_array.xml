@@ -167,14 +167,14 @@
         <item>2015</item>
     </string-array>
     <string-array name="week">
+        <item>Tất cả</item>
         <item>Thứ hai</item>
         <item>Thứ ba</item>
         <item>Thứ tư</item>
         <item>Thứ năm</item>
         <item>Thứ sáu</item>
         <item>Thứ bảy</item>
-        <item>Chủ nhật</item>
-        <item>Tất cả</item>     
+        <item>Chủ nhật</item>             
     </string-array>
 	
     <string-array name="product_profit_view">

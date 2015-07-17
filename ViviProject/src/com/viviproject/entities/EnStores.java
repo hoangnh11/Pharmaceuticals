@@ -9,6 +9,8 @@ public class EnStores implements Serializable{
 	 */
 	private static final long serialVersionUID = 9008580911734670301L;
 	private String store_id;
+	private String line;
+	private String repeat;
 	private String id;
 	private String timestamp_x;
 	private String uid;
@@ -22,6 +24,7 @@ public class EnStores implements Serializable{
 	private String region_id;
 	private String district;
 	private String vip;
+	private int total;
 	/**
 	 * @return the store_id
 	 */
@@ -189,6 +192,42 @@ public class EnStores implements Serializable{
 	 */
 	public void setVip(String vip) {
 		this.vip = vip;
+	}
+	/**
+	 * @return the line
+	 */
+	public String getLine() {
+		return line;
+	}
+	/**
+	 * @param line the line to set
+	 */
+	public void setLine(String line) {
+		this.line = line;
+	}
+	/**
+	 * @return the repeat
+	 */
+	public String getRepeat() {
+		return repeat;
+	}
+	/**
+	 * @param repeat the repeat to set
+	 */
+	public void setRepeat(String repeat) {
+		this.repeat = repeat;
+	}
+	/**
+	 * @return the total
+	 */
+	public int getTotal() {
+		return total;
+	}
+	/**
+	 * @param total the total to set
+	 */
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	
