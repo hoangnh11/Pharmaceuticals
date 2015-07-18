@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.io.StreamCorruptedException;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,11 +24,8 @@ import com.viviproject.customerline.MapActivity;
 import com.viviproject.deliver.Delived_Order;
 import com.viviproject.deliver.OrderActivity;
 import com.viviproject.deliver.OrderImportActivity;
-import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.UserInformation;
 import com.viviproject.gimic.AcGimicMangager;
-import com.viviproject.network.NetParameter;
-import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.overview.CoverProductReport;
 import com.viviproject.overview.CustomerProfitActivity;
 import com.viviproject.overview.ProfitReportActivity;
@@ -41,11 +37,9 @@ import com.viviproject.projection.AcPromotions;
 import com.viviproject.reports.AcProfitFollowCustomer;
 import com.viviproject.reports.AcSalesChart;
 import com.viviproject.reports.AcTotalSales;
+import com.viviproject.service.TrackingLocationService;
 import com.viviproject.ultilities.AppPreferences;
-import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.DataStorage;
-import com.viviproject.ultilities.GlobalParams;
-import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.visit.VisitAcitvity;
 
@@ -451,6 +445,12 @@ public class HomeActivity extends Activity implements OnClickListener{
 				switch (which) {
 				case DialogInterface.BUTTON_POSITIVE:
 					_alertDialog.dismiss();
+					
+					Intent intent = new Intent(HomeActivity.this, TrackingLocationService.class);
+					PendingIntent sender = PendingIntent.getService(HomeActivity.this, 0, intent, 0);
+					AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+					alarmManager.cancel(sender);
+					
 					saveStatusLogoutCompleted();
 					appPreferences.goLogin(HomeActivity.this);
 					break;

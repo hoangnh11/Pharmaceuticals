@@ -40,6 +40,12 @@ public class TrackingLocationService extends Service {
 	    return START_NOT_STICKY;
 	 }
 	
+	@Override
+	public void onDestroy() {
+		Logger.error("TrackingLocationService: Service destroyed");
+		super.onDestroy();
+	}
+	
 	private void trackingLocationToServer() {
 		String tocken = BuManagement.getToken(getApplicationContext());
 		Logger.error("getToken:" + tocken);
@@ -83,5 +89,11 @@ public class TrackingLocationService extends Service {
 			return null;
 		}
 		
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			TrackingLocationService.this.onDestroy();
+		}
 	}
 }
