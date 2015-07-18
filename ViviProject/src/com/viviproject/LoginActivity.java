@@ -3,11 +3,15 @@ package com.viviproject;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,11 +22,15 @@ import com.viviproject.entities.ResponseLogin;
 import com.viviproject.entities.UserInformation;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.receiver.AutoUpdateReceiver;
+import com.viviproject.reports.AcTotalSales;
+import com.viviproject.service.TrackingLocationService;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.DataStorage;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.ultilities.StringUtils;
 
@@ -177,6 +185,17 @@ public class LoginActivity extends Activity implements OnClickListener{
 			} else if (GlobalParams.TRUE.equals(result[0]) && userInformation.getStatus() == 5) {
 				BuManagement.saveToken(LoginActivity.this, responseLogin.getAccessToken());		
 				saveStatusLoginningCompleted();
+				
+				Logger.error("----------------------------");
+				Intent i = new Intent(LoginActivity.this, TrackingLocationService.class);
+				// In reality, you would want to have a static variable for the request code instead of 192837
+				PendingIntent sender = PendingIntent.getService(LoginActivity.this, 0, i, 0);
+				 
+				// Get the AlarmManager service
+				AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+				am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 5 * 60 * 1000, sender); // 1 menute
+				Logger.error("--------------END--------------") ;
+				
 				DataStorage dataStorage = DataStorage.getInstance();
 				try {
 					dataStorage.save_UserInformation(userInformation, LoginActivity.this);

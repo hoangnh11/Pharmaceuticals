@@ -9,6 +9,7 @@
 package com.viviproject.ultilities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
@@ -25,6 +26,11 @@ public final class SharedPreferenceManager
         _shareRefs = active.getSharedPreferences(CONFIGURATION_NAME, Activity.MODE_PRIVATE);
     }
 
+    public SharedPreferenceManager(Context active)
+    {
+        _shareRefs = active.getSharedPreferences(CONFIGURATION_NAME, Activity.MODE_PRIVATE);
+    }
+    
     public void saveDouble(String key, double value)
     {
         String dValue = String.valueOf(value);

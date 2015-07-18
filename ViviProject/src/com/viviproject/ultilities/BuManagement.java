@@ -172,6 +172,11 @@ public final class BuManagement {
 		return sharedPreferenceManager.getString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, null);
 	}
 	
+	public static String getToken(Context activity) {
+		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
+		return sharedPreferenceManager.getString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, null);
+	}
+	
 	public static boolean saveToken(Activity activity, String token) {
 		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
 		sharedPreferenceManager.saveString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, token);

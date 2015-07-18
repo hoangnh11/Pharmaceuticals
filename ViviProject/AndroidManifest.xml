@@ -10,7 +10,7 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
+	
     <permission
         android:name="com.viviproject.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -171,6 +171,12 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
 
+        <receiver android:name="com.activetrak.android.receiver.AutoUpdateReceiver"/>
+        
+        <service 
+            android:name="com.viviproject.service.TrackingLocationService">
+        </service>
+        
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/API_KEY" />

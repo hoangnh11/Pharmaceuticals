@@ -20,4 +20,5 @@ public interface INetServices {
 	String getUserInformation(NetParameter[] netParameters) throws Exception;
 	String getStores(NetParameter[] netParameters) throws Exception;
 	String getStoresLine(NetParameter[] netParameters, String day) throws Exception;
+	String trackingLocation(NetParameter[] headers, NetParameter[] netParameters, String body) throws Exception;
 }

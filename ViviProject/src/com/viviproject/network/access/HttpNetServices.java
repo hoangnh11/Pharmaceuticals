@@ -92,4 +92,10 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.getStoresLine(netParameters, day);
 		return executer(functionInfo);
 	}
+
+	@Override
+	public String trackingLocation(NetParameter[] headers, NetParameter[] netParameters, String body) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.trackingLocation(headers, netParameters, body);
+		return executer(functionInfo);
+	}
 }
