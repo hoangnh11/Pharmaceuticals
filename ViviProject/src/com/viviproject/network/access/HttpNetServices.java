@@ -98,4 +98,16 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.trackingLocation(headers, netParameters, body);
 		return executer(functionInfo);
 	}
+	
+	@Override
+	public String createStores(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.createStores(netParameters);
+		return executer(functionInfo);
+	}
+	
+	@Override
+	public String updateStores(NetParameter[] netParameters, String id) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.updateStores(netParameters, id);
+		return executer(functionInfo);
+	}
 }

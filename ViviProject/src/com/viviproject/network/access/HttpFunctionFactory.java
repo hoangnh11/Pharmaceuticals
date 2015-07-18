@@ -164,4 +164,20 @@ public final class HttpFunctionFactory {
 		//functionInfo.setBody(body);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo createStores(NetParameter[] netParameters) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("createStores");
+		String params = funcLogParams(netParameters);
+		Log.e("createStores", "createStores: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/create?" + params);
+		return functionInfo;
+	}
+	
+	public static HttpFunctionInfo updateStores(NetParameter[] netParameters, String id) {
+		HttpFunctionInfo functionInfo = createGetMethod("updateStores");
+		String params = funcLogParams(netParameters);
+		Log.e("updateStores", "updateStores: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/" + id + "?" + params);
+		return functionInfo;
+	}
 }
