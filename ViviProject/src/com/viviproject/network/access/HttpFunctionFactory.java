@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.viviproject.network.HttpConnection;
 import com.viviproject.network.NetParameter;
-import com.viviproject.ultilities.BuManagement;
 
 /**
  * This class handle API and Environment in project
@@ -23,8 +22,6 @@ import com.viviproject.ultilities.BuManagement;
 public final class HttpFunctionFactory {
 	public static String viviHostURLshort = "http://api.tm.vivi.vn";
 
-	private static String userAgent = BuManagement.getUserAgent();
-	
 	/**
 	 * 
 	 * @param name
@@ -165,11 +162,12 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
-	public static HttpFunctionInfo createStores(NetParameter[] netParameters) {
+	public static HttpFunctionInfo createStores(NetParameter[] netParameters, String token) {
 		HttpFunctionInfo functionInfo = createPostBodyMethod("createStores");
 		String params = funcLogParams(netParameters);
 		Log.e("createStores", "createStores: " + params);
-		functionInfo.setUrl(viviHostURLshort + "/v1/stores/create?" + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/create?access-token=" + token);
+		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
 	

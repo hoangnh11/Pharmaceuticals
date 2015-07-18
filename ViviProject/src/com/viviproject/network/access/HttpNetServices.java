@@ -100,8 +100,8 @@ public final class HttpNetServices implements INetServices {
 	}
 	
 	@Override
-	public String createStores(NetParameter[] netParameters) throws Exception {
-		HttpFunctionInfo functionInfo = HttpFunctionFactory.createStores(netParameters);
+	public String createStores(NetParameter[] netParameters, String token) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.createStores(netParameters, token);
 		return executer(functionInfo);
 	}
 	

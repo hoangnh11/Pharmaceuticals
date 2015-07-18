@@ -1,32 +1,35 @@
 package com.viviproject.customerline;
 
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.viviproject.R;
-import com.viviproject.adapter.VisitAdapter;
+import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
-import com.viviproject.visit.VisitAcitvity;
+import com.viviproject.ultilities.StringUtils;
 
 public class CreateCustormer extends Activity implements OnClickListener{
 	
@@ -36,14 +39,20 @@ public class CreateCustormer extends Activity implements OnClickListener{
 	
 	private Spinner spDay, spMonth, spYear, spDayStaff, spMonthStaff, spYearStaff;
 	private List<String> listDay, listMonth, listYear;
+	private EditText edtStoreName, edtStoreAddress, edtStorePhone;
 	
+	private AppPreferences app;
 	private ProgressDialog progressDialog;
 	private CreateStores createStores;
+	private ResponseCreateStores responseCreateStores;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_customer_layout);
+		app = new AppPreferences(this);
+		responseCreateStores = new ResponseCreateStores();
+		
 		initLayout();
 		
 		String[] day = getResources().getStringArray(R.array.day);
@@ -97,6 +106,27 @@ public class CreateCustormer extends Activity implements OnClickListener{
 		spDayStaff = (Spinner) findViewById(R.id.spDayStaff);
 		spMonthStaff = (Spinner) findViewById(R.id.spMonthStaff);
 		spYearStaff = (Spinner) findViewById(R.id.spYearStaff);
+		
+		edtStoreName = (EditText) findViewById(R.id.edtStoreName);
+		edtStoreAddress = (EditText) findViewById(R.id.edtStoreAddress);
+		edtStorePhone = (EditText) findViewById(R.id.edtStorePhone);
+	}
+	
+	private int validateInput() {
+		int errorCode = 0;		
+		String storeName = edtStoreName.getEditableText().toString();
+		String storeAddress = edtStoreAddress.getEditableText().toString();
+		String storePhone = edtStorePhone.getEditableText().toString();
+
+		if (StringUtils.isBlank(storeName)) {
+			errorCode = R.string.STORES_NAME_NOT_BLANK;
+		} else if (StringUtils.isBlank(storeAddress)) {
+			errorCode = R.string.STORES_ADDRESS_NOT_BLANK;
+		} else if (StringUtils.isBlank(storePhone)) {
+			errorCode = R.string.STORES_PHONE_NOT_BLANK;
+		}
+
+		return errorCode;
 	}
 	
 	@Override
@@ -108,8 +138,15 @@ public class CreateCustormer extends Activity implements OnClickListener{
 			break;
 
 		case R.id.btnSendRequest:
-			createStores = new CreateStores();
-			createStores.execute();
+			
+			int errorCode = validateInput();
+			if (errorCode == 0) {
+				createStores = new CreateStores();
+				createStores.execute();
+			} else {				
+				app.alertErrorMessageInt(errorCode, getString(R.string.COMMON_MESSAGE), this);
+			}
+			
 			break;
 			
 		case R.id.btnHere:
@@ -139,26 +176,26 @@ public class CreateCustormer extends Activity implements OnClickListener{
 			});
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[12];
-				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(CreateCustormer.this));
-				netParameter[1] = new NetParameter("uid", "");
-				netParameter[2] = new NetParameter("code", "");
-				netParameter[3] = new NetParameter("name", "");
-				netParameter[4] = new NetParameter("address", "");
-				netParameter[5] = new NetParameter("phone", "");
-				netParameter[6] = new NetParameter("longitude", "");
-				netParameter[7] = new NetParameter("latitude", "");
-				netParameter[8] = new NetParameter("region_id", "");
-				netParameter[9] = new NetParameter("district", "");
-				netParameter[10] = new NetParameter("vip", "");
-				netParameter[11] = new NetParameter("staff", "");
+				NetParameter[] netParameter = new NetParameter[11];				
+				netParameter[0] = new NetParameter("uid", app.getIMEI(CreateCustormer.this));
+				netParameter[1] = new NetParameter("code", "HBT1006");
+				netParameter[2] = new NetParameter("name", URLEncoder.encode(edtStoreName.getEditableText().toString()));
+				netParameter[3] = new NetParameter("address", URLEncoder.encode(edtStoreAddress.getEditableText().toString()));
+				netParameter[4] = new NetParameter("phone", URLEncoder.encode(edtStorePhone.getEditableText().toString()));
+				netParameter[5] = new NetParameter("longitude", "");
+				netParameter[6] = new NetParameter("latitude", "");
+				netParameter[7] = new NetParameter("region_id", "");
+				netParameter[8] = new NetParameter("district", "");
+				netParameter[9] = new NetParameter("vip", "");
+				netParameter[10] = new NetParameter("staff", "");
 				try {
-					data = HttpNetServices.Instance.createStores(netParameter);
+					data = HttpNetServices.Instance.createStores(netParameter, BuManagement.getToken(CreateCustormer.this));
 					Logger.error(":         "+data);
-//					enStores = DataParser.getStores(data);
+					responseCreateStores = DataParser.createStores(data);
 					return GlobalParams.TRUE;
 				} catch (Exception e) {
 					return GlobalParams.FALSE;
@@ -172,9 +209,18 @@ public class CreateCustormer extends Activity implements OnClickListener{
 		protected void onPostExecute(String result) {
 			progressDialog.dismiss();
 			if (!isCancelled()) {
-//				if (result.equals(GlobalParams.TRUE) && enStores != null) {
-//					
-//				}
+				if (result.equals(GlobalParams.TRUE) && responseCreateStores != null
+						&& String.valueOf(responseCreateStores.getStatus()).equalsIgnoreCase("success")) {
+					app.alertErrorMessageString(String.valueOf(responseCreateStores.getStatus()),
+							getString(R.string.COMMON_MESSAGE), CreateCustormer.this);
+				} else {
+					try {
+						app.alertErrorMessageString(responseCreateStores.getMessage(),
+								getString(R.string.COMMON_MESSAGE), CreateCustormer.this);
+					} catch (Exception e) {
+						Logger.error("responseCreateStores: " + e);
+					}					
+				}
 			}
 		}
 	}

@@ -22,8 +22,6 @@ import com.viviproject.entities.ResponseLogin;
 import com.viviproject.entities.UserInformation;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
-import com.viviproject.receiver.AutoUpdateReceiver;
-import com.viviproject.reports.AcTotalSales;
 import com.viviproject.service.TrackingLocationService;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
