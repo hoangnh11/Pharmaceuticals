@@ -40,6 +40,7 @@ public final class GlobalParams {
     public static final int THUMBNAIL_SIZE = 160;
     public static final String TEMP_SCALE_IMG_FOR_SENDING_NAME = "tmpScaledForSending.jpg";
     public static final String APP_NAME = "Pharmacy";
+    public static final String STORES_ID = "store id";
     public static final String FOLDER_DATA = Environment
 			.getExternalStorageDirectory().getAbsolutePath()
 			+ SPLASH_STRING

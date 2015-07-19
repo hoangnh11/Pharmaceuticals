@@ -34,6 +34,17 @@ public final class DataParser {
 		}
 	}
 
+	public static String convertObjectToString(Object jsonData)	throws JsonSyntaxException {
+		if (jsonData == null) {
+			return null;
+		}
+
+		String json;
+		initGson();
+		json = mGson.toJson(jsonData);
+		return json;
+	}
+	
 	public static ResponseLogin getLogin(String jsonData) throws JsonSyntaxException {
 		if (StringUtils.isBlank(jsonData)) {
 			return null;
@@ -83,6 +94,22 @@ public final class DataParser {
 	}
 	
 	public static ResponseCreateStores createStores(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<ResponseCreateStores>() {}.getType();
+
+			ResponseCreateStores details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static ResponseCreateStores updateStores(String jsonData) throws JsonSyntaxException {
 		if (StringUtils.isBlank(jsonData)) {
 			return null;
 		}

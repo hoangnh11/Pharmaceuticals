@@ -6,8 +6,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -17,6 +17,7 @@ import com.viviproject.R;
 import com.viviproject.adapter.SalerAdapter;
 import com.viviproject.entities.EnCustomer;
 import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.GlobalParams;
 
 public class CustomerDetails extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
@@ -32,14 +33,19 @@ public class CustomerDetails extends Activity implements OnClickListener{
 	private AppPreferences app;	
 	private boolean checkScrollBottom = false;
 	private ScrollView scrollView;
+	private Bundle bundle;
+	private String storeId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.customer_details);
+		app = new AppPreferences(this);
+		bundle = app.getBundle(this);
+		storeId = bundle.getString(GlobalParams.STORES_ID);
 		listSaler = new ArrayList<EnCustomer>();
 		enCustomer = new EnCustomer();
-		app = new AppPreferences(this);
+		
 		initLayout();
 	}
 
@@ -101,6 +107,7 @@ public class CustomerDetails extends Activity implements OnClickListener{
 			
 		case R.id.linEdit:
 			intent = new Intent(this, EditCustomer.class);
+			intent.putExtra(GlobalParams.STORES_ID, storeId);
 			startActivity(intent);
 			break;
 			

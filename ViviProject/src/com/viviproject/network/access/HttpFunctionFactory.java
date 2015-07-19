@@ -171,11 +171,12 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
-	public static HttpFunctionInfo updateStores(NetParameter[] netParameters, String id) {
-		HttpFunctionInfo functionInfo = createGetMethod("updateStores");
+	public static HttpFunctionInfo updateStores(NetParameter[] netParameters, String token, String id) {
+		HttpFunctionInfo functionInfo = createPutBodyMethod("updateStores");
 		String params = funcLogParams(netParameters);
 		Log.e("updateStores", "updateStores: " + params);
-		functionInfo.setUrl(viviHostURLshort + "/v1/stores/" + id + "?" + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/" + id + "?access-token=" + token);
+		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
 }

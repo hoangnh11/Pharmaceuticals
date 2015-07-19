@@ -43,6 +43,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/edtStoreName"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/PHARMACY_NAME_TWO_DOTS"
@@ -67,13 +68,15 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/edtStorePhone"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/PHONE_NUMBER_DETAILS"
                     android:singleLine="true"
-                    android:text="043.533.xxxx"
+                    android:text="043533000"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
+                    android:inputType="phone"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -92,6 +95,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/edtStoreAddress"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/ADDRESS_TWO_DOTS"
