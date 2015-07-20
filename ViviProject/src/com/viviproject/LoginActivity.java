@@ -63,6 +63,20 @@ public class LoginActivity extends Activity implements OnClickListener{
 	}
 	
 	/**
+	 * check admin signin
+	 * @return
+	 */
+	private boolean checkAdminSignIn(){
+		// Get user name and password from screen
+		String username = edtUsername.getEditableText().toString();
+		String password = edtPassword.getEditableText().toString();
+		if(username.equalsIgnoreCase("admin") && password.equals("1234")){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	/**
 	 * Validate the login screen with two parameters user name and password
 	 * 
 	 * @return the error code
@@ -94,6 +108,12 @@ public class LoginActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnLogin:
+			if(checkAdminSignIn()){
+				Intent i = new Intent(LoginActivity.this, AcSettingUrl.class);
+				startActivity(i);
+				break;
+			}
+			
 			int errorCode = validateInput();
 			if (errorCode == 0) {
 				loginAsyncTask = new LoginAsyncTask();

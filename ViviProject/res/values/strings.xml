@@ -9,6 +9,7 @@
     <string name="COMMON_ERROR">Lỗi</string>
     <string name="COMMON_OK">Đồng ý</string>
     <string name="COMMON_NO">Không</string>
+    <string name="COMMON_SAVE">Lưu</string>
     <string name="COMMON_YES">Đồng ý</string>
     <string name="COMMON_CANCEL">Hủy</string>
     <string name="COMMON_MESSAGE">Lời nhắn</string>
@@ -36,6 +37,7 @@
 
     <!-- ================================================ Home screen =================================================== -->
     <string name="CHANGE_PASSWORD">Đổi mật khẩu</string>
+    <string name="SETTING">Cài đặt</string>
     <string name="LOGOUT">Đăng xuất</string>
     <string name="GENERAL">Tổng quan</string>
     <string name="DIRECT_CUSTOMER">Tuyến &amp; khách hàng</string>

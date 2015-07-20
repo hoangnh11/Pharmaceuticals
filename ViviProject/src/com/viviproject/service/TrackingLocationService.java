@@ -84,6 +84,18 @@ public class TrackingLocationService extends Service {
 
 		@Override
 		protected Void doInBackground(Void... params) {
+			Logger.error("========== get location: START===========");
+			// create class object
+			GPSTracker gps = new GPSTracker(getApplicationContext());
+			// check if GPS enabled     
+            if(gps.canGetLocation()){
+                 
+                double latitude = gps.getLatitude();
+                double longitude = gps.getLongitude();
+                Logger.error("latitude: " + latitude + " -longitude: " + longitude);
+            }
+            
+			Logger.error("========== get location: END===========");
 			Logger.error("TrackingLocationAtask");
 			trackingLocationToServer();
 			return null;
