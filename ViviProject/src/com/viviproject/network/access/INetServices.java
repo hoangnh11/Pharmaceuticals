@@ -20,7 +20,7 @@ public interface INetServices {
 	String getUserInformation(NetParameter[] netParameters) throws Exception;
 	String getStores(NetParameter[] netParameters) throws Exception;
 	String getStoresLine(NetParameter[] netParameters, String day) throws Exception;
-	String trackingLocation(NetParameter[] headers, NetParameter[] netParameters, String body) throws Exception;
+	String trackingLocation(NetParameter[] headers, NetParameter[] netParameters) throws Exception;
 	String createStores(NetParameter[] netParameters, String token) throws Exception;
 	String updateStores(NetParameter[] netParameters, String token, String id) throws Exception;
 }

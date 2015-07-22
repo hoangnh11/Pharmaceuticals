@@ -1,11 +1,14 @@
 package com.viviproject.service;
 
-import org.json.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.text.format.DateFormat;
 
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
@@ -34,6 +37,17 @@ public class TrackingLocationService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 	    Logger.error("TrackingLocationService: Service started");
+	   
+	    Logger.error("========== get location: START===========");
+		// create class object
+		GPSTracker gps = new GPSTracker(getApplicationContext());
+		// check if GPS enabled     
+		latitude = gps.getLatitude();
+		longitude = gps.getLongitude();
+        Logger.error("latitude: " + latitude + " -longitude: " + longitude);
+        
+		Logger.error("========== get location: END===========");
+		
 	    TrackingLocationAtask m = new TrackingLocationAtask();
 	    m.execute();
 	    
@@ -48,25 +62,24 @@ public class TrackingLocationService extends Service {
 	
 	private void trackingLocationToServer() {
 		String tocken = BuManagement.getToken(getApplicationContext());
-		Logger.error("getToken:" + tocken);
+		Logger.error("access-token:" + tocken);
 		
-		String body = "lat=0&long=0&title=vivi";
+		Calendar calendar = Calendar.getInstance();
+		String date = calendar.getTime().toString();
+		
 		NetParameter[] headers = new NetParameter[1];
 		headers[0] = new NetParameter("access-token", tocken );
 		
 		NetParameter[] params = new NetParameter[3];
-		params[0] = new NetParameter("lat", "0.0");
-		params[1] = new NetParameter("long", "0.0");
-		params[2] = new NetParameter("title", "vivi");
+		params[0] = new NetParameter("lat", String.valueOf(latitude));
+		params[1] = new NetParameter("long", String.valueOf(longitude));
+		params[2] = new NetParameter("title", date);
 		
 		try {
-			JSONObject json = new JSONObject();
-			json.put("lat", 0.5);
-			json.put("long", 0.5);
-			json.put("title", "vivi");
-			body = json.toString();
-			Logger.error("body:" + body);
-			String data = HttpNetServices.Instance.trackingLocation(headers, params, body);
+			for (int i = 0; i < params.length; i++) {
+				Logger.error("" + params[i].getName() + "*" + params[i].getValue());
+			}
+			String data = HttpNetServices.Instance.trackingLocation(headers, params);
 			Logger.error("" + data);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,18 +97,6 @@ public class TrackingLocationService extends Service {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			Logger.error("========== get location: START===========");
-			// create class object
-			GPSTracker gps = new GPSTracker(getApplicationContext());
-			// check if GPS enabled     
-            if(gps.canGetLocation()){
-                 
-                double latitude = gps.getLatitude();
-                double longitude = gps.getLongitude();
-                Logger.error("latitude: " + latitude + " -longitude: " + longitude);
-            }
-            
-			Logger.error("========== get location: END===========");
 			Logger.error("TrackingLocationAtask");
 			trackingLocationToServer();
 			return null;

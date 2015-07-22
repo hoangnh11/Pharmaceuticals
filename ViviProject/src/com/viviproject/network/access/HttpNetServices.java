@@ -94,8 +94,8 @@ public final class HttpNetServices implements INetServices {
 	}
 
 	@Override
-	public String trackingLocation(NetParameter[] headers, NetParameter[] netParameters, String body) throws Exception {
-		HttpFunctionInfo functionInfo = HttpFunctionFactory.trackingLocation(headers, netParameters, body);
+	public String trackingLocation(NetParameter[] headers, NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.trackingLocation(headers, netParameters);
 		return executer(functionInfo);
 	}
 	

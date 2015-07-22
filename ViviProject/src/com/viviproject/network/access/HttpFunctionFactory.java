@@ -153,12 +153,11 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
-	public static HttpFunctionInfo trackingLocation(NetParameter[] headers,NetParameter[] netParameters, String body) {
+	public static HttpFunctionInfo trackingLocation(NetParameter[] headers,NetParameter[] netParameters) {
 		HttpFunctionInfo functionInfo = createPostBodyMethod("trackingLocation");
 		functionInfo.setUrl(viviHostURLshort + "/v1/gps/create?access-token=" + headers[0].getValue());
 		//functionInfo.setHeader(headers);
 		functionInfo.setParams(netParameters);
-		//functionInfo.setBody(body);
 		return functionInfo;
 	}
 	
