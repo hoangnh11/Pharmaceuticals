@@ -33,7 +33,6 @@ import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
-import com.viviproject.ultilities.Logger;
 
 public class VisitAcitvity extends Activity implements OnClickListener{
 	
