@@ -23,4 +23,5 @@ public interface INetServices {
 	String trackingLocation(NetParameter[] headers, NetParameter[] netParameters) throws Exception;
 	String createStores(NetParameter[] netParameters, String token) throws Exception;
 	String updateStores(NetParameter[] netParameters, String token, String id) throws Exception;
+	String getProducts(NetParameter[] netParameters) throws Exception;
 }
