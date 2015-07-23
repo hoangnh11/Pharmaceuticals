@@ -11,8 +11,7 @@ public class EnDiscount implements Serializable{
 	private EnPoint point;
 	private EnOther other;
 	private EnSale sale;
-	
-	
+		
 	/**
 	 * @return the other
 	 */

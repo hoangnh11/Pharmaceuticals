@@ -13,13 +13,14 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.Products;
+import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.visit.ItemListViewForsale;
 
 public class ForsaleAdapter extends BaseAdapter{
 	private Products _data;
     private EnProducts items;
     private Activity mActivity;
-    private OnClickListener _onTDClick;
+    private OnClickListener _onTDClick, _onCKClick, _onOtherClick;
 	
     public ForsaleAdapter(Activity activity, Products data) 
 	{
@@ -53,6 +54,8 @@ public class ForsaleAdapter extends BaseAdapter{
         {
             convertView = new ItemListViewForsale(mActivity.getApplicationContext());
             ((ItemListViewForsale) convertView).setOnTDClickHandler(onTDClickHandler);
+            ((ItemListViewForsale) convertView).setOnCKClickHandler(onCKClickHandler);
+            ((ItemListViewForsale) convertView).setOnOtherClickHandler(onOtherClickHandler);
            
             holder = new ViewHolder();
             holder.linHeader = (LinearLayout) convertView.findViewById(R.id.linHeader);
@@ -84,19 +87,37 @@ public class ForsaleAdapter extends BaseAdapter{
         		try {
         			holder.tvName.setBackgroundColor(Color.parseColor("#"+items.getColor()));
 				} catch (Exception e) {					
-				}        		
+				}
 			}
         	
         	if (items.getDiscount() != null && items.getDiscount().getPoint() != null) {
-				holder.imgTD.setImageResource(R.drawable.checkbox_false);
+        		if (items.getCheckTD() != null) {
+                	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
+                		holder.imgTD.setImageResource(R.drawable.checkbox_true);
+    				} else {
+    					holder.imgTD.setImageResource(R.drawable.checkbox_false);
+    				}
+    			}
 			}
         	
         	if (items.getDiscount() != null && items.getDiscount().getSale() != null) {
-				holder.imgCK.setImageResource(R.drawable.checkbox_false);
+        		if (items.getCheckCK() != null) {
+                	if (items.getCheckCK().equals(GlobalParams.TRUE)) {
+                		holder.imgCK.setImageResource(R.drawable.checkbox_true);
+    				} else {
+    					holder.imgCK.setImageResource(R.drawable.checkbox_false);
+    				}
+    			}
 			}
         	
         	if (items.getDiscount() != null && items.getDiscount().getOther() != null) {
-				holder.imgOther.setImageResource(R.drawable.checkbox_false);
+        		if (items.getCheckOther() != null) {
+                	if (items.getCheckOther().equals(GlobalParams.TRUE)) {
+                		holder.imgOther.setImageResource(R.drawable.checkbox_true);
+    				} else {
+    					holder.imgOther.setImageResource(R.drawable.checkbox_false);
+    				}
+    			}
 			}
 		} 
         
@@ -124,5 +145,35 @@ public class ForsaleAdapter extends BaseAdapter{
     public void setOnTDClickHandler(OnClickListener itemClick)
     {
     	_onTDClick = itemClick;
-    } 
+    }
+    
+    OnClickListener onCKClickHandler = new OnClickListener() 
+	{
+        @Override
+        public void onClick(View v)
+        {
+            if (_onCKClick != null)
+            	_onCKClick.onClick(v);
+        }
+    };
+    
+    public void setOnCKClickHandler(OnClickListener itemClick)
+    {
+    	_onCKClick = itemClick;
+    }
+    
+    OnClickListener onOtherClickHandler = new OnClickListener() 
+	{
+        @Override
+        public void onClick(View v)
+        {
+            if (_onOtherClick != null)
+            	_onOtherClick.onClick(v);
+        }
+    };
+    
+    public void setOnOtherClickHandler(OnClickListener itemClick)
+    {
+    	_onOtherClick = itemClick;
+    }
 }

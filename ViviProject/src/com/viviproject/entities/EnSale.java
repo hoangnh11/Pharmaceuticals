@@ -14,6 +14,8 @@ public class EnSale implements Serializable{
 	private String discount;
 	private String max;
 	private String with_point;
+	
+	
 	/**
 	 * @return the subtype
 	 */

@@ -16,6 +16,47 @@ public class EnProducts implements Serializable{
 	private String price;
 	private String color;
 	private EnDiscount discount;
+	private String checkTD;
+	private String checkCK;
+	private String checkOther;
+	
+	
+	/**
+	 * @return the checkCK
+	 */
+	public String getCheckCK() {
+		return checkCK;
+	}
+	/**
+	 * @param checkCK the checkCK to set
+	 */
+	public void setCheckCK(String checkCK) {
+		this.checkCK = checkCK;
+	}
+	/**
+	 * @return the checkOther
+	 */
+	public String getCheckOther() {
+		return checkOther;
+	}
+	/**
+	 * @param checkOther the checkOther to set
+	 */
+	public void setCheckOther(String checkOther) {
+		this.checkOther = checkOther;
+	}
+	/**
+	 * @return the checkTD
+	 */
+	public String getCheckTD() {
+		return checkTD;
+	}
+	/**
+	 * @param checkTD the checkTD to set
+	 */
+	public void setCheckTD(String checkTD) {
+		this.checkTD = checkTD;
+	}
 	/**
 	 * @return the id
 	 */

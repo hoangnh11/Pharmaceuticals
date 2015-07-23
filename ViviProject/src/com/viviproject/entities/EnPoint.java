@@ -10,7 +10,9 @@ public class EnPoint implements Serializable{
 	private static final long serialVersionUID = -2598012631872825876L;
 	private String discount_id;
 	private String quantity;
-	private String point;
+	private String point;	
+	
+	
 	/**
 	 * @return the discount_id
 	 */

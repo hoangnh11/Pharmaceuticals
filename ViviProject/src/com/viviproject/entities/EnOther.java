@@ -12,7 +12,9 @@ public class EnOther implements Serializable{
 	private String discount_id;
 	private String quantity;
 	private String max;
-	private String with_point;
+	private String with_point;	
+	
+	
 	/**
 	 * @return the subtype
 	 */

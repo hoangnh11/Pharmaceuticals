@@ -3,7 +3,6 @@ package com.viviproject.visit;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,10 +14,6 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.ForsaleAdapter;
-import com.viviproject.adapter.ListCustomerAdapter;
-import com.viviproject.core.ItemListCustomer;
-import com.viviproject.customerline.CustomerDetails;
-import com.viviproject.customerline.ListCustomer;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.Products;
 import com.viviproject.network.NetParameter;
@@ -101,6 +96,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				linSubCreateOrder.setVisibility(View.GONE);
 				tvCreateOrder.setBackgroundResource(R.color.BLUE);
 			}
+			
 			break;
 			
 		default:
@@ -109,17 +105,77 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	}
 	
 	OnClickListener onTDClickHandler = new OnClickListener() 
+	{		
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemListViewForsale) v).get_position();        
+            items = enProducts.getProducts().get(position);
+          
+            if (items.getCheckTD() != null) {            	
+            	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
+            		enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);            		
+				} else {
+					enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);					
+				}
+			}
+            
+            forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+			lvForsale.setAdapter(forsaleAdapter);
+			app.setListViewHeight(lvForsale, forsaleAdapter);
+        }
+    };
+    
+    OnClickListener onCKClickHandler = new OnClickListener() 
 	{
-		Intent intent;
-		
         @Override
         public void onClick(View v)
         {
         	int position = ((ItemListViewForsale) v).get_position();
             items = enProducts.getProducts().get(position);
-//            intent = new Intent(ListCustomer.this, CustomerDetails.class);
-//            intent.putExtra(GlobalParams.STORES_ID, items.getStore_id());
-//            startActivity(intent);
+        
+            if (items.getCheckCK() != null) {            
+            	if (items.getCheckCK().equals(GlobalParams.TRUE)) {
+            		enProducts.getProducts().get(position).setCheckCK(GlobalParams.FALSE);            		
+				} else {
+					enProducts.getProducts().get(position).setCheckCK(GlobalParams.TRUE);					
+				}
+			}
+            
+            forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+			lvForsale.setAdapter(forsaleAdapter);
+			app.setListViewHeight(lvForsale, forsaleAdapter);
+        }
+    };
+    
+    OnClickListener onOtherClickHandler = new OnClickListener() 
+	{	
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemListViewForsale) v).get_position();
+            items = enProducts.getProducts().get(position);
+
+            if (items.getCheckOther() != null) {            	
+            	if (items.getCheckOther().equals(GlobalParams.TRUE)) {
+            		enProducts.getProducts().get(position).setCheckOther(GlobalParams.FALSE);            		
+				} else {
+					enProducts.getProducts().get(position).setCheckOther(GlobalParams.TRUE);					
+				}
+			}
+            
+            forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+			lvForsale.setAdapter(forsaleAdapter);
+			app.setListViewHeight(lvForsale, forsaleAdapter);
         }
     };
 	
@@ -168,8 +224,16 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 			progressDialog.dismiss();
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && enProducts != null && enProducts.getStatus().equalsIgnoreCase("success")) {
+					for (int i = 0; i < enProducts.getProducts().size(); i++) {
+						enProducts.getProducts().get(i).setCheckTD(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setCheckCK(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setCheckOther(GlobalParams.FALSE);
+					}
+					
 					forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
 					forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+					forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+					forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
 					lvForsale.setAdapter(forsaleAdapter);
 					app.setListViewHeight(lvForsale, forsaleAdapter);
 				}
