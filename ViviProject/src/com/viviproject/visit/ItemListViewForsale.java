@@ -2,22 +2,28 @@ package com.viviproject.visit;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 
 import com.viviproject.R;
 import com.viviproject.ultilities.BaseLinearLayout;
 
 public class ItemListViewForsale extends BaseLinearLayout{
 	private int _position;	
-	private OnClickListener _onItemClick;
-	private LinearLayout linItemListView;
+	private OnClickListener _onTDClick, _onCKClick, _onOtherClick;
+	private ImageView imgTD, imgCK, imgOther;
 	
 	public ItemListViewForsale(Context context)
 	{
 		super(context);
 		initControl(R.layout.item_listview_forsale, context);
-//		linItemListView = (LinearLayout) findViewById(R.id.linItemListView);
-//		linItemListView.setOnClickListener(onItemClick);
+
+		imgTD = (ImageView) findViewById(R.id.imgTD);
+		imgCK = (ImageView) findViewById(R.id.imgCK);
+		imgOther = (ImageView) findViewById(R.id.imgOther);
+		
+		imgTD.setOnClickListener(onTDClick);
+		imgCK.setOnClickListener(onCKClick);
+		imgOther.setOnClickListener(onOtherClick);
 	}
 	
 	/**
@@ -36,19 +42,51 @@ public class ItemListViewForsale extends BaseLinearLayout{
 		this._position = _position;
 	}	
 	
-	OnClickListener onItemClick = new OnClickListener() 
+	OnClickListener onTDClick = new OnClickListener() 
 	{
 
         @Override
         public void onClick(View v)
         {
-            if (_onItemClick != null)
-                _onItemClick.onClick(ItemListViewForsale.this);
+            if (_onTDClick != null)
+            	_onTDClick.onClick(ItemListViewForsale.this);
         }
     };
     
-    public void setOnThisItemClickHandler(OnClickListener itemClick)
+    public void setOnTDClickHandler(OnClickListener itemClick)
     {
-        _onItemClick = itemClick;
+    	_onTDClick = itemClick;
+    }
+    
+    OnClickListener onCKClick = new OnClickListener() 
+	{
+
+        @Override
+        public void onClick(View v)
+        {
+            if (_onCKClick != null)
+            	_onCKClick.onClick(ItemListViewForsale.this);
+        }
+    };
+    
+    public void setOnCKClickHandler(OnClickListener itemClick)
+    {
+    	_onCKClick = itemClick;
+    }
+    
+    OnClickListener onOtherClick = new OnClickListener() 
+	{
+
+        @Override
+        public void onClick(View v)
+        {
+            if (_onOtherClick != null)
+            	_onOtherClick.onClick(ItemListViewForsale.this);
+        }
+    };
+    
+    public void setOnOtherClickHandler(OnClickListener itemClick)
+    {
+    	_onOtherClick = itemClick;
     }
 }

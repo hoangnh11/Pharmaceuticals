@@ -108,7 +108,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		}
 	}
 	
-	OnClickListener onItemClickHandler = new OnClickListener() 
+	OnClickListener onTDClickHandler = new OnClickListener() 
 	{
 		Intent intent;
 		
@@ -169,7 +169,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && enProducts != null && enProducts.getStatus().equalsIgnoreCase("success")) {
 					forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
-					forsaleAdapter.setOnItemClickHandler(onItemClickHandler);
+					forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
 					lvForsale.setAdapter(forsaleAdapter);
 					app.setListViewHeight(lvForsale, forsaleAdapter);
 				}

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ public class ForsaleAdapter extends BaseAdapter{
 	private Products _data;
     private EnProducts items;
     private Activity mActivity;
-    private OnClickListener _onItemClick;
+    private OnClickListener _onTDClick;
 	
     public ForsaleAdapter(Activity activity, Products data) 
 	{
@@ -51,11 +52,14 @@ public class ForsaleAdapter extends BaseAdapter{
         if (convertView == null)
         {
             convertView = new ItemListViewForsale(mActivity.getApplicationContext());
-            ((ItemListViewForsale) convertView).setOnThisItemClickHandler(onItemClickHandler);
+            ((ItemListViewForsale) convertView).setOnTDClickHandler(onTDClickHandler);
            
             holder = new ViewHolder();
             holder.linHeader = (LinearLayout) convertView.findViewById(R.id.linHeader);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
+            holder.imgTD = (ImageView) convertView.findViewById(R.id.imgTD);
+            holder.imgCK = (ImageView) convertView.findViewById(R.id.imgCK);
+            holder.imgOther = (ImageView) convertView.findViewById(R.id.imgOther);
           
             convertView.setTag(holder);
         }
@@ -81,7 +85,19 @@ public class ForsaleAdapter extends BaseAdapter{
         			holder.tvName.setBackgroundColor(Color.parseColor("#"+items.getColor()));
 				} catch (Exception e) {					
 				}        		
-			}      	
+			}
+        	
+        	if (items.getDiscount() != null && items.getDiscount().getPoint() != null) {
+				holder.imgTD.setImageResource(R.drawable.checkbox_false);
+			}
+        	
+        	if (items.getDiscount() != null && items.getDiscount().getSale() != null) {
+				holder.imgCK.setImageResource(R.drawable.checkbox_false);
+			}
+        	
+        	if (items.getDiscount() != null && items.getDiscount().getOther() != null) {
+				holder.imgOther.setImageResource(R.drawable.checkbox_false);
+			}
 		} 
         
         ((ItemListViewForsale) convertView).set_position(position);
@@ -92,20 +108,21 @@ public class ForsaleAdapter extends BaseAdapter{
     {      
         LinearLayout linHeader;
         TextView tvName;
+        ImageView imgTD, imgCK, imgOther;
     }
 	
-	OnClickListener onItemClickHandler = new OnClickListener() 
+	OnClickListener onTDClickHandler = new OnClickListener() 
 	{
         @Override
         public void onClick(View v)
         {
-            if (_onItemClick != null)
-                _onItemClick.onClick(v);
+            if (_onTDClick != null)
+            	_onTDClick.onClick(v);
         }
     };
     
-    public void setOnItemClickHandler(OnClickListener itemClick)
+    public void setOnTDClickHandler(OnClickListener itemClick)
     {
-        _onItemClick = itemClick;
+    	_onTDClick = itemClick;
     } 
 }
