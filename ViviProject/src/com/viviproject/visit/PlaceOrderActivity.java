@@ -16,6 +16,7 @@ import com.viviproject.R;
 import com.viviproject.adapter.ForsaleAdapter;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.Products;
+import com.viviproject.entities.ResponsePrepare;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.AppPreferences;
@@ -40,6 +41,9 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	private ForsaleAdapter forsaleAdapter;
 	private EnProducts items;
 	
+	private PrepareSale prepareSale;
+	private ResponsePrepare responsePrepare;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
@@ -47,6 +51,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		app = new AppPreferences(this);
 		enProducts = new Products();
 		items = new EnProducts();
+		
+		responsePrepare = new ResponsePrepare();
 		
 		initLayout();
 		
@@ -89,7 +95,10 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.tvCreateOrder:
+			
 			if (linSubCreateOrder.getVisibility() == View.GONE) {
+				prepareSale = new PrepareSale();
+				prepareSale.execute();
 				tvCreateOrder.setBackgroundResource(R.color.BG_GRAY9E);
 				linSubCreateOrder.setVisibility(View.VISIBLE);
 			} else {
@@ -392,6 +401,60 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
 					lvForsale.setAdapter(forsaleAdapter);
 					app.setListViewHeight(lvForsale, forsaleAdapter);
+				}
+			}
+		}
+	}
+    
+    /**
+     * Get Stores list follow line
+     * @author hoangnh11
+     *
+     */
+    class PrepareSale extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(PlaceOrderActivity.this);
+			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					prepareSale.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[1];
+				netParameter[0] = new NetParameter("basket", "");
+				
+				try {
+					data = HttpNetServices.Instance.prepareSale(netParameter, BuManagement.getToken(PlaceOrderActivity.this));					
+					responsePrepare = DataParser.prepareSale(data);
+					Logger.error(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+				
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && responsePrepare != null 
+						&& responsePrepare.getStatus().equalsIgnoreCase("success")) {
+					Logger.error(responsePrepare.getStatus());
 				}
 			}
 		}
