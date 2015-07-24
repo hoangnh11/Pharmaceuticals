@@ -9,8 +9,8 @@ import com.viviproject.ultilities.BaseLinearLayout;
 
 public class ItemListViewForsale extends BaseLinearLayout{
 	private int _position;	
-	private OnClickListener _onTDClick, _onCKClick, _onOtherClick;
-	private ImageView imgTD, imgCK, imgOther;
+	private OnClickListener _onTDClick, _onCKClick, _onOtherClick, _onMinusClick, _onPlusClick;
+	private ImageView imgTD, imgCK, imgOther, imgMinus, imgPlus;
 	
 	public ItemListViewForsale(Context context)
 	{
@@ -20,10 +20,14 @@ public class ItemListViewForsale extends BaseLinearLayout{
 		imgTD = (ImageView) findViewById(R.id.imgTD);
 		imgCK = (ImageView) findViewById(R.id.imgCK);
 		imgOther = (ImageView) findViewById(R.id.imgOther);
+		imgMinus = (ImageView) findViewById(R.id.imgMinus);
+		imgPlus = (ImageView) findViewById(R.id.imgPlus);
 		
 		imgTD.setOnClickListener(onTDClick);
 		imgCK.setOnClickListener(onCKClick);
 		imgOther.setOnClickListener(onOtherClick);
+		imgMinus.setOnClickListener(onMinusClick);
+		imgPlus.setOnClickListener(onPlusClick);
 	}
 	
 	/**
@@ -88,5 +92,37 @@ public class ItemListViewForsale extends BaseLinearLayout{
     public void setOnOtherClickHandler(OnClickListener itemClick)
     {
     	_onOtherClick = itemClick;
+    }
+    
+    OnClickListener onMinusClick = new OnClickListener() 
+	{
+
+        @Override
+        public void onClick(View v)
+        {
+            if (_onMinusClick != null)
+            	_onMinusClick.onClick(ItemListViewForsale.this);
+        }
+    };
+    
+    public void setOnMinusClickHandler(OnClickListener itemClick)
+    {
+    	_onMinusClick = itemClick;
+    }
+    
+    OnClickListener onPlusClick = new OnClickListener() 
+	{
+
+        @Override
+        public void onClick(View v)
+        {
+            if (_onPlusClick != null)
+            	_onPlusClick.onClick(ItemListViewForsale.this);
+        }
+    };
+    
+    public void setOnPlusClickHandler(OnClickListener itemClick)
+    {
+    	_onPlusClick = itemClick;
     }
 }

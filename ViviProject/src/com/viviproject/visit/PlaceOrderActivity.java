@@ -104,6 +104,51 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		}
 	}
 	
+	OnClickListener onMinusClickHandler = new OnClickListener() 
+	{		
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemListViewForsale) v).get_position();        
+            items = enProducts.getProducts().get(position);           
+            	
+            if (Integer.parseInt(items.getUnit()) > 0) {
+            	enProducts.getProducts().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) - 1));
+            	
+            	forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+    			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+    			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+    			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+    			forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
+    			forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
+    			lvForsale.setAdapter(forsaleAdapter);
+    			app.setListViewHeight(lvForsale, forsaleAdapter);
+			}
+			
+        }
+    };
+    
+    OnClickListener onPlusClickHandler = new OnClickListener() 
+	{		
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemListViewForsale) v).get_position();        
+            items = enProducts.getProducts().get(position);
+          
+        	enProducts.getProducts().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) + 1));
+        	
+        	forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+			forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
+			forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
+			lvForsale.setAdapter(forsaleAdapter);
+			app.setListViewHeight(lvForsale, forsaleAdapter);		
+        }
+    };
+	
 	OnClickListener onTDClickHandler = new OnClickListener() 
 	{		
         @Override
@@ -183,6 +228,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
     			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
     			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
     			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+    			forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
+				forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
     			lvForsale.setAdapter(forsaleAdapter);
     			app.setListViewHeight(lvForsale, forsaleAdapter);
 			}
@@ -230,6 +277,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
     			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
     			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
     			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+    			forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
+				forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
     			lvForsale.setAdapter(forsaleAdapter);
     			app.setListViewHeight(lvForsale, forsaleAdapter);
             }            
@@ -276,6 +325,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
 				forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
 				forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+				forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
+				forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
 				lvForsale.setAdapter(forsaleAdapter);
 				app.setListViewHeight(lvForsale, forsaleAdapter);
 			}            
@@ -337,6 +388,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
 					forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
 					forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+					forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
+					forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
 					lvForsale.setAdapter(forsaleAdapter);
 					app.setListViewHeight(lvForsale, forsaleAdapter);
 				}

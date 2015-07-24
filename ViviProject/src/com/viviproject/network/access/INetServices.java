@@ -13,8 +13,6 @@ import com.viviproject.network.NetParameter;
  * @author hoangnh11
  */
 public interface INetServices {
-	
-//	String storeFailDeductMilesReport(NetParameter[] netParameters) throws Exception;
 
 	String login(NetParameter[] netParameters) throws Exception;
 	String getUserInformation(NetParameter[] netParameters) throws Exception;
@@ -24,4 +22,6 @@ public interface INetServices {
 	String createStores(NetParameter[] netParameters, String token) throws Exception;
 	String updateStores(NetParameter[] netParameters, String token, String id) throws Exception;
 	String getProducts(NetParameter[] netParameters) throws Exception;
+	String prepareSale(NetParameter[] netParameters, String token) throws Exception;
+	String createSale(NetParameter[] netParameters, String token) throws Exception;
 }

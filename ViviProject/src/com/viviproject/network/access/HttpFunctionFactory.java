@@ -107,17 +107,6 @@ public final class HttpFunctionFactory {
 		}
 		return params;
 	}
-	
-//	public static HttpFunctionInfo storeFailDeductMilesReport(NetParameter[] netParameters) {
-//		HttpFunctionInfo functionInfo = createPostBodyMethod("storeFailDeductMilesReport");
-//		String params = funcLogParams(netParameters);
-//		Log.e("storeFailDeductMilesReport", "storeFailDeductMilesReport: " + params);
-//		functionInfo.setUrl(vnaRedemptionHostURLshort + "Report/storeFailDeductMilesReport/v2");
-//		functionInfo.setHeader(new NetParameter[] {HttpUtilities.getHeaderUserAgent(userAgent),
-//				HttpUtilities.getHeaderUserId()});
-//		functionInfo.setParams(netParameters);
-//		return functionInfo;
-//	}
 
 	public static HttpFunctionInfo login(NetParameter[] netParameters)
 	{
@@ -184,6 +173,24 @@ public final class HttpFunctionFactory {
 		String params = funcLogParams(netParameters);
 		Log.e("getProducts", "getProducts: " + params);
 		functionInfo.setUrl(viviHostURLshort + "/v1/products/forsale?" + params);
+		return functionInfo;
+	}
+	
+	public static HttpFunctionInfo prepareSale(NetParameter[] netParameters, String token) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("prepareSale");
+		String params = funcLogParams(netParameters);
+		Log.e("prepareSale", "prepareSale: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sale/prepare?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
+	
+	public static HttpFunctionInfo createSale(NetParameter[] netParameters, String token) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("createSale");
+		String params = funcLogParams(netParameters);
+		Log.e("createSale", "createSale: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sale/create?access-token=" + token);
+		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
 	

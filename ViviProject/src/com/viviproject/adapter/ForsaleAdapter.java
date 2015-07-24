@@ -20,7 +20,7 @@ public class ForsaleAdapter extends BaseAdapter{
 	private Products _data;
     private EnProducts items;
     private Activity mActivity;
-    private OnClickListener _onTDClick, _onCKClick, _onOtherClick;
+    private OnClickListener _onTDClick, _onCKClick, _onOtherClick, _onMinusClick, _onPlusClick;
 	
     public ForsaleAdapter(Activity activity, Products data) 
 	{
@@ -56,13 +56,18 @@ public class ForsaleAdapter extends BaseAdapter{
             ((ItemListViewForsale) convertView).setOnTDClickHandler(onTDClickHandler);
             ((ItemListViewForsale) convertView).setOnCKClickHandler(onCKClickHandler);
             ((ItemListViewForsale) convertView).setOnOtherClickHandler(onOtherClickHandler);
+            ((ItemListViewForsale) convertView).setOnMinusClickHandler(onMinusClick);
+            ((ItemListViewForsale) convertView).setOnPlusClickHandler(onPlusClick);
            
             holder = new ViewHolder();
             holder.linHeader = (LinearLayout) convertView.findViewById(R.id.linHeader);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
+            holder.tvQuantity = (TextView) convertView.findViewById(R.id.tvQuantity);
             holder.imgTD = (ImageView) convertView.findViewById(R.id.imgTD);
             holder.imgCK = (ImageView) convertView.findViewById(R.id.imgCK);
             holder.imgOther = (ImageView) convertView.findViewById(R.id.imgOther);
+            holder.imgMinus = (ImageView) convertView.findViewById(R.id.imgMinus);
+            holder.imgPlus = (ImageView) convertView.findViewById(R.id.imgPlus);
           
             convertView.setTag(holder);
         }
@@ -88,6 +93,10 @@ public class ForsaleAdapter extends BaseAdapter{
         			holder.tvName.setBackgroundColor(Color.parseColor("#"+items.getColor()));
 				} catch (Exception e) {					
 				}
+			}
+        	
+        	if (items.getUnit() != null) {
+        		holder.tvQuantity.setText(items.getUnit());
 			}
         	
         	if (items.getDiscount() != null) {
@@ -130,8 +139,8 @@ public class ForsaleAdapter extends BaseAdapter{
 	static class ViewHolder
     {      
         LinearLayout linHeader;
-        TextView tvName;
-        ImageView imgTD, imgCK, imgOther;
+        TextView tvName, tvQuantity;
+        ImageView imgTD, imgCK, imgOther, imgMinus, imgPlus;
     }
 	
 	OnClickListener onTDClickHandler = new OnClickListener() 
@@ -177,5 +186,37 @@ public class ForsaleAdapter extends BaseAdapter{
     public void setOnOtherClickHandler(OnClickListener itemClick)
     {
     	_onOtherClick = itemClick;
+    }
+    
+    OnClickListener onMinusClick = new OnClickListener() 
+	{
+
+        @Override
+        public void onClick(View v)
+        {
+            if (_onMinusClick != null)
+            	_onMinusClick.onClick(v);
+        }
+    };
+    
+    public void setOnMinusClickHandler(OnClickListener itemClick)
+    {
+    	_onMinusClick = itemClick;
+    }
+    
+    OnClickListener onPlusClick = new OnClickListener() 
+	{
+
+        @Override
+        public void onClick(View v)
+        {
+            if (_onPlusClick != null)
+            	_onPlusClick.onClick(v);
+        }
+    };
+    
+    public void setOnPlusClickHandler(OnClickListener itemClick)
+    {
+    	_onPlusClick = itemClick;
     }
 }

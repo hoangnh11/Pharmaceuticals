@@ -62,13 +62,7 @@ public final class HttpNetServices implements INetServices {
 		HttpCommand cmd = getHttpCommand(funcInfo);
 		return httpConnection.makeRequest(cmd);
 	}
-	
-//	@Override
-//	public String storeFailDeductMilesReport(NetParameter[] netParameters) throws Exception {
-//		HttpFunctionInfo functionInfo = HttpFunctionFactory.storeFailDeductMilesReport(netParameters);
-//		return executer(functionInfo);
-//	}	
-	
+
 	@Override
 	public String login(NetParameter[] netParameters) throws Exception {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.login(netParameters);
@@ -114,6 +108,18 @@ public final class HttpNetServices implements INetServices {
 	@Override
 	public String getProducts(NetParameter[] netParameters) throws Exception {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.getProducts(netParameters);
+		return executer(functionInfo);
+	}
+	
+	@Override
+	public String prepareSale(NetParameter[] netParameters, String token) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.prepareSale(netParameters, token);
+		return executer(functionInfo);
+	}
+	
+	@Override
+	public String createSale(NetParameter[] netParameters, String token) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.createSale(netParameters, token);
 		return executer(functionInfo);
 	}
 	
