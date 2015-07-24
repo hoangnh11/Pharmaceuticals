@@ -110,6 +110,12 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.getProducts(netParameters);
 		return executer(functionInfo);
 	}
+
+	@Override
+	public String reportImages(String token, NetParameter[] netParameters) throws Exception{
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.reportImages(token, netParameters);
+		return executer(functionInfo);
+	}
 	
 	@Override
 	public String prepareSale(NetParameter[] netParameters, String token) throws Exception {

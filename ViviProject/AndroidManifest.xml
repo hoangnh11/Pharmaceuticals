@@ -173,6 +173,11 @@
             android:name="com.viviproject.projection.YouTubeFailureRecoveryActivity"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        <activity
+            android:name="com.viviproject.reports.AcReportImageCapture"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
 
         <receiver android:name="com.activetrak.android.receiver.AutoUpdateReceiver"/>
         

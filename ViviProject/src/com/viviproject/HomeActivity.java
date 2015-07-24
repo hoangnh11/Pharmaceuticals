@@ -40,7 +40,10 @@ import com.viviproject.reports.AcTotalSales;
 import com.viviproject.service.TrackingLocationService;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.DataStorage;
+import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.SharedPreferenceManager;
+import com.viviproject.visit.PictureReportActivity;
 import com.viviproject.visit.VisitAcitvity;
 
 public class HomeActivity extends Activity implements OnClickListener{
@@ -364,7 +367,10 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;	
 			
 		case R.id.linPosterCamera:
-
+			Logger.error("Tracking PosterCamera");
+			Intent intentPictureReport = new Intent(HomeActivity.this, PictureReportActivity.class);
+			intentPictureReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, 1);
+			startActivity(intentPictureReport);
 			break;
 			
 		case R.id.linUnfriendCamera:

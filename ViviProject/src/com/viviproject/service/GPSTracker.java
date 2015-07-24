@@ -59,33 +59,32 @@ public class GPSTracker extends Service implements LocationListener{
 
 			if (!isGPSEnabled && !isNetworkEnabled) {
 				// no network provider is enabled
-				locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-				location = locationManager
-						.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-				if (location != null) {
-					latitude = location.getLatitude();
-					longitude = location.getLongitude();
-				}
+				Logger.error("no network provider is enabled");
+				Logger.error("isGPSEnabled:" + isGPSEnabled + "*isNetworkEnabled:" + isNetworkEnabled + "*canGetLocation:" + canGetLocation);
 			} else {
 				this.canGetLocation = true;
+				Logger.error("isGPSEnabled:" + isGPSEnabled + "*isNetworkEnabled:" + isNetworkEnabled + "*canGetLocation:" + canGetLocation);
 				// First get location from Network Provider
 				if (isNetworkEnabled) {
+					Logger.error("Traking location using network:" + isNetworkEnabled);
 					locationManager.requestLocationUpdates(
 							LocationManager.NETWORK_PROVIDER,
 							MIN_TIME_BW_UPDATES,
 							MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 					if (locationManager != null) {
-						location = locationManager
-								.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+						Logger.error("locationManager not null");
+						location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 						if (location != null) {
 							latitude = location.getLatitude();
 							longitude = location.getLongitude();
+							Logger.error("Location using net work: latitude:" + latitude + "-longitude:" + longitude);
 						}
 					}
 				}
 				
 				// if GPS Enabled get lat/long using GPS Services
 				if (isGPSEnabled) {
+					Logger.error("Traking location using gps:" + isGPSEnabled);
 					if (location == null) {
 						locationManager.requestLocationUpdates(
 								LocationManager.GPS_PROVIDER,
@@ -97,6 +96,7 @@ public class GPSTracker extends Service implements LocationListener{
 							if (location != null) {
 								latitude = location.getLatitude();
 								longitude = location.getLongitude();
+								Logger.error("Location using GPS: latitude:" + latitude + "-longitude:" + longitude);
 							}
 						}
 					}

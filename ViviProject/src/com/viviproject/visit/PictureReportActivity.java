@@ -27,9 +27,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.internal.in;
 import com.viviproject.R;
 import com.viviproject.core.CameraPreview;
 import com.viviproject.core.ImageHelper;
+import com.viviproject.reports.AcReportImageCapture;
+import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
 
@@ -43,13 +46,19 @@ public class PictureReportActivity extends Activity implements OnClickListener{
 	
 	private boolean hasCamera = false;
 	private static boolean isFrontCam = false;
+	private int pictureReportType = 0;
 	int cameraID;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.camera_layout);
-	
+		
+		Bundle bundle = getIntent().getExtras();
+		if(bundle.containsKey(GlobalParams.EXTRA_PICTURE_REPORT_TYPE)){
+			pictureReportType = bundle.getInt(GlobalParams.EXTRA_PICTURE_REPORT_TYPE);
+		}
+		
 		buttonCapture = (ImageView) findViewById(R.id.button_capture);
 		buttonCapture.setClickable(true);
 		buttonCapture.setOnClickListener(this);
@@ -156,6 +165,7 @@ public class PictureReportActivity extends Activity implements OnClickListener{
 			break;		
 		}
 	}
+	
 	
 	 @Override
 	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -309,10 +319,24 @@ public class PictureReportActivity extends Activity implements OnClickListener{
 				mCameraPreview.setVisibility(View.GONE);
 				ivTemp.setVisibility(View.VISIBLE);
 				Logger.error("start finish()----------------------------------------------------");
-				Intent intent = new Intent(PictureReportActivity.this, VisitDetailsActivity.class);
-				intent.putExtra(GlobalParams.EXTRA_IMAGE_PATH, path);
-//				intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-				startActivity(intent);
+				
+				switch (pictureReportType) {
+				case 1:
+					Logger.error("chup anh poster");
+					Intent intentReportPoster = new Intent(PictureReportActivity.this, AcReportImageCapture.class);
+					intentReportPoster.putExtra(GlobalParams.EXTRA_IMAGE_PATH, path);
+					intentReportPoster.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, 1);
+					startActivity(intentReportPoster);
+					break;
+
+				default:
+					Intent intent = new Intent(PictureReportActivity.this, VisitDetailsActivity.class);
+					intent.putExtra(GlobalParams.EXTRA_IMAGE_PATH, path);
+//					intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+					startActivity(intent);
+					break;
+				}
+				
 		        finish();
 				super.onPostExecute(result);
 			}

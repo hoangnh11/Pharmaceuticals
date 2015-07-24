@@ -8,9 +8,13 @@
 
 package com.viviproject.ultilities;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,6 +28,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.location.Criteria;
@@ -32,6 +37,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -42,8 +48,8 @@ import android.view.animation.Transformation;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.viviproject.R;
 import com.google.android.maps.GeoPoint;
+import com.viviproject.R;
 
 /**
  * Business management: include common methods
@@ -573,6 +579,40 @@ public final class BuManagement {
 		}
 	}
 
+	public static String encodeTobase64(Bitmap image) {
+		Bitmap immagex = image;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+		byte[] b = baos.toByteArray();
+		String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+		return imageEncoded;
+	}
+
+	public static Bitmap decodeBase64(String input) {
+		byte[] decodedByte = Base64.decode(input, 0);
+		return BitmapFactory
+				.decodeByteArray(decodedByte, 0, decodedByte.length);
+	}
+    
+	public static String endCodeImageFromFile(String photoPath) {
+		try {
+			int size = (int) photoPath.length();
+			byte[] bytes = new byte[size];
+			BufferedInputStream buf;
+			buf = new BufferedInputStream(new FileInputStream(photoPath));
+			buf.read(bytes, 0, bytes.length);
+			buf.close();
+			return Base64.encodeToString(bytes, Base64.DEFAULT);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+    
 	/**
 	 * Compares two version strings.
 	 * 

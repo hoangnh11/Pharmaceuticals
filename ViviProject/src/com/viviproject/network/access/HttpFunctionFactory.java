@@ -175,6 +175,14 @@ public final class HttpFunctionFactory {
 		functionInfo.setUrl(viviHostURLshort + "/v1/products/forsale?" + params);
 		return functionInfo;
 	}
+
+	public static HttpFunctionInfo reportImages(String token, NetParameter[] netParameters) throws Exception{
+		HttpFunctionInfo functionInfo = createPostMethod("reportImages");
+		functionInfo.setUrl(viviHostURLshort + "/v1/images/create?access-token=" + token);
+		//functionInfo.setHeader(headers);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
 	
 	public static HttpFunctionInfo prepareSale(NetParameter[] netParameters, String token) {
 		HttpFunctionInfo functionInfo = createPostBodyMethod("prepareSale");
