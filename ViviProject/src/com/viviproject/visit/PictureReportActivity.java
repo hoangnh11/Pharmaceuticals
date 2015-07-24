@@ -32,6 +32,7 @@ import com.viviproject.R;
 import com.viviproject.core.CameraPreview;
 import com.viviproject.core.ImageHelper;
 import com.viviproject.reports.AcReportImageCapture;
+import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
@@ -48,13 +49,16 @@ public class PictureReportActivity extends Activity implements OnClickListener{
 	private static boolean isFrontCam = false;
 	private int pictureReportType = 0;
 	int cameraID;
+	Bundle bundle;
+	AppPreferences app;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.camera_layout);
+		app = new AppPreferences(this);
+		bundle = app.getBundle(this);
 		
-		Bundle bundle = getIntent().getExtras();
 		if(bundle.containsKey(GlobalParams.EXTRA_PICTURE_REPORT_TYPE)){
 			pictureReportType = bundle.getInt(GlobalParams.EXTRA_PICTURE_REPORT_TYPE);
 		}

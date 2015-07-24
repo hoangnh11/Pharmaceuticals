@@ -1,5 +1,7 @@
 package com.viviproject.visit;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.ForsaleAdapter;
+import com.viviproject.entities.EnBasket;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.Products;
 import com.viviproject.entities.ResponsePrepare;
@@ -43,6 +46,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	
 	private PrepareSale prepareSale;
 	private ResponsePrepare responsePrepare;
+	private EnBasket enBasket;
+	private ArrayList<EnBasket> arrBasket;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -53,6 +58,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		items = new EnProducts();
 		
 		responsePrepare = new ResponsePrepare();
+		enBasket = new EnBasket();
+		arrBasket = new ArrayList<EnBasket>();
 		
 		initLayout();
 		
@@ -97,6 +104,36 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		case R.id.tvCreateOrder:
 			
 			if (linSubCreateOrder.getVisibility() == View.GONE) {
+				arrBasket = new ArrayList<EnBasket>();
+				for (int i = 0; i < enProducts.getProducts().size(); i++) {
+					enBasket = new EnBasket();
+					enBasket.setProduct_id(Integer.parseInt(enProducts.getProducts().get(i).getId()));
+					enBasket.setQuantity(Integer.parseInt(enProducts.getProducts().get(i).getUnit()));
+					
+					if (enProducts.getProducts().get(i).getDiscount() != null 
+						&& enProducts.getProducts().get(i).getDiscount().getPoint() != null) {
+						enBasket.setPoint(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getPoint().getDiscount_id()));
+					} else {
+						enBasket.setPoint(Integer.parseInt("0"));
+					}
+					
+					if (enProducts.getProducts().get(i).getDiscount() != null 
+						&& enProducts.getProducts().get(i).getDiscount().getSale() != null ) {
+						enBasket.setSale(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getSale().getDiscount_id()));
+					} else {
+						enBasket.setSale(Integer.parseInt("0"));
+					}
+					
+					if (enProducts.getProducts().get(i).getDiscount() != null 
+						&& enProducts.getProducts().get(i).getDiscount().getOther() != null ) {
+						enBasket.setOther(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getOther().getDiscount_id()));
+					} else {
+						enBasket.setOther(Integer.parseInt("0"));
+					}
+					
+					arrBasket.add(enBasket);
+				}
+				
 				prepareSale = new PrepareSale();
 				prepareSale.execute();
 				tvCreateOrder.setBackgroundResource(R.color.BG_GRAY9E);
@@ -122,8 +159,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
             items = enProducts.getProducts().get(position);           
             	
             if (Integer.parseInt(items.getUnit()) > 0) {
-            	enProducts.getProducts().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) - 1));
-            	
+            	enProducts.getProducts().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) - 1));            	
+				
             	forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
     			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
     			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
@@ -390,7 +427,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					for (int i = 0; i < enProducts.getProducts().size(); i++) {
 						enProducts.getProducts().get(i).setCheckTD(GlobalParams.FALSE);
 						enProducts.getProducts().get(i).setCheckCK(GlobalParams.FALSE);
-						enProducts.getProducts().get(i).setCheckOther(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setCheckOther(GlobalParams.FALSE);						
 					}
 					
 					forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
@@ -400,7 +437,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
 					forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
 					lvForsale.setAdapter(forsaleAdapter);
-					app.setListViewHeight(lvForsale, forsaleAdapter);
+					app.setListViewHeight(lvForsale, forsaleAdapter);				
 				}
 			}
 		}
@@ -432,7 +469,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
 				NetParameter[] netParameter = new NetParameter[1];
-				netParameter[0] = new NetParameter("basket", "");
+				netParameter[0] = new NetParameter("basket", DataParser.convertObjectToString(arrBasket));
 				
 				try {
 					data = HttpNetServices.Instance.prepareSale(netParameter, BuManagement.getToken(PlaceOrderActivity.this));					
@@ -453,8 +490,16 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 			progressDialog.dismiss();
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && responsePrepare != null 
+						&& responsePrepare.getStatus() != null
 						&& responsePrepare.getStatus().equalsIgnoreCase("success")) {
 					Logger.error(responsePrepare.getStatus());
+				} else {
+					try {
+						app.alertErrorMessageString(responsePrepare.getMessage(),
+								getString(R.string.COMMON_MESSAGE), PlaceOrderActivity.this);
+					} catch (Exception e) {
+						Logger.error("responsePrepare: " + e);
+					}
 				}
 			}
 		}

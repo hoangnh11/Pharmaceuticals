@@ -188,7 +188,7 @@ public final class HttpFunctionFactory {
 		HttpFunctionInfo functionInfo = createPostBodyMethod("prepareSale");
 		String params = funcLogParams(netParameters);
 		Log.e("prepareSale", "prepareSale: " + params);
-		functionInfo.setUrl(viviHostURLshort + "/v1/sale/prepare?access-token=" + token);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/prepare?access-token=" + token);
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
@@ -197,7 +197,7 @@ public final class HttpFunctionFactory {
 		HttpFunctionInfo functionInfo = createPostBodyMethod("createSale");
 		String params = funcLogParams(netParameters);
 		Log.e("createSale", "createSale: " + params);
-		functionInfo.setUrl(viviHostURLshort + "/v1/sale/create?access-token=" + token);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/create?access-token=" + token);
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}

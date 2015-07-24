@@ -1,6 +1,7 @@
 package com.viviproject.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ResponsePrepare implements Serializable{
 
@@ -8,23 +9,36 @@ public class ResponsePrepare implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 6685024336724067385L;
-	private EnSalePrepare basket;
+	private ArrayList<EnSalePrepare> basket;
 	private int subtotal;
 	private int total_discount;
 	private int total_point;
 	private int total;
 	private String status;
-	
+	private String message;
+
+	/**
+	 * @return the message
+	 */
+	public String getMessage() {
+		return message;
+	}
+	/**
+	 * @param message the message to set
+	 */
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	/**
 	 * @return the basket
 	 */
-	public EnSalePrepare getBasket() {
+	public ArrayList<EnSalePrepare> getBasket() {
 		return basket;
 	}
 	/**
 	 * @param basket the basket to set
 	 */
-	public void setBasket(EnSalePrepare basket) {
+	public void setBasket(ArrayList<EnSalePrepare> basket) {
 		this.basket = basket;
 	}
 	/**

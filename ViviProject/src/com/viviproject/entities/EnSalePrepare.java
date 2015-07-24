@@ -17,7 +17,7 @@ public class EnSalePrepare implements Serializable{
 	
 	private String name;
 	private String price;
-	private int discount_point;
+	private float discount_point;
 	private String note;
 	private int discount_sale;
 	private ArrayList<EnDiscountGift> discount_gift;	
@@ -62,13 +62,13 @@ public class EnSalePrepare implements Serializable{
 	/**
 	 * @return the discount_point
 	 */
-	public int getDiscount_point() {
+	public float getDiscount_point() {
 		return discount_point;
 	}
 	/**
 	 * @param discount_point the discount_point to set
 	 */
-	public void setDiscount_point(int discount_point) {
+	public void setDiscount_point(float discount_point) {
 		this.discount_point = discount_point;
 	}
 	/**
