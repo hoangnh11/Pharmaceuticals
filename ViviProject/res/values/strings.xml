@@ -272,4 +272,8 @@
 	<string name="IMAGE_TITLE">Tiêu đề:</string>
 	<string name="IMAGE_NOTE_TITLE">Ghi chú:</string>
 	<string name="SEND_IMAGE">Gửi báo cáo</string>
+	<string name="REPORTING">Gửi báo cáo..</string>
+	<string name="REPORT_WARNING_TITLE">Vui lòng nhập tiêu đề.</string>
+	<string name="REPORT_SUCCESS">Gửi báo cáo thành công.</string>
+	<string name="REPORT_FAILE">Gửi báo cáo không thành công. Vui lòng gửi lại!</string>
 </resources>

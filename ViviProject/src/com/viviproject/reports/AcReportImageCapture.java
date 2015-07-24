@@ -5,6 +5,10 @@ import java.text.SimpleDateFormat;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,10 +16,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.viviproject.R;
 import com.viviproject.entities.UserInformation;
@@ -23,9 +28,11 @@ import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.service.GPSTracker;
 import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.DataStorage;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.ResponeCodeInf;
 import com.viviproject.ultilities.StringUtils;
 
 @SuppressLint("SimpleDateFormat")
@@ -35,7 +42,9 @@ public class AcReportImageCapture extends Activity implements OnClickListener{
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
 	private ImageView imageView;
 	private Button btSendImage;
+	private EditText edtTitle, edtNote;
 	
+	private ProgressDialog dialog;
 	private GPSTracker gpsTracker;
 	private String imagePath;
 	private int pictureReportType = 0;
@@ -80,6 +89,9 @@ public class AcReportImageCapture extends Activity implements OnClickListener{
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.INVISIBLE);
 		
+		edtTitle = (EditText) findViewById(R.id.edtTitle);
+		edtNote = (EditText) findViewById(R.id.edtTitle);
+		
 		btSendImage = (Button) findViewById(R.id.btSendImage);
 		btSendImage.setOnClickListener(this);
 		
@@ -115,6 +127,21 @@ public class AcReportImageCapture extends Activity implements OnClickListener{
 			break;
 
 		case R.id.btSendImage:
+			String title = edtTitle.getText().toString();
+			if(StringUtils.isBlank(title)){
+				AlertDialog alertDialog = new AlertDialog.Builder(AcReportImageCapture.this).create();
+				alertDialog.setTitle("Warning");
+				alertDialog.setMessage(getResources().getString(R.string.REPORT_WARNING_TITLE));
+				alertDialog.setButton("OK",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.dismiss();
+							}
+				});
+				alertDialog.show();
+				break;
+			}
+			
 			SendImageToServerAsyn sendImageToServerAsyn = new SendImageToServerAsyn();
 			sendImageToServerAsyn.execute();
 			break;
@@ -131,6 +158,7 @@ public class AcReportImageCapture extends Activity implements OnClickListener{
 	 *
 	 */
 	private class SendImageToServerAsyn extends AsyncTask<Void, Void, Void>{
+		private int reponseCode = ResponeCodeInf.REPONSE_FAILE;
 		
 		public SendImageToServerAsyn(){
 			
@@ -139,6 +167,18 @@ public class AcReportImageCapture extends Activity implements OnClickListener{
 		@Override
 		protected void onPreExecute()
 		{
+			dialog = new ProgressDialog(AcReportImageCapture.this);
+			dialog.setMessage(getResources().getString(R.string.REPORTING));	
+			dialog.setCancelable(true);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					SendImageToServerAsyn.this.cancel(true);
+				}
+			});
+			dialog.show();
 			super.onPreExecute();
 		}
 		
@@ -158,22 +198,72 @@ public class AcReportImageCapture extends Activity implements OnClickListener{
 				
 				NetParameter[] netParameters = new NetParameter[8];
 				netParameters[0] = new NetParameter("uid", uid);
-				netParameters[1] = new NetParameter("title", "title");
-				netParameters[2] = new NetParameter("note", "note");
+				netParameters[1] = new NetParameter("title", edtTitle.getText().toString());
+				netParameters[2] = new NetParameter("note", "" + edtNote.getText().toString());
 				netParameters[3] = new NetParameter("type", String.valueOf(pictureReportType));
 				netParameters[4] = new NetParameter("long", String.valueOf(strLong));
 				netParameters[5] = new NetParameter("lat", String.valueOf(strLat));
 				netParameters[6] = new NetParameter("image_datetime", imageCreateTime);
 				netParameters[7] = new NetParameter("image_data", imageBase64);
 				
+				for (int i = 0; i < netParameters.length; i++) {
+					Logger.error("param[" + i + "]:" + netParameters[i].getName() + "-" + netParameters[i].getValue());
+				}
 				String response = HttpNetServices.Instance.reportImages(token, netParameters);
 				Logger.error("response:" + response);
+				DataParser.getEnReportImageResponse(response);
+				reponseCode = ResponeCodeInf.REPONSE_SUCCESS;
 				Logger.error("----------SendImageToServerAsyn: END------------");
 			} catch (Exception e) {
 				e.printStackTrace();
+				reponseCode = ResponeCodeInf.REPONSE_EXCEPTION;
 			}
 			return null;
 		}
 		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			if(null != dialog && dialog.isShowing()){
+				dialog.dismiss();
+			}
+			
+			if(!isCancelled()){
+				switch (reponseCode) {
+				case ResponeCodeInf.REPONSE_SUCCESS:
+					AlertDialog alertDialog = new AlertDialog.Builder(AcReportImageCapture.this).create();
+					alertDialog.setTitle("Message");
+					alertDialog.setMessage(getResources().getString(R.string.REPORT_SUCCESS));
+					alertDialog.setButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									AcReportImageCapture.this.finish();
+									dialog.dismiss();
+								}
+					});
+
+					// Showing Alert Message
+					alertDialog.show();
+					break;
+
+				case ResponeCodeInf.REPONSE_EXCEPTION:
+					AlertDialog alertDialogFaile = new AlertDialog.Builder(AcReportImageCapture.this).create();
+					alertDialogFaile.setTitle("Error");
+					alertDialogFaile.setMessage(getResources().getString(R.string.REPORT_FAILE));
+					alertDialogFaile.setButton("OK",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.dismiss();
+								}
+					});
+
+					// Showing Alert Message
+					alertDialogFaile.show();
+					break;
+				default:
+					break;
+				}
+			}
+		}
 	}
 }
