@@ -111,21 +111,81 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
         {
         	int position = ((ItemListViewForsale) v).get_position();        
             items = enProducts.getProducts().get(position);
-          
-            if (items.getCheckTD() != null) {            	
-            	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
-            		enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);            		
-				} else {
-					enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);					
-				}
-			}
             
-            forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
-			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
-			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
-			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
-			lvForsale.setAdapter(forsaleAdapter);
-			app.setListViewHeight(lvForsale, forsaleAdapter);
+            if (items.getDiscount() != null && items.getDiscount().getPoint() != null) {
+            	if (items.getDiscount().getOther() != null) {
+            		if (items.getDiscount().getOther().getWith_point().equals("0")) {
+                    	if (items.getCheckTD() != null) {            	
+                        	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
+                        		enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);            		
+            				} else {
+            					enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);					
+            				}
+            			}
+        			} else if (items.getDiscount().getOther().getWith_point().equals("1")) {
+        				if (items.getCheckOther() != null) {
+        					if (items.getDiscount().getPoint() != null) {
+        						if (items.getCheckOther().equals(GlobalParams.TRUE)) {
+        							enProducts.getProducts().get(position).setCheckOther(GlobalParams.FALSE);  
+        							enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);  
+        	    				} else {
+        	    					enProducts.getProducts().get(position).setCheckOther(GlobalParams.TRUE);  
+        							enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);
+        	    				}	            		
+        	            	} else {
+        	            		if (items.getCheckOther().equals(GlobalParams.TRUE)) {
+        	            			enProducts.getProducts().get(position).setCheckOther(GlobalParams.FALSE);                  	
+        	    				} else {
+        	    					enProducts.getProducts().get(position).setCheckOther(GlobalParams.TRUE);				
+        	    				}
+        					}                 	
+        				}
+        			}
+				} else if (items.getDiscount().getSale() != null) {
+            		if (items.getDiscount().getSale().getWith_point().equals("0")) {
+                    	if (items.getCheckTD() != null) {            	
+                        	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
+                        		enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);            		
+            				} else {
+            					enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);					
+            				}
+            			}
+        			} else if (items.getDiscount().getSale().getWith_point().equals("1")) {
+        				if (items.getCheckCK() != null) {
+        					if (items.getDiscount().getPoint() != null) {
+        						if (items.getCheckCK().equals(GlobalParams.TRUE)) {
+        							enProducts.getProducts().get(position).setCheckCK(GlobalParams.FALSE);  
+        							enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);  
+        	    				} else {
+        	    					enProducts.getProducts().get(position).setCheckCK(GlobalParams.TRUE);  
+        							enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);
+        	    				}	            		
+        	            	} else {
+        	            		if (items.getCheckCK().equals(GlobalParams.TRUE)) {
+        	            			enProducts.getProducts().get(position).setCheckCK(GlobalParams.FALSE);                  	
+        	    				} else {
+        	    					enProducts.getProducts().get(position).setCheckCK(GlobalParams.TRUE);				
+        	    				}
+        					}                 	
+        				}
+        			}
+				} else {
+					if (items.getCheckTD() != null) {            	
+                    	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
+                    		enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);            		
+        				} else {
+        					enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);					
+        				}
+        			}
+				}
+            	
+            	forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+    			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+    			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+    			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+    			lvForsale.setAdapter(forsaleAdapter);
+    			app.setListViewHeight(lvForsale, forsaleAdapter);
+			}
         }
     };
     
@@ -136,21 +196,43 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
         {
         	int position = ((ItemListViewForsale) v).get_position();
             items = enProducts.getProducts().get(position);
-        
-            if (items.getCheckCK() != null) {            
-            	if (items.getCheckCK().equals(GlobalParams.TRUE)) {
-            		enProducts.getProducts().get(position).setCheckCK(GlobalParams.FALSE);            		
-				} else {
-					enProducts.getProducts().get(position).setCheckCK(GlobalParams.TRUE);					
-				}
-			}
             
-            forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
-			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
-			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
-			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
-			lvForsale.setAdapter(forsaleAdapter);
-			app.setListViewHeight(lvForsale, forsaleAdapter);
+            if (items.getDiscount() != null && items.getDiscount().getSale() != null) {
+            	if (items.getDiscount().getSale().getWith_point().equals("0")) {
+            		if (items.getCheckCK() != null) {            
+                    	if (items.getCheckCK().equals(GlobalParams.TRUE)) {
+                    		enProducts.getProducts().get(position).setCheckCK(GlobalParams.FALSE);            		
+        				} else {
+        					enProducts.getProducts().get(position).setCheckCK(GlobalParams.TRUE);					
+        				}
+        			}
+            	} else if (items.getDiscount().getSale().getWith_point().equals("1")) {
+            		if (items.getCheckCK() != null) {							
+						if (items.getDiscount().getPoint() != null) {
+							if (items.getCheckCK().equals(GlobalParams.TRUE)) {
+								enProducts.getProducts().get(position).setCheckCK(GlobalParams.FALSE);  
+								enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);  
+		    				} else {
+		    					enProducts.getProducts().get(position).setCheckCK(GlobalParams.TRUE);  
+								enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);
+		    				}	            		
+		            	} else {
+		            		if (items.getCheckCK().equals(GlobalParams.TRUE)) {
+		            			enProducts.getProducts().get(position).setCheckCK(GlobalParams.FALSE);                  	
+		    				} else {
+		    					enProducts.getProducts().get(position).setCheckCK(GlobalParams.TRUE);				
+		    				}
+						}                 	
+					}
+            	}            	
+                
+                forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+    			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+    			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+    			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+    			lvForsale.setAdapter(forsaleAdapter);
+    			app.setListViewHeight(lvForsale, forsaleAdapter);
+            }            
         }
     };
     
@@ -161,21 +243,42 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
         {
         	int position = ((ItemListViewForsale) v).get_position();
             items = enProducts.getProducts().get(position);
-
-            if (items.getCheckOther() != null) {            	
-            	if (items.getCheckOther().equals(GlobalParams.TRUE)) {
-            		enProducts.getProducts().get(position).setCheckOther(GlobalParams.FALSE);            		
-				} else {
-					enProducts.getProducts().get(position).setCheckOther(GlobalParams.TRUE);					
-				}
-			}
-            
-            forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
-			forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
-			forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
-			forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
-			lvForsale.setAdapter(forsaleAdapter);
-			app.setListViewHeight(lvForsale, forsaleAdapter);
+			if (items.getDiscount() != null && items.getDiscount().getOther() != null) {
+				if (items.getDiscount().getOther().getWith_point().equals("0")) {
+	            	if (items.getCheckOther() != null) {            	
+	            		if (items.getCheckOther().equals(GlobalParams.TRUE)) {
+	                 		enProducts.getProducts().get(position).setCheckOther(GlobalParams.FALSE);            		
+	     				} else {
+	     					enProducts.getProducts().get(position).setCheckOther(GlobalParams.TRUE);					
+	     				}
+	     			}
+				} else if (items.getDiscount().getOther().getWith_point().equals("1")) {
+					if (items.getCheckOther() != null) {							
+						if (items.getDiscount().getPoint() != null) {
+							if (items.getCheckOther().equals(GlobalParams.TRUE)) {
+								enProducts.getProducts().get(position).setCheckOther(GlobalParams.FALSE);  
+								enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE); 								
+		    				} else {
+		    					enProducts.getProducts().get(position).setCheckOther(GlobalParams.TRUE);  
+								enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);								
+		    				}	            		
+		            	} else {
+		            		if (items.getCheckOther().equals(GlobalParams.TRUE)) {
+		            			enProducts.getProducts().get(position).setCheckOther(GlobalParams.FALSE);                  	
+		    				} else {
+		    					enProducts.getProducts().get(position).setCheckOther(GlobalParams.TRUE);				
+		    				}
+						}                 	
+					}
+				}           
+	            
+	            forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+				forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+				forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+				forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+				lvForsale.setAdapter(forsaleAdapter);
+				app.setListViewHeight(lvForsale, forsaleAdapter);
+			}            
         }
     };
 	

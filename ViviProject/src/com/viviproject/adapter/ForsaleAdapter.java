@@ -90,36 +90,38 @@ public class ForsaleAdapter extends BaseAdapter{
 				}
 			}
         	
-        	if (items.getDiscount() != null && items.getDiscount().getPoint() != null) {
-        		if (items.getCheckTD() != null) {
-                	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
-                		holder.imgTD.setImageResource(R.drawable.checkbox_true);
-    				} else {
-    					holder.imgTD.setImageResource(R.drawable.checkbox_false);
-    				}
+        	if (items.getDiscount() != null) {
+        		if (items.getDiscount().getPoint() != null) {
+            		if (items.getCheckTD() != null) {
+                    	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
+                    		holder.imgTD.setImageResource(R.drawable.checkbox_true);
+        				} else {
+        					holder.imgTD.setImageResource(R.drawable.checkbox_false);
+        				}
+        			}
     			}
-			}
-        	
-        	if (items.getDiscount() != null && items.getDiscount().getSale() != null) {
-        		if (items.getCheckCK() != null) {
-                	if (items.getCheckCK().equals(GlobalParams.TRUE)) {
-                		holder.imgCK.setImageResource(R.drawable.checkbox_true);
-    				} else {
-    					holder.imgCK.setImageResource(R.drawable.checkbox_false);
-    				}
+            	
+            	if (items.getDiscount().getSale() != null) {
+            		if (items.getCheckCK() != null) {
+                    	if (items.getCheckCK().equals(GlobalParams.TRUE)) {
+                    		holder.imgCK.setImageResource(R.drawable.checkbox_true);
+        				} else {
+        					holder.imgCK.setImageResource(R.drawable.checkbox_false);
+        				}
+        			}         		
     			}
-			}
-        	
-        	if (items.getDiscount() != null && items.getDiscount().getOther() != null) {
-        		if (items.getCheckOther() != null) {
-                	if (items.getCheckOther().equals(GlobalParams.TRUE)) {
-                		holder.imgOther.setImageResource(R.drawable.checkbox_true);
-    				} else {
-    					holder.imgOther.setImageResource(R.drawable.checkbox_false);
-    				}
+            	
+            	if (items.getDiscount().getOther() != null) {
+            		if (items.getCheckOther() != null) {
+                    	if (items.getCheckOther().equals(GlobalParams.TRUE)) {
+                    		holder.imgOther.setImageResource(R.drawable.checkbox_true);                        		
+        				} else {
+        					holder.imgOther.setImageResource(R.drawable.checkbox_false);        					
+        				}
+        			}         		
     			}
-			}
-		} 
+			}        	
+		}
         
         ((ItemListViewForsale) convertView).set_position(position);
         return convertView;
