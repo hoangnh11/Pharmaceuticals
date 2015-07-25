@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnReportImageResponse;
 import com.viviproject.entities.Products;
+import com.viviproject.entities.ResponseCreateSales;
 import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.entities.ResponseLogin;
 import com.viviproject.entities.ResponsePrepare;
@@ -169,6 +170,22 @@ public final class DataParser {
 			Type collectionType = new TypeToken<ResponsePrepare>() {}.getType();
 
 			ResponsePrepare details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static ResponseCreateSales createSale(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<ResponseCreateSales>() {}.getType();
+
+			ResponseCreateSales details = mGson.fromJson(jsonData, collectionType);
 			return details;
 		} catch (Exception e) {
 			Logger.error(e);

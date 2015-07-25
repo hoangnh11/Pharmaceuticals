@@ -145,6 +145,7 @@ public class VisitAcitvity extends Activity implements OnClickListener{
         	int position = ((ItemListCustomer) v).get_position();
             items = enStores.getStores().get(position);
             intent = new Intent(VisitAcitvity.this, VisitDetailsActivity.class);
+            intent.putExtra(GlobalParams.STORES, items);
             startActivity(intent);
         }
     };

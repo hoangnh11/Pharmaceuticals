@@ -12,7 +12,7 @@ public class ResponsePrepare implements Serializable{
 	private ArrayList<EnSalePrepare> basket;
 	private int subtotal;
 	private int total_discount;
-	private int total_point;
+	private float total_point;
 	private int total;
 	private String status;
 	private String message;
@@ -68,13 +68,13 @@ public class ResponsePrepare implements Serializable{
 	/**
 	 * @return the total_point
 	 */
-	public int getTotal_point() {
+	public float getTotal_point() {
 		return total_point;
 	}
 	/**
 	 * @param total_point the total_point to set
 	 */
-	public void setTotal_point(int total_point) {
+	public void setTotal_point(float total_point) {
 		this.total_point = total_point;
 	}
 	/**

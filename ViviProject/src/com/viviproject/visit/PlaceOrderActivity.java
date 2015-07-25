@@ -10,15 +10,22 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.ForsaleAdapter;
+import com.viviproject.adapter.ListviewPrepareAdapter;
 import com.viviproject.entities.EnBasket;
 import com.viviproject.entities.EnProducts;
+import com.viviproject.entities.EnStores;
 import com.viviproject.entities.Products;
+import com.viviproject.entities.ResponseCreateSales;
 import com.viviproject.entities.ResponsePrepare;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
@@ -33,11 +40,16 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	
-	private TextView tvCreateOrder;	
+	private TextView tvCreateOrder, tvNameStore, tvAddressStores;	
 	private LinearLayout linSubCreateOrder;
 	private ListView lvForsale;
+	private TextView tvSubTotal, tvCK, tvDiscount, tvTotal;
+	private CheckBox ckDiliver;
+	private Button btnOk, btnCancel;
 	
 	private AppPreferences app;
+	private Bundle bundle;
+	private EnStores itemStore;
 	private ProgressDialog progressDialog;
 	private GetProduct getProduct;
 	private Products enProducts;
@@ -48,15 +60,24 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	private ResponsePrepare responsePrepare;
 	private EnBasket enBasket;
 	private ArrayList<EnBasket> arrBasket;
+	private ListView lvPrepare;
+	private ListviewPrepareAdapter prepareAdapter;
+	
+	private CreateSale createSale;
+	private ResponseCreateSales responseCreateSales;
+	private String nowDelivery = "0";
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.place_order_layout);
 		app = new AppPreferences(this);
+		bundle = app.getBundle(this);
+		itemStore = new EnStores();
+		itemStore = (EnStores) bundle.getSerializable(GlobalParams.STORES);
 		enProducts = new Products();
 		items = new EnProducts();
-		
+		responseCreateSales = new ResponseCreateSales();		
 		responsePrepare = new ResponsePrepare();
 		enBasket = new EnBasket();
 		arrBasket = new ArrayList<EnBasket>();
@@ -87,11 +108,39 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
 		
+		tvNameStore = (TextView) findViewById(R.id.tvNameStore);
+		tvNameStore.setText(itemStore.getName());
+		tvAddressStores = (TextView) findViewById(R.id.tvAddressStores);
+		tvAddressStores.setText(itemStore.getAddress());
+		
 		tvCreateOrder = (TextView) findViewById(R.id.tvCreateOrder);
 		tvCreateOrder.setOnClickListener(this);	
 		linSubCreateOrder = (LinearLayout) findViewById(R.id.linSubCreateOrder);
 		
 		lvForsale = (ListView) findViewById(R.id.lvForsale);
+		lvPrepare = (ListView) findViewById(R.id.lvPrepare);
+		
+		tvSubTotal = (TextView) findViewById(R.id.tvSubTotal);
+		tvCK = (TextView) findViewById(R.id.tvCK);
+		tvDiscount = (TextView) findViewById(R.id.tvDiscount);
+		tvTotal = (TextView) findViewById(R.id.tvTotal);
+		
+		ckDiliver = (CheckBox) findViewById(R.id.ckDiliver);
+		ckDiliver.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {				
+				if (isChecked) {
+					nowDelivery = "1";
+				} else {
+					nowDelivery = "0";
+				}
+			}
+		});
+		btnOk = (Button) findViewById(R.id.btnOk);
+		btnOk.setOnClickListener(this);
+		btnCancel = (Button) findViewById(R.id.btnCancel);
+		btnCancel.setOnClickListener(this);
 	}
 	
 	@Override
@@ -102,7 +151,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.tvCreateOrder:
-			
+			btnOk.setEnabled(false);
+			btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
 			if (linSubCreateOrder.getVisibility() == View.GONE) {
 				arrBasket = new ArrayList<EnBasket>();
 				for (int i = 0; i < enProducts.getProducts().size(); i++) {
@@ -144,6 +194,16 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 			}
 			
 			break;
+			
+		case R.id.btnOk:
+			createSale = new CreateSale();
+			createSale.execute();
+			break;
+			
+		case R.id.btnCancel:
+			btnOk.setEnabled(false);
+			btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
+			break;	
 			
 		default:
 			break;
@@ -444,7 +504,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	}
     
     /**
-     * Get Stores list follow line
+     * Get Prepare api
      * @author hoangnh11
      *
      */
@@ -473,8 +533,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				
 				try {
 					data = HttpNetServices.Instance.prepareSale(netParameter, BuManagement.getToken(PlaceOrderActivity.this));					
-					responsePrepare = DataParser.prepareSale(data);
-					Logger.error(data);
+					responsePrepare = DataParser.prepareSale(data);				
 					return GlobalParams.TRUE;
 				} catch (Exception e) {
 					return GlobalParams.FALSE;
@@ -492,13 +551,100 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				if (result.equals(GlobalParams.TRUE) && responsePrepare != null 
 						&& responsePrepare.getStatus() != null
 						&& responsePrepare.getStatus().equalsIgnoreCase("success")) {
-					Logger.error(responsePrepare.getStatus());
+					
+					prepareAdapter = new ListviewPrepareAdapter(PlaceOrderActivity.this, responsePrepare);				
+					lvPrepare.setAdapter(prepareAdapter);
+					app.setListViewHeight(lvPrepare, prepareAdapter);
+					btnOk.setEnabled(true);
+					btnOk.setBackgroundResource(R.drawable.bg_blue_gray);
+					
+					try {						
+						tvSubTotal.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getSubtotal()));
+						tvCK.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal_discount()));
+						tvDiscount.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal_point()));
+						tvTotal.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal()));
+					} catch (Exception e) {
+						Logger.error("responsePrepare: " + e);
+					}
+					
 				} else {
 					try {
 						app.alertErrorMessageString(responsePrepare.getMessage(),
 								getString(R.string.COMMON_MESSAGE), PlaceOrderActivity.this);
+						btnOk.setEnabled(true);
+						btnOk.setBackgroundResource(R.drawable.bg_blue_gray);
 					} catch (Exception e) {
 						Logger.error("responsePrepare: " + e);
+					}
+				}
+			}
+		}
+	}
+    
+    /**
+     * Get Prepare api
+     * @author hoangnh11
+     *
+     */
+    class CreateSale extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(PlaceOrderActivity.this);
+			progressDialog.setMessage(getResources().getString(R.string.PROCESSING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					createSale.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[8];
+				netParameter[0] = new NetParameter("uid", app.getIMEI(PlaceOrderActivity.this));
+				netParameter[1] = new NetParameter("store_id", itemStore.getStore_id());
+				netParameter[2] = new NetParameter("delivery", nowDelivery);
+				netParameter[3] = new NetParameter("discount_point_value", String.valueOf(responsePrepare.getTotal_point()));
+				netParameter[4] = new NetParameter("discount_sale_value", String.valueOf(responsePrepare.getTotal_discount()));
+				netParameter[5] = new NetParameter("subtotal", String.valueOf(responsePrepare.getSubtotal()));
+				netParameter[6] = new NetParameter("total", String.valueOf(responsePrepare.getTotal()));
+				netParameter[7] = new NetParameter("basket", DataParser.convertObjectToString(arrBasket));
+				
+				try {
+					data = HttpNetServices.Instance.createSale(netParameter, BuManagement.getToken(PlaceOrderActivity.this));					
+					responseCreateSales = DataParser.createSale(data);
+					Logger.error(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+				
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && responseCreateSales != null 
+						&& responseCreateSales.getStatus() != null
+						&& responseCreateSales.getStatus().equalsIgnoreCase("success")) {					
+					app.alertErrorMessageString(responseCreateSales.getStatus(),
+							getString(R.string.COMMON_MESSAGE), PlaceOrderActivity.this);
+				} else {
+					try {
+						app.alertErrorMessageString(responseCreateSales.getMessage(),
+								getString(R.string.COMMON_MESSAGE), PlaceOrderActivity.this);
+					} catch (Exception e) {
+						Logger.error("responseCreateSales: " + e);
 					}
 				}
 			}

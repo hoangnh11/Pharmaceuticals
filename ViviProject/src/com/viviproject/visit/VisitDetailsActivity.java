@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.entities.EnStores;
+import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.GlobalParams;
 
 public class VisitDetailsActivity extends Activity implements OnClickListener{
 
@@ -18,11 +21,21 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private LinearLayout linCheckWarehouse, linSubChekcWarehouse;
 	private TextView tvBuy, tvGivegimic, tvCloseDoor, tvFeedback;
 	private LinearLayout linBuyHistory, linSubBuyHistory;
+	private TextView tvNameStore, tvAddressStores, tvLineStore, tvVip;
+	
+	private AppPreferences app;
+	private Bundle bundle;
+	private EnStores itemStore;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.visit_details_layout);
+		app = new AppPreferences(this);
+		bundle = app.getBundle(this);
+		itemStore = new EnStores();
+		itemStore = (EnStores) bundle.getSerializable(GlobalParams.STORES);
+		
 		initLayout();
 	}
 
@@ -63,6 +76,14 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		linBuyHistory.setOnClickListener(this);
 		linSubBuyHistory = (LinearLayout) findViewById(R.id.linSubBuyHistory);
 		
+		tvNameStore = (TextView) findViewById(R.id.tvNameStore);
+		tvNameStore.setText(itemStore.getName());
+		tvAddressStores = (TextView) findViewById(R.id.tvAddressStores);
+		tvAddressStores.setText(itemStore.getAddress());
+		tvLineStore = (TextView) findViewById(R.id.tvLineStore);
+		tvLineStore.setText(itemStore.getRegion_id());
+		tvVip = (TextView) findViewById(R.id.tvVip);
+		tvVip.setText(itemStore.getVip());
 	}
 	
 	@Override
@@ -95,6 +116,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			
 		case R.id.tvBuy:
 			intent = new Intent(this, PlaceOrderActivity.class);
+			intent.putExtra(GlobalParams.STORES, itemStore);
 			startActivity(intent);
 			break;
 			
