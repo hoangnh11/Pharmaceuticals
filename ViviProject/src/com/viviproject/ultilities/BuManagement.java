@@ -8,7 +8,6 @@
 
 package com.viviproject.ultilities;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -18,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -597,12 +597,14 @@ public final class BuManagement {
     
 	public static String endCodeImageFromFile(String photoPath) {
 		try {
-			int size = (int) photoPath.length();
-			byte[] bytes = new byte[size];
-			BufferedInputStream buf;
-			buf = new BufferedInputStream(new FileInputStream(photoPath));
-			buf.read(bytes, 0, bytes.length);
-			buf.close();
+			InputStream is = new FileInputStream(photoPath);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			byte[] b = new byte[1024];
+			int bytesRead;
+			while ((bytesRead = is.read(b)) != -1) {
+			   bos.write(b, 0, bytesRead);
+			}
+			byte[] bytes = bos.toByteArray();
 			return Base64.encodeToString(bytes, Base64.DEFAULT);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
