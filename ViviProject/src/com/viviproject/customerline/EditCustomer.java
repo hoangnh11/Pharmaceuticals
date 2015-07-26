@@ -48,7 +48,6 @@ public class EditCustomer extends Activity implements OnClickListener{
 	private Bundle bundle;
 	private String storeId;
 	private ResponseCreateStores responseUpdateStores;
-	private String staff;
 	private ArrayList<EnStaff> arrStaff;
 	private EnStaff enStaff;
  	
@@ -90,7 +89,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		enStaff.setRole("owner");
 		enStaff.setNote("");
 		arrStaff.add(enStaff);
-		staff = DataParser.convertObjectToString(arrStaff);
+		
 	}
 	
 	public void initLayout(){
@@ -193,16 +192,16 @@ public class EditCustomer extends Activity implements OnClickListener{
 			if (!isCancelled()) {				
 				NetParameter[] netParameter = new NetParameter[11];				
 				netParameter[0] = new NetParameter("uid", app.getIMEI(EditCustomer.this));
-				netParameter[1] = new NetParameter("code", "HBT1006");
-				netParameter[2] = new NetParameter("name", URLEncoder.encode(edtStoreName.getEditableText().toString()));
-				netParameter[3] = new NetParameter("address", URLEncoder.encode(edtStoreAddress.getEditableText().toString()));
-				netParameter[4] = new NetParameter("phone", URLEncoder.encode(edtStorePhone.getEditableText().toString()));
-				netParameter[5] = new NetParameter("longitude", "845702354");
-				netParameter[6] = new NetParameter("latitude", "845702354");
-				netParameter[7] = new NetParameter("region_id", "3");
-				netParameter[8] = new NetParameter("district", "HBT");
-				netParameter[9] = new NetParameter("vip", "A");
-				netParameter[10] = new NetParameter("staff", staff);
+				netParameter[1] = new NetParameter("code", "");
+				netParameter[2] = new NetParameter("name", edtStoreName.getEditableText().toString());
+				netParameter[3] = new NetParameter("address", edtStoreAddress.getEditableText().toString());
+				netParameter[4] = new NetParameter("phone", edtStorePhone.getEditableText().toString());
+				netParameter[5] = new NetParameter("longitude", BuManagement.getLongitude(EditCustomer.this));
+				netParameter[6] = new NetParameter("latitude", BuManagement.getLatitude(EditCustomer.this));
+				netParameter[7] = new NetParameter("region_id", "");
+				netParameter[8] = new NetParameter("district", "");
+				netParameter[9] = new NetParameter("vip", "");
+				netParameter[10] = new NetParameter("staff", DataParser.convertObjectToString(arrStaff));
 				try {
 					data = HttpNetServices.Instance.updateStores(netParameter, BuManagement.getToken(EditCustomer.this), storeId);
 					Logger.error(":         "+data);
