@@ -126,6 +126,14 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
+	public static HttpFunctionInfo getRegions(NetParameter[] netParameters) {
+		HttpFunctionInfo functionInfo = createGetMethod("getRegions");
+		String params = funcLogParams(netParameters);
+		Log.e("getRegions", "getRegions: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/regions?" + params);
+		return functionInfo;
+	}
+	
 	public static HttpFunctionInfo getStores(NetParameter[] netParameters) {
 		HttpFunctionInfo functionInfo = createGetMethod("getStores");
 		String params = funcLogParams(netParameters);

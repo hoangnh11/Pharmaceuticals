@@ -8,11 +8,13 @@
 package com.viviproject.ultilities;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.viviproject.entities.EnArrayStores;
+import com.viviproject.entities.EnRegions;
 import com.viviproject.entities.EnReportImageResponse;
 import com.viviproject.entities.Products;
 import com.viviproject.entities.ResponseCreateSales;
@@ -74,6 +76,22 @@ public final class DataParser {
 			Type collectionType = new TypeToken<UserInformation>() {}.getType();
 
 			UserInformation details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static ArrayList<EnRegions> getRegions(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<ArrayList<EnRegions>>() {}.getType();
+
+			ArrayList<EnRegions> details = mGson.fromJson(jsonData, collectionType);
 			return details;
 		} catch (Exception e) {
 			Logger.error(e);

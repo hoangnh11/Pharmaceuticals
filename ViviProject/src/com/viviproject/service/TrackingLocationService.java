@@ -1,19 +1,18 @@
 package com.viviproject.service;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
-import android.text.format.DateFormat;
 
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.SharedPreferenceManager;
 
 public class TrackingLocationService extends Service {
 	private static double latitude = 0.0;
@@ -23,7 +22,7 @@ public class TrackingLocationService extends Service {
 	
 	public TrackingLocationService()
 	{
-		super();
+		super();		
 	}
 	
 	/**
@@ -45,7 +44,8 @@ public class TrackingLocationService extends Service {
 		latitude = gps.getLatitude();
 		longitude = gps.getLongitude();
         Logger.error("latitude: " + latitude + " -longitude: " + longitude);
-        
+        BuManagement.saveLatitude(TrackingLocationService.this, String.valueOf(latitude));
+        BuManagement.saveLongitude(TrackingLocationService.this, String.valueOf(longitude));      
 		Logger.error("========== get location: END===========");
 		
 	    TrackingLocationAtask m = new TrackingLocationAtask();

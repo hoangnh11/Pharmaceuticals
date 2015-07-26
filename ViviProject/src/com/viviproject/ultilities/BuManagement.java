@@ -157,7 +157,7 @@ public final class BuManagement {
 	 */
 	public static String getPassword(Activity activity) {
 		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
-		return sharedPreferenceManager.getString(GlobalParams.KEY_PASSWORD_USER, null);
+		return sharedPreferenceManager.getString(GlobalParams.KEY_PASSWORD_USER, GlobalParams.BLANK_CHARACTER);
 	}
 
 	/**
@@ -175,17 +175,39 @@ public final class BuManagement {
 
 	public static String getToken(Activity activity) {
 		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
-		return sharedPreferenceManager.getString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, null);
+		return sharedPreferenceManager.getString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, GlobalParams.BLANK_CHARACTER);
 	}
 	
 	public static String getToken(Context activity) {
 		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
-		return sharedPreferenceManager.getString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, null);
+		return sharedPreferenceManager.getString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, GlobalParams.BLANK_CHARACTER);
 	}
 	
 	public static boolean saveToken(Activity activity, String token) {
 		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
 		sharedPreferenceManager.saveString(GlobalParams.TOKEN_SHARE_PREFERENT_KEY, token);
+		return true;
+	}
+	
+	public static String getLatitude(Activity activity) {
+		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
+		return sharedPreferenceManager.getString(GlobalParams.LATITUDE, GlobalParams.BLANK_CHARACTER);
+	}
+	
+	public static boolean saveLatitude(Context activity, String lat) {
+		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
+		sharedPreferenceManager.saveString(GlobalParams.LATITUDE, lat);
+		return true;
+	}	
+	
+	public static String getLongitude(Activity activity) {
+		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
+		return sharedPreferenceManager.getString(GlobalParams.LONGITUDE, GlobalParams.BLANK_CHARACTER);
+	}
+	
+	public static boolean saveLongitude(Context activity, String _long) {
+		SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(activity);
+		sharedPreferenceManager.saveString(GlobalParams.LONGITUDE, _long);
 		return true;
 	}
 	

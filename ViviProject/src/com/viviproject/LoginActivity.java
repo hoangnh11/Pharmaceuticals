@@ -114,13 +114,13 @@ public class LoginActivity extends Activity implements OnClickListener{
 				break;
 			}
 			
-			int errorCode = validateInput();
-			if (errorCode == 0) {
+//			int errorCode = validateInput();
+//			if (errorCode == 0) {
 				loginAsyncTask = new LoginAsyncTask();
 				loginAsyncTask.execute();								
-			} else {				
-				app.alertErrorMessageInt(errorCode, getString(R.string.COMMON_MESSAGE), this);
-			}
+//			} else {				
+//				app.alertErrorMessageInt(errorCode, getString(R.string.COMMON_MESSAGE), this);
+//			}
 			break;
 
 		default:

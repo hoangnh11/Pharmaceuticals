@@ -76,6 +76,12 @@ public final class HttpNetServices implements INetServices {
 	}
 	
 	@Override
+	public String getRegions(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.getRegions(netParameters);
+		return executer(functionInfo);
+	}
+	
+	@Override
 	public String getStores(NetParameter[] netParameters) throws Exception {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.getStores(netParameters);
 		return executer(functionInfo);

@@ -112,13 +112,13 @@
 
                 <Spinner
                     android:id="@+id/spLine"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="12dp"
                     android:background="@drawable/bg_spinner_year"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:paddingRight="22dp"
                     android:scrollbars="none" />
 
@@ -135,7 +135,7 @@
                     android:paddingLeft="4dp"
                     android:text="@string/ADD_LINE"
                     android:textColor="@color/TEXT_COLOR_SKYBLUE"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -155,9 +155,11 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/edtNameOwner"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:hint="@string/BLANK"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -245,9 +247,12 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/edtPhoneOwner"
+                    android:hint="@string/BLANK"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:inputType="phone"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -269,10 +274,11 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/edtNoteOwner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_note"
-                    android:hint=""
+                    android:hint="@string/BLANK"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:text=""
@@ -297,6 +303,8 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/edtNameStaff"
+                    android:hint="@string/BLANK"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -387,9 +395,12 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/edtPhoneStaff"
+                    android:hint="@string/BLANK"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:inputType="phone"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
