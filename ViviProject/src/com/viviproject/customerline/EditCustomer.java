@@ -1,6 +1,5 @@
 package com.viviproject.customerline;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -186,13 +185,12 @@ public class EditCustomer extends Activity implements OnClickListener{
 			});
 		}
 
-		@SuppressWarnings("deprecation")
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
 				NetParameter[] netParameter = new NetParameter[11];				
-				netParameter[0] = new NetParameter("uid", app.getIMEI(EditCustomer.this));
-				netParameter[1] = new NetParameter("code", "");
+				netParameter[0] = new NetParameter("uid", app.getIMEI(EditCustomer.this) + "|" + app.getCurrentTimeStamp());
+				netParameter[1] = new NetParameter("code", app.getIMEI(EditCustomer.this));
 				netParameter[2] = new NetParameter("name", edtStoreName.getEditableText().toString());
 				netParameter[3] = new NetParameter("address", edtStoreAddress.getEditableText().toString());
 				netParameter[4] = new NetParameter("phone", edtStorePhone.getEditableText().toString());

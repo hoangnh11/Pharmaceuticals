@@ -364,8 +364,8 @@ public class CreateCustormer extends Activity implements OnClickListener{
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
 				NetParameter[] netParameter = new NetParameter[11];				
-				netParameter[0] = new NetParameter("uid", app.getIMEI(CreateCustormer.this));
-				netParameter[1] = new NetParameter("code", "");
+				netParameter[0] = new NetParameter("uid", app.getIMEI(CreateCustormer.this) + "|" + app.getCurrentTimeStamp());
+				netParameter[1] = new NetParameter("code", app.getIMEI(CreateCustormer.this));
 				netParameter[2] = new NetParameter("name", edtStoreName.getEditableText().toString());
 				netParameter[3] = new NetParameter("address", edtStoreAddress.getEditableText().toString());
 				netParameter[4] = new NetParameter("phone", edtStorePhone.getEditableText().toString());
@@ -375,7 +375,7 @@ public class CreateCustormer extends Activity implements OnClickListener{
 				netParameter[8] = new NetParameter("district", district);
 				netParameter[9] = new NetParameter("vip", "");
 				netParameter[10] = new NetParameter("staff", DataParser.convertObjectToString(arrCreateStaff));
-			
+				Logger.error("1111111:   " + app.getCurrentTimeStamp());
 				try {
 					data = HttpNetServices.Instance.createStores(netParameter, BuManagement.getToken(CreateCustormer.this));
 					Logger.error(":         "+data);

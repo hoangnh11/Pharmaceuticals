@@ -7,6 +7,9 @@
  */
 package com.viviproject.ultilities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -216,6 +219,20 @@ public class AppPreferences {
 	public String getIMEI(Activity activity){
 		TelephonyManager telephonyManager = (TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE);
 		return telephonyManager.getDeviceId();
+	}
+	
+	/**
+	 * @return yyyy-MM-dd HH:mm:ss format date as string
+	 */
+	public String getCurrentTimeStamp() {
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String currentTimeStamp = dateFormat.format(new Date());
+			return currentTimeStamp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	/**
