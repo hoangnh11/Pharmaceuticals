@@ -72,11 +72,11 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/PHONE_NUMBER_DETAILS"
+                    android:inputType="phone"
                     android:singleLine="true"
                     android:text="043533000"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
-                    android:inputType="phone"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -106,28 +106,212 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="128dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/ACCUMULATION_POINT"
+                    android:text="@string/LINE"
                     android:textColor="@color/TEXT_COLOR_GREY"
                     android:textSize="14sp" />
 
-                <EditText
-                    android:layout_width="48dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/THREE_QUESTION"
-                    android:singleLine="true"
-                    android:text="@string/THREE_QUESTION"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T2"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T3"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T4"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T5"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T6"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/T7"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/ckT2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="121dp" />
+
+                <CheckBox
+                    android:id="@+id/ckT3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:id="@+id/ckT4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:id="@+id/ckT5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:id="@+id/ckT6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:id="@+id/ckT7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="128dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/PERIOR"
+                    android:textColor="@color/TEXT_COLOR_GREY"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/ONE_LAN"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/TWO_LAN"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/THREE_LAN"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/FOUR_LAN"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="132dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:layout_width="110dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/bg_blue_gray"
+                    android:gravity="center"
+                    android:text="@string/REQUEST_CHANGE_LINE"
+                    android:textColor="@color/WHITE"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/REQUEST_CHANGE_LINE_NOTE"
+                    android:textColor="@color/BLACK"
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -499,9 +683,9 @@
                 <EditText
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:gravity="center"
                     android:hint="@string/PHARMACY_NAME_TWO_DOTS"
                     android:text="6"
-                    android:gravity="center"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -525,7 +709,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="4dp"
-                    android:text="@string/ADD_OWNER_PHARMACY"
+                    android:text="@string/ADD_SALER"
                     android:textColor="@color/TEXT_COLOR_SKYBLUE"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -536,11 +720,11 @@
                 android:layout_width="88dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="16dp"
-                android:gravity="center"             
                 android:background="@drawable/bg_blue_gray"
-                android:textSize="14sp"
+                android:gravity="center"
                 android:text="@string/UPDATE"
                 android:textColor="@color/WHITE"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>

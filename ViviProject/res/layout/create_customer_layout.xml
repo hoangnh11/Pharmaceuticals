@@ -88,17 +88,17 @@
                     android:id="@+id/edtStorePhone"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
+                    android:inputType="phone"
                     android:text=""
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
-                    android:inputType="phone"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -110,33 +110,257 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spLine"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="12dp"
-                    android:background="@drawable/bg_spinner_year"
-                    android:gravity="center_vertical"
-                    android:paddingRight="22dp"
-                    android:scrollbars="none" />
-
-                <ImageView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/BLANK"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/icon_add" />
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T2"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="4dp"
-                    android:text="@string/ADD_LINE"
-                    android:textColor="@color/TEXT_COLOR_SKYBLUE"
-                    android:textSize="10sp"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T3"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T4"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T5"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/T6"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/T7"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/ckT2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="113dp" />
+
+                <CheckBox
+                    android:id="@+id/ckT3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:id="@+id/ckT4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:id="@+id/ckT5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:id="@+id/ckT6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:id="@+id/ckT7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/PERIOR"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/ONE_LAN"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/TWO_LAN"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/THREE_LAN"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/FOUR_LAN"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="124dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:layout_width="110dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/bg_blue_gray"
+                    android:gravity="center"
+                    android:text="@string/REQUEST_CHANGE_LINE"
+                    android:textColor="@color/WHITE"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/REQUEST_CHANGE_LINE_NOTE"
+                    android:textColor="@color/BLACK"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/VIP"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/A"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/ckVipA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/B"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/ckVipB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/C"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/ckVipC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -158,8 +382,8 @@
                     android:id="@+id/edtNameOwner"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text=""
                     android:hint="@string/BLANK"
+                    android:text=""
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -248,11 +472,11 @@
 
                 <EditText
                     android:id="@+id/edtPhoneOwner"
-                    android:hint="@string/BLANK"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:hint="@string/BLANK"
                     android:inputType="phone"
+                    android:text=""
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -288,9 +512,33 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/BLANK"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_union" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:text="@string/ADD_OWNER_PHARMACY"
+                    android:textColor="@color/TEXT_COLOR_SKYBLUE"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -304,9 +552,9 @@
 
                 <EditText
                     android:id="@+id/edtNameStaff"
-                    android:hint="@string/BLANK"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
+                    android:hint="@string/BLANK"
                     android:text=""
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
@@ -396,12 +644,36 @@
 
                 <EditText
                     android:id="@+id/edtPhoneStaff"
-                    android:hint="@string/BLANK"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:hint="@string/BLANK"
                     android:inputType="phone"
+                    android:text=""
                     android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/BLANK"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_union" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:text="@string/ADD_SALER"
+                    android:textColor="@color/TEXT_COLOR_SKYBLUE"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -428,7 +700,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"             
+                android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -441,11 +713,11 @@
                 <Button
                     android:id="@+id/btnHere"
                     android:layout_width="52dp"
-                    android:layout_height="20dp"             
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="8dp"
                     android:background="@drawable/bg_blue_gray"
                     android:gravity="center"
                     android:text="@string/HERE"
-                    android:layout_marginLeft="8dp"
                     android:textColor="@color/WHITE"
                     android:textSize="12sp"
                     android:textStyle="bold" />

@@ -197,7 +197,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 				netParameter[5] = new NetParameter("longitude", BuManagement.getLongitude(EditCustomer.this));
 				netParameter[6] = new NetParameter("latitude", BuManagement.getLatitude(EditCustomer.this));
 				netParameter[7] = new NetParameter("region_id", "");
-				netParameter[8] = new NetParameter("district", "");
+				netParameter[8] = new NetParameter("district", "");  
 				netParameter[9] = new NetParameter("vip", "");
 				netParameter[10] = new NetParameter("staff", DataParser.convertObjectToString(arrStaff));
 				try {
