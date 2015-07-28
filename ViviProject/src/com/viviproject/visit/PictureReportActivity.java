@@ -52,6 +52,7 @@ public class PictureReportActivity extends Activity implements OnClickListener{
 	Bundle bundle;
 	AppPreferences app;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);
@@ -324,22 +325,22 @@ public class PictureReportActivity extends Activity implements OnClickListener{
 				ivTemp.setVisibility(View.VISIBLE);
 				Logger.error("start finish()----------------------------------------------------");
 				
-				switch (pictureReportType) {
+				/*switch (pictureReportType) {
 				case 1:
-					Logger.error("chup anh poster");
+					Logger.error("chup anh poster");*/
 					Intent intentReportPoster = new Intent(PictureReportActivity.this, AcReportImageCapture.class);
 					intentReportPoster.putExtra(GlobalParams.EXTRA_IMAGE_PATH, path);
-					intentReportPoster.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, 1);
+					intentReportPoster.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, pictureReportType);
 					startActivity(intentReportPoster);
-					break;
+					//break;
 
-				default:
+				/*default:
 					Intent intent = new Intent(PictureReportActivity.this, VisitDetailsActivity.class);
 					intent.putExtra(GlobalParams.EXTRA_IMAGE_PATH, path);
 //					intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 					startActivity(intent);
 					break;
-				}
+				}*/
 				
 		        finish();
 				super.onPostExecute(result);
@@ -366,8 +367,8 @@ public class PictureReportActivity extends Activity implements OnClickListener{
 	        isFrontCam = mCameraPreview.isFrontCam();
 
 	        String path = ImageHelper.saveToFile
-	        		(data, file, isFrontCam, mCameraPreview.getCamera().getParameters().getJpegQuality(), orientation,
-	        				PictureReportActivity.this, 480, 480);	        
+	        		(data, file, isFrontCam, 70, orientation,
+	        				PictureReportActivity.this, 480, 800);	        
 //	    	addImageGallery(file);
 			
 	        return path;

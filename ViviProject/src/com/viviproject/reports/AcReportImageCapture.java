@@ -90,7 +90,7 @@ public class AcReportImageCapture extends Activity implements OnClickListener{
 		linOptionRefresh.setVisibility(View.INVISIBLE);
 		
 		edtTitle = (EditText) findViewById(R.id.edtTitle);
-		edtNote = (EditText) findViewById(R.id.edtTitle);
+		edtNote = (EditText) findViewById(R.id.edtNote);
 		
 		btSendImage = (Button) findViewById(R.id.btSendImage);
 		btSendImage.setOnClickListener(this);

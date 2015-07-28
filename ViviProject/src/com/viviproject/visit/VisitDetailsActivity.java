@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.viviproject.HomeActivity;
 import com.viviproject.R;
 import com.viviproject.adapter.ForsaleAdapter;
 import com.viviproject.adapter.InventoryAdapter;
@@ -157,7 +158,8 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.tvCloseDoor:
-			intent = new Intent(this, PictureReportActivity.class);
+			intent = new Intent(VisitDetailsActivity.this, PictureReportActivity.class);
+			intent.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_CLOSE);
 			startActivity(intent);
 			break;
 			

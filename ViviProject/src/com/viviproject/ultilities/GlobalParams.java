@@ -58,6 +58,12 @@ public final class GlobalParams {
 	public static final String TEMP_COMMON_FOLDER_NAME = "Pharmacy_temp_files";
 	public static final String TOKEN_SHARE_PREFERENT_KEY = "TOKEN";
 	
+	public static final int CAPTURE_TYPE_CLOSE = 0;
+	public static final int CAPTURE_TYPE_POSTER = 1;
+	public static final int CAPTURE_TYPE_RIVAL = 2;
+	public static final int CAPTURE_TYPE_TRADE_MARKETING = 3;
+	public static final int CAPTURE_TYPE_ORTHER = 4;
+	
 	// key to check language that app using
 	public static final String USING_VI_RESOUCE = "STRING-VI";
 	public static final String USING_EN_RESOUCE = "STRING-EN";

@@ -369,16 +369,20 @@ public class HomeActivity extends Activity implements OnClickListener{
 		case R.id.linPosterCamera:
 			Logger.error("Tracking PosterCamera");
 			Intent intentPictureReport = new Intent(HomeActivity.this, PictureReportActivity.class);
-			intentPictureReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, 1);
+			intentPictureReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_POSTER);
 			startActivity(intentPictureReport);
 			break;
 			
 		case R.id.linUnfriendCamera:
-
+			Intent intentPictureRevalReport = new Intent(HomeActivity.this, PictureReportActivity.class);
+			intentPictureRevalReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_RIVAL);
+			startActivity(intentPictureRevalReport);
 			break;	
 			
 		case R.id.linTradeMarketingCamera:
-
+			Intent intentPictureMaketingReport = new Intent(HomeActivity.this, PictureReportActivity.class);
+			intentPictureMaketingReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_TRADE_MARKETING);
+			startActivity(intentPictureMaketingReport);
 			break;		
 			
 		default:
