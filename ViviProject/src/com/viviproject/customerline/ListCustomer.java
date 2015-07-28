@@ -109,7 +109,7 @@ public class ListCustomer extends Activity implements OnClickListener{
         	int position = ((ItemListCustomer) v).get_position();
             items = enStores.getStores().get(position);
             intent = new Intent(ListCustomer.this, CustomerDetails.class);
-            intent.putExtra(GlobalParams.STORES_ID, items.getStore_id());
+            intent.putExtra(GlobalParams.STORES, items);  
             startActivity(intent);
         }
     };

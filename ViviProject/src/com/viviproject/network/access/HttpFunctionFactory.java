@@ -162,7 +162,7 @@ public final class HttpFunctionFactory {
 		HttpFunctionInfo functionInfo = createPostBodyMethod("createStores");
 		String params = funcLogParams(netParameters);
 		Log.e("createStores", "createStores: " + params);
-		functionInfo.setUrl(viviHostURLshort + "/v1/stores/create?access-token=" + token);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/create?access-token=" + token);	
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
@@ -186,8 +186,7 @@ public final class HttpFunctionFactory {
 
 	public static HttpFunctionInfo reportImages(String token, NetParameter[] netParameters) throws Exception{
 		HttpFunctionInfo functionInfo = createPostMethod("reportImages");
-		functionInfo.setUrl(viviHostURLshort + "/v1/images/create?access-token=" + token);
-		//functionInfo.setHeader(headers);
+		functionInfo.setUrl(viviHostURLshort + "/v1/images/create?access-token=" + token);		
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}

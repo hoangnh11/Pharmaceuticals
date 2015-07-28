@@ -54,9 +54,9 @@ public final class HttpUtilities
         return new NetParameter("user-agent", value);
     }
     
-//    public static NetParameter getHeaderUserId()
-//    {    
-//        return new NetParameter("user-id", AcFuncHome._userId);
-//    }
+    public static NetParameter getHeaderAcceptJson()
+    {
+        return new NetParameter("Accept","application/json");
+    }
     
 }

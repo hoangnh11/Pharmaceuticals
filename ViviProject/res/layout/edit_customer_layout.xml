@@ -338,6 +338,7 @@
                     android:textStyle="bold" />
 
                 <CheckBox
+                    android:id="@+id/ckVipA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -351,6 +352,7 @@
                     android:textStyle="bold" />
 
                 <CheckBox
+                    android:id="@+id/ckVipB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -364,6 +366,7 @@
                     android:textStyle="bold" />
 
                 <CheckBox
+                    android:id="@+id/ckVipC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -392,6 +395,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/edtNameOwner"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/PHARMACY_NAME_TWO_DOTS"
@@ -481,7 +485,9 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/edtPhoneOwner"
                     android:layout_width="200dp"
+                    android:inputType="phone"
                     android:layout_height="wrap_content"
                     android:hint="@string/PHARMACY_NAME_TWO_DOTS"
                     android:text="097.696.xxxx"
@@ -505,6 +511,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/edtNoteOwner"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/PHARMACY_NAME_TWO_DOTS"
@@ -568,6 +575,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/edtNameStaff"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/PHARMACY_NAME_TWO_DOTS"
@@ -657,8 +665,10 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/edtPhoneStaff"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
+                    android:inputType="phone"
                     android:hint="@string/PHARMACY_NAME_TWO_DOTS"
                     android:text="097.696.xxxx"
                     android:textColor="@color/BLACK"

@@ -88,6 +88,7 @@
                         </TextView>
 
                         <TextView
+                            android:id="@+id/tvNameStore"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -98,6 +99,7 @@
                         </TextView>
 
                         <TextView
+                            android:id="@+id/tvCode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="BD1001"
@@ -121,6 +123,7 @@
                         </TextView>
 
                         <TextView
+                            android:id="@+id/tvPhoneStore"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -146,6 +149,7 @@
                         </TextView>
 
                         <TextView
+                            android:id="@+id/tvAddressStore"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -171,6 +175,7 @@
                         </TextView>
 
                         <TextView
+                            android:id="@+id/tvActive"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -195,6 +200,7 @@
                         </TextView>
 
                         <TextView
+                            android:id="@+id/tvVipStore"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

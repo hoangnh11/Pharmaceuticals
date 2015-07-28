@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.adapter.SalerAdapter;
 import com.viviproject.entities.EnCustomer;
+import com.viviproject.entities.EnStores;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.GlobalParams;
 
@@ -26,6 +27,7 @@ public class CustomerDetails extends Activity implements OnClickListener{
 	private LinearLayout linProfitFive, linSubProfitFive;
 	private LinearLayout linSaler;
 	private ListView lvSaler;
+	private TextView tvNameStore, tvCode, tvPhoneStore, tvAddressStore, tvActive, tvVipStore;
 	
 	private SalerAdapter salerAdapter;
 	private ArrayList<EnCustomer> listSaler;
@@ -34,7 +36,7 @@ public class CustomerDetails extends Activity implements OnClickListener{
 	private boolean checkScrollBottom = false;
 	private ScrollView scrollView;
 	private Bundle bundle;
-	private String storeId;
+	private EnStores store;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -42,11 +44,21 @@ public class CustomerDetails extends Activity implements OnClickListener{
 		setContentView(R.layout.customer_details);
 		app = new AppPreferences(this);
 		bundle = app.getBundle(this);
-		storeId = bundle.getString(GlobalParams.STORES_ID);
+		store = new EnStores();
+		store = (EnStores) bundle.getSerializable(GlobalParams.STORES);
 		listSaler = new ArrayList<EnCustomer>();
 		enCustomer = new EnCustomer();
 		
 		initLayout();
+		
+		if (store != null) {
+			tvNameStore.setText(store.getName());
+			tvCode.setText(store.getCode());
+			tvPhoneStore.setText(store.getPhone());
+			tvAddressStore.setText(store.getAddress());
+			tvActive.setText(store.getActive());
+			tvVipStore.setText(store.getVip());
+		}		
 	}
 
 	public void initLayout(){
@@ -71,6 +83,13 @@ public class CustomerDetails extends Activity implements OnClickListener{
 	
 		linEdit = (LinearLayout) findViewById(R.id.linEdit);
 		linEdit.setOnClickListener(this);
+		
+		tvNameStore = (TextView) findViewById(R.id.tvNameStore);
+		tvCode = (TextView) findViewById(R.id.tvCode);
+		tvPhoneStore = (TextView) findViewById(R.id.tvPhoneStore);
+		tvAddressStore = (TextView) findViewById(R.id.tvAddressStore);
+		tvActive = (TextView) findViewById(R.id.tvActive);
+		tvVipStore = (TextView) findViewById(R.id.tvVipStore);
 		
 		linOwnerPharmacy = (LinearLayout) findViewById(R.id.linOwnerPharmacy);
 		linOwnerPharmacy.setOnClickListener(this);		
@@ -107,7 +126,7 @@ public class CustomerDetails extends Activity implements OnClickListener{
 			
 		case R.id.linEdit:
 			intent = new Intent(this, EditCustomer.class);
-			intent.putExtra(GlobalParams.STORES_ID, storeId);
+			intent.putExtra(GlobalParams.STORES, store);
 			startActivity(intent);
 			break;
 			
