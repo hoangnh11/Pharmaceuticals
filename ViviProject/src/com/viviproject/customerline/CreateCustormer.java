@@ -316,7 +316,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 				netParameter[4] = new NetParameter("phone", edtStorePhone.getEditableText().toString());
 				netParameter[5] = new NetParameter("longitude", BuManagement.getLongitude(CreateCustormer.this));
 				netParameter[6] = new NetParameter("latitude", BuManagement.getLatitude(CreateCustormer.this));
-				netParameter[7] = new NetParameter("region_id", line);
+				netParameter[7] = new NetParameter("region_id", "");
 				netParameter[8] = new NetParameter("district", "");
 				netParameter[9] = new NetParameter("vip", vip);
 				netParameter[10] = new NetParameter("staff", DataParser.convertObjectToString(arrCreateStaff));
@@ -382,7 +382,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 					ckT5.setChecked(false);
 					ckT6.setChecked(false);
 					ckT7.setChecked(false);
-					line = "T2";
+					line = "2";
 				}
 				
 				if (buttonView == ckT3) {
@@ -391,7 +391,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 					ckT5.setChecked(false);
 					ckT6.setChecked(false);
 					ckT7.setChecked(false);
-					line = "T3";
+					line = "3";
 				}
 				
 				if (buttonView == ckT4) {
@@ -400,7 +400,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 					ckT5.setChecked(false);
 					ckT6.setChecked(false);
 					ckT7.setChecked(false);
-					line = "T4";
+					line = "4";
 				}
 				
 				if (buttonView == ckT5) {
@@ -409,7 +409,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 					ckT2.setChecked(false);
 					ckT6.setChecked(false);
 					ckT7.setChecked(false);
-					line = "T5";
+					line = "5";
 				}
 				
 				if (buttonView == ckT6) {
@@ -418,7 +418,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 					ckT5.setChecked(false);
 					ckT2.setChecked(false);
 					ckT7.setChecked(false);
-					line = "T6";
+					line = "6";
 				}
 				
 				if (buttonView == ckT7) {
@@ -427,7 +427,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 					ckT5.setChecked(false);
 					ckT6.setChecked(false);
 					ckT2.setChecked(false);
-					line = "T7";
+					line = "7";
 				}
 			}
 		}
