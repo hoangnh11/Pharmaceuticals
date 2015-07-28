@@ -176,8 +176,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/BG_GRAY_LIGHT"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:padding="8dp" >
+                android:padding="8dp"
+                android:visibility="gone" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1166,7 +1166,7 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/BG_GRAY9E"
+                android:background="@color/BLUE"              
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="8dp" >
@@ -1193,60 +1193,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/BG_GRAY_LIGHT"
-                android:orientation="vertical" >
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:paddingTop="8dp" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp"
-                    android:paddingRight="8dp"
-                    android:paddingTop="16dp" >
-
-                    <TextView
-                        android:layout_width="16dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="4dp"
-                        android:gravity="center"
-                        android:text="."
-                        android:textColor="@color/BLACK"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="12dp"
-                        android:text="@string/TRANG_PHUC_LINH"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/icon_minus" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:background="@drawable/bg_minus_union"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/union" />
+                    android:gravity="right|center_vertical"
+                    android:paddingBottom="8dp"
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -1284,216 +1240,18 @@
                         android:src="@drawable/icon_edit_green" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp"
-                    android:paddingRight="8dp" >
-
-                    <TextView
-                        android:layout_width="16dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="4dp"
-                        android:gravity="center"
-                        android:text="."
-                        android:textColor="@color/BLACK"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="12dp"
-                        android:text="@string/TPL_PLUS_TEXT"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/icon_minus" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:background="@drawable/bg_minus_union"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/union" />
-                </LinearLayout>
+                <ListView
+                    android:id="@+id/lvInventory"
+                    style="@style/NormalListViewNoDivider"
+                    android:background="@color/BG_GRAY_LIGHT"
+                    android:fadingEdge="none"
+                    android:scrollbarSize="3dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp"
-                    android:paddingRight="8dp" >
-
-                    <TextView
-                        android:layout_width="16dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="4dp"
-                        android:gravity="center"
-                        android:text="."
-                        android:textColor="@color/BLACK"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="12dp"
-                        android:text="@string/TPL_FAST_TEXT"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/icon_minus" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:background="@drawable/bg_minus_union"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/union" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp"
-                    android:paddingRight="8dp" >
-
-                    <TextView
-                        android:layout_width="16dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="4dp"
-                        android:gravity="center"
-                        android:text="."
-                        android:textColor="@color/BLACK"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="12dp"
-                        android:text="@string/MAXXHAIR"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/icon_minus" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:background="@drawable/bg_minus_union"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/union" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="16dp"
-                    android:paddingRight="8dp" >
-
-                    <TextView
-                        android:layout_width="16dp"
-                        android:layout_height="20dp"
-                        android:layout_marginBottom="4dp"
-                        android:gravity="center"
-                        android:text="."
-                        android:textColor="@color/BLACK"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="12dp"
-                        android:text="@string/NIEU_BAO"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/icon_minus" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:background="@drawable/bg_minus_union"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/BLANK"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/union" />
+                    android:gravity="right|center_vertical"
+                    android:orientation="horizontal" >
 
                     <Button
                         android:layout_width="64dp"

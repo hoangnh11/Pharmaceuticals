@@ -135,4 +135,10 @@ public final class HttpNetServices implements INetServices {
 		return executer(functionInfo);
 	}
 	
+	@Override
+	public String getProductsSimple(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.getProductsSimple(netParameters);
+		return executer(functionInfo);
+	}
+	
 }

@@ -1,17 +1,31 @@
 package com.viviproject.visit;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.adapter.ForsaleAdapter;
+import com.viviproject.adapter.InventoryAdapter;
+import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.EnStores;
+import com.viviproject.entities.Products;
+import com.viviproject.network.NetParameter;
+import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.Logger;
 
 public class VisitDetailsActivity extends Activity implements OnClickListener{
 
@@ -22,10 +36,16 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private TextView tvBuy, tvGivegimic, tvCloseDoor, tvFeedback;
 	private LinearLayout linBuyHistory, linSubBuyHistory;
 	private TextView tvNameStore, tvAddressStores, tvLineStore, tvVip;
+	private ListView lvInventory;
 	
 	private AppPreferences app;
 	private Bundle bundle;
 	private EnStores itemStore;
+	private ProgressDialog progressDialog;
+	private GetProduct getProduct;
+	private Products enProducts;
+	private EnProducts items;
+	private InventoryAdapter itemListViewInventory;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -35,6 +55,8 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		bundle = app.getBundle(this);
 		itemStore = new EnStores();
 		itemStore = (EnStores) bundle.getSerializable(GlobalParams.STORES);
+		enProducts = new Products();
+		items = new EnProducts();
 		
 		initLayout();
 	}
@@ -58,6 +80,8 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
+		
+		lvInventory = (ListView) findViewById(R.id.lvInventory);
 		
 		tvBuy = (TextView) findViewById(R.id.tvBuy);
 		tvBuy.setOnClickListener(this);
@@ -97,7 +121,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		case R.id.linBuyHistory:
 			if (linSubBuyHistory.getVisibility() == View.GONE) {
 				linBuyHistory.setBackgroundResource(R.color.BG_GRAY9E);
-				linSubBuyHistory.setVisibility(View.VISIBLE);
+				linSubBuyHistory.setVisibility(View.VISIBLE);				
 			} else {
 				linBuyHistory.setBackgroundResource(R.color.BLUE);
 				linSubBuyHistory.setVisibility(View.GONE);
@@ -108,6 +132,8 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			if (linSubChekcWarehouse.getVisibility() == View.GONE) {
 				linCheckWarehouse.setBackgroundResource(R.color.BG_GRAY9E);
 				linSubChekcWarehouse.setVisibility(View.VISIBLE);
+				getProduct = new GetProduct();
+				getProduct.execute();
 			} else {
 				linCheckWarehouse.setBackgroundResource(R.color.BLUE);
 				linSubChekcWarehouse.setVisibility(View.GONE);
@@ -140,4 +166,97 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		}
 	}
 
+	OnClickListener onMinusClickHandler = new OnClickListener() 
+	{		
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemListViewInventory) v).get_position();        
+            items = enProducts.getProducts().get(position);
+            	
+            if (Integer.parseInt(items.getUnit()) > 0) {
+            	enProducts.getProducts().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) - 1));            	
+				
+            	itemListViewInventory = new InventoryAdapter(VisitDetailsActivity.this, enProducts);
+            	itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
+            	itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
+            	lvInventory.setAdapter(itemListViewInventory);
+    			app.setListViewHeight(lvInventory, itemListViewInventory);
+			}
+			
+        }
+    };
+    
+    OnClickListener onPlusClickHandler = new OnClickListener() 
+	{		
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemListViewInventory) v).get_position();        
+            items = enProducts.getProducts().get(position);
+          
+        	enProducts.getProducts().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) + 1));
+        	
+        	itemListViewInventory = new InventoryAdapter(VisitDetailsActivity.this, enProducts);		
+        	itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
+        	itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
+        	lvInventory.setAdapter(itemListViewInventory);
+			app.setListViewHeight(lvInventory, itemListViewInventory);		
+        }
+    };
+	
+	/**
+     * Get Stores list follow line
+     * @author hoangnh11
+     *
+     */
+    class GetProduct extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(VisitDetailsActivity.this);
+			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					getProduct.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[1];
+				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(VisitDetailsActivity.this));				
+				try {
+					data = HttpNetServices.Instance.getProductsSimple(netParameter);					
+					enProducts = DataParser.getProducts(data);
+					Logger.error(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && enProducts != null && enProducts.getStatus().equalsIgnoreCase("success")) {			
+					itemListViewInventory = new InventoryAdapter(VisitDetailsActivity.this, enProducts);
+					itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
+					itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
+					lvInventory.setAdapter(itemListViewInventory);
+					app.setListViewHeight(lvInventory, itemListViewInventory);
+				}
+			}
+		}
+	}
 }
