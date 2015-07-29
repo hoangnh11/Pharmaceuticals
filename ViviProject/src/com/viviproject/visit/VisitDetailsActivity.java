@@ -1,5 +1,7 @@
 package com.viviproject.visit;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -9,17 +11,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.viviproject.HomeActivity;
 import com.viviproject.R;
-import com.viviproject.adapter.ForsaleAdapter;
 import com.viviproject.adapter.InventoryAdapter;
 import com.viviproject.entities.EnProducts;
+import com.viviproject.entities.EnReport;
 import com.viviproject.entities.EnStores;
 import com.viviproject.entities.Products;
+import com.viviproject.entities.ResponseReport;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.AppPreferences;
@@ -38,6 +41,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private LinearLayout linBuyHistory, linSubBuyHistory;
 	private TextView tvNameStore, tvAddressStores, tvLineStore, tvVip;
 	private ListView lvInventory;
+	private Button btnSendReport;
 	
 	private AppPreferences app;
 	private Bundle bundle;
@@ -47,6 +51,10 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private Products enProducts;
 	private EnProducts items;
 	private InventoryAdapter itemListViewInventory;
+	private SendReportInventory sendReportInventory;
+	private ResponseReport responseReport;
+	private EnReport enReport;
+	private ArrayList<EnReport> arrReport;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -58,6 +66,9 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		itemStore = (EnStores) bundle.getSerializable(GlobalParams.STORES);
 		enProducts = new Products();
 		items = new EnProducts();
+		responseReport = new ResponseReport();
+		enReport = new EnReport();
+		arrReport = new ArrayList<EnReport>();
 		
 		initLayout();
 	}
@@ -109,6 +120,9 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		tvLineStore.setText(itemStore.getRegion_id());
 		tvVip = (TextView) findViewById(R.id.tvVip);
 		tvVip.setText(itemStore.getVip());
+		
+		btnSendReport = (Button) findViewById(R.id.btnSendReport);
+		btnSendReport.setOnClickListener(this); 
 	}
 	
 	@Override
@@ -163,6 +177,11 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 			
+		case R.id.btnSendReport:
+			sendReportInventory = new SendReportInventory();
+			sendReportInventory.execute();
+			break;
+			
 		default:
 			break;
 		}
@@ -184,6 +203,11 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
             	itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
             	lvInventory.setAdapter(itemListViewInventory);
     			app.setListViewHeight(lvInventory, itemListViewInventory);
+    			
+    			enReport = new EnReport();
+    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(position).getId()));
+    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(position).getUnit()));
+    			arrReport.set(position, enReport);
 			}
 			
         }
@@ -203,7 +227,12 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
         	itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
         	itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
         	lvInventory.setAdapter(itemListViewInventory);
-			app.setListViewHeight(lvInventory, itemListViewInventory);		
+			app.setListViewHeight(lvInventory, itemListViewInventory);
+			
+			enReport = new EnReport();
+			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(position).getId()));
+			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(position).getUnit()));
+			arrReport.set(position, enReport);
         }
     };
 	
@@ -251,12 +280,75 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		protected void onPostExecute(String result) {
 			progressDialog.dismiss();
 			if (!isCancelled()) {
-				if (result.equals(GlobalParams.TRUE) && enProducts != null && enProducts.getStatus().equalsIgnoreCase("success")) {			
+				if (result.equals(GlobalParams.TRUE) && enProducts != null && enProducts.getStatus().equalsIgnoreCase("success")) {
+					
+					for (int i = 0; i < enProducts.getProducts().size(); i++) {
+						enReport = new EnReport();
+						enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(i).getId()));
+						enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(i).getUnit()));
+						arrReport.add(enReport);
+					}
+					
 					itemListViewInventory = new InventoryAdapter(VisitDetailsActivity.this, enProducts);
 					itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
 					itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
 					lvInventory.setAdapter(itemListViewInventory);
 					app.setListViewHeight(lvInventory, itemListViewInventory);
+				}
+			}
+		}
+	}
+    
+    /**
+     * Get Stores list follow line
+     * @author hoangnh11
+     *
+     */
+    class SendReportInventory extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(VisitDetailsActivity.this);
+			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					sendReportInventory.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[4];
+				netParameter[0] = new NetParameter("store_id", itemStore.getStore_id());
+				netParameter[1] = new NetParameter("long", BuManagement.getLongitude(VisitDetailsActivity.this));
+				netParameter[2] = new NetParameter("lat", BuManagement.getLatitude(VisitDetailsActivity.this));
+				netParameter[3] = new NetParameter("data", DataParser.convertObjectToString(arrReport));
+				try {
+					data = HttpNetServices.Instance.sendReportInventory(netParameter, BuManagement.getToken(VisitDetailsActivity.this));					
+					responseReport = DataParser.responseReport(data);
+					Logger.error(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && responseReport != null) {			
+					app.alertErrorMessageString(responseReport.getMessage(),
+							getString(R.string.COMMON_MESSAGE), VisitDetailsActivity.this);
 				}
 			}
 		}

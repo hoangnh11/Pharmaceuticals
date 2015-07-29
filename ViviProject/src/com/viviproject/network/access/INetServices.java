@@ -29,4 +29,5 @@ public interface INetServices {
 	String prepareSale(NetParameter[] netParameters, String token) throws Exception;
 	String createSale(NetParameter[] netParameters, String token) throws Exception;
 	String getProductsSimple(NetParameter[] netParameters) throws Exception;
+	String sendReportInventory(NetParameter[] netParameters, String token) throws Exception;
 }

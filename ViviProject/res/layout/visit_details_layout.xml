@@ -1237,6 +1237,7 @@
                         android:layout_height="16dp"
                         android:contentDescription="@string/BLANK"
                         android:scaleType="fitXY"
+                        android:layout_marginRight="4dp"
                         android:src="@drawable/icon_edit_green" />
                 </LinearLayout>
 
@@ -1251,9 +1252,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"
+                    android:layout_marginRight="4dp"
                     android:orientation="horizontal" >
 
                     <Button
+                        android:id="@+id/btnSendReport"
                         android:layout_width="64dp"
                         android:layout_height="24dp"
                         android:layout_marginLeft="48dp"

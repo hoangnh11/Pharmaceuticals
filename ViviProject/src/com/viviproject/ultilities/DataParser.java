@@ -21,6 +21,7 @@ import com.viviproject.entities.ResponseCreateSales;
 import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.entities.ResponseLogin;
 import com.viviproject.entities.ResponsePrepare;
+import com.viviproject.entities.ResponseReport;
 import com.viviproject.entities.UserInformation;
 
 /**
@@ -156,6 +157,22 @@ public final class DataParser {
 			Type collectionType = new TypeToken<ResponseCreateStores>() {}.getType();
 
 			ResponseCreateStores details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static ResponseReport responseReport(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<ResponseReport>() {}.getType();
+
+			ResponseReport details = mGson.fromJson(jsonData, collectionType);
 			return details;
 		} catch (Exception e) {
 			Logger.error(e);

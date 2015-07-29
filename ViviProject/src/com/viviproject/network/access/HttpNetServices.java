@@ -141,4 +141,10 @@ public final class HttpNetServices implements INetServices {
 		return executer(functionInfo);
 	}
 	
+	@Override
+	public String sendReportInventory(NetParameter[] netParameters, String token) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.sendReportInventory(netParameters, token);
+		return executer(functionInfo);
+	}
+	
 }
