@@ -193,7 +193,7 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		protected void onPostExecute(String result) {
 			progressDialog.dismiss();
 			if (!isCancelled()) {
-				if (result.equals(GlobalParams.TRUE) && enStores != null) {
+				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
 					listVisitAdapter = new VisitAdapter(VisitAcitvity.this, enStores);
 					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
 					lvCustomer.setAdapter(listVisitAdapter);
@@ -247,7 +247,8 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		protected void onPostExecute(String result) {
 			progressDialog.dismiss();
 			if (!isCancelled()) {
-				if (result.equals(GlobalParams.TRUE) && enStores != null) {
+				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores() != null 
+						&& enStores.getStores().size() > 0) {
 					listVisitAdapter = new VisitAdapter(VisitAcitvity.this, enStores);
 					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
 					lvCustomer.setAdapter(listVisitAdapter);

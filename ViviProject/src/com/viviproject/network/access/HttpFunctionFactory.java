@@ -226,4 +226,13 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
+	public static HttpFunctionInfo feedback(NetParameter[] netParameters, String token) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("feedback");
+		String params = funcLogParams(netParameters);
+		Log.e("feedback", "feedback: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/reports/feedback?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
+	
 }

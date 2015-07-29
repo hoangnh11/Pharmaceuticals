@@ -30,4 +30,5 @@ public interface INetServices {
 	String createSale(NetParameter[] netParameters, String token) throws Exception;
 	String getProductsSimple(NetParameter[] netParameters) throws Exception;
 	String sendReportInventory(NetParameter[] netParameters, String token) throws Exception;
+	String feedback(NetParameter[] netParameters, String token) throws Exception;
 }

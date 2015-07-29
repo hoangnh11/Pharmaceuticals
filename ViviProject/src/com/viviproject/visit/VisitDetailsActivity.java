@@ -168,6 +168,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			
 		case R.id.tvFeedback:
 			intent = new Intent(this, FeedbackActivity.class);
+			intent.putExtra(GlobalParams.STORES, itemStore);
 			startActivity(intent);
 			break;
 			
@@ -300,7 +301,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	}
     
     /**
-     * Get Stores list follow line
+     * Send report inventory
      * @author hoangnh11
      *
      */
@@ -310,7 +311,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		@Override
 		protected void onPreExecute() {
 			progressDialog = new ProgressDialog(VisitDetailsActivity.this);
-			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.setMessage(getResources().getString(R.string.PROCESSING));
 			progressDialog.show();
 			progressDialog.setCancelable(false);
 			progressDialog.setOnCancelListener(new OnCancelListener() {

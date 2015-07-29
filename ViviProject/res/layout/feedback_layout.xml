@@ -57,9 +57,9 @@
                     android:id="@+id/rtbCustomerRate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:textColor="@color/BLACK"
-                    android:textSize="14sp" />
+                    android:numStars="5" 
+                    android:stepSize="1.0"
+                    android:rating="1.0"/>
 
                 <TextView
                     android:id="@+id/tvCustomerFeedbackTitle"
@@ -102,4 +102,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

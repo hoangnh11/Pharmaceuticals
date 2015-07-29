@@ -147,4 +147,10 @@ public final class HttpNetServices implements INetServices {
 		return executer(functionInfo);
 	}
 	
+	@Override
+	public String feedback(NetParameter[] netParameters, String token) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.feedback(netParameters, token);
+		return executer(functionInfo);
+	}
+	
 }
