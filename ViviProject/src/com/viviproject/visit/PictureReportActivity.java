@@ -27,16 +27,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.internal.in;
 import com.viviproject.R;
 import com.viviproject.core.CameraPreview;
 import com.viviproject.core.ImageHelper;
 import com.viviproject.reports.AcReportImageCapture;
 import com.viviproject.ultilities.AppPreferences;
-import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
 
+@SuppressWarnings("deprecation")
 public class PictureReportActivity extends Activity implements OnClickListener{
 
 	private CameraPreview mCameraPreview;
@@ -45,14 +44,12 @@ public class PictureReportActivity extends Activity implements OnClickListener{
 	private ImageView imgfromGallery;
 	private TextView txvCancel;
 	
-	private boolean hasCamera = false;
 	private static boolean isFrontCam = false;
 	private int pictureReportType = 0;
 	int cameraID;
 	Bundle bundle;
 	AppPreferences app;
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);

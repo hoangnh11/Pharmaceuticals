@@ -169,6 +169,10 @@
     <string name="CREATE_ORDER">Tạo đơn hàng</string>
     <string name="REQUEST_SENDED">Yêu cầu tạo đơn hàng của bạn đã được gửi đi, vui lòng chờ xác nhận. Xin cám ơn!</string>
     <string name="THREE_DOTS">&#8230;</string>
+    <string name="IMAGE_CUSTOMER_NAME_TITLE">Tên:(*)</string>
+    <string name="IMAGE_CUSTOMER_RATE_TITLE">Đánh giá:</string>
+    <string name="IMAGE_CUSTOMER_FEEDBACK_TITLE">Nội dung phản hồi:</string>
+    <string name="SEND_FEED_BACK">Gửi đánh giá</string>
     <string name="TD">TĐ</string>
     <string name="CK">CK</string>
     <string name="OTHER">Khác</string>

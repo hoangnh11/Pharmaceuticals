@@ -7,4 +7,99 @@
 
     <include layout="@layout/header_layout" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <TextView
+                    android:id="@+id/tvCustomerNameTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/IMAGE_CUSTOMER_NAME_TITLE"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edtCustomerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/BLANK"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp" >
+
+                    <requestFocus />
+                </EditText>
+
+                <TextView
+                    android:id="@+id/tvCustomerRateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/IMAGE_CUSTOMER_RATE_TITLE"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp" />
+
+                <RatingBar
+                    android:id="@+id/rtbCustomerRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvCustomerFeedbackTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/IMAGE_CUSTOMER_FEEDBACK_TITLE"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edtCustomerFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/BLANK"
+                    android:lines="4"
+                    android:maxLines="4"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <Button
+                    android:id="@+id/btSendFeedBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_btn_blue"
+                    android:padding="10dp"
+                    android:text="@string/SEND_FEED_BACK"
+                    android:textColor="@color/WHITE"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
