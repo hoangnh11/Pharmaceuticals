@@ -24,7 +24,10 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -556,6 +559,35 @@ public final class BuManagement {
 		return isOK;
 	}
 
+	/**
+	 * Alert error Message
+	 * 
+	 * @param errorCode
+	 * @param title
+	 */
+	public static void alertErrorMessageInt(int errorCode, String title, Activity activity) {
+		Dialog dialog = alertErrorMessage(title, activity.getString(errorCode),	activity);
+		dialog.show();
+	}
+
+	public static void alertErrorMessageString(String errorMsg, String title, Activity activity) {
+		Dialog dialog = alertErrorMessage(title, errorMsg, activity);
+		dialog.show();
+	}
+
+	public static Dialog alertErrorMessage(String title, String message, final Activity active) {
+		return new AlertDialog.Builder(active)
+				.setTitle(title)
+				.setMessage(message)
+				.setPositiveButton(R.string.COMMON_OK,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,	int which) {
+								dialog.dismiss();
+							}
+						}).create();
+	}
+	
 	/**
 	 * get bitmap of view
 	 * 

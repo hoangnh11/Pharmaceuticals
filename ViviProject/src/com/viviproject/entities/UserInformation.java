@@ -14,6 +14,15 @@ public class UserInformation implements Serializable{
 	private int status;
 	private int created_at;
 	private int updated_at;
+	private String avatar;
+	private String education;
+	private String working_start;
+	private String working_position;
+	private String role;
+	private String personal_opinion;
+	private String personal_work_opinion;
+	private String personal_target;
+	private String url;
 	private String name;
 	private String message;
 	private int code;
@@ -138,5 +147,62 @@ public class UserInformation implements Serializable{
 	 */
 	public void setUpdated_at(int updated_at) {
 		this.updated_at = updated_at;
-	}	
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	public String getEducation() {
+		return education;
+	}
+	public void setEducation(String education) {
+		this.education = education;
+	}
+	public String getWorking_start() {
+		return working_start;
+	}
+	public void setWorking_start(String working_start) {
+		this.working_start = working_start;
+	}
+	public String getWorking_position() {
+		return working_position;
+	}
+	public void setWorking_position(String working_position) {
+		this.working_position = working_position;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public String getPersonal_opinion() {
+		return personal_opinion;
+	}
+	public void setPersonal_opinion(String personal_opinion) {
+		this.personal_opinion = personal_opinion;
+	}
+	public String getPersonal_work_opinion() {
+		return personal_work_opinion;
+	}
+	public void setPersonal_work_opinion(String personal_work_opinion) {
+		this.personal_work_opinion = personal_work_opinion;
+	}
+	public String getPersonal_target() {
+		return personal_target;
+	}
+	public void setPersonal_target(String personal_target) {
+		this.personal_target = personal_target;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 }

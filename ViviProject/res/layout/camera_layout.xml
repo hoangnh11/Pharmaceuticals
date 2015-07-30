@@ -111,11 +111,10 @@
                 android:textColor="@color/TEXT_COLOR_GREY"
                 android:textSize="14sp" />
         </RelativeLayout>
+        
+        <include
+	        android:id="@+id/progressLayout"
+	        layout="@layout/common_layout_progess"
+	        android:visibility="gone" />
     </FrameLayout>
-
-    <include
-        android:id="@+id/progressLayout"
-        layout="@layout/common_layout_progess"
-        android:visibility="gone" />
-
 </LinearLayout>
