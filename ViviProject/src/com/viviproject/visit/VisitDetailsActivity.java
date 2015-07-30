@@ -163,6 +163,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			
 		case R.id.tvGivegimic:
 			intent = new Intent(this, GiveGimic.class);
+			intent.putExtra(GlobalParams.STORES, itemStore);
 			startActivity(intent);
 			break;
 			

@@ -31,4 +31,6 @@ public interface INetServices {
 	String getProductsSimple(NetParameter[] netParameters) throws Exception;
 	String sendReportInventory(NetParameter[] netParameters, String token) throws Exception;
 	String feedback(NetParameter[] netParameters, String token) throws Exception;
+	String getGimics(NetParameter[] netParameters) throws Exception;
+	String createGimic(NetParameter[] netParameters, String token) throws Exception;
 }

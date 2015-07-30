@@ -235,4 +235,21 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
+	public static HttpFunctionInfo getGimics(NetParameter[] netParameters) {
+		HttpFunctionInfo functionInfo = createGetMethod("getGimics");
+		String params = funcLogParams(netParameters);
+		Log.e("getGimics", "getGimics: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/gimics/prepare?" + params);
+		return functionInfo;
+	}
+	
+	public static HttpFunctionInfo createGimic(NetParameter[] netParameters, String token) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("createGimic");
+		String params = funcLogParams(netParameters);
+		Log.e("createGimic", "createGimic: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/gimics/create?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
+	
 }

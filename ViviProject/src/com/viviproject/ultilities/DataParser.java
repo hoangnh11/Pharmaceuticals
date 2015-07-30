@@ -14,10 +14,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.viviproject.entities.EnArrayStores;
+import com.viviproject.entities.EnElement;
 import com.viviproject.entities.EnFeedback;
 import com.viviproject.entities.EnRegions;
 import com.viviproject.entities.EnReportImageResponse;
 import com.viviproject.entities.Products;
+import com.viviproject.entities.ResponseCreateGimics;
 import com.viviproject.entities.ResponseCreateSales;
 import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.entities.ResponseLogin;
@@ -149,6 +151,22 @@ public final class DataParser {
 		}
 	}
 	
+	public static EnElement getElements(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnElement>() {}.getType();
+
+			EnElement details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
 	public static ResponseCreateStores createStores(String jsonData) throws JsonSyntaxException {
 		if (StringUtils.isBlank(jsonData)) {
 			return null;
@@ -190,6 +208,22 @@ public final class DataParser {
 			Type collectionType = new TypeToken<EnFeedback>() {}.getType();
 
 			EnFeedback details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static ResponseCreateGimics responseCreateGimics(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<ResponseCreateGimics>() {}.getType();
+
+			ResponseCreateGimics details = mGson.fromJson(jsonData, collectionType);
 			return details;
 		} catch (Exception e) {
 			Logger.error(e);

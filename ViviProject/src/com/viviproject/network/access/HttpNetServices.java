@@ -153,4 +153,16 @@ public final class HttpNetServices implements INetServices {
 		return executer(functionInfo);
 	}
 	
+	@Override
+	public String getGimics(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.getGimics(netParameters);
+		return executer(functionInfo);
+	}
+	
+	@Override
+	public String createGimic(NetParameter[] netParameters, String token) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.createGimic(netParameters, token);
+		return executer(functionInfo);
+	}
+	
 }
