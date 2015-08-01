@@ -17,7 +17,8 @@ public class SubOrderAdapter extends BaseAdapter{
 	private ArrayList<EnProductSales> _data;
     private EnProductSales items;
     private Activity mActivity;
-    private int index = -2;
+    private int index = -1;
+    private int indexTwo = -1;
 	
     public SubOrderAdapter(Activity activity, ArrayList<EnProductSales> data) 
 	{
@@ -58,6 +59,7 @@ public class SubOrderAdapter extends BaseAdapter{
             holder.tvQuantityOne = (TextView) convertView.findViewById(R.id.tvQuantityOne);
             holder.tvNameTwo = (TextView) convertView.findViewById(R.id.tvNameTwo);
             holder.tvQuantityTwo = (TextView) convertView.findViewById(R.id.tvQuantityTwo);
+            holder.tvDotTwo = (TextView) convertView.findViewById(R.id.tvDotTwo);
             convertView.setTag(holder);
         }
         else
@@ -68,7 +70,7 @@ public class SubOrderAdapter extends BaseAdapter{
         items = _data.get(position);
         
         if (items != null) {
-        	Logger.error("1111111111: " + ((double)_data.size() % 2));
+        	
         	if (position == 0) {        		
         		holder.tvNameOne.setText(items.getName());
             	holder.tvQuantityOne.setText(items.getProduct_qty());
@@ -79,32 +81,41 @@ public class SubOrderAdapter extends BaseAdapter{
 				} catch (Exception e) {
 					
 				}
+        		index = 0;
+        		indexTwo = 0;
 			} else if (((double)_data.size() % 2) == 1.0) {
-        		holder.tvNameOne.setText(_data.get(position + index).getName());
-	        	holder.tvQuantityOne.setText(_data.get(position + index).getProduct_qty());
+				index++;
+				try {
+					holder.tvNameOne.setText(_data.get(position + index).getName());
+		        	holder.tvQuantityOne.setText(_data.get(position + index).getProduct_qty());
+				} catch (Exception e) {
+					
+				}
 	        	
         		try {        			
         			holder.tvNameTwo.setText(_data.get(position + index + 1).getName());
     	        	holder.tvQuantityTwo.setText(_data.get(position + index + 1).getProduct_qty());
 				} catch (Exception e) {
-					
+					holder.tvDotTwo.setVisibility(View.GONE);
+					holder.tvNameTwo.setVisibility(View.GONE);
+					holder.tvQuantityTwo.setVisibility(View.GONE);
 				}
 			} else if (((double)_data.size() % 2) == 0.0){
+				indexTwo++;
 				try {
-					holder.tvNameOne.setText(_data.get(position + index - 1).getName());
-		        	holder.tvQuantityOne.setText(_data.get(position + index - 1).getProduct_qty());
+					holder.tvNameOne.setText(_data.get(position + indexTwo).getName());
+		        	holder.tvQuantityOne.setText(_data.get(position + indexTwo).getProduct_qty());
 				} catch (Exception e) {
 					
 				}
 	        	
         		try {        			
-        			holder.tvNameTwo.setText(_data.get(position + index).getName());
-    	        	holder.tvQuantityTwo.setText(_data.get(position + index).getProduct_qty());
+        			holder.tvNameTwo.setText(_data.get(position + indexTwo + 1).getName());
+    	        	holder.tvQuantityTwo.setText(_data.get(position + indexTwo + 1).getProduct_qty());
 				} catch (Exception e) {
 					
 				}
 			}
-        	index++;
 		}
         
         ((ItemSubOrder) convertView).set_position(position);
@@ -113,6 +124,6 @@ public class SubOrderAdapter extends BaseAdapter{
 	
 	static class ViewHolder
     {      
-        TextView tvNameOne, tvQuantityOne, tvNameTwo, tvQuantityTwo;
+        TextView tvNameOne, tvQuantityOne, tvNameTwo, tvQuantityTwo, tvDotTwo;
     }
 }
