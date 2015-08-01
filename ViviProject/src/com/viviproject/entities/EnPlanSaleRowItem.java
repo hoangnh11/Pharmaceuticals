@@ -11,10 +11,10 @@ public class EnPlanSaleRowItem implements Serializable {
 	 */
 	private static final long serialVersionUID = -7889614512410973927L;
 	private String name;
-	private int plan;
+	private String plan;
 	@SerializedName("do")
-	private int doItem;
-	private int left;
+	private String doItem;
+	private String left;
 	private String complete;
 	
 	public String getName() {
@@ -23,22 +23,22 @@ public class EnPlanSaleRowItem implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPlan() {
+	public String getPlan() {
 		return plan;
 	}
-	public void setPlan(int plan) {
+	public void setPlan(String plan) {
 		this.plan = plan;
 	}
-	public int getDoItem() {
+	public String getDoItem() {
 		return doItem;
 	}
-	public void setDoItem(int doItem) {
+	public void setDoItem(String doItem) {
 		this.doItem = doItem;
 	}
-	public int getLeft() {
+	public String getLeft() {
 		return left;
 	}
-	public void setLeft(int left) {
+	public void setLeft(String left) {
 		this.left = left;
 	}
 	public String getComplete() {
