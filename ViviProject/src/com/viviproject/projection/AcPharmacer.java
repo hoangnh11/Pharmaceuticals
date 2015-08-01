@@ -12,7 +12,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -27,7 +26,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.viviproject.LoginActivity;
 import com.viviproject.R;
 import com.viviproject.entities.UserInformation;
 import com.viviproject.network.access.HttpFunctionFactory;
@@ -74,6 +72,9 @@ public class AcPharmacer extends Activity implements OnClickListener{
 		initLayout();
 	}
 	
+	/**
+	 * initial layout of screen
+	 */
 	private void initLayout(){
 		linBack = (LinearLayout) findViewById(R.id.linBack);
 		linBack.setVisibility(View.VISIBLE);
@@ -106,6 +107,11 @@ public class AcPharmacer extends Activity implements OnClickListener{
 		refreshData(false);
 	}
 
+	/**
+	 * refresh data
+	 * @param getNewestData true: load newest data from service, 
+	 * false: load data from service, if service cannot load from local 
+	 */
 	private void refreshData(boolean getNewestData) {
 		if(getNewestData){
 			getUserInfoFromServer();
@@ -232,6 +238,9 @@ public class AcPharmacer extends Activity implements OnClickListener{
 		}
 	}
 	
+	/**
+	 * get newest data from server
+	 */
 	private void getUserInfoFromServer(){
 		if(null == restAdapter ){
             restAdapter = new RestAdapter.Builder()

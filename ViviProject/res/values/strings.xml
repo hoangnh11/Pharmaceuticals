@@ -13,11 +13,14 @@
     <string name="COMMON_YES">Đồng ý</string>
     <string name="COMMON_CANCEL">Hủy</string>
     <string name="COMMON_MESSAGE">Lời nhắn</string>
+    <string name="COMMON_DAY">Ngày</string>
+    <string name="COMMON_CUMULATIVE">Lũy kế đến</string>
     <string name="API_KEY">AIzaSyAhGcqViAtX_cih3wPfU2PfIhmE1J_ey1s</string>
 
     <!-- Content descriptions -->
     <string name="descr_image">Image</string>
     <string name="COMMON_INTERNET_CONNECTION">Vấn đề kết nối internet</string>
+    <string name="COMMON_ERROR_MSG">Đã có lỗi xảy ra trong quá trình xử lý. Vui lòng thử lại.</string>
     <string name="LOADING">Đang tải&#8230;</string>
     <string name="PROCESSING">Đang xử lý&#8230;</string>
 

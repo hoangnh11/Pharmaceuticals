@@ -1,16 +1,17 @@
 package com.viviproject.service;
 
 
-import com.viviproject.ultilities.Logger;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+
+import com.viviproject.ultilities.Logger;
 
 public class GPSTracker extends Service implements LocationListener{
 	private final Context mContext;
@@ -22,7 +23,7 @@ public class GPSTracker extends Service implements LocationListener{
     boolean isNetworkEnabled = false;
  
     boolean canGetLocation = false;
- 
+    String provider;
     Location location; // location
     double latitude; // latitude
     double longitude; // longitude
@@ -61,6 +62,20 @@ public class GPSTracker extends Service implements LocationListener{
 				// no network provider is enabled
 				Logger.error("no network provider is enabled");
 				Logger.error("isGPSEnabled:" + isGPSEnabled + "*isNetworkEnabled:" + isNetworkEnabled + "*canGetLocation:" + canGetLocation);
+				try{
+					Criteria criteria = new Criteria();
+				    provider = locationManager.getBestProvider(criteria, false);
+				    Location location = locationManager.getLastKnownLocation(provider);
+				    if (location != null) {
+						latitude = location.getLatitude();
+						longitude = location.getLongitude();
+						Logger.error("Location using Criteria: latitude:" + latitude + "-longitude:" + longitude);
+					} else {
+						Logger.error("Location NULL");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} else {
 				this.canGetLocation = true;
 				Logger.error("isGPSEnabled:" + isGPSEnabled + "*isNetworkEnabled:" + isNetworkEnabled + "*canGetLocation:" + canGetLocation);
@@ -160,13 +175,13 @@ public class GPSTracker extends Service implements LocationListener{
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
+		Logger.error("GPSTracker: #onProviderEnabled:" + provider );
 		
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
+		Logger.error("GPSTracker: #onProviderDisabled:" + provider );
 		
 	}
 
