@@ -269,21 +269,26 @@
                 android:orientation="horizontal" >
 
                 <CheckBox
+                    android:id="@+id/ckTimeOne"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:layout_marginLeft="132dp" />
 
                 <CheckBox
+                    android:id="@+id/ckTimeTwo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp" />
 
                 <CheckBox
+                    android:id="@+id/ckTimeThree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp" />
 
                 <CheckBox
+                    android:id="@+id/ckTimeFour"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp" />

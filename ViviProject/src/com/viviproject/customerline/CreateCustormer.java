@@ -25,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.customerline.EditCustomer.CheckBoxChecked;
 import com.viviproject.entities.EnCreateStaff;
 import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.network.NetParameter;
@@ -52,7 +53,9 @@ public class CreateCustormer extends Activity implements OnClickListener {
 	private EditText edtNameStaff, edtPhoneStaff; 
 	
 	private CheckBox ckVipA, ckVipB, ckVipC, ckT2, ckT3, ckT4, ckT5, ckT6, ckT7;
-	private String vip, line; 
+	private CheckBox ckTimeOne, ckTimeTwo, ckTimeThree, ckTimeFour;
+	private String vip, times;
+	private ArrayList<Integer> line;
 	
 	private AppPreferences app;
 	private ProgressDialog progressDialog;
@@ -68,7 +71,8 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		app = new AppPreferences(this);
 		responseCreateStores = new ResponseCreateStores();
 		arrCreateStaff = new ArrayList<EnCreateStaff>();
-		enCreateStaff = new EnCreateStaff();	
+		enCreateStaff = new EnCreateStaff();
+		line = new ArrayList<Integer>();
 		vip = GlobalParams.BLANK_CHARACTER;
 		initLayout();
 		
@@ -219,6 +223,14 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		ckT6.setOnCheckedChangeListener(new CheckBoxChecked());
 		ckT7 = (CheckBox) findViewById(R.id.ckT7);
 		ckT7.setOnCheckedChangeListener(new CheckBoxChecked());
+		ckTimeOne= (CheckBox) findViewById(R.id.ckTimeOne);
+		ckTimeOne.setOnCheckedChangeListener(new CheckBoxChecked());
+		ckTimeTwo= (CheckBox) findViewById(R.id.ckTimeTwo);
+		ckTimeTwo.setOnCheckedChangeListener(new CheckBoxChecked());
+		ckTimeThree= (CheckBox) findViewById(R.id.ckTimeThree);
+		ckTimeThree.setOnCheckedChangeListener(new CheckBoxChecked());
+		ckTimeFour= (CheckBox) findViewById(R.id.ckTimeFour);
+		ckTimeFour.setOnCheckedChangeListener(new CheckBoxChecked());
 	}
 		
 	private int validateInput() {
@@ -270,6 +282,31 @@ public class CreateCustormer extends Activity implements OnClickListener {
 				
 				arrCreateStaff.add(enCreateStaff);
 				
+				line = new ArrayList<Integer>();
+				if (ckT2.isChecked()) {
+					line.add(2);
+				}
+								
+				if (ckT3.isChecked()) {						
+					line.add(3);
+				}
+				
+				if (ckT4.isChecked()) {						
+					line.add(4);
+				}
+				
+				if (ckT5.isChecked()) {						
+					line.add(5);
+				}
+				
+				if (ckT6.isChecked()) {						
+					line.add(6);
+				}
+				
+				if (ckT7.isChecked()) {						
+					line.add(7);
+				}
+				
 				createStores = new CreateStores();
 				createStores.execute();
 			} else {				
@@ -308,7 +345,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[11];				
+				NetParameter[] netParameter = new NetParameter[13];				
 				netParameter[0] = new NetParameter("uid", app.getIMEI(CreateCustormer.this) + "|" + app.getCurrentTimeStamp());
 				netParameter[1] = new NetParameter("code", app.getIMEI(CreateCustormer.this));
 				netParameter[2] = new NetParameter("name", edtStoreName.getEditableText().toString());
@@ -320,6 +357,8 @@ public class CreateCustormer extends Activity implements OnClickListener {
 				netParameter[8] = new NetParameter("district", "");
 				netParameter[9] = new NetParameter("vip", vip);
 				netParameter[10] = new NetParameter("staff", DataParser.convertObjectToString(arrCreateStaff));
+				netParameter[11] = new NetParameter("lines", DataParser.convertObjectToString(line));
+				netParameter[12] = new NetParameter("repeat", times);
 		
 				try {
 					data = HttpNetServices.Instance.createStores(netParameter, BuManagement.getToken(CreateCustormer.this));
@@ -376,58 +415,32 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		        	vip = "C";
 				}
 				
-				if (buttonView == ckT2) {
-					ckT3.setChecked(false);
-					ckT4.setChecked(false);
-					ckT5.setChecked(false);
-					ckT6.setChecked(false);
-					ckT7.setChecked(false);
-					line = "2";
+				if (buttonView == ckTimeOne) {
+					ckTimeTwo.setChecked(false);
+					ckTimeThree.setChecked(false);
+					ckTimeFour.setChecked(false);
+					times = "1";
 				}
 				
-				if (buttonView == ckT3) {
-					ckT2.setChecked(false);
-					ckT4.setChecked(false);
-					ckT5.setChecked(false);
-					ckT6.setChecked(false);
-					ckT7.setChecked(false);
-					line = "3";
+				if (buttonView == ckTimeTwo) {
+					ckTimeOne.setChecked(false);
+					ckTimeThree.setChecked(false);
+					ckTimeFour.setChecked(false);
+					times = "2";
 				}
 				
-				if (buttonView == ckT4) {
-					ckT3.setChecked(false);
-					ckT2.setChecked(false);
-					ckT5.setChecked(false);
-					ckT6.setChecked(false);
-					ckT7.setChecked(false);
-					line = "4";
+				if (buttonView == ckTimeThree) {
+					ckTimeOne.setChecked(false);
+					ckTimeTwo.setChecked(false);
+					ckTimeFour.setChecked(false);
+					times = "3";
 				}
 				
-				if (buttonView == ckT5) {
-					ckT3.setChecked(false);
-					ckT4.setChecked(false);
-					ckT2.setChecked(false);
-					ckT6.setChecked(false);
-					ckT7.setChecked(false);
-					line = "5";
-				}
-				
-				if (buttonView == ckT6) {
-					ckT3.setChecked(false);
-					ckT4.setChecked(false);
-					ckT5.setChecked(false);
-					ckT2.setChecked(false);
-					ckT7.setChecked(false);
-					line = "6";
-				}
-				
-				if (buttonView == ckT7) {
-					ckT3.setChecked(false);
-					ckT4.setChecked(false);
-					ckT5.setChecked(false);
-					ckT6.setChecked(false);
-					ckT2.setChecked(false);
-					line = "7";
+				if (buttonView == ckTimeFour) {
+					ckTimeOne.setChecked(false);
+					ckTimeThree.setChecked(false);
+					ckTimeTwo.setChecked(false);
+					times = "4";
 				}
 			}
 		}
