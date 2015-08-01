@@ -16,6 +16,7 @@ import java.io.StreamCorruptedException;
 
 import android.content.Context;
 
+import com.viviproject.entities.EnCoverReport;
 import com.viviproject.entities.EnPlanSale;
 import com.viviproject.entities.UserInformation;
 
@@ -25,6 +26,7 @@ import com.viviproject.entities.UserInformation;
 public final class DataStorage {
 	private final String FILE_NAME_DATA_USERINFORMATION = "dataUserInformation";
 	private final String FILE_NAME_DATA_PLAN_SALE = "dataEnPlanSale";
+	private final String FILE_NAME_DATA_COVER_REPORT = "dataEnCoverReport";
 	
 	private static DataStorage instance = new DataStorage();
 
@@ -117,4 +119,43 @@ public final class DataStorage {
 			Logger.debug("Not deleted EnPlanSale!");
 		}
 	}
+	
+	//==========================================
+	/**
+	 * save data of Cover Production Report (Bao cao do phu)
+	 */
+	public void save_EnCoverReport(EnCoverReport enCoverReport, Context context) throws IOException {
+		FileOutputStream fos = context.openFileOutput(FILE_NAME_DATA_COVER_REPORT, Context.MODE_PRIVATE);
+		ObjectOutputStream os = new ObjectOutputStream(fos);
+		os.writeObject(enCoverReport);
+		os.close();
+		Logger.debug("Finished writing EnCoverReport!");
+	}
+
+	/**
+	 * read data of Cover Production Report (Bao cao do phu)
+	 */
+	public EnCoverReport read_EnCoverReport(Context context) throws StreamCorruptedException, IOException, ClassNotFoundException {
+		FileInputStream fis = context.openFileInput(FILE_NAME_DATA_COVER_REPORT);
+		ObjectInputStream is = new ObjectInputStream(fis);
+		EnCoverReport enPlanSale = (EnCoverReport) is.readObject();
+		is.close();
+		Logger.debug("Finished reading EnPlanSale!");
+		return enPlanSale;
+	}
+
+	/**
+	 * delete all data of Cover Production Report (Bao cao do phu)
+	 */
+	public void delete_EnCoverReport(Context context) {
+		File file = context.getFileStreamPath(FILE_NAME_DATA_COVER_REPORT);
+		boolean result = file.delete();
+		if (result) {
+			Logger.debug("Deleted EnCoverReport!");
+		} else {
+			Logger.debug("Not deleted EnCoverReport!");
+		}
+	}
+	
+	//==========================================
 }
