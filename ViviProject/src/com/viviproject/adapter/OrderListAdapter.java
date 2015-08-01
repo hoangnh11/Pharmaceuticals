@@ -1,35 +1,41 @@
 package com.viviproject.adapter;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemOrderList;
-import com.viviproject.entities.EnCustomer;
+import com.viviproject.deliver.OrderActivity;
+import com.viviproject.entities.EnOrder;
+import com.viviproject.entities.ResponseOrders;
+import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.GlobalParams;
 
 public class OrderListAdapter extends BaseAdapter{
-	private List<EnCustomer> _data;
-    private EnCustomer items;
+	private ResponseOrders _data;
+    private EnOrder items;
     private Activity mActivity;
     private OnClickListener _onItemClick, _onCheckboxClick;
+    private SubOrderAdapter subOrderAdapter;
+    private AppPreferences app;
 	
-    public OrderListAdapter(Activity activity, List<EnCustomer> data) 
+    public OrderListAdapter(Activity activity, ResponseOrders data) 
 	{
 		 mActivity = activity;
         _data = data;
+        app = new AppPreferences(mActivity);
 	}
     
     @Override
 	public int getCount()
 	{
-		 return (_data == null ? 0 : _data.size());
+		 return (_data == null ? 0 : _data.getOrders().size());
 	}
 
 	@Override
@@ -56,8 +62,13 @@ public class OrderListAdapter extends BaseAdapter{
            
             holder = new ViewHolder();
          
+            holder.tvNameStore = (TextView) convertView.findViewById(R.id.tvNameStore);
+            holder.tvAddressStore = (TextView) convertView.findViewById(R.id.tvAddressStore);
+            holder.tvDateBook = (TextView) convertView.findViewById(R.id.tvDateBook);
             holder.tvEdit = (TextView) convertView.findViewById(R.id.tvEdit);
             holder.checkboxDeliver = (CheckBox) convertView.findViewById(R.id.checkboxDeliver);
+            holder.tvTotal = (TextView) convertView.findViewById(R.id.tvTotal);
+            holder.lvSubOrder = (ListView) convertView.findViewById(R.id.lvSubOrder);
         
             convertView.setTag(holder);
         }
@@ -66,10 +77,26 @@ public class OrderListAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
         
-        items = _data.get(position);
+        items = _data.getOrders().get(position);
         
         if (items != null) {        
-        	        	
+        	holder.tvNameStore.setText(items.getName());
+        	holder.tvAddressStore.setText(items.getAddress());
+        	holder.tvDateBook.setText(items.getDate_book());
+        	
+        	if (items.getDelivery().equals("0")) {
+        		holder.checkboxDeliver.setChecked(false);
+			} else {
+				holder.checkboxDeliver.setChecked(true);
+			}
+        	
+        	if (items.getProducts() != null && items.getProducts().size() > 0) {
+        		subOrderAdapter = new SubOrderAdapter(mActivity, items.getProducts());		
+            	holder.lvSubOrder.setAdapter(subOrderAdapter);
+            	app.setListViewHeight(holder.lvSubOrder, subOrderAdapter);
+			}
+        	
+        	holder.tvTotal.setText(items.getTotal() + GlobalParams.BLANK_CHARACTER + "(vnd)");
 		}
         
         ((ItemOrderList) convertView).set_position(position);
@@ -78,8 +105,9 @@ public class OrderListAdapter extends BaseAdapter{
 	
 	static class ViewHolder
     {      
-        TextView tvEdit;
+        TextView tvNameStore, tvAddressStore, tvDateBook, tvTotal, tvEdit;
         CheckBox checkboxDeliver;
+        ListView lvSubOrder;
     }
 	
 	OnClickListener onItemClickHandler = new OnClickListener() 
