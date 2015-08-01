@@ -201,14 +201,14 @@
 	        android:id="@+id/linPlanSaleToDay"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">
+	        android:orientation="vertical">
 	    </LinearLayout>
 	    
 	    <LinearLayout 
 	        android:id="@+id/linPlanSaleSummary"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:orientation="horizontal">
+	        android:orientation="vertical">
 	    </LinearLayout>
 	    
 	    <View

@@ -21,6 +21,7 @@
     <string name="descr_image">Image</string>
     <string name="COMMON_INTERNET_CONNECTION">Vấn đề kết nối internet</string>
     <string name="COMMON_ERROR_MSG">Đã có lỗi xảy ra trong quá trình xử lý. Vui lòng thử lại.</string>
+    <string name="COMMON_ERROR_MSG_LOAD_DATA_LOCAL">Vấn đề kết nối internet. Chương trình sẽ hiển thị dữ liệu đã được lưu trước đó.</string>
     <string name="LOADING">Đang tải&#8230;</string>
     <string name="PROCESSING">Đang xử lý&#8230;</string>
 

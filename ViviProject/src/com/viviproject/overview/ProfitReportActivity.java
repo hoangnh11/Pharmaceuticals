@@ -24,6 +24,7 @@ import com.viviproject.entities.EnPlanSaleRowItem;
 import com.viviproject.network.access.HttpFunctionFactory;
 import com.viviproject.network.access.ViviApi;
 import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataStorage;
 import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.StringUtils;
 
@@ -126,6 +127,9 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 	 * @param enPlanSale
 	 */
 	private void updateDataScreen(EnPlanSale enPlanSale){
+		linPlanSaleToDay.removeAllViews();
+		linPlanSaleSummary.removeAllViews();
+		
 		tvMonthDay.setText(enPlanSale.getMonth_days());
 		tvWorkingDay.setText(enPlanSale.getWorking_days());
 		radioDay.setText(getResources().getString(R.string.COMMON_DAY) + " " + enPlanSale.getToday().getDate());
@@ -247,6 +251,9 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 			finish();
 			break;
 
+		case R.id.linRefresh:
+			refreshData(true);
+			break;
 		default:
 			break;
 		}
@@ -294,6 +301,21 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 			
 			if(null != enPlanSale){
 				updateDataScreen(enPlanSale);
+				try{
+					DataStorage.getInstance().save_EnPlanSale(enPlanSale, ProfitReportActivity.this);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				try{
+					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG_LOAD_DATA_LOCAL)
+							, "Error", ProfitReportActivity.this);
+					
+					EnPlanSale enPlanSaleLocal = DataStorage.getInstance().read_EnPlanSale(ProfitReportActivity.this);
+					updateDataScreen(enPlanSaleLocal);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
@@ -309,11 +331,18 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 			
 			if(null != retrofitError){
 				if(retrofitError.isNetworkError()){
-					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_INTERNET_CONNECTION)
+					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG_LOAD_DATA_LOCAL)
 							, "Error", ProfitReportActivity.this);
 				} else {
 					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
 							, "Error", ProfitReportActivity.this);
+				}
+				
+				try{
+					EnPlanSale enPlanSale = DataStorage.getInstance().read_EnPlanSale(ProfitReportActivity.this);
+					updateDataScreen(enPlanSale);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}

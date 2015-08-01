@@ -16,6 +16,7 @@ import java.io.StreamCorruptedException;
 
 import android.content.Context;
 
+import com.viviproject.entities.EnPlanSale;
 import com.viviproject.entities.UserInformation;
 
 /**
@@ -23,7 +24,8 @@ import com.viviproject.entities.UserInformation;
  */
 public final class DataStorage {
 	private final String FILE_NAME_DATA_USERINFORMATION = "dataUserInformation";
-
+	private final String FILE_NAME_DATA_PLAN_SALE = "dataEnPlanSale";
+	
 	private static DataStorage instance = new DataStorage();
 
 	private DataStorage() {
@@ -41,6 +43,7 @@ public final class DataStorage {
 	 */
 	public void deleteAllData(Context context) {
 		delete_UserInformation(context);
+		delete_EnPlanSale(context);
 	}
 
 	/**
@@ -79,4 +82,39 @@ public final class DataStorage {
 		}
 	}
 
+	/**
+	 * save data of Plan Sale (Bao cao doanh so)
+	 */
+	public void save_EnPlanSale(EnPlanSale enPlanSale, Context context) throws IOException {
+		FileOutputStream fos = context.openFileOutput(FILE_NAME_DATA_PLAN_SALE, Context.MODE_PRIVATE);
+		ObjectOutputStream os = new ObjectOutputStream(fos);
+		os.writeObject(enPlanSale);
+		os.close();
+		Logger.debug("Finished writing EnPlanSale!");
+	}
+
+	/**
+	 * read data of Plan Sale (Bao cao doanh so)
+	 */
+	public EnPlanSale read_EnPlanSale(Context context) throws StreamCorruptedException, IOException, ClassNotFoundException {
+		FileInputStream fis = context.openFileInput(FILE_NAME_DATA_PLAN_SALE);
+		ObjectInputStream is = new ObjectInputStream(fis);
+		EnPlanSale enPlanSale = (EnPlanSale) is.readObject();
+		is.close();
+		Logger.debug("Finished reading EnPlanSale!");
+		return enPlanSale;
+	}
+
+	/**
+	 * delete all data of Plan Sale (Bao cao doanh so)
+	 */
+	public void delete_EnPlanSale(Context context) {
+		File file = context.getFileStreamPath(FILE_NAME_DATA_PLAN_SALE);
+		boolean result = file.delete();
+		if (result) {
+			Logger.debug("Deleted EnPlanSale!");
+		} else {
+			Logger.debug("Not deleted EnPlanSale!");
+		}
+	}
 }
