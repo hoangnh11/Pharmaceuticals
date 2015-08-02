@@ -1,6 +1,9 @@
 package com.viviproject.deliver;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -12,17 +15,21 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.entities.EnProductSales;
+import com.viviproject.entities.EnProducts;
+import com.viviproject.ultilities.GlobalParams;
 
 public class ChangeOrderAdapter extends BaseAdapter{
+	private ArrayList<EnProducts> _products;
 	private EnOrder _data;
     private EnProductSales items;
     private Activity mActivity;
     private OnClickListener _onTDClick, _onCKClick, _onOtherClick, _onMinusClick, _onPlusClick;   
 	
-    public ChangeOrderAdapter(Activity activity, EnOrder data) 
+    public ChangeOrderAdapter(Activity activity, EnOrder data, ArrayList<EnProducts> products) 
 	{
 		 mActivity = activity;
-        _data = data;      
+        _data = data;
+        _products = products;
 	}
     
     @Override
@@ -33,7 +40,7 @@ public class ChangeOrderAdapter extends BaseAdapter{
 
 	@Override
 	public Object getItem(int position) 
-	{		
+	{	
 		return position;
 	}
 
@@ -85,13 +92,49 @@ public class ChangeOrderAdapter extends BaseAdapter{
 			}
         	
         	holder.tvName.setText(items.getName());
-        	
-//        	if (items.getColor() != null) {
-//        		try {
-//        			holder.tvName.setBackgroundColor(Color.parseColor("#"+items.getColor()));
-//				} catch (Exception e) {					
-//				}
-//			}
+
+    		for (int i = 0; i < _products.size(); i++) {
+				if (items.getCode() != null && items.getCode().equals(_products.get(i).getCode())) {
+					if (_products.get(i).getColor() != null) {
+						try {
+			    			holder.tvName.setBackgroundColor(Color.parseColor("#"+_products.get(0).getColor()));
+						} catch (Exception e) {					
+						}
+					}
+					
+					if (_products.get(i).getDiscount() != null) {
+		        		if (_products.get(i).getDiscount().getPoint() != null) {
+		            		if (_products.get(i).getCheckTD() != null) {
+		                    	if (_products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
+		                    		holder.imgTD.setImageResource(R.drawable.checkbox_true);
+		        				} else {
+		        					holder.imgTD.setImageResource(R.drawable.checkbox_false);
+		        				}
+		        			}
+		    			}
+		            	
+		            	if (_products.get(i).getDiscount().getSale() != null) {
+		            		if (_products.get(i).getCheckCK() != null) {
+		                    	if (_products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
+		                    		holder.imgCK.setImageResource(R.drawable.checkbox_true);
+		        				} else {
+		        					holder.imgCK.setImageResource(R.drawable.checkbox_false);
+		        				}
+		        			}         		
+		    			}
+		            	
+		            	if (_products.get(i).getDiscount().getOther() != null) {
+		            		if (_products.get(i).getCheckOther() != null) {
+		                    	if (_products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
+		                    		holder.imgOther.setImageResource(R.drawable.checkbox_true);                        		
+		        				} else {
+		        					holder.imgOther.setImageResource(R.drawable.checkbox_false);        					
+		        				}
+		        			}         		
+		    			}
+					}
+				}
+			}
         	
         	if (items.getProduct_qty() != null) {
     			holder.tvOldQuantity.setText(items.getProduct_qty());       		
@@ -99,39 +142,7 @@ public class ChangeOrderAdapter extends BaseAdapter{
         	
         	if (items.getTempProductQty() != null) {
         		holder.tvQuantity.setText(items.getTempProductQty());
-			}
-        	
-//        	if (items.getDiscount() != null) {
-//        		if (items.getDiscount().getPoint() != null) {
-//            		if (items.getCheckTD() != null) {
-//                    	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
-//                    		holder.imgTD.setImageResource(R.drawable.checkbox_true);
-//        				} else {
-//        					holder.imgTD.setImageResource(R.drawable.checkbox_false);
-//        				}
-//        			}
-//    			}
-//            	
-//            	if (items.getDiscount().getSale() != null) {
-//            		if (items.getCheckCK() != null) {
-//                    	if (items.getCheckCK().equals(GlobalParams.TRUE)) {
-//                    		holder.imgCK.setImageResource(R.drawable.checkbox_true);
-//        				} else {
-//        					holder.imgCK.setImageResource(R.drawable.checkbox_false);
-//        				}
-//        			}         		
-//    			}
-//            	
-//            	if (items.getDiscount().getOther() != null) {
-//            		if (items.getCheckOther() != null) {
-//                    	if (items.getCheckOther().equals(GlobalParams.TRUE)) {
-//                    		holder.imgOther.setImageResource(R.drawable.checkbox_true);                        		
-//        				} else {
-//        					holder.imgOther.setImageResource(R.drawable.checkbox_false);        					
-//        				}
-//        			}         		
-//    			}
-//			}        	
+			}        	
 		}
         
         ((ItemListViewOrder) convertView).set_position(position);

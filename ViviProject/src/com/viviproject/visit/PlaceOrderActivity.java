@@ -203,6 +203,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		case R.id.btnCancel:
 			btnOk.setEnabled(false);
 			btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
+			linSubCreateOrder.setVisibility(View.GONE);
+			tvCreateOrder.setBackgroundResource(R.color.BLUE);
 			break;	
 			
 		default:
@@ -642,6 +644,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					btnOk.setEnabled(false);
 					btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
 					linSubCreateOrder.setVisibility(View.GONE);
+					tvCreateOrder.setBackgroundResource(R.color.BLUE);
 				} else {
 					try {
 						app.alertErrorMessageString(responseCreateSales.getMessage(),

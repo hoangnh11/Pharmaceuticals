@@ -284,4 +284,11 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
+	public static HttpFunctionInfo getListDelivery(NetParameter[] netParameters) {
+		HttpFunctionInfo functionInfo = createGetMethod("getListDelivery");
+		String params = funcLogParams(netParameters);
+		Log.e("getListDelivery", "getListDelivery: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/list_delivery?" + params);
+		return functionInfo;
+	}
 }

@@ -188,4 +188,10 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.createSale(netParameters, token, id);
 		return executer(functionInfo);
 	}
+	
+	@Override
+	public String getListDelivery(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.getListDelivery(netParameters);
+		return executer(functionInfo);
+	}
 }

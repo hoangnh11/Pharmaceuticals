@@ -9,9 +9,23 @@ public class ResponseOrders implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -60702172261621941L;
+	private ArrayList<EnProducts> products;
 	private ArrayList<EnOrder> orders;
 	private String message;
 	private String status;
+	
+	/**
+	 * @return the products
+	 */
+	public ArrayList<EnProducts> getProducts() {
+		return products;
+	}
+	/**
+	 * @param products the products to set
+	 */
+	public void setProducts(ArrayList<EnProducts> products) {
+		this.products = products;
+	}
 	/**
 	 * @return the orders
 	 */
