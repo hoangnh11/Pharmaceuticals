@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemOrderList;
-import com.viviproject.deliver.OrderActivity;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.entities.ResponseOrders;
 import com.viviproject.ultilities.AppPreferences;

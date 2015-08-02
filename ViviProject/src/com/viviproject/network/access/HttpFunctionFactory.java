@@ -260,4 +260,11 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
+	public static HttpFunctionInfo delivery(String token, String id) {
+		HttpFunctionInfo functionInfo = createPutMethod("delivery");
+		Log.e("delivery", "delivery: " + id);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/delivery/" + id + "?access-token=" + token);
+		return functionInfo;
+	}
+	
 }

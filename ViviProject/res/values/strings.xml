@@ -225,6 +225,7 @@
     <string name="PLEASE_WAITTING_SECOND">Vui lòng chờ giây lát &#8230;</string>
     <string name="TWENTY_FOUR_HOUR_LATER">Sau 24 giờ, hệ thống sẽ tự động làm mới lại danh sách</string>
     <string name="ARE_YOU_SURE_CANCEL_ORDER">Bạn muốn "Hủy" đơn hàng?</string>
+    <string name="DO_YOU_WANT_DELIVER_ORDER">Bạn muốn thực hiện giao hàng cho đơn hàng này?</string>
     <string name="PLEASE_ENTER_REASON">Xin vui lòng nhập lý do hủy đơn hàng để hoàn thành việc hủy bỏ:</string>
     <string name="ARE_YOU_REASON_CONTINUE">Bạn cần lý do nhập lại hàng để tiếp tục:</string>
     <string name="REQUEST_CONFIRM_PRODUCT">Yêu cầu xác nhận hàng được nhập trả lại đã được gửi đi.</string>

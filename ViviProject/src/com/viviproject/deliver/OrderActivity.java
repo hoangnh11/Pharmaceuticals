@@ -1,8 +1,7 @@
 package com.viviproject.deliver;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -11,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,13 +20,17 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.OrderListAdapter;
-import com.viviproject.entities.EnCustomer;
+import com.viviproject.core.ItemOrderList;
+import com.viviproject.entities.EnOrder;
+import com.viviproject.entities.ResponseDelivery;
 import com.viviproject.entities.ResponseOrders;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.Logger;
 
 public class OrderActivity extends Activity implements OnClickListener{
 	
@@ -35,23 +40,28 @@ public class OrderActivity extends Activity implements OnClickListener{
 	private ImageView imgBackToTop, imgSearchTop;	
 	private ListView lvOrder;
 	private EditText edtSearch;
-	private OrderListAdapter orderListAdapter;
-	private ArrayList<EnCustomer> listOrder;
-	private EnCustomer enOrder;
-	private EnCustomer items;
+	private Button btnOk, btnCancel;
 	
+	private OrderListAdapter orderListAdapter;	
 	private ProgressDialog progressDialog;
 	private GetSales getSales;
 	private ResponseOrders responseOrders;
+	private EnOrder items;
+	private Delivery delivery;
+	private Dialog dialog;
+	private ResponseDelivery responseDelivery;
+	private AppPreferences app;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_list_layout);
-		listOrder = new ArrayList<EnCustomer>();
-		items = new EnCustomer();
-		enOrder = new EnCustomer();
+		app = new AppPreferences(this);
 		responseOrders = new ResponseOrders();
+		items = new EnOrder();
+		dialog = new Dialog(this);
+		responseDelivery = new ResponseDelivery();
+		
 		initLayout();
 		
 		getSales = new GetSales();
@@ -87,7 +97,34 @@ public class OrderActivity extends Activity implements OnClickListener{
 		edtSearch = (EditText) findViewById(R.id.edtSearch);
 		edtSearch.clearComposingText();
 			
-		lvOrder = (ListView) findViewById(R.id.lvOrder);		
+		lvOrder = (ListView) findViewById(R.id.lvOrder);
+
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.dialog_deliver);
+		btnOk = (Button) dialog.findViewById(R.id.btnOk);
+		btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+		
+		btnOk.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				delivery = new Delivery();
+	            delivery.execute();
+			}
+		});
+		
+		btnCancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				orderListAdapter = new OrderListAdapter(OrderActivity.this, responseOrders);
+				orderListAdapter.setOnItemClickHandler(onItemClickHandler);
+				orderListAdapter.setOnCheckboxItemClickHandler(onCheckboxClickHandler);
+				app.keepPositionListView(lvOrder, orderListAdapter);
+				dialog.dismiss();
+			}
+		});
 	}
 	
 	@Override
@@ -125,11 +162,65 @@ public class OrderActivity extends Activity implements OnClickListener{
     	@Override
         public void onClick(View v)
         {
-//        	int position = ((ItemOrderList) v).get_position();
-//            items = listOrder.get(position);
-//            Logger.error(":             "+position);
+    		items = new EnOrder();
+        	int position = ((ItemOrderList) v).get_position();
+            items = responseOrders.getOrders().get(position);        
+            dialog.show();
         }
     };
+    
+    /**
+     * Delivery follow line
+     * @author hoangnh11
+     *
+     */
+    class Delivery extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(OrderActivity.this);
+			progressDialog.setMessage(getResources().getString(R.string.PROCESSING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					delivery.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				try {
+					data = HttpNetServices.Instance.delivery(BuManagement.getToken(OrderActivity.this), items.getId());					
+					responseDelivery = DataParser.getResponseDelivery(data);					
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && responseDelivery != null 
+						&& responseDelivery.getStatus().equalsIgnoreCase("success")) {					
+					getSales = new GetSales();
+					getSales.execute();
+				} else {
+					app.alertErrorMessageString(responseDelivery.getMessage(),
+							getResources().getString(R.string.COMMON_MESSAGE), OrderActivity.this);
+				}
+			}
+		}
+	}
     
     /**
      * Get Sales list follow line
@@ -182,11 +273,6 @@ public class OrderActivity extends Activity implements OnClickListener{
 					orderListAdapter.setOnItemClickHandler(onItemClickHandler);
 					orderListAdapter.setOnCheckboxItemClickHandler(onCheckboxClickHandler);
 					lvOrder.setAdapter(orderListAdapter);
-//					gimicAdapter = new GimicAdapter(GiveGimic.this, elements);
-//					gimicAdapter.setOnMinusClickHandler(onMinusClickHandler);
-//					gimicAdapter.setOnPlusClickHandler(onPlusClickHandler);
-//					lvGimic.setAdapter(gimicAdapter);
-//					app.setListViewHeight(lvGimic, gimicAdapter);
 				}
 			}
 		}

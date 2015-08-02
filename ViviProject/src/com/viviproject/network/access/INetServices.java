@@ -32,4 +32,5 @@ public interface INetServices {
 	String getGimics(NetParameter[] netParameters) throws Exception;
 	String createGimic(NetParameter[] netParameters, String token) throws Exception;
 	String getSales(NetParameter[] netParameters) throws Exception;
+	String delivery(String token, String id) throws Exception;
 }
