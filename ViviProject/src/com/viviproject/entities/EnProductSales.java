@@ -13,6 +13,20 @@ public class EnProductSales implements Serializable{
 	private String product_qty;
 	private String name;
 	private String code;
+	private String tempProductQty;
+		
+	/**
+	 * @return the tempProductQty
+	 */
+	public String getTempProductQty() {
+		return tempProductQty;
+	}
+	/**
+	 * @param tempProductQty the tempProductQty to set
+	 */
+	public void setTempProductQty(String tempProductQty) {
+		this.tempProductQty = tempProductQty;
+	}
 	/**
 	 * @return the id
 	 */

@@ -30,7 +30,6 @@ import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
-import com.viviproject.ultilities.Logger;
 
 public class OrderActivity extends Activity implements OnClickListener{
 	
@@ -51,7 +50,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 	private Dialog dialog;
 	private ResponseDelivery responseDelivery;
 	private AppPreferences app;
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
@@ -150,10 +149,11 @@ public class OrderActivity extends Activity implements OnClickListener{
         @Override
         public void onClick(View v)
         {
-//        	int position = ((ItemOrderList) v).get_position();
-//            items = listOrder.get(position);
-//            intent = new Intent(OrderActivity.this, ChangeOrderActivity.class);
-//            startActivity(intent);
+        	int position = ((ItemOrderList) v).get_position();
+            items = responseOrders.getOrders().get(position);
+            intent = new Intent(OrderActivity.this, ChangeOrderActivity.class);
+            intent.putExtra(GlobalParams.CHANGE_ORDER, items);
+            startActivity(intent);
         }
     };
     

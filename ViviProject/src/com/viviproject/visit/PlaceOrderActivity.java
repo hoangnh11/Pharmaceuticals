@@ -239,7 +239,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
         @Override
         public void onClick(View v)
         {
-        	int position = ((ItemListViewForsale) v).get_position();        
+        	int position = ((ItemListViewForsale) v).get_position();      
             items = enProducts.getProducts().get(position);
           
         	enProducts.getProducts().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) + 1));
@@ -582,7 +582,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	}
     
     /**
-     * Get Prepare api
+     * Create Sales Api
      * @author hoangnh11
      *
      */
@@ -639,6 +639,9 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 						&& responseCreateSales.getStatus().equalsIgnoreCase("success")) {					
 					app.alertErrorMessageString(responseCreateSales.getStatus(),
 							getString(R.string.COMMON_MESSAGE), PlaceOrderActivity.this);
+					btnOk.setEnabled(false);
+					btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
+					linSubCreateOrder.setVisibility(View.GONE);
 				} else {
 					try {
 						app.alertErrorMessageString(responseCreateSales.getMessage(),

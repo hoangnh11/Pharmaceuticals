@@ -267,4 +267,21 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
+	public static HttpFunctionInfo getSalesOrder(NetParameter[] netParameters, String id) {
+		HttpFunctionInfo functionInfo = createGetMethod("getSalesOrder");
+		String params = funcLogParams(netParameters);
+		Log.e("getSalesOrder", "getSalesOrder: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/" + id + "?" + params);
+		return functionInfo;
+	}
+	
+	public static HttpFunctionInfo createSale(NetParameter[] netParameters, String token, String id) {
+		HttpFunctionInfo functionInfo = createPutBodyMethod("createSale");
+		String params = funcLogParams(netParameters);
+		Log.e("createSale", "createSale: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/" + id + "?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
+	
 }

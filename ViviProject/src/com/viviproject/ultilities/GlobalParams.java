@@ -43,6 +43,7 @@ public final class GlobalParams {
     public static final String TEMP_SCALE_IMG_FOR_SENDING_NAME = "tmpScaledForSending.jpg";
     public static final String APP_NAME = "Pharmacy";
     public static final String STORES = "STORES";
+    public static final String CHANGE_ORDER = "CHANGE_ORDER";
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
     public static final String STORES_ID = "store id";

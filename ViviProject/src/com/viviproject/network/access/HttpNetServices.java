@@ -177,4 +177,15 @@ public final class HttpNetServices implements INetServices {
 		return executer(functionInfo);
 	}
 	
+	@Override
+	public String getSalesOrder(NetParameter[] netParameters, String id) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.getSalesOrder(netParameters, id);
+		return executer(functionInfo);
+	}
+	
+	@Override
+	public String createSale(NetParameter[] netParameters, String token, String id) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.createSale(netParameters, token, id);
+		return executer(functionInfo);
+	}
 }
