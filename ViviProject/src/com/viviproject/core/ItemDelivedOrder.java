@@ -15,7 +15,7 @@ public class ItemDelivedOrder extends BaseLinearLayout{
 	public ItemDelivedOrder(Context context)
 	{
 		super(context);
-		initControl(R.layout.item_list_delived_order, context);	
+		initControl(R.layout.item_list_delived_order, context);
 		tvCancel = (TextView) findViewById(R.id.tvCancel);
 		tvCancel.setOnClickListener(onItemClick);
 	}

@@ -194,4 +194,10 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.getListDelivery(netParameters);
 		return executer(functionInfo);
 	}
+	
+	@Override
+	public String orderCancel(NetParameter[] netParameters, String token) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.orderCancel(netParameters, token);
+		return executer(functionInfo);
+	}
 }

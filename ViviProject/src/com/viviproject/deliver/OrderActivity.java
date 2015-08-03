@@ -252,7 +252,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(OrderActivity.this));				
 				try {
 					data = HttpNetServices.Instance.getSales(netParameter);					
-					responseOrders = DataParser.getResponseOrders(data);				
+					responseOrders = DataParser.getResponseOrders(data);			
 					return GlobalParams.TRUE;
 				} catch (Exception e) {
 					return GlobalParams.FALSE;
@@ -274,6 +274,9 @@ public class OrderActivity extends Activity implements OnClickListener{
 					orderListAdapter.setOnItemClickHandler(onItemClickHandler);
 					orderListAdapter.setOnCheckboxItemClickHandler(onCheckboxClickHandler);
 					lvOrder.setAdapter(orderListAdapter);
+				} else if (result.equals(GlobalParams.TRUE) && (responseOrders == null || responseOrders.getOrders() == null)){
+					app.alertErrorMessageString(getResources().getString(R.string.COMMON_DATA_NULL),
+							getResources().getString(R.string.COMMON_MESSAGE), OrderActivity.this);
 				}
 			}
 		}

@@ -36,4 +36,5 @@ public interface INetServices {
 	String getSalesOrder(NetParameter[] netParameters, String id) throws Exception;
 	String createSale(NetParameter[] netParameters, String token, String id) throws Exception;
 	String getListDelivery(NetParameter[] netParameters) throws Exception;
+	String orderCancel(NetParameter[] netParameters, String token) throws Exception;
 }

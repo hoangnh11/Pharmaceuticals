@@ -291,4 +291,13 @@ public final class HttpFunctionFactory {
 		functionInfo.setUrl(viviHostURLshort + "/v1/sales/list_delivery?" + params);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo orderCancel(NetParameter[] netParameters, String token) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("orderCancel");
+		String params = funcLogParams(netParameters);
+		Log.e("orderCancel", "orderCancel: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/cancel?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
 }

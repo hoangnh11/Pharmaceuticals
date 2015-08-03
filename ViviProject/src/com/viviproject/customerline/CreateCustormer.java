@@ -25,7 +25,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.viviproject.R;
-import com.viviproject.customerline.EditCustomer.CheckBoxChecked;
 import com.viviproject.entities.EnCreateStaff;
 import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.network.NetParameter;
@@ -74,6 +73,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		enCreateStaff = new EnCreateStaff();
 		line = new ArrayList<Integer>();
 		vip = GlobalParams.BLANK_CHARACTER;
+		times = "1";
 		initLayout();
 		
 		String[] day = getResources().getStringArray(R.array.day);

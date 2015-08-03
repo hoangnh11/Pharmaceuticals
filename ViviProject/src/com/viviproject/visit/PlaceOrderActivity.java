@@ -609,7 +609,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
 				NetParameter[] netParameter = new NetParameter[8];
-				netParameter[0] = new NetParameter("uid", app.getIMEI(PlaceOrderActivity.this));
+				netParameter[0] = new NetParameter("uid", app.getIMEI(PlaceOrderActivity.this) + "|" + app.getCurrentTimeStamp());
 				netParameter[1] = new NetParameter("store_id", itemStore.getStore_id());
 				netParameter[2] = new NetParameter("delivery", nowDelivery);
 				netParameter[3] = new NetParameter("discount_point_value", String.valueOf(responsePrepare.getTotal_point()));
