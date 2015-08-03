@@ -13,10 +13,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.util.ArrayList;
 
 import android.content.Context;
 
 import com.viviproject.entities.EnCoverReport;
+import com.viviproject.entities.EnDiscountProgram;
+import com.viviproject.entities.EnDiscountProgramItem;
 import com.viviproject.entities.EnPlanSale;
 import com.viviproject.entities.UserInformation;
 
@@ -27,6 +30,8 @@ public final class DataStorage {
 	private final String FILE_NAME_DATA_USERINFORMATION = "dataUserInformation";
 	private final String FILE_NAME_DATA_PLAN_SALE = "dataEnPlanSale";
 	private final String FILE_NAME_DATA_COVER_REPORT = "dataEnCoverReport";
+	private final String FILE_NAME_DATA_LIST_DISCOUNT_PROGRAM = "listEnDiscountProgram";
+	private final String FILE_NAME_DATA_DISCOUNT_PROGRAM = "enDiscountProgram";
 	
 	private static DataStorage instance = new DataStorage();
 
@@ -46,6 +51,8 @@ public final class DataStorage {
 	public void deleteAllData(Context context) {
 		delete_UserInformation(context);
 		delete_EnPlanSale(context);
+		delete_EnCoverReport(context);
+		delete_EnDiscountProgram(context);
 	}
 
 	/**
@@ -157,5 +164,79 @@ public final class DataStorage {
 		}
 	}
 	
-	//==========================================
+	//=================== DISCOUNT PROGRAM ITEM=======================
+	
+	/**
+	 * save data of Discount program (khuyen mai)
+	 */
+	public void save_ListEnCoverReport(ArrayList<EnDiscountProgramItem> listEnDiscountProgram, Context context) throws IOException {
+		FileOutputStream fos = context.openFileOutput(FILE_NAME_DATA_LIST_DISCOUNT_PROGRAM, Context.MODE_PRIVATE);
+		ObjectOutputStream os = new ObjectOutputStream(fos);
+		os.writeObject(listEnDiscountProgram);
+		os.close();
+		Logger.debug("Finished writing list EnDiscountProgram!");
+	}
+
+	/**
+	 * read data of Discount program (khuyen mai)
+	 */
+	public ArrayList<EnDiscountProgramItem> read_ListEnDiscountProgram(Context context) throws StreamCorruptedException, IOException, ClassNotFoundException {
+		FileInputStream fis = context.openFileInput(FILE_NAME_DATA_LIST_DISCOUNT_PROGRAM);
+		ObjectInputStream is = new ObjectInputStream(fis);
+		@SuppressWarnings("unchecked")
+		ArrayList<EnDiscountProgramItem> listEnDiscountProgram = (ArrayList<EnDiscountProgramItem>) is.readObject();
+		is.close();
+		Logger.debug("Finished reading list EnDiscountProgram!");
+		return listEnDiscountProgram;
+	}
+
+	/**
+	 * delete all data of Discount program (khuyen mai)
+	 */
+	public void delete_ListEnDiscountProgram(Context context) {
+		File file = context.getFileStreamPath(FILE_NAME_DATA_LIST_DISCOUNT_PROGRAM);
+		boolean result = file.delete();
+		if (result) {
+			Logger.debug("Deleted EnCoverReport!");
+		} else {
+			Logger.debug("Not deleted EnCoverReport!");
+		}
+	}
+	
+	//=================== DISCOUNT PROGRAM =======================
+	/**
+	 * save data of Discount program (khuyen mai)
+	 */
+	public void save_EnDiscountProgram(EnDiscountProgram enDiscountProgram, Context context) throws IOException {
+		FileOutputStream fos = context.openFileOutput(FILE_NAME_DATA_DISCOUNT_PROGRAM, Context.MODE_PRIVATE);
+		ObjectOutputStream os = new ObjectOutputStream(fos);
+		os.writeObject(enDiscountProgram);
+		os.close();
+		Logger.debug("Finished writing EnDiscountProgram!");
+	}
+
+	/**
+	 * read data of Discount program (khuyen mai)
+	 */
+	public EnDiscountProgram read_EnDiscountProgram(Context context) throws StreamCorruptedException, IOException, ClassNotFoundException {
+		FileInputStream fis = context.openFileInput(FILE_NAME_DATA_DISCOUNT_PROGRAM);
+		ObjectInputStream is = new ObjectInputStream(fis);
+		EnDiscountProgram enDiscountProgram = (EnDiscountProgram) is.readObject();
+		is.close();
+		Logger.debug("Finished reading EnDiscountProgram!");
+		return enDiscountProgram;
+	}
+
+	/**
+	 * delete all data of Discount program (khuyen mai)
+	 */
+	public void delete_EnDiscountProgram(Context context) {
+		File file = context.getFileStreamPath(FILE_NAME_DATA_DISCOUNT_PROGRAM);
+		boolean result = file.delete();
+		if (result) {
+			Logger.debug("Deleted EnCoverReport!");
+		} else {
+			Logger.debug("Not deleted EnCoverReport!");
+		}
+	}
 }

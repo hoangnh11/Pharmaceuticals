@@ -20,4 +20,8 @@ public interface ViviApi {
 	@GET("/v1/reports/plan_quantity")
 	void getCoverReport(@Query("access-token") String token, 
 	          Callback<EnCoverReport> callback);
+	
+	@GET("/v1/presentations/discount_program")
+	void getDiscountProgram(@Query("access-token") String token, 
+	          Callback<String> callback);
 }

@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.viviproject.entities.EnArrayStores;
+import com.viviproject.entities.EnDiscountProgram;
 import com.viviproject.entities.EnElement;
 import com.viviproject.entities.EnFeedback;
 import com.viviproject.entities.EnRegions;
@@ -274,6 +275,22 @@ public final class DataParser {
 			Type collectionType = new TypeToken<ResponseCreateStores>() {}.getType();
 
 			ResponseCreateStores details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static EnDiscountProgram getEnDiscountProgram(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnDiscountProgram>() {}.getType();
+
+			EnDiscountProgram details = mGson.fromJson(jsonData, collectionType);
 			return details;
 		} catch (Exception e) {
 			Logger.error(e);

@@ -3,6 +3,7 @@ package com.viviproject.adapter;
 import java.util.ArrayList;
 
 import com.viviproject.projection.FrgBaseFragmentProducts;
+import com.viviproject.projection.FrgBaseFragmentPromotions;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -75,8 +76,8 @@ public class AdapterFrgPromotions extends FragmentPagerAdapter{
 		String strReturn = "";
 		try{
 			Fragment mFragment = getItem(position);
-			if(mFragment instanceof FrgBaseFragmentProducts){
-				strReturn = ((FrgBaseFragmentProducts)mFragment).getFragmentName();
+			if(mFragment instanceof FrgBaseFragmentPromotions){
+				strReturn = ((FrgBaseFragmentPromotions)mFragment).getFragmentName();
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

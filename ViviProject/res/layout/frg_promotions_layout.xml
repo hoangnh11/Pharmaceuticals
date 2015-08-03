@@ -12,6 +12,13 @@
 	    android:orientation="vertical">
 	    
 	    <TextView 
+	        android:id="@+id/tvPromotionContents"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/BLACK"
+	        android:textSize="14sp"/>
+	    
+	    <!-- <TextView 
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="Tràng Phục Linh:"
@@ -62,6 +69,6 @@
 	        android:layout_marginLeft="15dp"
 	        android:text="- Tích điểm (13/3/2015 - 14/4/2015)"
 	        android:textColor="@color/BLACK"
-	        android:textSize="14sp"/>
-	</LinearLayout>"
+	        android:textSize="14sp"/> -->
+	</LinearLayout>
 </LinearLayout>

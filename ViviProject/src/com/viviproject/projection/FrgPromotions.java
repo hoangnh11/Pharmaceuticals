@@ -1,24 +1,27 @@
 package com.viviproject.projection;
 
-import java.util.ArrayList;
-
-import com.viviproject.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-public class FrgPromotions extends FrgBaseFragmentProducts {
+import com.viviproject.R;
+import com.viviproject.entities.EnDiscountProgramItem;
+import com.viviproject.ultilities.StringUtils;
+
+public class FrgPromotions extends FrgBaseFragmentPromotions {
 	private Context mContext;
 	private Activity mActivity;
 	private View mView;
 	
-	public static FrgPromotions newInstance(Context context, String frgName){
+	public static FrgPromotions newInstance(Context context, EnDiscountProgramItem enDiscountProgram){
 		FrgPromotions f = new FrgPromotions();
-		f.frgName = frgName;
+		f.enDiscountProgram = enDiscountProgram;
+		f.mContext = context;
 		return f;
 	}
 	
@@ -27,7 +30,6 @@ public class FrgPromotions extends FrgBaseFragmentProducts {
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 	
@@ -44,6 +46,7 @@ public class FrgPromotions extends FrgBaseFragmentProducts {
     	// TODO Auto-generated method stub
     	super.onAttach(activity);
     	this.mActivity = getActivity();
+    	this.mContext = getActivity();
     }
     
     /**
@@ -53,6 +56,12 @@ public class FrgPromotions extends FrgBaseFragmentProducts {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.frg_promotions_layout, container, false);    	
+		TextView tvPromotionContents = (TextView) mView.findViewById(R.id.tvPromotionContents);
+		
+		if(StringUtils.isNotBlank(enDiscountProgram.getContent())){
+			tvPromotionContents.setText(Html.fromHtml(enDiscountProgram.getContent()));
+		}
+		
 		return mView;
 	}
 }
