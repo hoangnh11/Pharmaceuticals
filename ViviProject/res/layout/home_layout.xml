@@ -51,7 +51,7 @@
                 android:id="@+id/imgSetting"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:layout_alignParentRight="true"           
+                android:layout_alignParentRight="true"
                 android:contentDescription="@string/BLANK"
                 android:src="@drawable/icon_setting" />
 
@@ -69,9 +69,9 @@
                     android:id="@+id/tvChangePassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:background="@drawable/bg_item_press"
                     android:text="@string/CHANGE_PASSWORD"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp" />
@@ -541,30 +541,6 @@
                         android:layout_weight="1"
                         android:paddingLeft="12dp"
                         android:text="@string/DELIVED_ORDER"
-                        android:textColor="@color/BLACK"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linProductImport"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_item_press"
-                    android:orientation="horizontal" >
-
-                    <View
-                        android:layout_width="8dp"
-                        android:layout_height="48dp"
-                        android:background="@color/BLUE" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:paddingLeft="12dp"
-                        android:text="@string/PRODUCT_IMPORT"
                         android:textColor="@color/BLACK"
                         android:textSize="16sp"
                         android:textStyle="bold" />

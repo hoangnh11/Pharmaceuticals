@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.InventoryAdapter;
+import com.viviproject.deliver.OrderImportActivity;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.EnReport;
 import com.viviproject.entities.EnStores;
@@ -41,7 +42,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private LinearLayout linBuyHistory, linSubBuyHistory;
 	private TextView tvNameStore, tvAddressStores, tvLineStore, tvVip;
 	private ListView lvInventory;
-	private Button btnSendReport;
+	private Button btnSendReport, btnImport;
 	
 	private AppPreferences app;
 	private Bundle bundle;
@@ -123,6 +124,8 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		
 		btnSendReport = (Button) findViewById(R.id.btnSendReport);
 		btnSendReport.setOnClickListener(this); 
+		btnImport = (Button) findViewById(R.id.btnImport);
+		btnImport.setOnClickListener(this);
 	}
 	
 	@Override
@@ -182,6 +185,12 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		case R.id.btnSendReport:
 			sendReportInventory = new SendReportInventory();
 			sendReportInventory.execute();
+			break;
+			
+		case R.id.btnImport:
+			intent = new Intent(this, OrderImportActivity.class);
+			intent.putExtra(GlobalParams.STORES, itemStore);
+			startActivity(intent);
 			break;
 			
 		default:

@@ -29,6 +29,7 @@ public final class GlobalParams {
     public static final int MESSAGE_FAIL = 2;
     public static final String THREE_DOT_ELLIPSES = " ...";
     public static final char SPACE_CHARACTER = ' ';
+    public static final String SPACE = " ";
     public static final char DOT_CHARACTER = '.';
     public static final String THREE_SHARPS_CHARACTER = "###"; 
     public static final String BLANK_CHARACTER = "";

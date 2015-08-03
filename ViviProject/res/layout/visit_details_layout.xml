@@ -1166,7 +1166,7 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/BLUE"              
+                android:background="@color/BLUE"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="8dp" >
@@ -1193,16 +1193,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/BG_GRAY_LIGHT"
-                android:visibility="gone"
                 android:orientation="vertical"
-                android:paddingTop="8dp" >
+                android:paddingTop="8dp"
+                android:visibility="gone" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"
-                    android:paddingBottom="8dp"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp" >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -1235,9 +1235,9 @@
                     <ImageView
                         android:layout_width="16dp"
                         android:layout_height="16dp"
+                        android:layout_marginRight="4dp"
                         android:contentDescription="@string/BLANK"
                         android:scaleType="fitXY"
-                        android:layout_marginRight="4dp"
                         android:src="@drawable/icon_edit_green" />
                 </LinearLayout>
 
@@ -1251,8 +1251,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right|center_vertical"
                     android:layout_marginRight="4dp"
+                    android:gravity="right|center_vertical"
                     android:orientation="horizontal" >
 
                     <Button
@@ -1337,15 +1337,17 @@
             </RelativeLayout>
 
             <Button
+                android:id="@+id/btnImport"
                 android:layout_width="120dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_blue_gray"
-                android:text="@string/VISIT_FINISH"
+                android:text="@string/PRODUCT_IMPORT"
                 android:textColor="@color/WHITE"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="10sp" >
+            </Button>
         </LinearLayout>
     </ScrollView>
 

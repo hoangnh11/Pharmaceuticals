@@ -106,9 +106,11 @@
             android:configChanges="orientation|screenSize" />
         <activity
             android:name="com.viviproject.deliver.OrderImportActivity"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.viviproject.deliver.OrderActivity"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.viviproject.projection.AcProducts"

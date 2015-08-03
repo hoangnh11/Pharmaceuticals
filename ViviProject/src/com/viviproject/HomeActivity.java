@@ -29,7 +29,6 @@ import com.viviproject.customerline.ListCustomer;
 import com.viviproject.customerline.MapActivity;
 import com.viviproject.deliver.Delived_Order;
 import com.viviproject.deliver.OrderActivity;
-import com.viviproject.deliver.OrderImportActivity;
 import com.viviproject.entities.UserInformation;
 import com.viviproject.gimic.AcGimicMangager;
 import com.viviproject.overview.CoverProductReport;
@@ -61,7 +60,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private LinearLayout linRoundCustomer, linSubRoundCustomer, linListCustomer, linMap, linCreateNewCustomer;
 	private LinearLayout linVisit;
 	private LinearLayout linSales;
-	private LinearLayout linDeliver, linSubDeliver, linOrder, linDelivedOrder, linProductImport;
+	private LinearLayout linDeliver, linSubDeliver, linOrder, linDelivedOrder;
 	private LinearLayout linProjection, linSubProjection, linDiscountProgram, linProduct, linCompany, linPharmacier, linClip;
 	private LinearLayout linGimic;
 	private LinearLayout linReport, linSubReport, linSumProfit, linProfitFollowCustomer, linProfitGraphic, linPosterCamera,
@@ -80,7 +79,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home_layout);		
+		setContentView(R.layout.home_layout);
 		userInformation = new UserInformation();
 		appPreferences = new AppPreferences(this);
 		
@@ -176,9 +175,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 		linOrder = (LinearLayout) findViewById(R.id.linOrder);
 		linOrder.setOnClickListener(this);
 		linDelivedOrder = (LinearLayout) findViewById(R.id.linDelivedOrder);
-		linDelivedOrder.setOnClickListener(this);
-		linProductImport = (LinearLayout) findViewById(R.id.linProductImport);
-		linProductImport.setOnClickListener(this);
+		linDelivedOrder.setOnClickListener(this);	
 				
 		linProjection = (LinearLayout) findViewById(R.id.linProjection);
 		linProjection.setOnClickListener(this);
@@ -317,12 +314,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 		case R.id.linDelivedOrder:
 			intent = new Intent(this, Delived_Order.class);
 			startActivity(intent);
-			break;	
-			
-		case R.id.linProductImport:
-			intent = new Intent(this, OrderImportActivity.class);
-			startActivity(intent);
-			break;	
+			break;
 			
 		case R.id.linProjection:
 			if (expandLayout(linSubProjection.getVisibility(), linSubProjection)) {
