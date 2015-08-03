@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.viviproject.customerline.CreateCustormer;
 import com.viviproject.customerline.ListCustomer;
 import com.viviproject.customerline.MapActivity;
@@ -43,6 +49,7 @@ import com.viviproject.ultilities.DataStorage;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.SharedPreferenceManager;
+import com.viviproject.ultilities.StringUtils;
 import com.viviproject.visit.PictureReportActivity;
 import com.viviproject.visit.VisitAcitvity;
 
@@ -67,7 +74,9 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private AppPreferences appPreferences;
 	AlertDialog _alertDialog;
 	private UserInformation userInformation;
-
+	private ImageLoader imageLoader;
+	private DisplayImageOptions options;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,6 +84,21 @@ public class HomeActivity extends Activity implements OnClickListener{
 		userInformation = new UserInformation();
 		appPreferences = new AppPreferences(this);
 		
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.ic_stub)
+				.showImageForEmptyUri(R.drawable.ic_empty)
+				.showImageOnFail(R.drawable.ic_error).cacheInMemory(true)
+				.cacheOnDisk(true).considerExifParams(true)
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
+
+		ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(
+				HomeActivity.this).threadPriority(Thread.NORM_PRIORITY - 2)
+				.denyCacheImageMultipleSizesInMemory()
+				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
+				.tasksProcessingOrder(QueueProcessingType.LIFO).build();
+		imageLoader = ImageLoader.getInstance();
+		imageLoader.init(imageLoaderConfiguration);
+
 		try {
 			userInformation = DataStorage.getInstance().read_UserInformation(this);					
 		} catch (StreamCorruptedException e) {
@@ -103,8 +127,20 @@ public class HomeActivity extends Activity implements OnClickListener{
 		tvChangePassword = (TextView) findViewById(R.id.tvChangePassword);
 		tvChangePassword.setOnClickListener(this);
 		scrollView = (ScrollView) findViewById(R.id.scrollView);
+		
 		tvName = (TextView) findViewById(R.id.tvName);
-		tvName.setText(userInformation.getUsername());
+		if(StringUtils.isNotBlank(userInformation.getAvatar())){
+			tvName.setText(userInformation.getUsername());
+		} else {
+			tvName.setText(getResources().getString(R.string.BLANK));
+		}
+		
+		ImageView imgAvata =(ImageView) findViewById(R.id.imgAvata);
+		if(StringUtils.isNotBlank(userInformation.getAvatar())){
+			imageLoader.displayImage(userInformation.getAvatar(), imgAvata, options);
+		} else {
+			imgAvata.setImageResource(R.drawable.ic_stub);
+		}
 		
 		linTongquan = (LinearLayout) findViewById(R.id.linTongquan);
 		linTongquan.setOnClickListener(this);

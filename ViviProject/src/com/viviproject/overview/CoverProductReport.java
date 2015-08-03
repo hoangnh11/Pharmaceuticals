@@ -252,7 +252,9 @@ public class CoverProductReport extends Activity implements OnClickListener{
 							, "Error", CoverProductReport.this);
 					
 					EnCoverReport enCoverReport = DataStorage.getInstance().read_EnCoverReport(CoverProductReport.this);
-					updateDataScreen(enCoverReport);
+					if(null != enCoverReport){
+						updateDataScreen(enCoverReport);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -280,7 +282,9 @@ public class CoverProductReport extends Activity implements OnClickListener{
 				
 				try{
 					EnCoverReport enCoverReport = DataStorage.getInstance().read_EnCoverReport(CoverProductReport.this);
-					updateDataScreen(enCoverReport);
+					if(null != enCoverReport){
+						updateDataScreen(enCoverReport);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

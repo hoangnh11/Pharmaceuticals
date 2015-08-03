@@ -312,7 +312,9 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 							, "Error", ProfitReportActivity.this);
 					
 					EnPlanSale enPlanSaleLocal = DataStorage.getInstance().read_EnPlanSale(ProfitReportActivity.this);
-					updateDataScreen(enPlanSaleLocal);
+					if(null != enPlanSaleLocal){
+						updateDataScreen(enPlanSaleLocal);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -340,7 +342,9 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 				
 				try{
 					EnPlanSale enPlanSale = DataStorage.getInstance().read_EnPlanSale(ProfitReportActivity.this);
-					updateDataScreen(enPlanSale);
+					if(null != enPlanSale){
+						updateDataScreen(enPlanSale);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
