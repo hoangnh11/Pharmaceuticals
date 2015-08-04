@@ -1,27 +1,47 @@
 package com.viviproject.projection;
 
+import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.adapter.AdapterCompanyNews;
+import com.viviproject.entities.EnNews;
+import com.viviproject.entities.EnNewsList;
+import com.viviproject.network.access.HttpFunctionFactory;
+import com.viviproject.network.access.ViviApi;
+import com.viviproject.overview.CoverProductReport;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.StringConverter;
 
 public class AcCompany  extends Activity implements OnClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
-	private LinearLayout linButonSuMenhTamNhin, linButonLichSuPhatTrien, linButonChienLuocKinhDoanh;
-	private LinearLayout linLichSuPhatTrienBody;
-	private ImageView imgSuMenhTamNhinBody, imgLichSuPhatTrieBody, imgChienLuocKinhDoanh; 
-	private ScrollView scrollViewCompany;
+	private ListView lvNews;
 	
-	private boolean checkScrollBottom = false;
+	private ArrayList<EnNews> listNews = new ArrayList<EnNews>();
+	private AdapterCompanyNews adapterCompanyNews;
+	private static RestAdapter restAdapter;
+	private ProgressDialog dialog;
+	private int page = 1;
+	private int perPage = 10;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,29 +64,38 @@ public class AcCompany  extends Activity implements OnClickListener{
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linOptionSearch = (LinearLayout) findViewById(R.id.linSearch);
-		linOptionSearch.setVisibility(View.VISIBLE);
+		linOptionSearch.setVisibility(View.INVISIBLE);
 		
 		linOptionFilter = (LinearLayout) findViewById(R.id.linUpdate);
-		linOptionFilter.setVisibility(View.VISIBLE);
+		linOptionFilter.setVisibility(View.INVISIBLE);
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
 		
-		scrollViewCompany = (ScrollView) findViewById(R.id.scrollViewCompany);
+		lvNews = (ListView) findViewById(R.id.lvNews);
+		adapterCompanyNews = new AdapterCompanyNews(AcCompany.this, listNews);
+		lvNews.setAdapter(adapterCompanyNews);
 		
-		linButonSuMenhTamNhin = (LinearLayout) findViewById(R.id.linButonSuMenhTamNhin);
-		linButonSuMenhTamNhin.setOnClickListener(this);
-		imgSuMenhTamNhinBody = (ImageView) findViewById(R.id.imgSuMenhTamNhinBody);
-		
-		linButonLichSuPhatTrien = (LinearLayout) findViewById(R.id.linButonLichSuPhatTrien);
-		linButonLichSuPhatTrien.setOnClickListener(this);
-		linLichSuPhatTrienBody =(LinearLayout) findViewById(R.id.linLichSuPhatTrienBody);
-		imgLichSuPhatTrieBody = (ImageView) findViewById(R.id.imgLichSuPhatTrieBody);
-		
-		linButonChienLuocKinhDoanh = (LinearLayout) findViewById(R.id.linButonChienLuocKinhDoanh);
-		linButonChienLuocKinhDoanh.setOnClickListener(this);
-		imgChienLuocKinhDoanh = (ImageView) findViewById(R.id.imgChienLuocKinhDoanh);
-		
+		refreshData();
+	}
+	
+	private void refreshData() {
+		getListCompanyNewsFromServer();
+	}
+
+	/**
+	 * update data in screen
+	 * @param listNews
+	 */
+	private void updateScreenData(EnNewsList listNewsLocal) {
+		if(page == 1){
+			// update new data
+			for (int i = 0; i < listNews.size(); i++) {
+				listNews.remove(i);
+			}
+			adapterCompanyNews.setListNew(listNewsLocal.getNews());
+			adapterCompanyNews.notifyDataSetChanged();
+		}
 	}
 	
 	@Override
@@ -75,67 +104,75 @@ public class AcCompany  extends Activity implements OnClickListener{
 		case R.id.linBack:
 			AcCompany.this.finish();
 			break;
-			
-		case R.id.linButonSuMenhTamNhin:
-			if(imgSuMenhTamNhinBody.getVisibility() == View.VISIBLE){
-				imgSuMenhTamNhinBody.setVisibility(View.GONE);
-				linButonSuMenhTamNhin.setBackgroundResource(R.drawable.bg_button_expand_blue);
-			} else {
-				imgSuMenhTamNhinBody.setVisibility(View.VISIBLE);
-				linButonSuMenhTamNhin.setBackgroundResource(R.drawable.bg_button_expand_blue_press);
-			}
-			break;
-
-		case R.id.linButonLichSuPhatTrien:
-			if(imgLichSuPhatTrieBody.getVisibility() == View.VISIBLE){
-				imgLichSuPhatTrieBody.setVisibility(View.GONE);
-				linButonLichSuPhatTrien.setBackgroundResource(R.drawable.bg_button_expand_blue);
-			} else {
-				imgLichSuPhatTrieBody.setVisibility(View.VISIBLE);
-				linButonLichSuPhatTrien.setBackgroundResource(R.drawable.bg_button_expand_blue_press);
-				
-				/*scrollViewCompany.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-			        @Override
-			        public void onGlobalLayout() {
-			        	scrollViewCompany.post(new Runnable() {
-			                public void run() {
-			                	scrollViewCompany.scrollTo(0, linLichSuPhatTrienBody.getHeight()/10);
-			                }
-			            });
-			        }
-			    });*/
-			}
-			
-			break;
-			
-		case R.id.linButonChienLuocKinhDoanh:
-			checkScrollBottom = true;
-			if(imgChienLuocKinhDoanh.getVisibility() == View.VISIBLE){
-				imgChienLuocKinhDoanh.setVisibility(View.GONE);
-				linButonChienLuocKinhDoanh.setBackgroundResource(R.drawable.bg_button_expand_blue);
-			} else {
-				imgChienLuocKinhDoanh.setVisibility(View.VISIBLE);
-				linButonChienLuocKinhDoanh.setBackgroundResource(R.drawable.bg_button_expand_blue_press);
-			}
-			
-			scrollViewCompany.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-		        @Override
-		        public void onGlobalLayout() {
-		        	scrollViewCompany.post(new Runnable() {
-		                public void run() {
-		                	if (checkScrollBottom) {
-		                		scrollViewCompany.fullScroll(View.FOCUS_DOWN);
-		                		checkScrollBottom = false;
-		                	}
-		                }
-		            });
-		        }
-		    });
-			break;
-			
+		
 		default:
 			break;
 		}
 		
 	}
+	
+	/**
+	 * getListCompanyNewsFromServer
+	 */
+	private void getListCompanyNewsFromServer(){
+		if(null == restAdapter ){
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(HttpFunctionFactory.viviHostURLshort)
+                    .setConverter(new StringConverter())
+                    .build();
+        }
+		
+		String token = BuManagement.getToken(getApplicationContext());
+		Logger.error("access-token: " + token);
+		
+		if(null == dialog){
+			dialog = new ProgressDialog(AcCompany.this);
+			dialog.setMessage(getResources().getString(R.string.LOADING));	
+			dialog.setCancelable(true);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					//cancel threat 
+					companyNewsCallBack.failure(null);
+				}
+			});
+		}
+		dialog.show();
+		
+		restAdapter.create(ViviApi.class).getPresentationsNews(token, page, perPage, companyNewsCallBack);
+	}
+	
+	Callback<String> companyNewsCallBack = new Callback<String>() {
+		
+		@Override
+		public void success(String responseString, Response response) {
+			Logger.error("GET Company new response: " + responseString);
+			if(null != AcCompany.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			
+			try{
+				EnNewsList listNews = DataParser.getEnNewsList(responseString);
+				if(null != listNews){
+					updateScreenData(listNews);
+				} else {
+					
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		@Override
+		public void failure(RetrofitError retrofitError) {
+			retrofitError.printStackTrace();
+			if(null != AcCompany.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			
+		}
+	};
+	
 }

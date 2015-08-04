@@ -17,6 +17,8 @@ import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnDiscountProgram;
 import com.viviproject.entities.EnElement;
 import com.viviproject.entities.EnFeedback;
+import com.viviproject.entities.EnNews;
+import com.viviproject.entities.EnNewsList;
 import com.viviproject.entities.EnRegions;
 import com.viviproject.entities.EnReportImageResponse;
 import com.viviproject.entities.Products;
@@ -298,6 +300,37 @@ public final class DataParser {
 		}
 	}
 	
+	public static ArrayList<EnNews> getListEnNews(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<ArrayList<EnNews>>() {}.getType();
+
+			ArrayList<EnNews> details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static EnNewsList getEnNewsList(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnNewsList>() {}.getType();
+
+			EnNewsList details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
 	public static ResponsePrepare prepareSale(String jsonData) throws JsonSyntaxException {
 		if (StringUtils.isBlank(jsonData)) {
 			return null;

@@ -13,7 +13,6 @@ import com.google.gson.GsonBuilder;
 
 public class ViviRetrofitClient {
 
-	private static ViviApi REST_CLIENT;
 	private static String ROOT = HttpFunctionFactory.viviHostURLshort;
 	private static RestAdapter restAdapter;
 	public final static ViviRetrofitClient Instance = new ViviRetrofitClient();

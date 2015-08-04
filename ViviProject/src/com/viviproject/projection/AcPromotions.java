@@ -18,11 +18,9 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.internal.fg;
 import com.viviproject.R;
 import com.viviproject.adapter.AdapterFrgPromotions;
 import com.viviproject.entities.EnDiscountProgram;
-import com.viviproject.entities.EnDiscountProgramItem;
 import com.viviproject.library.TabPageIndicator;
 import com.viviproject.network.access.HttpFunctionFactory;
 import com.viviproject.network.access.ViviApi;
@@ -159,6 +157,7 @@ public class AcPromotions extends FragmentActivity implements OnClickListener{
 	
 	Callback<String> myCallback = new Callback<String>() {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void failure(RetrofitError retrofitError) {
 			retrofitError.printStackTrace();
