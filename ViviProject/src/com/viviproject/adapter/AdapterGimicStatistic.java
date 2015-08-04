@@ -10,25 +10,24 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.viviproject.R;
-import com.viviproject.core.ItemListCustomer;
-import com.viviproject.entities.EnGimicStatistic;
+import com.viviproject.entities.EnGimicItem;
 
-public class AdapterGimicStatistic extends ArrayAdapter<EnGimicStatistic> {
+public class AdapterGimicStatistic extends ArrayAdapter<EnGimicItem> {
 	private Context context;
-	private ArrayList<EnGimicStatistic> listGimicStatistic = new ArrayList<EnGimicStatistic>();
-	public AdapterGimicStatistic(Context context, ArrayList<EnGimicStatistic> listGimicStatistic) {
+	private ArrayList<EnGimicItem> listGimicItem = new ArrayList<EnGimicItem>();
+	public AdapterGimicStatistic(Context context, ArrayList<EnGimicItem> listGimicStatistic) {
 		super(context, R.layout.item_gimic_statistic);
 		this.context = context;
-		this.listGimicStatistic = listGimicStatistic;
+		this.listGimicItem = listGimicStatistic;
 	}
 
 	@Override
 	public int getCount() {
-		return listGimicStatistic.size();
+		return listGimicItem.size();
 	}
 
 	@Override
-	public EnGimicStatistic getItem(int position) {
+	public EnGimicItem getItem(int position) {
 		// TODO Auto-generated method stub
 		return super.getItem(position);
 	}
@@ -37,6 +36,13 @@ public class AdapterGimicStatistic extends ArrayAdapter<EnGimicStatistic> {
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
 		return super.getItemId(position);
+	}
+	
+	public void setListGimic(ArrayList<EnGimicItem> list){
+		for (int i = 0; i < listGimicItem.size(); i++) {
+			listGimicItem.remove(i);
+		}
+		listGimicItem = list;
 	}
 	
 	class ViewHolder{
@@ -64,13 +70,13 @@ public class AdapterGimicStatistic extends ArrayAdapter<EnGimicStatistic> {
             holder = (ViewHolder) convertView.getTag();
         }
         
-        EnGimicStatistic item = listGimicStatistic.get(position);
+        EnGimicItem item = listGimicItem.get(position);
         
         holder.tvSTT.setText(String.valueOf(position));
-        holder.tvProduct.setText(item.getStrProduct());
-        holder.tvImport.setText(String.valueOf(item.getNumImport()));
-        holder.tvExport.setText(String.valueOf(item.getNumExport()));
-        holder.tvInventory.setText(String.valueOf(item.getNumInventory()));
+        holder.tvProduct.setText(item.getName());
+        holder.tvImport.setText(item.getImport_quantity());
+        holder.tvExport.setText(item.getExport_quantity());
+        holder.tvInventory.setText("" + item.getLeft_quantity());
 		return convertView;
 	}
 	

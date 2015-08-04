@@ -4,39 +4,65 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.viviproject.R;
-import com.viviproject.adapter.AdapterGimicListCutomer;
 import com.viviproject.adapter.AdapterGimicStatistic;
-import com.viviproject.entities.EnGimicCustomerList;
-import com.viviproject.entities.EnGimicStatistic;
+import com.viviproject.entities.EnGimicItem;
+import com.viviproject.entities.EnGimicManager;
+import com.viviproject.entities.EnGimicStoreItem;
+import com.viviproject.entities.EnStoreItem;
+import com.viviproject.network.access.HttpFunctionFactory;
+import com.viviproject.network.access.ViviApi;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.StringConverter;
+import com.viviproject.ultilities.StringUtils;
 
 public class AcGimicMangager extends FragmentActivity implements OnClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
-	private ListView lvGmicStatistic, lvGimicListCustomer;
-	private ImageView imgIconCalendar, imgIconCalendarCustomer;
+	private ListView lvGmicStatistic;
+	private TableLayout tblGimicCustomer;
+	private ImageView imgIconCalendarFrom, imgIconCalendarTo;
+	private TextView tvGimicTimeFrom, tvGimicTimeTo;
+	private Button btGimicSearch;
 	
-	private ArrayList<EnGimicStatistic> listGimicStatistic = new ArrayList<EnGimicStatistic>();
-	private ArrayList<EnGimicCustomerList> listGimicCustomerLists = new ArrayList<EnGimicCustomerList>();
+	private ArrayList<EnGimicItem> listGimicItems = new ArrayList<EnGimicItem>();
 	private AdapterGimicStatistic adapterGimicStatistic;
-	private AdapterGimicListCutomer adapterGimicListCutomer;
 	
 	private CaldroidListener listener;
 	private SimpleDateFormat formatter;
 	private CaldroidFragment dialogCaldroidFragment;
+	private static RestAdapter restAdapter;
+	private ProgressDialog dialog;
+	private String dateFrom = "04/07/2015";
+	private String dateTo = "04/08/2015";
+	private int page = 0, perPage = 10;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -55,42 +81,141 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linOptionSearch = (LinearLayout) findViewById(R.id.linSearch);
-		linOptionSearch.setVisibility(View.VISIBLE);
+		linOptionSearch.setVisibility(View.INVISIBLE);
 		
 		linOptionFilter = (LinearLayout) findViewById(R.id.linUpdate);
-		linOptionFilter.setVisibility(View.VISIBLE);
+		linOptionFilter.setVisibility(View.INVISIBLE);
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
+		linOptionRefresh.setOnClickListener(this);
 		
-		initSampleData();
-		adapterGimicStatistic = new AdapterGimicStatistic(getApplicationContext(), listGimicStatistic);
+		imgIconCalendarFrom = (ImageView) findViewById(R.id.imgIconCalendarFrom);
+		imgIconCalendarFrom.setOnClickListener(this);
+		imgIconCalendarTo = (ImageView) findViewById(R.id.imgIconCalendarTo);
+		imgIconCalendarTo.setOnClickListener(this);
+		
+		tvGimicTimeFrom = (TextView) findViewById(R.id.tvGimicTimeFrom);
+		tvGimicTimeFrom.setText(dateFrom);
+		tvGimicTimeTo = (TextView) findViewById(R.id.tvGimicTimeTo);
+		tvGimicTimeTo.setText(dateTo);
+		btGimicSearch = (Button) findViewById(R.id.btGimicSearchOK);
+		btGimicSearch.setOnClickListener(this);
+		
+		//initSampleData();
+		adapterGimicStatistic = new AdapterGimicStatistic(getApplicationContext(), listGimicItems);
 		lvGmicStatistic = (ListView) findViewById(R.id.lvGimicStatistic);
 		lvGmicStatistic.setAdapter(adapterGimicStatistic);
 		
-		adapterGimicListCutomer = new AdapterGimicListCutomer(getApplicationContext(), listGimicCustomerLists);
-		lvGimicListCustomer = (ListView) findViewById(R.id.lvGimicCustomerList);
-		lvGimicListCustomer.setAdapter(adapterGimicListCutomer);
+		tblGimicCustomer = (TableLayout) findViewById(R.id.tlGimicGridTable);
 		
-		imgIconCalendar = (ImageView) findViewById(R.id.imgIconCalendar);
-		imgIconCalendar.setOnClickListener(this);
-		imgIconCalendarCustomer = (ImageView) findViewById(R.id.imgIconCalendarCusomer);
-		imgIconCalendarCustomer.setOnClickListener(this);
+		refreshData(dateFrom, dateTo);
 	}
 
-	private void initSampleData() {
-		//statistic
-		listGimicStatistic.add(new EnGimicStatistic(getResources().getString(R.string.TEXT_PEN), 150, 80, 70));
-		listGimicStatistic.add(new EnGimicStatistic(getResources().getString(R.string.TEXT_MAGAZIN), 30, 10, 20));
-		listGimicStatistic.add(new EnGimicStatistic(getResources().getString(R.string.TEXT_CLOCK), 30, 30, 0));
-		listGimicStatistic.add(new EnGimicStatistic(getResources().getString(R.string.TEXT_WATER_BOTTLE), 30, 0, 30));
+	private void refreshData(String from, String to) {
+		getGimicManagerFromServer(from, to);
+	}
+
+	protected void updateDataScreen(EnGimicManager enGimicManager) {
+		if(null == enGimicManager ){
+			return;
+		}
 		
-		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
-		listGimicCustomerLists.add(new EnGimicCustomerList(getResources().getString(R.string.EXAMPLE_DRUG_STORE), getResources().getString(R.string.EXAMPLE_DRUG_STORE_ADDRESS), 5, 2, 0, 1));
+		ArrayList<EnGimicItem> listGimicItems = enGimicManager.getGimics();
+		if(page == 0){
+			// refresh new data
+			adapterGimicStatistic.setListGimic(listGimicItems);
+			adapterGimicStatistic.notifyDataSetChanged();
+			
+			tblGimicCustomer.removeAllViews();
+			
+			//header
+			TableRow tbRow = new TableRow(AcGimicMangager.this);
+			tbRow.setGravity(Gravity.CENTER);
+			tbRow.setBackgroundColor(getResources().getColor(R.color.PINK_LIGHT));
+			
+			TextView tvSTT = new TextView(this);
+			tvSTT.setText(getResources().getString(R.string.INDEX));
+			tvSTT.setPadding(5, 5, 5, 5);
+			tvSTT.setTypeface(Typeface.DEFAULT_BOLD);
+			tvSTT.setTextSize(12);
+			tbRow.addView(tvSTT);
+			
+			TextView tvStoreTitle = new TextView(this);
+			tvStoreTitle.setText(getResources().getString(R.string.TEXT_STORE));
+			tvStoreTitle.setPadding(5, 5, 5, 5);
+			tvStoreTitle.setTypeface(Typeface.DEFAULT_BOLD);
+			tvStoreTitle.setTextSize(12);
+			tbRow.addView(tvStoreTitle);
+			
+			for (int i = 0; i < listGimicItems.size(); i++) {
+				TextView tvItemTitle = new TextView(this);
+				tvItemTitle.setText(listGimicItems.get(i).getName());
+				tvItemTitle.setPadding(5, 5, 5, 5);
+				tvItemTitle.setTypeface(Typeface.DEFAULT_BOLD);
+				tvItemTitle.setTextSize(12);
+				tbRow.addView(tvItemTitle);
+			}
+			tblGimicCustomer.addView(tbRow);
+			
+			//content
+			ArrayList<EnStoreItem> listStoreItem = enGimicManager.getStores();
+			for(int i = 0; i < listStoreItem.size(); i++){
+				TableRow tbRowItem = new TableRow(AcGimicMangager.this);
+				
+				TextView tvSTTRow = new TextView(this);
+				tvSTTRow.setText(String.valueOf(i+1));
+				tvSTTRow.setPadding(5, 5, 5, 5);
+				tvSTTRow.setGravity(Gravity.CENTER);
+				tvSTTRow.setTypeface(Typeface.DEFAULT_BOLD);
+				tvSTTRow.setTextSize(12);
+				tbRowItem.addView(tvSTTRow);
+				
+				TextView tvStore = new TextView(this);
+				tvStore.setText(listStoreItem.get(i).getName() + "\n" + listStoreItem.get(i).getAddress());
+				tvStore.setPadding(5, 5, 5, 5);
+				tvStore.setGravity(Gravity.CENTER);
+				tvStore.setTypeface(Typeface.DEFAULT_BOLD);
+				tvStore.setTextSize(12);
+				tbRowItem.addView(tvStore);
+				
+				for (int j = 0; j < listGimicItems.size(); j++) {
+					String id = listGimicItems.get(j).getId();
+					EnGimicStoreItem enGimicStoreItem = getGimicStoreItemFromList(id, listStoreItem.get(i).getGimics());
+					
+					TextView tvItem = new TextView(this);
+					if(null != enGimicStoreItem){
+						tvItem.setText(enGimicStoreItem.getTotal());
+					} else {
+						tvItem.setText("");
+					}
+					tvItem.setPadding(5, 5, 5, 5);
+					tvItem.setGravity(Gravity.CENTER);
+					tvItem.setTypeface(Typeface.DEFAULT_BOLD);
+					tvItem.setTextSize(12);
+					tbRowItem.addView(tvItem);
+				}
+				tblGimicCustomer.addView(tbRowItem);
+			}
+		} else {
+			
+		}
+		
+	}
+	
+	private EnGimicStoreItem getGimicStoreItemFromList(String id, ArrayList<EnGimicStoreItem> gimics) {
+		if(StringUtils.isBlank(id) || null == gimics || (gimics.size() == 0)){
+			return null;
+		}
+		
+		EnGimicStoreItem enGimicStoreItem = null;
+		for (int i = 0; i < gimics.size(); i++) {
+			if(id.equalsIgnoreCase(gimics.get(i).getGimic_id())){
+				enGimicStoreItem = gimics.get(i);
+				break;
+			}
+		}
+		return enGimicStoreItem;
 	}
 
 	@Override
@@ -100,12 +225,24 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			AcGimicMangager.this.finish();
 			break;
 			
-		case R.id.imgIconCalendar:
-			showCalender();
+		case R.id.imgIconCalendarFrom:
+			showCalender(R.id.imgIconCalendarFrom);
 			break;
 		
-		case R.id.imgIconCalendarCusomer:
-			showCalender();
+		case R.id.imgIconCalendarTo:
+			showCalender(R.id.imgIconCalendarTo);
+			break;
+		
+		case R.id.linRefresh:
+			dateFrom = "04/07/2015";
+			tvGimicTimeFrom.setText(dateFrom);
+			dateTo = "04/08/2015";
+			tvGimicTimeTo.setText(dateTo);
+			refreshData(dateFrom, dateTo);
+			break;
+		
+		case R.id.btGimicSearchOK:
+			refreshData(dateFrom, dateTo);
 			break;
 			
 		default:
@@ -114,13 +251,20 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	}
 	
 	@SuppressLint("SimpleDateFormat")
-	private void showCalender() {
-		formatter = new SimpleDateFormat("yyyy-MM-dd");
+	private void showCalender(final int viewID) {
+		formatter = new SimpleDateFormat("dd/MM/yyyy");
 		listener = new CaldroidListener() {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
-				dialogCaldroidFragment.dismiss();				
+				dialogCaldroidFragment.dismiss();
+				if(viewID == R.id.imgIconCalendarFrom){
+					dateFrom = formatter.format(date);
+					tvGimicTimeFrom.setText(dateFrom);
+				} else if (viewID == R.id.imgIconCalendarTo){
+					dateTo = formatter.format(date);
+					tvGimicTimeTo.setText(dateTo);
+				}
 			}
 
 			@Override
@@ -139,6 +283,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 
 			@Override
 			public void onNothingSelected() {
+				Logger.error("Date onNothingSelected");
 			}
 
 		};
@@ -147,4 +292,62 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		dialogCaldroidFragment.setCaldroidListener(listener);
 		dialogCaldroidFragment.show(getSupportFragmentManager(), "CalenderAndroid");
 	}
+	
+	/**
+	 * get newest data from server
+	 */
+	private void getGimicManagerFromServer(String from, String to){
+		if(null == restAdapter ){
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(HttpFunctionFactory.viviHostURLshort)
+                    .setConverter(new StringConverter())
+                    .build();
+        }
+		
+		String token = BuManagement.getToken(getApplicationContext());
+		
+		if(null == dialog){
+			dialog = new ProgressDialog(AcGimicMangager.this);
+			dialog.setMessage(getResources().getString(R.string.LOADING));	
+			dialog.setCancelable(true);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					//cancel get data
+				}
+			});
+		}
+		dialog.show();
+		
+		restAdapter.create(ViviApi.class).getGimicManager(token, from, to, page, perPage, myCallback);
+	}
+	
+	Callback<String> myCallback = new Callback<String>() {
+
+		@Override
+		public void failure(RetrofitError retrofitError) {
+			retrofitError.printStackTrace();
+			
+		}
+
+		@Override
+		public void success(String strData, Response response) {
+			Logger.error("Get gimc manager:" + strData);
+			if(null != AcGimicMangager.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			
+			try {
+				//Paser data
+				EnGimicManager enGimicManager = DataParser.getEnGimicManager(strData);
+				updateDataScreen(enGimicManager);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	};
+	
 }

@@ -1,6 +1,6 @@
 /**
  * 
- */
+ *//*
 package com.viviproject.adapter;
 
 import java.util.ArrayList;
@@ -15,10 +15,10 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.entities.EnGimicCustomerList;
 
-/**
+*//**
  * @author Do Thin
  *
- */
+ *//*
 public class AdapterGimicListCutomer extends ArrayAdapter<EnGimicCustomerList> {
 	private Context context;
 	private ArrayList<EnGimicCustomerList> listGimicCustomerList = new ArrayList<EnGimicCustomerList>();
@@ -86,3 +86,4 @@ public class AdapterGimicListCutomer extends ArrayAdapter<EnGimicCustomerList> {
 		return convertView;
 	}
 }
+*/

@@ -1,11 +1,11 @@
-package com.viviproject.entities;
+/*package com.viviproject.entities;
 
 import java.io.Serializable;
 
 public class EnGimicStatistic implements Serializable{
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 1L;
 	private String strProduct;
 	private int numImport;
@@ -55,3 +55,4 @@ public class EnGimicStatistic implements Serializable{
 	
 	
 }
+*/

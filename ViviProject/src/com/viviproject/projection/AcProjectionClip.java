@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.viviproject.R;
-import com.viviproject.adapter.AdapterGimicListCutomer;
-import com.viviproject.adapter.AdapterProjectionGridClip;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -19,6 +14,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.viviproject.R;
+import com.viviproject.adapter.AdapterProjectionGridClip;
 
 public class AcProjectionClip extends Activity implements OnClickListener, OnItemClickListener{
 	private LinearLayout linBack;

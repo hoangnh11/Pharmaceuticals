@@ -17,6 +17,7 @@ import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnDiscountProgram;
 import com.viviproject.entities.EnElement;
 import com.viviproject.entities.EnFeedback;
+import com.viviproject.entities.EnGimicManager;
 import com.viviproject.entities.EnNews;
 import com.viviproject.entities.EnNewsList;
 import com.viviproject.entities.EnRegions;
@@ -331,6 +332,23 @@ public final class DataParser {
 			return null;
 		}
 	}
+	
+	public static EnGimicManager getEnGimicManager(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnGimicManager>() {}.getType();
+
+			EnGimicManager details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
 	public static ResponsePrepare prepareSale(String jsonData) throws JsonSyntaxException {
 		if (StringUtils.isBlank(jsonData)) {
 			return null;

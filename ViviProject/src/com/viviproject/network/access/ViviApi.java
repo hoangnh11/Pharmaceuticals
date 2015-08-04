@@ -28,4 +28,8 @@ public interface ViviApi {
 	@GET("/v1/presentations/news")
 	void getPresentationsNews(@Query("access-token") String token, @Query("page") int page,
 	          @Query("per_page") int per_page, Callback<String> callback);
+	
+	@GET("/v1/gimics/report")
+	void getGimicManager(@Query("access-token") String token, @Query("from") String from, @Query("to") String to,
+			@Query("page") int page, @Query("per_page") int per_page, Callback<String> callback);
 }

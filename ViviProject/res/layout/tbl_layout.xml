@@ -1336,4 +1336,102 @@
             android:layout_height="0.5dp"
             android:background="@color/BLACK" />
     </TableLayout>
+    
+    <!-- <View
+       android:layout_width="match_parent"
+       android:layout_height="0.5dp"
+       android:background="@color/BLACK" />
+
+   <LinearLayout
+       android:id="@+id/linListCustomerHeader"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="#FFF3D0"
+       android:orientation="horizontal"
+       android:weightSum="18" >
+
+       <TextView
+           android:id="@+id/tvCustomerSTTTitle"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="2"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text="STT"
+           android:textColor="@color/BLACK"
+           android:textSize="10sp"
+           android:textStyle="bold" />
+
+       <TextView
+           android:id="@+id/tvCustomerDrugstoretTitle"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="5.5"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text="Nhà thuốc"
+           android:textColor="@color/BLACK"
+           android:textSize="10sp"
+           android:textStyle="bold" />
+
+       <TextView
+           android:id="@+id/tvCustomerPenTitle"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="2"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text="Bút"
+           android:textColor="@color/BLACK"
+           android:textSize="10sp"
+           android:textStyle="bold" />
+
+       <TextView
+           android:id="@+id/tvCustomerMagazineTitle"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="2.5"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text="Tạp chí"
+           android:textColor="@color/BLACK"
+           android:textSize="10sp"
+           android:textStyle="bold" />
+
+       <TextView
+           android:id="@+id/tvCustomerClockTitle"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="3"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text="Đồng hồ"
+           android:textColor="@color/BLACK"
+           android:textSize="10sp"
+           android:textStyle="bold" />
+
+       <TextView
+           android:id="@+id/tvCustomerWaterBottleTitle"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="3"
+           android:gravity="center"
+           android:padding="5dp"
+           android:text="Bình nước"
+           android:textColor="@color/BLACK"
+           android:textSize="10sp"
+           android:textStyle="bold" />
+   </LinearLayout>
+
+   <View
+       android:layout_width="match_parent"
+       android:layout_height="0.5dp"
+       android:background="@color/BLACK" />
+
+   <ListView
+       android:id="@+id/lvGimicCustomerList"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/WHITE" >
+   </ListView> -->
 </LinearLayout>

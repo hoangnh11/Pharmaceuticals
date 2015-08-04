@@ -1,12 +1,12 @@
-package com.viviproject.entities;
+/*package com.viviproject.entities;
 
 import java.io.Serializable;
 
 public class EnGimicCustomerList implements Serializable{
 
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 1L;
 	private String drugStoreName;
 	private String drugStoreAddress;
@@ -66,3 +66,4 @@ public class EnGimicCustomerList implements Serializable{
 	
 	
 }
+*/

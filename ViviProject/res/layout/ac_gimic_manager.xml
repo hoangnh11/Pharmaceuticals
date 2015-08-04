@@ -38,24 +38,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
-
+				
                 <TextView
-                    android:id="@+id/tvGimicStatisticTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Từ 15/3/2015 - 15/4/2015"
+                    android:text="Từ "
+                    android:textColor="@color/TEXT_COLOR_SKYBLUE1"
+                    android:textSize="13sp" />
+                
+                <TextView
+                    android:id="@+id/tvGimicTimeFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="15/3/2015"
                     android:textColor="@color/TEXT_COLOR_SKYBLUE1"
                     android:textSize="13sp" />
 
                 <ImageView
-                    android:id="@+id/imgIconCalendar"
+                    android:id="@+id/imgIconCalendarFrom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/bg_img_calendar"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_calenda_new" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="- "
+                    android:textColor="@color/TEXT_COLOR_SKYBLUE1"
+                    android:textSize="13sp" />
+                
+                <TextView
+                    android:id="@+id/tvGimicTimeTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="15/4/2015"
+                    android:textColor="@color/TEXT_COLOR_SKYBLUE1"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/imgIconCalendarTo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/bg_img_calendar"
                     android:padding="5dp"
                     android:src="@drawable/ic_calenda_new" />
+                
+                <Button 
+	                android:id="@+id/btGimicSearchOK"
+	                android:layout_width="25dp"
+	                android:layout_height="25dp"
+	                android:gravity="center"
+	                android:layout_marginLeft="15dp"
+	                android:background="@drawable/bg_button_ok"
+	                android:textSize="13sp"
+	                android:textColor="@color/WHITE"
+	                android:text="@string/COMMON_OK_EN"/>
             </LinearLayout>
 
             <!-- layout list statistic -->
@@ -78,7 +124,12 @@
                     android:background="#FFF3D0"
                     android:orientation="horizontal"
                     android:weightSum="12" >
-
+					
+                    <View
+	                    android:layout_width="0.5dp"
+	                    android:layout_height="match_parent"
+	                    android:background="@color/BLACK" />
+                    
                     <TextView
                         android:id="@+id/tvStatisticSTTTitle"
                         android:layout_width="0dp"
@@ -138,6 +189,11 @@
                         android:textColor="@color/BLACK"
                         android:textSize="10sp"
                         android:textStyle="bold" />
+                    
+                    <View
+	                    android:layout_width="0.5dp"
+	                    android:layout_height="match_parent"
+	                    android:background="@color/BLACK" />
                 </LinearLayout>
 
                 <View
@@ -151,13 +207,13 @@
                     android:layout_height="wrap_content"
                     android:background="@color/WHITE" >
                 </ListView>
+                
             </LinearLayout>
         </LinearLayout>
- <!-- gimic number :END -->
+ 		<!-- gimic number :END -->
 
 
         <!-- gimic list -->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -174,141 +230,31 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/tvGimicCustomerTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Từ 15/3/2015 - 15/4/2015"
-                    android:textColor="@color/TEXT_COLOR_SKYBLUE1"
-                    android:textSize="13sp" />
-
-                <ImageView
-                    android:id="@+id/imgIconCalendarCusomer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/bg_img_calendar"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_calenda_new" />
-            </LinearLayout>
-
             <!-- layout list customer -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical" >
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/BLACK" />
-
-                <LinearLayout
-                    android:id="@+id/linListCustomerHeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#FFF3D0"
-                    android:orientation="horizontal"
-                    android:weightSum="18" >
-
-                    <TextView
-                        android:id="@+id/tvCustomerSTTTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="STT"
-                        android:textColor="@color/BLACK"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvCustomerDrugstoretTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5.5"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Nhà thuốc"
-                        android:textColor="@color/BLACK"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvCustomerPenTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Bút"
-                        android:textColor="@color/BLACK"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvCustomerMagazineTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.5"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Tạp chí"
-                        android:textColor="@color/BLACK"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvCustomerClockTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Đồng hồ"
-                        android:textColor="@color/BLACK"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvCustomerWaterBottleTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="Bình nước"
-                        android:textColor="@color/BLACK"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/BLACK" />
-
-                <ListView
-                    android:id="@+id/lvGimicCustomerList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/WHITE" >
-                </ListView>
-            </LinearLayout>
- <!-- layout list customer: END -->
-        </LinearLayout>
- <!-- gimic list :END -->
-    </LinearLayout>
- <!-- layout body: END -->
-"
-
+            <ScrollView 
+			    android:id="@+id/layout" 
+			    android:layout_height="match_parent"         
+			    android:scrollbars="horizontal|vertical" 
+			    android:layout_width="match_parent"     
+			    android:layout_marginTop="5dip"     
+			    android:scrollbarStyle="outsideInset"
+			    android:fillViewport="true"> 
+			
+			    <HorizontalScrollView 
+			        android:id="@+id/horizontalView" 
+			        android:layout_height="wrap_content"     
+			        android:scrollbars="horizontal|vertical"
+			        android:fillViewport="true"
+			        android:layout_width="match_parent">
+			
+			        <TableLayout
+			            android:id="@+id/tlGimicGridTable"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content" >
+   
+			        </TableLayout>
+			    </HorizontalScrollView>
+			</ScrollView>
+        </LinearLayout> <!-- gimic list :END -->
+    </LinearLayout> <!-- layout body: END -->
 </LinearLayout>

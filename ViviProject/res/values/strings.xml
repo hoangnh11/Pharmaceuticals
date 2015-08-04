@@ -8,6 +8,7 @@
     <string name="COMMON_SUCCESS">Thành công</string>
     <string name="COMMON_ERROR">Lỗi</string>
     <string name="COMMON_OK">Đồng ý</string>
+    <string name="COMMON_OK_EN">OK</string>
     <string name="COMMON_NO">Không</string>
     <string name="COMMON_SAVE">Lưu</string>
     <string name="COMMON_YES">Đồng ý</string>
@@ -271,7 +272,7 @@
 	<string name="TEXT_MAGAZIN">Tạp chí</string>
 	<string name="TEXT_CLOCK">Đồng hồ</string>
 	<string name="TEXT_WATER_BOTTLE">Bình nước</string>
-	
+	<string name="TEXT_STORE">Nhà thuốc</string>
 	<string name="EXAMPLE_DRUG_STORE">Nhà thuốc Quỳnh Lan</string>
 	<string name="EXAMPLE_DRUG_STORE_ADDRESS">số 32 Ngọc Khánh, Ba Đình, HN</string>
     <!-- ================================= Bao cao screen ================================ -->
