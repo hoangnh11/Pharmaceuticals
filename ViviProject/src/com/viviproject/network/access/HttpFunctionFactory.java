@@ -300,4 +300,13 @@ public final class HttpFunctionFactory {
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo refund(NetParameter[] netParameters, String token) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("refund");
+		String params = funcLogParams(netParameters);
+		Log.e("refund", "refund: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/refund?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
 }

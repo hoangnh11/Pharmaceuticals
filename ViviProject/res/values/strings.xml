@@ -203,6 +203,7 @@
     <string name="TRANG_PHUC_LINH">Tràng phục linh</string>
     <string name="TPL_PLUS_TEXT">TPL Plus</string>
     <string name="TPL_FAST_TEXT">TPL Fast</string>
+    <string name="CONTENT_NOT_BLANK">Nội dung không được để trống</string>
 
     <!-- ================================= Ban hang screen ================================ -->
 
