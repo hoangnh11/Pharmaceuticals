@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -107,12 +106,12 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
             	googleMap.getUiSettings().setCompassEnabled(true);
             	googleMap.getUiSettings().setRotateGesturesEnabled(true);
 //            	CameraPosition cameraPosition = new CameraPosition.Builder().target
-//            			(new LatLng(105.841372, 21.001294)).zoom(15).build();
+//            			(new LatLng(21.001349, 105.841372)).zoom(15).build();
 //            	googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-//            	LatLng latLng = new LatLng(105.853745, 21.001777);
+//            	LatLng latLng = new LatLng(21.001349, 105.841372);
 //             	// create marker
 //            	MarkerOptions marker = new MarkerOptions().position(latLng).title("Nhà thuốc Huy Hoàng")
-//            			.snippet("Số 2 Ngõ 67 Lê Thanh Nghị - Hai Bà Trưng - Hà Nội");            	 
+//            			.snippet("Số 2 Ngõ 67 Lê Thanh Nghị - Hai Bà Trưng - Hà Nội");
 //            	// Changing marker icon
 //            	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_red_point));            	 
 //            	// adding marker
@@ -155,8 +154,7 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
     
     
 	@Override
-	public void onClick(View v) {
-		Intent intent;
+	public void onClick(View v) {		
 		switch (v.getId()) {
 		case R.id.linBack:
 			finish();
