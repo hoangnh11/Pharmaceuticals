@@ -25,6 +25,20 @@ public class EnStores implements Serializable{
 	private String district;
 	private String vip;
 	private int total;
+	private String total_revenue;
+	
+	/**
+	 * @return the total_revenue
+	 */
+	public String getTotal_revenue() {
+		return total_revenue;
+	}
+	/**
+	 * @param total_revenue the total_revenue to set
+	 */
+	public void setTotal_revenue(String total_revenue) {
+		this.total_revenue = total_revenue;
+	}
 	/**
 	 * @return the store_id
 	 */

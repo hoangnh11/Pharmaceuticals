@@ -1,11 +1,15 @@
 package com.viviproject.customerline;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
-
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,6 +26,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.viviproject.R;
+import com.viviproject.entities.EnArrayStores;
+import com.viviproject.network.NetParameter;
+import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.GlobalParams;
 
 public class MapActivity extends Activity implements OnClickListener, LocationListener{
 	
@@ -34,11 +44,22 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
 	private static final long MIN_TIME = 400;
 	private static final float MIN_DISTANCE = 1000;
 	
+	private AppPreferences app;
+	private ProgressDialog progressDialog;
+	private GetStores getStores;
+	private EnArrayStores enStores;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map_layout);
+		app = new AppPreferences(this);
+		enStores = new EnArrayStores();	
+		
 		initLayout();
+		
+		getStores = new GetStores();
+		getStores.execute();
 	}
 
 	public void initLayout(){
@@ -63,7 +84,7 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
 		
 		try {
             // Loading map
-            initilizeMap(); 
+//            initilizeMap(); 
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,9 +107,9 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
             	googleMap.getUiSettings().setCompassEnabled(true);
             	googleMap.getUiSettings().setRotateGesturesEnabled(true);
             	CameraPosition cameraPosition = new CameraPosition.Builder().target
-            			(new LatLng(21.0243791, 105.8445168)).zoom(15).build();
+            			(new LatLng(105.841372, 21.001294)).zoom(15).build();
             	googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            	LatLng latLng = new LatLng(21.0243791, 105.8445168);
+            	LatLng latLng = new LatLng(105.853745, 21.001777);
              	// create marker
             	MarkerOptions marker = new MarkerOptions().position(latLng).title("Nhà thuốc Huy Hoàng")
             			.snippet("Số 2 Ngõ 67 Lê Thanh Nghị - Hai Bà Trưng - Hà Nội");            	 
@@ -109,14 +130,14 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
     @Override
     public void onLocationChanged(Location location) {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-     	// create marker
-    	MarkerOptions marker = new MarkerOptions().position
-    			(new LatLng(location.getLatitude(), location.getLongitude())).title("Nhà thuốc Tuyết Lan")
-    			.snippet("Số 1 Ngõ 9 Đào Tấn - Ba Đình - Hà Nội");            	 
-    	// Changing marker icon
-    	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_point));            	 
-    	// adding marker
-    	googleMap.addMarker(marker);
+//     	// create marker
+//    	MarkerOptions marker = new MarkerOptions().position
+//    			(new LatLng(location.getLatitude(), location.getLongitude())).title("Nhà thuốc Tuyết Lan")
+//    			.snippet("Số 1 Ngõ 9 Đào Tấn - Ba Đình - Hà Nội");
+//    	// Changing marker icon
+//    	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_point));            	 
+//    	// adding marker
+//    	googleMap.addMarker(marker);
     	
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
         googleMap.animateCamera(cameraUpdate);
@@ -143,6 +164,68 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
 			
 		default:
 			break;
+		}
+	}
+	
+	class GetStores extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(MapActivity.this);
+			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					getStores.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[1];
+				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(MapActivity.this));
+				try {
+					data = HttpNetServices.Instance.getStores(netParameter);
+					enStores = DataParser.getStores(data);
+					initilizeMap();
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {				
+				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores() != null
+						&& enStores.getStores().size() > 0) {					
+					for (int i = 0; i < enStores.getStores().size(); i++) {
+						if (enStores.getStores().get(i).getLatitude() != null && enStores.getStores().get(i).getLatitude() != ""
+								&& enStores.getStores().get(i).getLongitude() != null && enStores.getStores().get(i).getLongitude() != "") {
+
+			            	MarkerOptions marker = new MarkerOptions().position
+			            			(new LatLng(Double.parseDouble(enStores.getStores().get(i).getLatitude()),
+									Double.parseDouble(enStores.getStores().get(i).getLongitude())))
+									.title(enStores.getStores().get(i).getName())
+									.snippet(enStores.getStores().get(i).getAddress());
+			            	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_point)); 
+			            	googleMap.addMarker(marker);
+						}
+					}
+				} else {
+					app.alertErrorMessageString(getString(R.string.COMMON_ERROR_MSG),
+							getString(R.string.COMMON_MESSAGE), MapActivity.this);
+				}
+			}
 		}
 	}
 }

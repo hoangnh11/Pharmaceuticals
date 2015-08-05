@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tuyến thứ hai -"
+                android:text=""
                 android:textColor="@color/WHITE"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="4dp"
-                android:text="09/03/2015"
+                android:text=""
                 android:textColor="@color/WHITE"
                 android:textSize="12sp"
                 android:textStyle="bold" />
