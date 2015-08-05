@@ -615,10 +615,15 @@ public final class BuManagement {
 	 *         device density
 	 */
 	public static float convertDpToPixel(float dp, Context context) {
-		Resources resources = context.getResources();
-		DisplayMetrics metrics = resources.getDisplayMetrics();
-		float px = dp * (metrics.densityDpi / 160f);
-		return px;
+		try{
+			Resources resources = context.getResources();
+			DisplayMetrics metrics = resources.getDisplayMetrics();
+			float px = dp * (metrics.densityDpi / 160f);
+			return px;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	public static int getWithDementionDevice(Activity context) {

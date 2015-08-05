@@ -2,6 +2,7 @@ package com.viviproject.gimic;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import retrofit.Callback;
@@ -9,6 +10,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -18,6 +20,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,6 +45,7 @@ import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.StringConverter;
 import com.viviproject.ultilities.StringUtils;
 
+@SuppressLint("SimpleDateFormat")
 public class AcGimicMangager extends FragmentActivity implements OnClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
@@ -56,18 +60,21 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	private AdapterGimicStatistic adapterGimicStatistic;
 	
 	private CaldroidListener listener;
-	private SimpleDateFormat formatter;
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	private CaldroidFragment dialogCaldroidFragment;
 	private static RestAdapter restAdapter;
 	private ProgressDialog dialog;
 	private String dateFrom = "04/07/2015";
 	private String dateTo = "04/08/2015";
 	private int page = 0, perPage = 10;
+	private int paddingTitle = 5;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_gimic_manager);
+		getCurrentDate();
+		paddingTitle = (int) BuManagement.convertDpToPixel(5, getApplicationContext());
 		initLayout();
 	}
 
@@ -112,10 +119,36 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		refreshData(dateFrom, dateTo);
 	}
 
+	/**
+	 * get current date and update to from field and to field
+	 */
+	public void getCurrentDate(){
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date toDate = calendar.getTime();
+			dateTo = formatter.format(toDate);
+			
+			calendar.add(Calendar.MONTH, -1);
+			Date fromDate = calendar.getTime();
+			dateFrom = formatter.format(fromDate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * refresh data
+	 * @param from
+	 * @param to
+	 */
 	private void refreshData(String from, String to) {
 		getGimicManagerFromServer(from, to);
 	}
 
+	/**
+	 * update data to screen
+	 * @param enGimicManager
+	 */
 	protected void updateDataScreen(EnGimicManager enGimicManager) {
 		if(null == enGimicManager ){
 			return;
@@ -131,19 +164,23 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			
 			//header
 			TableRow tbRow = new TableRow(AcGimicMangager.this);
+			tbRow.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,
+	                LayoutParams.WRAP_CONTENT));
 			tbRow.setGravity(Gravity.CENTER);
 			tbRow.setBackgroundColor(getResources().getColor(R.color.PINK_LIGHT));
 			
 			TextView tvSTT = new TextView(this);
 			tvSTT.setText(getResources().getString(R.string.INDEX));
-			tvSTT.setPadding(5, 5, 5, 5);
+			tvSTT.setPadding(paddingTitle, paddingTitle, paddingTitle, paddingTitle);
 			tvSTT.setTypeface(Typeface.DEFAULT_BOLD);
 			tvSTT.setTextSize(12);
 			tbRow.addView(tvSTT);
 			
 			TextView tvStoreTitle = new TextView(this);
 			tvStoreTitle.setText(getResources().getString(R.string.TEXT_STORE));
-			tvStoreTitle.setPadding(5, 5, 5, 5);
+			tvStoreTitle.setPadding(paddingTitle, paddingTitle, paddingTitle, paddingTitle);
+			tvStoreTitle.setMinWidth((int) BuManagement.convertDpToPixel(100, getApplicationContext()));
+			tvStoreTitle.setGravity(Gravity.CENTER);
 			tvStoreTitle.setTypeface(Typeface.DEFAULT_BOLD);
 			tvStoreTitle.setTextSize(12);
 			tbRow.addView(tvStoreTitle);
@@ -151,7 +188,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			for (int i = 0; i < listGimicItems.size(); i++) {
 				TextView tvItemTitle = new TextView(this);
 				tvItemTitle.setText(listGimicItems.get(i).getName());
-				tvItemTitle.setPadding(5, 5, 5, 5);
+				tvItemTitle.setPadding(paddingTitle, paddingTitle, paddingTitle, paddingTitle);
 				tvItemTitle.setTypeface(Typeface.DEFAULT_BOLD);
 				tvItemTitle.setTextSize(12);
 				tbRow.addView(tvItemTitle);
@@ -162,6 +199,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			ArrayList<EnStoreItem> listStoreItem = enGimicManager.getStores();
 			for(int i = 0; i < listStoreItem.size(); i++){
 				TableRow tbRowItem = new TableRow(AcGimicMangager.this);
+				tbRowItem.setGravity(Gravity.CENTER_VERTICAL);
 				
 				TextView tvSTTRow = new TextView(this);
 				tvSTTRow.setText(String.valueOf(i+1));
@@ -234,9 +272,8 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			break;
 		
 		case R.id.linRefresh:
-			dateFrom = "04/07/2015";
+			getCurrentDate();
 			tvGimicTimeFrom.setText(dateFrom);
-			dateTo = "04/08/2015";
 			tvGimicTimeTo.setText(dateTo);
 			refreshData(dateFrom, dateTo);
 			break;
@@ -252,7 +289,6 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	
 	@SuppressLint("SimpleDateFormat")
 	private void showCalender(final int viewID) {
-		formatter = new SimpleDateFormat("dd/MM/yyyy");
 		listener = new CaldroidListener() {
 
 			@Override
