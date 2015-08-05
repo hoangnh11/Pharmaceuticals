@@ -106,17 +106,17 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
             	googleMap.setMyLocationEnabled(true);
             	googleMap.getUiSettings().setCompassEnabled(true);
             	googleMap.getUiSettings().setRotateGesturesEnabled(true);
-            	CameraPosition cameraPosition = new CameraPosition.Builder().target
-            			(new LatLng(105.841372, 21.001294)).zoom(15).build();
-            	googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            	LatLng latLng = new LatLng(105.853745, 21.001777);
-             	// create marker
-            	MarkerOptions marker = new MarkerOptions().position(latLng).title("Nhà thuốc Huy Hoàng")
-            			.snippet("Số 2 Ngõ 67 Lê Thanh Nghị - Hai Bà Trưng - Hà Nội");            	 
-            	// Changing marker icon
-            	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_red_point));            	 
-            	// adding marker
-            	googleMap.addMarker(marker);
+//            	CameraPosition cameraPosition = new CameraPosition.Builder().target
+//            			(new LatLng(105.841372, 21.001294)).zoom(15).build();
+//            	googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//            	LatLng latLng = new LatLng(105.853745, 21.001777);
+//             	// create marker
+//            	MarkerOptions marker = new MarkerOptions().position(latLng).title("Nhà thuốc Huy Hoàng")
+//            			.snippet("Số 2 Ngõ 67 Lê Thanh Nghị - Hai Bà Trưng - Hà Nội");            	 
+//            	// Changing marker icon
+//            	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_red_point));            	 
+//            	// adding marker
+//            	googleMap.addMarker(marker);
 			}
         }
     }
