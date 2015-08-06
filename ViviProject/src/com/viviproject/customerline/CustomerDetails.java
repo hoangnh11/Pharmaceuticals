@@ -1,24 +1,36 @@
 package com.viviproject.customerline;
 
+import java.io.IOException;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.viviproject.R;
 import com.viviproject.adapter.SalerAdapter;
 import com.viviproject.entities.EnCustomer;
 import com.viviproject.entities.EnStores;
+import com.viviproject.entities.UserInformation;
 import com.viviproject.ultilities.AppPreferences;
+import com.viviproject.ultilities.DataStorage;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.StringUtils;
 
 public class CustomerDetails extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
@@ -28,6 +40,7 @@ public class CustomerDetails extends Activity implements OnClickListener{
 	private LinearLayout linSaler;
 	private ListView lvSaler;
 	private TextView tvNameStore, tvCode, tvPhoneStore, tvAddressStore, tvActive, tvVipStore;
+	private ImageView imgAvata;
 	
 	private SalerAdapter salerAdapter;
 	private ArrayList<EnCustomer> listSaler;
@@ -37,6 +50,9 @@ public class CustomerDetails extends Activity implements OnClickListener{
 	private ScrollView scrollView;
 	private Bundle bundle;
 	private EnStores store;
+	private UserInformation userInformation;
+	private ImageLoader imageLoader;
+	private DisplayImageOptions options;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -48,6 +64,34 @@ public class CustomerDetails extends Activity implements OnClickListener{
 		store = (EnStores) bundle.getSerializable(GlobalParams.STORES);
 		listSaler = new ArrayList<EnCustomer>();
 		enCustomer = new EnCustomer();
+		userInformation = new UserInformation();
+		
+		options = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.ic_stub)
+		.showImageForEmptyUri(R.drawable.ic_empty)
+		.showImageOnFail(R.drawable.ic_error).cacheInMemory(true)
+		.cacheOnDisk(true).considerExifParams(true)
+		.bitmapConfig(Bitmap.Config.RGB_565).build();
+
+		ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(
+				CustomerDetails.this).threadPriority(Thread.NORM_PRIORITY - 2)
+				.denyCacheImageMultipleSizesInMemory()
+				.diskCacheFileNameGenerator(new Md5FileNameGenerator())
+				.tasksProcessingOrder(QueueProcessingType.LIFO).build();
+		imageLoader = ImageLoader.getInstance();
+		imageLoader.init(imageLoaderConfiguration);
+		
+		try {
+			userInformation = DataStorage.getInstance().read_UserInformation(this);					
+		} catch (StreamCorruptedException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {						
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		initLayout();
 		
@@ -56,7 +100,7 @@ public class CustomerDetails extends Activity implements OnClickListener{
 			tvCode.setText(store.getCode());
 			tvPhoneStore.setText(store.getPhone());
 			tvAddressStore.setText(store.getAddress());
-			tvActive.setText(store.getActive());
+			tvActive.setText(store.getApprove());
 			tvVipStore.setText(store.getVip());
 		}		
 	}
@@ -104,6 +148,13 @@ public class CustomerDetails extends Activity implements OnClickListener{
 		linSaler = (LinearLayout) findViewById(R.id.linSaler);
 		linSaler.setOnClickListener(this);
 		lvSaler = (ListView) findViewById(R.id.lvSaler);
+		imgAvata = (ImageView) findViewById(R.id.imgAvata);
+		
+		if(StringUtils.isNotBlank(userInformation.getAvatar())){
+			imageLoader.displayImage(userInformation.getAvatar(), imgAvata, options);
+		} else {
+			imgAvata.setImageResource(R.drawable.icon_avatar_blue);
+		}
 		
 		for (int i = 0; i < 2; i++) {
 			enCustomer = new EnCustomer();

@@ -42,6 +42,7 @@ import com.viviproject.projection.AcPromotions;
 import com.viviproject.reports.AcProfitFollowCustomer;
 import com.viviproject.reports.AcSalesChart;
 import com.viviproject.reports.AcTotalSales;
+import com.viviproject.sales.Sales;
 import com.viviproject.service.TrackingLocationService;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.DataStorage;
@@ -294,7 +295,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linSales:
-			
+			intent = new Intent(this, Sales.class);
+			startActivity(intent);
 			break;
 			
 		case R.id.linDeliver:		

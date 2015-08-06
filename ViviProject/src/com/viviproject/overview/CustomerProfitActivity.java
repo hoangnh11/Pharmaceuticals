@@ -94,6 +94,15 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 			lvCustomer.setSelectionAfterHeaderView();
 			break;
 			
+		case R.id.linRefresh:
+			enStores = new EnArrayStores();	
+			arrEnStores = new ArrayList<EnStores>();
+			qtyPage = 1;
+			qtyPerPage = 10;
+			getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+			getStores.execute();
+			break;
+			
 		default:
 			break;
 		}
@@ -143,7 +152,7 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 		@Override
 		protected void onPostExecute(String result) {
 			progressDialog.dismiss();
-			if (!isCancelled()) {				
+			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
 					arrEnStores.addAll(enStores.getStores());
 					customerAdapter = new CustomerAdapter(CustomerProfitActivity.this, arrEnStores);

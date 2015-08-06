@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/ROUND"
                         android:textColor="@color/BLACK"
-                        android:textSize="14sp"
+                        android:textSize="11sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -107,7 +107,7 @@
                         android:paddingLeft="4dp"
                         android:text="T2"
                         android:textColor="@color/GRAY88"
-                        android:textSize="14sp" />
+                        android:textSize="11sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/VISIT_TIME"
                         android:textColor="@color/BLACK"
-                        android:textSize="14sp"
+                        android:textSize="11sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -132,7 +132,7 @@
                         android:paddingLeft="4dp"
                         android:text="1/0"
                         android:textColor="@color/GRAY88"
-                        android:textSize="14sp" />
+                        android:textSize="11sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -170,7 +170,7 @@
                 android:paddingLeft="4dp"
                 android:text="625m"
                 android:textColor="@color/GRAY88"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:visibility="visible" />
         </RelativeLayout>
     </LinearLayout>

@@ -113,6 +113,10 @@
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name="com.viviproject.sales.Sales"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name="com.viviproject.projection.AcProducts"
             android:configChanges="orientation|screenSize"
             android:theme="@style/StyledIndicatorsBlue"

@@ -1,5 +1,7 @@
 package com.viviproject.adapter;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,16 +12,15 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemListCustomer;
-import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 
 public class ListCustomerAdapter extends BaseAdapter{
-	private EnArrayStores _data;
+	private ArrayList<EnStores> _data;
     private EnStores items;
     private Activity mActivity;
     private OnClickListener _onItemClick;
 	
-    public ListCustomerAdapter(Activity activity, EnArrayStores data) 
+    public ListCustomerAdapter(Activity activity, ArrayList<EnStores> data) 
 	{
 		 mActivity = activity;
         _data = data;
@@ -28,7 +29,7 @@ public class ListCustomerAdapter extends BaseAdapter{
     @Override
 	public int getCount()
 	{
-		 return (_data == null ? 0 : _data.getStores().size());
+		 return (_data == null ? 0 : _data.size());
 	}
 
 	@Override
@@ -62,6 +63,7 @@ public class ListCustomerAdapter extends BaseAdapter{
             holder.tvCodeName = (TextView) convertView.findViewById(R.id.tvCodeName);
             holder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
             holder.tvRound = (TextView) convertView.findViewById(R.id.tvRound);
+            holder.tvVisitTime = (TextView) convertView.findViewById(R.id.tvVisitTime);
           
             convertView.setTag(holder);
         }
@@ -70,7 +72,7 @@ public class ListCustomerAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
         
-        items = _data.getStores().get(position);
+        items = _data.get(position);
         
         if (items != null) {        
         	holder.tvId.setText(items.getId());
@@ -78,6 +80,7 @@ public class ListCustomerAdapter extends BaseAdapter{
         	holder.tvCodeName.setText(items.getCode());
         	holder.tvAddress.setText(items.getAddress());
         	holder.tvRound.setText(items.getRegion_id());
+        	holder.tvVisitTime.setText(items.getActive());
         	if (items.getId().equals("2")) {
 				holder.imgLocationGray.setVisibility(View.VISIBLE);
         		holder.tvLocation.setVisibility(View.VISIBLE);
