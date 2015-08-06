@@ -27,10 +27,11 @@
 	</FrameLayout>
 	
 	<TextView 
+	    android:id="@+id/tvVideoName"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:gravity="center"
 	    android:textSize="13sp"
 	    android:textColor="@color/BLACK"
-	    android:text="Phần thi mis Thái Minh - phòng chuyên môn"/>
+	    android:text="@string/BLANK"/>
 </LinearLayout>

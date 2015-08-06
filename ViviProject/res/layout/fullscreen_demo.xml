@@ -34,24 +34,29 @@
       android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvVideoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.Small"
-        android:text="Phần thi mis Thái Minh - phòng chuyên môn"/>
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textStyle="bold"
+        android:textColor="@color/BLACK"
+        android:text="@string/BLANK"/>
 
     <CheckBox
         android:id="@+id/landscape_fullscreen_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/landscape_fullscreen"/>
+        android:text="@string/landscape_fullscreen"
+        android:visibility="invisible"/>
 
     <Button
         android:id="@+id/fullscreen_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/enter_fullscreen"/>
+        android:text="@string/enter_fullscreen"
+        android:visibility="invisible"/>
 
   </LinearLayout>
 

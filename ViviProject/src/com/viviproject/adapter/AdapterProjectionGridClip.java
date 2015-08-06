@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -23,15 +24,16 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.viviproject.R;
+import com.viviproject.entities.EnVideos;
 
 public class AdapterProjectionGridClip extends BaseAdapter {
-	private static ArrayList<String> IMAGE_URLS = new ArrayList<String>();
+	private static ArrayList<EnVideos> IMAGE_URLS = new ArrayList<EnVideos>();
 	private LayoutInflater inflater;
 	private DisplayImageOptions options;
 	protected ImageLoader imageLoader;
 	private Context context;
 	
-	public AdapterProjectionGridClip(Context context, ArrayList<String> listUrl) {
+	public AdapterProjectionGridClip(Context context, ArrayList<EnVideos> listUrl) {
 		inflater = LayoutInflater.from(context);
 		this.context = context;
 		
@@ -64,7 +66,7 @@ public class AdapterProjectionGridClip extends BaseAdapter {
 	}
 
 	@Override
-	public String getItem(int position) {
+	public EnVideos getItem(int position) {
 		if(position < 0 || null == IMAGE_URLS || getCount() == 0){
 			return null;
 		}
@@ -72,18 +74,28 @@ public class AdapterProjectionGridClip extends BaseAdapter {
 		return IMAGE_URLS.get(position);
 	}
 
+	public void setListVideo(ArrayList<EnVideos> list){
+		for (int i = 0; i < IMAGE_URLS.size(); i++) {
+			IMAGE_URLS.remove(i);
+		}
+		
+		IMAGE_URLS = list;
+	}
+	
 	@Override
 	public long getItemId(int position) {
 		return 0;
 	}
 
-	public ArrayList<String> getAllList(){
+	public ArrayList<EnVideos> getAllList(){
 		return IMAGE_URLS;
 	}
 	
 	static class ViewHolder {
 		ImageView imageView;
 		ProgressBar progressBar;
+		TextView tvVideoName;
+		
 	}
 	
 	@Override
@@ -96,35 +108,40 @@ public class AdapterProjectionGridClip extends BaseAdapter {
 			assert view != null;
 			holder.imageView = (ImageView) view.findViewById(R.id.product_image);
 			holder.progressBar = (ProgressBar) view.findViewById(R.id.product_progress);
+			holder.tvVideoName = (TextView) view.findViewById(R.id.tvVideoName);
 			view.setTag(holder);
 		} else {
 			holder = (ViewHolder) view.getTag();
 		}
 		
-		imageLoader.displayImage(normalnazationUrl(getItem(position)), holder.imageView, options, new SimpleImageLoadingListener() {
-			@Override
-			public void onLoadingStarted(String imageUri, View view) {
-				holder.progressBar.setProgress(0);
-				holder.progressBar.setVisibility(View.VISIBLE);
-			}
-
-			@Override
-			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-				holder.progressBar.setVisibility(View.GONE);
-			}
-
+		EnVideos item = getItem(position);
+		if(null != item){
+			holder.tvVideoName.setText(item.getPreview_text());
 			
-			@Override
-			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-				holder.progressBar.setVisibility(View.GONE);
-			}
-		}, new ImageLoadingProgressListener() {
-			@Override
-			public void onProgressUpdate(String imageUri, View view, int current, int total) {
-				holder.progressBar.setProgress(Math.round(100.0f * current / total));
-			}
-		});
-		
+			imageLoader.displayImage(normalnazationUrl(item.getVideo_url()), holder.imageView, options, new SimpleImageLoadingListener() {
+				@Override
+				public void onLoadingStarted(String imageUri, View view) {
+					holder.progressBar.setProgress(0);
+					holder.progressBar.setVisibility(View.VISIBLE);
+				}
+	
+				@Override
+				public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+					holder.progressBar.setVisibility(View.GONE);
+				}
+	
+				
+				@Override
+				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+					holder.progressBar.setVisibility(View.GONE);
+				}
+			}, new ImageLoadingProgressListener() {
+				@Override
+				public void onProgressUpdate(String imageUri, View view, int current, int total) {
+					holder.progressBar.setProgress(Math.round(100.0f * current / total));
+				}
+			});
+		}
 		return view;
 	}
 	
@@ -132,13 +149,13 @@ public class AdapterProjectionGridClip extends BaseAdapter {
 		String url = "";
 		String partenUrl = "%s/default.jpg";
 		try {
-			String pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
+			String pattern = "https?:\\/\\/(?:[0-9A-Z-]+\\.)?(?:youtu\\.be\\/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|<\\/a>))[?=&+%\\w]*";
 		
-		    Pattern compiledPattern = Pattern.compile(pattern);
+		    Pattern compiledPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
 		    Matcher matcher = compiledPattern.matcher(youbeURL);
 		
 		    if(matcher.find()){
-		        String strID =  matcher.group();
+		        String strID =  matcher.group(1);
 		        url = "http://img.youtube.com/vi/" + strID + "/default.jpg";
 				Log.e("thindv", "url:" + url);
 		    }

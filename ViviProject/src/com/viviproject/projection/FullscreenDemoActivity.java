@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
@@ -54,9 +55,11 @@ public class FullscreenDemoActivity extends YouTubeFailureRecoveryActivity imple
   private YouTubePlayer player;
   private Button fullscreenButton;
   private CompoundButton checkbox;
+  private TextView tvVideoName;
+  
   private View otherViews;
   private String videoID;
-  
+  private String videoName;
   private boolean fullscreen;
 
   @Override
@@ -64,21 +67,26 @@ public class FullscreenDemoActivity extends YouTubeFailureRecoveryActivity imple
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.fullscreen_demo);
-    baseLayout = (LinearLayout) findViewById(R.id.layout);
-    playerView = (YouTubePlayerView) findViewById(R.id.player);
-    fullscreenButton = (Button) findViewById(R.id.fullscreen_button);
-    checkbox = (CompoundButton) findViewById(R.id.landscape_fullscreen_checkbox);
-    otherViews = findViewById(R.id.other_views);
-    
     Bundle bd = getIntent().getExtras();
     if(bd.containsKey("VIDEO_ID")){
     	videoID = bd.getString("VIDEO_ID");
     }
     
+    if(bd.containsKey("VIDEO_NAME")){
+    	videoName = bd.getString("VIDEO_NAME");
+    }
+    
+    baseLayout = (LinearLayout) findViewById(R.id.layout);
+    playerView = (YouTubePlayerView) findViewById(R.id.player);
+    fullscreenButton = (Button) findViewById(R.id.fullscreen_button);
+    checkbox = (CompoundButton) findViewById(R.id.landscape_fullscreen_checkbox);
+    otherViews = findViewById(R.id.other_views);
+    tvVideoName = (TextView) findViewById(R.id.tvVideoName);
+    tvVideoName.setText("" + videoName);
+    
     checkbox.setOnCheckedChangeListener(this);
     // You can use your own button to switch to fullscreen too
     fullscreenButton.setOnClickListener(this);
-
     playerView.initialize(DeveloperKey.DEVELOPER_KEY, this);
 
     doLayout();

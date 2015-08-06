@@ -24,6 +24,7 @@ import com.viviproject.entities.EnNews;
 import com.viviproject.entities.EnNewsList;
 import com.viviproject.entities.EnRegions;
 import com.viviproject.entities.EnReportImageResponse;
+import com.viviproject.entities.EnVideosResponse;
 import com.viviproject.entities.Products;
 import com.viviproject.entities.ResponseCreateGimics;
 import com.viviproject.entities.ResponseCreateSales;
@@ -350,6 +351,23 @@ public final class DataParser {
 			return null;
 		}
 	}
+	
+	public static EnVideosResponse getEnVideosResponse(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnVideosResponse>() {}.getType();
+
+			EnVideosResponse details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
 	public static EnGimicManager getEnGimicManager(String jsonData) throws JsonSyntaxException {
 		if (StringUtils.isBlank(jsonData)) {
 			return null;

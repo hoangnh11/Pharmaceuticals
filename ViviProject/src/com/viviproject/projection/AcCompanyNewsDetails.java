@@ -88,6 +88,7 @@ public class AcCompanyNewsDetails extends Activity implements OnClickListener {
 		webDetails.setWebViewClient(new NewsWebViewClient());
 		webDetails.getSettings().setJavaScriptEnabled(true);
 		webDetails.getSettings().setSupportZoom(true);
+		webDetails.getSettings().setBuiltInZoomControls(true);
 		webDetails.getSettings().setLoadWithOverviewMode(true);
 		// these mode is default of android
 		webDetails.getSettings().setUseWideViewPort(false);
