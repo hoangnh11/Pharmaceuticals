@@ -1,8 +1,9 @@
 package com.viviproject.adapter;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -10,16 +11,14 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemCustomer;
-import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 
 public class CustomerAdapter extends BaseAdapter{
-	private EnArrayStores _data;
+	private ArrayList<EnStores> _data;
     private EnStores items;
     private Activity mActivity;
-    private OnClickListener _onItemClick;
 	
-    public CustomerAdapter(Activity activity, EnArrayStores data) 
+    public CustomerAdapter(Activity activity, ArrayList<EnStores> data) 
 	{
 		 mActivity = activity;
         _data = data;
@@ -28,7 +27,7 @@ public class CustomerAdapter extends BaseAdapter{
     @Override
 	public int getCount()
 	{
-		 return (_data == null ? 0 : _data.getStores().size());
+		 return (_data == null ? 0 : _data.size());
 	}
 
 	@Override
@@ -50,7 +49,6 @@ public class CustomerAdapter extends BaseAdapter{
         if (convertView == null)
         {
             convertView = new ItemCustomer(mActivity.getApplicationContext());
-//            ((ItemCustomer) convertView).setOnThisItemClickHandler(onItemClickHandler);
            
             holder = new ViewHolder();
          
@@ -73,7 +71,7 @@ public class CustomerAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
         
-        items = _data.getStores().get(position);
+        items = _data.get(position);
         
         if (items != null) {        
         	holder.tvId.setText(items.getId());
@@ -104,20 +102,4 @@ public class CustomerAdapter extends BaseAdapter{
         TextView tvId, tvNamePharmacy, tvCodeName, tvAddress, tvRound, tvProfit, tvVisitTime, tvLateOrder, tvLocation;
         ImageView imgLocationBlue, imgLocationGray;
     }
-	
-	OnClickListener onItemClickHandler = new OnClickListener() 
-	{
-
-        @Override
-        public void onClick(View v)
-        {
-            if (_onItemClick != null)
-                _onItemClick.onClick(v);
-        }
-    };
-    
-    public void setOnItemClickHandler(OnClickListener itemClick)
-    {
-        _onItemClick = itemClick;
-    } 
 }
