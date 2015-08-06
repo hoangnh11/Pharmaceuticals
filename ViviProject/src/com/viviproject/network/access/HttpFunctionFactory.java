@@ -309,4 +309,13 @@ public final class HttpFunctionFactory {
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo storesNoSale(NetParameter[] netParameters) {
+		HttpFunctionInfo functionInfo = createGetMethod("storesNoSale");
+		String params = funcLogParams(netParameters);
+		Log.e("storesNoSale", "storesNoSale: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/no_sale?" + params);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
 }

@@ -206,4 +206,10 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.refund(netParameters, token);
 		return executer(functionInfo);
 	}
+	
+	@Override
+	public String storesNoSale(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.storesNoSale(netParameters);
+		return executer(functionInfo);
+	}
 }

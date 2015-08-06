@@ -110,10 +110,12 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[1];
+				NetParameter[] netParameter = new NetParameter[3];
 				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(CustomerProfitActivity.this));
+				netParameter[1] = new NetParameter("page", "");
+				netParameter[2] = new NetParameter("per_page", "");
 				try {
-					data = HttpNetServices.Instance.getStores(netParameter);					
+					data = HttpNetServices.Instance.storesNoSale(netParameter);				
 					enStores = DataParser.getStores(data);
 					return GlobalParams.TRUE;
 				} catch (Exception e) {

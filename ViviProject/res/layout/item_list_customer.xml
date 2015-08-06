@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ROUND"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -98,7 +98,7 @@
                     android:paddingLeft="4dp"
                     android:text="T2"
                     android:textColor="@color/GRAY88"
-                    android:textSize="14sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/LIST_AGO_MONTH"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -121,7 +121,7 @@
                     android:paddingLeft="4dp"
                     android:text="0"
                     android:textColor="@color/GRAY88"
-                    android:textSize="14sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -141,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/VISIT_TIME"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -151,7 +151,7 @@
                     android:paddingLeft="4dp"
                     android:text="1/0"
                     android:textColor="@color/GRAY88"
-                    android:textSize="14sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -164,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/LAST_ORDER"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -174,7 +174,7 @@
                     android:paddingLeft="4dp"
                     android:text=""
                     android:textColor="@color/GRAY88"
-                    android:textSize="14sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
         </LinearLayout>
 

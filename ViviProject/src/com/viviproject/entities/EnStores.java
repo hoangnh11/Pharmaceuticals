@@ -1,6 +1,7 @@
 package com.viviproject.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class EnStores implements Serializable{
 
@@ -26,7 +27,111 @@ public class EnStores implements Serializable{
 	private String vip;
 	private int total;
 	private String total_revenue;
+	private String approve;
+	private String latest_order;
+	private String last_month_revenue;
+	private ArrayList<EnOwner> owners;
+	private ArrayList<EnEmployee> employees;
+	private ArrayList<String> lines;
+	private ArrayList<EnLatestFiveOrder> latest_5_orders;
+	private ArrayList<EnLatestThreeOrder> latest_3_months;
 	
+	/**
+	 * @return the latest_3_months
+	 */
+	public ArrayList<EnLatestThreeOrder> getLatest_3_months() {
+		return latest_3_months;
+	}
+	/**
+	 * @param latest_3_months the latest_3_months to set
+	 */
+	public void setLatest_3_months(ArrayList<EnLatestThreeOrder> latest_3_months) {
+		this.latest_3_months = latest_3_months;
+	}
+	/**
+	 * @return the latest_5_orders
+	 */
+	public ArrayList<EnLatestFiveOrder> getLatest_5_orders() {
+		return latest_5_orders;
+	}
+	/**
+	 * @param latest_5_orders the latest_5_orders to set
+	 */
+	public void setLatest_5_orders(ArrayList<EnLatestFiveOrder> latest_5_orders) {
+		this.latest_5_orders = latest_5_orders;
+	}
+	/**
+	 * @return the lines
+	 */
+	public ArrayList<String> getLines() {
+		return lines;
+	}
+	/**
+	 * @param lines the lines to set
+	 */
+	public void setLines(ArrayList<String> lines) {
+		this.lines = lines;
+	}
+	/**
+	 * @return the employees
+	 */
+	public ArrayList<EnEmployee> getEmployees() {
+		return employees;
+	}
+	/**
+	 * @param employees the employees to set
+	 */
+	public void setEmployees(ArrayList<EnEmployee> employees) {
+		this.employees = employees;
+	}
+	/**
+	 * @return the owners
+	 */
+	public ArrayList<EnOwner> getOwners() {
+		return owners;
+	}
+	/**
+	 * @param owners the owners to set
+	 */
+	public void setOwners(ArrayList<EnOwner> owners) {
+		this.owners = owners;
+	}
+	/**
+	 * @return the approve
+	 */
+	public String getApprove() {
+		return approve;
+	}
+	/**
+	 * @param approve the approve to set
+	 */
+	public void setApprove(String approve) {
+		this.approve = approve;
+	}
+	/**
+	 * @return the latest_order
+	 */
+	public String getLatest_order() {
+		return latest_order;
+	}
+	/**
+	 * @param latest_order the latest_order to set
+	 */
+	public void setLatest_order(String latest_order) {
+		this.latest_order = latest_order;
+	}
+	/**
+	 * @return the last_month_revenue
+	 */
+	public String getLast_month_revenue() {
+		return last_month_revenue;
+	}
+	/**
+	 * @param last_month_revenue the last_month_revenue to set
+	 */
+	public void setLast_month_revenue(String last_month_revenue) {
+		this.last_month_revenue = last_month_revenue;
+	}
 	/**
 	 * @return the total_revenue
 	 */

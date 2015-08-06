@@ -62,7 +62,10 @@ public class CustomerAdapter extends BaseAdapter{
             holder.tvCodeName = (TextView) convertView.findViewById(R.id.tvCodeName);
             holder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
             holder.tvRound = (TextView) convertView.findViewById(R.id.tvRound);
-          
+            holder.tvVisitTime = (TextView) convertView.findViewById(R.id.tvVisitTime);
+            holder.tvProfit = (TextView) convertView.findViewById(R.id.tvProfit);
+            holder.tvLateOrder = (TextView) convertView.findViewById(R.id.tvLateOrder);
+            
             convertView.setTag(holder);
         }
         else
@@ -78,6 +81,9 @@ public class CustomerAdapter extends BaseAdapter{
         	holder.tvCodeName.setText(items.getCode());
         	holder.tvAddress.setText(items.getAddress());
         	holder.tvRound.setText(items.getRegion_id());
+        	holder.tvVisitTime.setText(items.getActive());
+        	holder.tvProfit.setText(items.getLast_month_revenue());
+        	holder.tvLateOrder.setText(items.getLatest_order());
         	if (items.getId().equals("2")) {
 				holder.imgLocationGray.setVisibility(View.VISIBLE);
         		holder.tvLocation.setVisibility(View.VISIBLE);
