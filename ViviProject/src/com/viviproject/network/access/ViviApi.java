@@ -2,6 +2,7 @@ package com.viviproject.network.access;
 
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 import com.viviproject.entities.EnCoverReport;
@@ -28,6 +29,10 @@ public interface ViviApi {
 	@GET("/v1/presentations/news")
 	void getPresentationsNews(@Query("access-token") String token, @Query("page") int page,
 	          @Query("per_page") int per_page, Callback<String> callback);
+	
+	@GET("/v1/presentations/news/{id_bai_viet}")
+	void getPresentationsNewsDetail(@Path("id_bai_viet") String id, @Query("access-token") String token,
+			Callback<String> callback);
 	
 	@GET("/v1/gimics/report")
 	void getGimicManager(@Query("access-token") String token, @Query("from") String from, @Query("to") String to,

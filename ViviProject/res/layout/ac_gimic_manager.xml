@@ -231,8 +231,8 @@
                 android:textStyle="bold" />
 
             <!-- layout list customer -->
-            <ScrollView 
-			    android:id="@+id/layout" 
+            <com.viviproject.core.ScrollViewExt 
+			    android:id="@+id/scrlGimicCustomer" 
 			    android:layout_height="match_parent"         
 			    android:scrollbars="none" 
 			    android:layout_width="match_parent"     
@@ -255,7 +255,7 @@
    
 			        </TableLayout>
 			    </HorizontalScrollView>
-			</ScrollView>
+			</com.viviproject.core.ScrollViewExt>
         </LinearLayout> <!-- gimic list :END -->
     </LinearLayout> <!-- layout body: END -->
 </LinearLayout>

@@ -1,30 +1,28 @@
 package com.viviproject.projection;
 
-import java.util.ArrayList;
-
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.internal.en;
 import com.viviproject.R;
-import com.viviproject.adapter.AdapterCompanyNews;
+import com.viviproject.entities.EnCompanyNewsDetails;
+import com.viviproject.entities.EnCompanyNewsDetailsRespone;
 import com.viviproject.entities.EnNews;
-import com.viviproject.entities.EnNewsList;
 import com.viviproject.network.access.HttpFunctionFactory;
 import com.viviproject.network.access.ViviApi;
 import com.viviproject.ultilities.BuManagement;
@@ -32,31 +30,35 @@ import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.StringConverter;
 
-public class AcCompany  extends Activity implements OnClickListener, OnItemClickListener{
+@SuppressLint("SetJavaScriptEnabled")
+public class AcCompanyNewsDetails extends Activity implements OnClickListener {
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
-	private ListView lvNews;
+	private TextView tvTitle, tvPreviewText;
+	private WebView webDetails;
 	
-	private ArrayList<EnNews> listNews = new ArrayList<EnNews>();
-	private AdapterCompanyNews adapterCompanyNews;
+	private EnNews enNews;
 	private static RestAdapter restAdapter;
 	private ProgressDialog dialog;
-	private int page = 1;
-	private int perPage = 10;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ac_company_layout);
-		initLayout();
+		setContentView(R.layout.ac_company_news_details);
+		
+		Bundle bundle = getIntent().getExtras();
+		if(bundle.containsKey("com.vivi.EnNews")){
+			enNews = (EnNews) bundle.get("com.vivi.EnNews");
+		}
+		
+		intLayout();
 	}
-
+	
 	/**
-	 * initial layout
+	 * initial layout of screen
 	 */
-	private void initLayout(){
+	private void intLayout() {
 		linBack = (LinearLayout) findViewById(R.id.linBack);
 		linBack.setVisibility(View.VISIBLE);
 		linBack.setOnClickListener(this);
@@ -73,31 +75,56 @@ public class AcCompany  extends Activity implements OnClickListener, OnItemClick
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
+		linOptionRefresh.setOnClickListener(this);
 		
-		lvNews = (ListView) findViewById(R.id.lvNews);
-		lvNews.setOnItemClickListener(this);
-		adapterCompanyNews = new AdapterCompanyNews(AcCompany.this, listNews);
-		lvNews.setAdapter(adapterCompanyNews);
+		tvTitle = (TextView) findViewById(R.id.tvTitle);
+		tvPreviewText = (TextView) findViewById(R.id.tvPreviewText);
+		webDetails = (WebView) findViewById(R.id.webDetail);
+		if (Build.VERSION.SDK_INT >= 11) {
+			webDetails.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+		}
 		
-		refreshData();
-	}
-	
-	private void refreshData() {
-		getListCompanyNewsFromServer();
+		webDetails.setBackgroundColor(0x00000000);
+		webDetails.setWebViewClient(new NewsWebViewClient());
+		webDetails.getSettings().setJavaScriptEnabled(true);
+		webDetails.getSettings().setSupportZoom(true);
+		webDetails.getSettings().setLoadWithOverviewMode(true);
+		// these mode is default of android
+		webDetails.getSettings().setUseWideViewPort(false);
+		webDetails.getSettings().setDefaultTextEncodingName("utf-8");
+		webDetails.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+		webDetails.setScrollbarFadingEnabled(false);
+		
+		refreshData(enNews);
 	}
 
 	/**
-	 * update data in screen
-	 * @param listNews
+	 * refresh data 
 	 */
-	private void updateScreenData(EnNewsList listNewsLocal) {
-		if(page == 1){
-			// update new data
-			for (int i = 0; i < listNews.size(); i++) {
-				listNews.remove(i);
-			}
-			adapterCompanyNews.setListNew(listNewsLocal.getNews());
-			adapterCompanyNews.notifyDataSetChanged();
+	private void refreshData(EnNews enNews) {
+		if(null == enNews ) return;
+		
+		getNewsDetailsFromServer(enNews);
+	}
+
+	/**
+	 * 
+	 * @param newsDtails
+	 */
+	protected void updateDataScreen(EnCompanyNewsDetailsRespone newsDtails) {
+		if(null == newsDtails ) return;
+		
+		EnCompanyNewsDetails news = newsDtails.getDetail();
+		tvTitle.setText(news.getTitle());
+		tvPreviewText.setText(news.getPreview_text());
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+		    String base64 = Base64.encodeToString(news.getDetail_text().getBytes(), Base64.DEFAULT);
+		    webDetails.loadData(base64, "text/html; charset=utf-8", "base64");
+		} else {
+		    String header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
+		    webDetails.loadData(header + news.getDetail_text(), "text/html; charset=UTF-8", null);
+
 		}
 	}
 	
@@ -105,31 +132,29 @@ public class AcCompany  extends Activity implements OnClickListener, OnItemClick
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.linBack:
-			AcCompany.this.finish();
+			this.finish();
 			break;
-		
+
 		default:
 			break;
 		}
-		
+
 	}
-	
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		EnNews enNews = adapterCompanyNews.getItem(position);
-		if(null != enNews){
-			Intent intent = new Intent(AcCompany.this, AcCompanyNewsDetails.class);
-			intent.putExtra("com.vivi.EnNews", enNews);
-			startActivity(intent);
+
+	private class NewsWebViewClient extends WebViewClient {
+		@Override
+		public boolean shouldOverrideUrlLoading(WebView view, String url) {
+			view.loadUrl(url);
+			return true;
 		}
-		
 	}
 	
 	/**
-	 * getListCompanyNewsFromServer
+	 * get news data from server
 	 */
-	private void getListCompanyNewsFromServer(){
+	private void getNewsDetailsFromServer(EnNews news) {
+		if(null == news ) return;
+		
 		if(null == restAdapter ){
             restAdapter = new RestAdapter.Builder()
                     .setEndpoint(HttpFunctionFactory.viviHostURLshort)
@@ -141,7 +166,7 @@ public class AcCompany  extends Activity implements OnClickListener, OnItemClick
 		Logger.error("access-token: " + token);
 		
 		if(null == dialog){
-			dialog = new ProgressDialog(AcCompany.this);
+			dialog = new ProgressDialog(AcCompanyNewsDetails.this);
 			dialog.setMessage(getResources().getString(R.string.LOADING));	
 			dialog.setCancelable(true);
 			dialog.setCanceledOnTouchOutside(false);
@@ -156,7 +181,7 @@ public class AcCompany  extends Activity implements OnClickListener, OnItemClick
 		}
 		dialog.show();
 		
-		restAdapter.create(ViviApi.class).getPresentationsNews(token, page, perPage, companyNewsCallBack);
+		restAdapter.create(ViviApi.class).getPresentationsNewsDetail(news.getId(), token, companyNewsCallBack);
 	}
 	
 	Callback<String> companyNewsCallBack = new Callback<String>() {
@@ -164,20 +189,23 @@ public class AcCompany  extends Activity implements OnClickListener, OnItemClick
 		@Override
 		public void success(String responseString, Response response) {
 			Logger.error("GET Company new response: " + responseString);
-			if(null != AcCompany.this && null != dialog){
+			if(null != AcCompanyNewsDetails.this && null != dialog){
 				if(dialog.isShowing()) dialog.dismiss();
 			}
 			
-			try{
-				EnNewsList listNews = DataParser.getEnNewsList(responseString);
-				if(null != listNews){
-					updateScreenData(listNews);
+			try {
+				EnCompanyNewsDetailsRespone newsDtails = DataParser.getNewsDetailResponse(responseString);
+				
+				if(null != newsDtails){
+					updateDataScreen(newsDtails);
 				} else {
 					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
-							, "Error", AcCompany.this);
+							, "Error", AcCompanyNewsDetails.this);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcCompanyNewsDetails.this);
 			}
 		}
 		
@@ -185,17 +213,16 @@ public class AcCompany  extends Activity implements OnClickListener, OnItemClick
 		@Override
 		public void failure(RetrofitError retrofitError) {
 			retrofitError.printStackTrace();
-			if(null != AcCompany.this && null != dialog){
+			if(null != AcCompanyNewsDetails.this && null != dialog){
 				if(dialog.isShowing()) dialog.dismiss();
 			}
 			if(retrofitError.isNetworkError()){
 				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_INTERNET_CONNECTION)
-						, "Error", AcCompany.this);
+						, "Error", AcCompanyNewsDetails.this);
 			} else {
 				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
-						, "Error", AcCompany.this);
+						, "Error", AcCompanyNewsDetails.this);
 			}
 		}
 	};
-	
 }

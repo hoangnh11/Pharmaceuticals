@@ -14,6 +14,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.viviproject.entities.EnArrayStores;
+import com.viviproject.entities.EnCompanyNewsDetails;
+import com.viviproject.entities.EnCompanyNewsDetailsRespone;
 import com.viviproject.entities.EnDiscountProgram;
 import com.viviproject.entities.EnElement;
 import com.viviproject.entities.EnFeedback;
@@ -333,6 +335,21 @@ public final class DataParser {
 		}
 	}
 	
+	public static EnCompanyNewsDetailsRespone getNewsDetailResponse(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnCompanyNewsDetailsRespone>() {}.getType();
+
+			EnCompanyNewsDetailsRespone details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
 	public static EnGimicManager getEnGimicManager(String jsonData) throws JsonSyntaxException {
 		if (StringUtils.isBlank(jsonData)) {
 			return null;

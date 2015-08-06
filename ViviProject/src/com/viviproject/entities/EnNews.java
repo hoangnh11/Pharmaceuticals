@@ -8,6 +8,7 @@ public class EnNews implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7536299394396418839L;
+	private String id;
 	private String date_time;
 	private String title;
 	private String preview_image;
@@ -38,5 +39,11 @@ public class EnNews implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 }

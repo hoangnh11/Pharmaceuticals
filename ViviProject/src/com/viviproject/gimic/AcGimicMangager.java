@@ -33,6 +33,8 @@ import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.viviproject.R;
 import com.viviproject.adapter.AdapterGimicStatistic;
+import com.viviproject.core.ScrollViewExt;
+import com.viviproject.core.ScrollViewListener;
 import com.viviproject.entities.EnGimicItem;
 import com.viviproject.entities.EnGimicManager;
 import com.viviproject.entities.EnGimicStoreItem;
@@ -46,12 +48,13 @@ import com.viviproject.ultilities.StringConverter;
 import com.viviproject.ultilities.StringUtils;
 
 @SuppressLint("SimpleDateFormat")
-public class AcGimicMangager extends FragmentActivity implements OnClickListener{
+public class AcGimicMangager extends FragmentActivity implements OnClickListener, ScrollViewListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
 	private ListView lvGmicStatistic;
 	private TableLayout tblGimicCustomer;
+	private ScrollViewExt scrollViewGimicCustomer;
 	private ImageView imgIconCalendarFrom, imgIconCalendarTo;
 	private TextView tvGimicTimeFrom, tvGimicTimeTo;
 	private Button btGimicSearch;
@@ -68,6 +71,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	private String dateTo = "04/08/2015";
 	private int page = 0, perPage = 10;
 	private int paddingTitle = 5;
+	private boolean flagOnBottomOfScroolView = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -114,9 +118,11 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		lvGmicStatistic = (ListView) findViewById(R.id.lvGimicStatistic);
 		lvGmicStatistic.setAdapter(adapterGimicStatistic);
 		
+		scrollViewGimicCustomer =(ScrollViewExt) findViewById(R.id.scrlGimicCustomer);
+		scrollViewGimicCustomer.setScrollViewListener(this);
 		tblGimicCustomer = (TableLayout) findViewById(R.id.tlGimicGridTable);
 		
-		refreshData(dateFrom, dateTo);
+		refreshData(0, dateFrom, dateTo);
 	}
 
 	/**
@@ -141,8 +147,8 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	 * @param from
 	 * @param to
 	 */
-	private void refreshData(String from, String to) {
-		getGimicManagerFromServer(from, to);
+	private void refreshData(int page, String from, String to) {
+		getGimicManagerFromServer(page, from, to);
 	}
 
 	/**
@@ -273,18 +279,36 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		
 		case R.id.linRefresh:
 			getCurrentDate();
+			page = 0;
 			tvGimicTimeFrom.setText(dateFrom);
 			tvGimicTimeTo.setText(dateTo);
-			refreshData(dateFrom, dateTo);
+			refreshData(0, dateFrom, dateTo);
 			break;
 		
 		case R.id.btGimicSearchOK:
-			refreshData(dateFrom, dateTo);
+			page = 0;
+			refreshData(0, dateFrom, dateTo);
 			break;
 			
 		default:
 			break;
 		}
+	}
+	
+	@Override
+	public void onScrollChanged(ScrollViewExt scrollView, int x, int y, int oldx, int oldy) {
+		// We take the last son in the scrollview
+	    View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
+	    int diff = (view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY()));
+
+	    // if diff is zero, then the bottom has been reached
+	    if (diff == 0 && !flagOnBottomOfScroolView) {
+	        // do stuff
+	    	Logger.error("Scrollview load more");
+	    	flagOnBottomOfScroolView = true;
+	    	page++;
+	    	refreshData(page, dateFrom, dateTo);
+	    } 
 	}
 	
 	@SuppressLint("SimpleDateFormat")
@@ -332,13 +356,14 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	/**
 	 * get newest data from server
 	 */
-	private void getGimicManagerFromServer(String from, String to){
+	private void getGimicManagerFromServer(int page, String from, String to){
 		if(null == restAdapter ){
             restAdapter = new RestAdapter.Builder()
                     .setEndpoint(HttpFunctionFactory.viviHostURLshort)
                     .setConverter(new StringConverter())
                     .build();
         }
+		
 		
 		String token = BuManagement.getToken(getApplicationContext());
 		
@@ -356,7 +381,6 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			});
 		}
 		dialog.show();
-		
 		restAdapter.create(ViviApi.class).getGimicManager(token, from, to, page, perPage, myCallback);
 	}
 	
@@ -365,7 +389,14 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		@Override
 		public void failure(RetrofitError retrofitError) {
 			retrofitError.printStackTrace();
+			if(null != AcGimicMangager.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
 			
+			flagOnBottomOfScroolView = false;
+			if(page > 0){
+				page--;
+			}
 		}
 
 		@Override
@@ -374,6 +405,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			if(null != AcGimicMangager.this && null != dialog){
 				if(dialog.isShowing()) dialog.dismiss();
 			}
+			flagOnBottomOfScroolView = false;
 			
 			try {
 				//Paser data

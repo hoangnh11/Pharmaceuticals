@@ -133,7 +133,11 @@
         <activity
             android:name="com.viviproject.projection.AcCompany"
             android:screenOrientation="portrait"
-            android:theme="@style/StyledIndicatorsBlue"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name="com.viviproject.projection.AcCompanyNewsDetails"
+            android:configChanges="orientation|screenSize" 
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
