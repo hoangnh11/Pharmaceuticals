@@ -20,8 +20,8 @@ public class EnStores implements Serializable{
 	private String name;
 	private String address;
 	private String phone;
-	private String longitude;
-	private String latitude;
+	private String lng;
+	private String lat;
 	private String region_id;
 	private String district;
 	private String vip;
@@ -252,29 +252,30 @@ public class EnStores implements Serializable{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
 	/**
-	 * @return the longitude
+	 * @return the lng
 	 */
-	public String getLongitude() {
-		return longitude;
+	public String getLng() {
+		return lng;
 	}
 	/**
-	 * @param longitude the longitude to set
+	 * @param lng the lng to set
 	 */
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
+	public void setLng(String lng) {
+		this.lng = lng;
 	}
 	/**
-	 * @return the latitude
+	 * @return the lat
 	 */
-	public String getLatitude() {
-		return latitude;
+	public String getLat() {
+		return lat;
 	}
 	/**
-	 * @param latitude the latitude to set
+	 * @param lat the lat to set
 	 */
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
+	public void setLat(String lat) {
+		this.lat = lat;
 	}
 	/**
 	 * @return the region_id

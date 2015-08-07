@@ -206,12 +206,12 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
 				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores() != null
 						&& enStores.getStores().size() > 0) {					
 					for (int i = 0; i < enStores.getStores().size(); i++) {
-						if (enStores.getStores().get(i).getLatitude() != null && enStores.getStores().get(i).getLatitude() != ""
-								&& enStores.getStores().get(i).getLongitude() != null && enStores.getStores().get(i).getLongitude() != "") {
+						if (enStores.getStores().get(i).getLat() != null && enStores.getStores().get(i).getLat() != ""
+								&& enStores.getStores().get(i).getLng() != null && enStores.getStores().get(i).getLng() != "") {
 
 			            	MarkerOptions marker = new MarkerOptions().position
-			            			(new LatLng(Double.parseDouble(enStores.getStores().get(i).getLatitude()),
-									Double.parseDouble(enStores.getStores().get(i).getLongitude())))
+			            			(new LatLng(Double.parseDouble(enStores.getStores().get(i).getLat()),
+									Double.parseDouble(enStores.getStores().get(i).getLng())))
 									.title(enStores.getStores().get(i).getName())
 									.snippet(enStores.getStores().get(i).getAddress());
 			            	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_point)); 

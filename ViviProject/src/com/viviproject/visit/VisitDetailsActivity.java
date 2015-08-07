@@ -17,7 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.adapter.FiveOrderAdapter;
 import com.viviproject.adapter.InventoryAdapter;
+import com.viviproject.adapter.ThreeOrderAdapter;
+import com.viviproject.customerline.CustomerDetails;
 import com.viviproject.deliver.OrderImportActivity;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.EnReport;
@@ -38,12 +41,15 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private TextView tvHeader;
 	
 	private LinearLayout linCheckWarehouse, linSubChekcWarehouse;
+	private LinearLayout linCustomerInformation;
 	private TextView tvBuy, tvGivegimic, tvCloseDoor, tvFeedback;
 	private LinearLayout linBuyHistory, linSubBuyHistory;
-	private TextView tvNameStore, tvAddressStores, tvLineStore, tvVip;
-	private ListView lvInventory;
+	private TextView tvNameStore, tvAddressStores, tvLineStore, tvVip, tvPointSum, tvTotalProfit;
+	private ListView lvInventory, lvFiveOrder, lvThreeOrder;
 	private Button btnSendReport, btnImport;
 	
+	private FiveOrderAdapter fiveOrderAdapter;
+	private ThreeOrderAdapter threeOrderAdapter;
 	private AppPreferences app;
 	private Bundle bundle;
 	private EnStores itemStore;
@@ -72,6 +78,27 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		arrReport = new ArrayList<EnReport>();
 		
 		initLayout();
+		
+		if (itemStore != null) {
+			tvNameStore.setText(itemStore.getName());
+			tvAddressStores.setText(itemStore.getAddress());
+			tvLineStore.setText(itemStore.getRegion_id());
+			tvVip.setText(itemStore.getVip());
+			tvPointSum.setText(itemStore.getActive());
+			tvTotalProfit.setText(itemStore.getTotal_revenue() + " VND");
+			
+			if (itemStore.getLatest_5_orders() != null) {
+				fiveOrderAdapter = new FiveOrderAdapter(this, itemStore.getLatest_5_orders());
+				lvFiveOrder.setAdapter(fiveOrderAdapter);
+				app.setListViewHeight(lvFiveOrder, fiveOrderAdapter);
+			}
+			
+			if (itemStore.getLatest_3_months() != null) {
+				threeOrderAdapter = new ThreeOrderAdapter(this, itemStore.getLatest_3_months());
+				lvThreeOrder.setAdapter(threeOrderAdapter);
+				app.setListViewHeight(lvThreeOrder, threeOrderAdapter);
+			}
+		}
 	}
 
 	public void initLayout(){
@@ -95,6 +122,8 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		linRefresh.setOnClickListener(this);
 		
 		lvInventory = (ListView) findViewById(R.id.lvInventory);
+		linCustomerInformation = (LinearLayout) findViewById(R.id.linCustomerInformation);
+		linCustomerInformation.setOnClickListener(this);
 		
 		tvBuy = (TextView) findViewById(R.id.tvBuy);
 		tvBuy.setOnClickListener(this);
@@ -113,17 +142,17 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		linBuyHistory.setOnClickListener(this);
 		linSubBuyHistory = (LinearLayout) findViewById(R.id.linSubBuyHistory);
 		
-		tvNameStore = (TextView) findViewById(R.id.tvNameStore);
-		tvNameStore.setText(itemStore.getName());
-		tvAddressStores = (TextView) findViewById(R.id.tvAddressStores);
-		tvAddressStores.setText(itemStore.getAddress());
-		tvLineStore = (TextView) findViewById(R.id.tvLineStore);
-		tvLineStore.setText(itemStore.getRegion_id());
-		tvVip = (TextView) findViewById(R.id.tvVip);
-		tvVip.setText(itemStore.getVip());
+		tvNameStore = (TextView) findViewById(R.id.tvNameStore);		
+		tvAddressStores = (TextView) findViewById(R.id.tvAddressStores);		
+		tvLineStore = (TextView) findViewById(R.id.tvLineStore);		
+		tvVip = (TextView) findViewById(R.id.tvVip);		
+		tvPointSum = (TextView) findViewById(R.id.tvPointSum);		
+		tvTotalProfit = (TextView) findViewById(R.id.tvTotalProfit);
+		lvFiveOrder = (ListView) findViewById(R.id.lvFiveOrder);
+		lvThreeOrder = (ListView) findViewById(R.id.lvThreeOrder);
 		
 		btnSendReport = (Button) findViewById(R.id.btnSendReport);
-		btnSendReport.setOnClickListener(this); 
+		btnSendReport.setOnClickListener(this);
 		btnImport = (Button) findViewById(R.id.btnImport);
 		btnImport.setOnClickListener(this);
 	}
@@ -189,6 +218,12 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			
 		case R.id.btnImport:
 			intent = new Intent(this, OrderImportActivity.class);
+			intent.putExtra(GlobalParams.STORES, itemStore);
+			startActivity(intent);
+			break;
+			
+		case R.id.linCustomerInformation:
+			intent = new Intent(this, CustomerDetails.class);
 			intent.putExtra(GlobalParams.STORES, itemStore);
 			startActivity(intent);
 			break;
