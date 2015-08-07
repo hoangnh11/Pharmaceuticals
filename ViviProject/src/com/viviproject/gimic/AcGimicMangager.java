@@ -172,7 +172,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			TableRow tbRow = new TableRow(AcGimicMangager.this);
 			tbRow.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,
 	                LayoutParams.WRAP_CONTENT));
-			tbRow.setGravity(Gravity.CENTER);
+			tbRow.setGravity(Gravity.CENTER_VERTICAL);
 			tbRow.setBackgroundColor(getResources().getColor(R.color.PINK_LIGHT));
 			
 			TextView tvSTT = new TextView(this);

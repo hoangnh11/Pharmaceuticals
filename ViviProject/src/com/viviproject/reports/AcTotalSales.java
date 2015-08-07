@@ -1,13 +1,19 @@
 package com.viviproject.reports;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -17,22 +23,40 @@ import android.widget.TextView;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.viviproject.R;
+import com.viviproject.entities.EnReportGroupItem;
+import com.viviproject.entities.EnReportProductItem;
+import com.viviproject.entities.EnReportProfitResponse;
+import com.viviproject.network.access.HttpFunctionFactory;
+import com.viviproject.network.access.ViviApi;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.StringConverter;
 
+@SuppressLint({ "InflateParams", "SimpleDateFormat" })
 public class AcTotalSales extends FragmentActivity implements OnClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
+	private TextView tvFromTo;
 	private ImageView imgCalenDa;
+	private LinearLayout linReportProfit;
+	private TextView tvTotalSales;
 	
-	private CaldroidListener listener;
-	private SimpleDateFormat formatter;
+ 	private CaldroidListener listener;
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");;
 	private CaldroidFragment dialogCaldroidFragment;
+	private String strDateFrom, strDateTo;
+	private static RestAdapter restAdapter;
+	private ProgressDialog dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_total_sales);
+		getCurrentDate();
+		
 		initLayout();
 	}
 
@@ -49,18 +73,101 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linOptionSearch = (LinearLayout) findViewById(R.id.linSearch);
-		linOptionSearch.setVisibility(View.VISIBLE);
+		linOptionSearch.setVisibility(View.INVISIBLE);
 		
 		linOptionFilter = (LinearLayout) findViewById(R.id.linUpdate);
-		linOptionFilter.setVisibility(View.VISIBLE);
+		linOptionFilter.setVisibility(View.INVISIBLE);
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
+		linOptionRefresh.setOnClickListener(this);
+		
+		tvFromTo = (TextView) findViewById(R.id.tvGimicStatisticTime);
+		String time = getResources().getString(R.string.FROM_TO_TIME);
+		tvFromTo.setText(String.format(time, strDateFrom, strDateTo));
 		
 		imgCalenDa = (ImageView) findViewById(R.id.imgIconCalendar);
 		imgCalenDa.setOnClickListener(this);
+		
+		linReportProfit = (LinearLayout) findViewById(R.id.linReportProfit);
+		tvTotalSales = (TextView) findViewById(R.id.tvTotalSales);
+		refreshData();
 	}
 
+	/**
+	 * get current date and update to from field and to field
+	 */
+	public void getCurrentDate(){
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date toDate = calendar.getTime();
+			strDateTo = formatter.format(toDate);
+			
+			calendar.add(Calendar.MONTH, -1);
+			Date fromDate = calendar.getTime();
+			strDateFrom = formatter.format(fromDate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * refresh data
+	 */
+	private void refreshData() {
+		getDataFromServer();
+	}
+
+	protected void updateDataScreen(EnReportProfitResponse enResponse) {
+		if(null == enResponse) return;
+		
+		tvTotalSales.setText(getResources().getString(R.string.SUM_PROFIT_LABLE) + " "+ enResponse.getTotal_sale());
+		
+		linReportProfit.removeAllViews();
+		for (int i = 0; i < enResponse.getGroups().size(); i++) {
+			View view = getRowViewData(enResponse.getGroups().get(i));
+			linReportProfit.addView(view);
+		}
+		
+	}
+	
+	private View getRowViewData(EnReportGroupItem enReportGroupItem){
+		View view = getLayoutInflater().inflate(R.layout.item_report_profit_sale, null);
+		LinearLayout linItemRow = (LinearLayout) view.findViewById(R.id.linItemRow);
+		linItemRow.setBackgroundColor(getResources().getColor(R.color.OCEAN_BLUE));
+		
+		TextView tvProductName = (TextView) view.findViewById(R.id.tvItemProduct);
+		TextView tvProductNumber = (TextView) view.findViewById(R.id.tvItemProductNumber);
+		TextView tvProductProfit = (TextView) view.findViewById(R.id.tvItemProductProfit);
+		LinearLayout linIemRowChile = (LinearLayout) view.findViewById(R.id.linIemRowChile);
+		if(null != enReportGroupItem){
+			tvProductName.setText(enReportGroupItem.getName());
+			tvProductNumber.setText("" + enReportGroupItem.getQuantity());
+			tvProductProfit.setText(enReportGroupItem.getSale());
+			
+			for (EnReportProductItem productItem : enReportGroupItem.getProducts()) {
+				View rowChildView = getRowViewDataChild(productItem);
+				linIemRowChile.addView(rowChildView);
+			}
+		}
+		return view;
+	}
+	
+	private View getRowViewDataChild(EnReportProductItem enReportProductItem){
+		View view = getLayoutInflater().inflate(R.layout.item_reprot_profit_child, null);
+		
+		TextView tvProductName = (TextView) view.findViewById(R.id.tvItemProduct);
+		TextView tvProductNumber = (TextView) view.findViewById(R.id.tvItemProductNumber);
+		TextView tvProductProfit = (TextView) view.findViewById(R.id.tvItemProductProfit);
+		
+		if(null != enReportProductItem){
+			tvProductName.setText(enReportProductItem.getName());
+			tvProductNumber.setText("" + enReportProductItem.getQuantity());
+			tvProductProfit.setText(enReportProductItem.getSale());
+		}
+		return view;
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -71,6 +178,11 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 		case R.id.imgIconCalendar:
 			showCalender();
 			break;
+		
+		case R.id.linRefresh:
+			getCurrentDate();
+			refreshData();
+			break;
 			
 		default:
 			break;
@@ -80,13 +192,23 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 	
 	@SuppressLint("SimpleDateFormat")
 	private void showCalender() {
-		formatter = new SimpleDateFormat("yyyy-MM-dd");
 		listener = new CaldroidListener() {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
 				dialogCaldroidFragment.dismiss();
 				
+				strDateTo = formatter.format(date);
+				
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				calendar.add(Calendar.MONTH, -1);
+				
+				strDateFrom = formatter.format(calendar.getTime());
+				String time = getResources().getString(R.string.FROM_TO_TIME);
+				tvFromTo.setText(String.format(time, strDateFrom, strDateTo));
+				
+				refreshData();
 			}
 
 			@Override
@@ -114,4 +236,81 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 		dialogCaldroidFragment.show(getSupportFragmentManager(),
 				"CalenderAndroid");
 	}
+	
+	private void getDataFromServer() {
+		if(null == restAdapter ){
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(HttpFunctionFactory.viviHostURLshort)
+                    .setConverter(new StringConverter())
+                    .build();
+        }
+		
+		String token = BuManagement.getToken(getApplicationContext());
+		
+		if(null == dialog){
+			dialog = new ProgressDialog(AcTotalSales.this);
+			dialog.setMessage(getResources().getString(R.string.LOADING));	
+			dialog.setCancelable(true);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					myCallback.failure(null);
+				}
+			});
+		}
+		dialog.show();
+		
+		restAdapter.create(ViviApi.class).getTotalSale(token,strDateFrom, strDateTo, myCallback);
+		
+	}
+	
+	Callback<String> myCallback = new Callback<String>() {
+		
+		@Override
+		public void success(String strData, Response arg1) {
+			Logger.error("Get Total Sale: #success: " + strData);
+			if(null != AcTotalSales.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			
+			try {
+				EnReportProfitResponse reportProfitResponse = DataParser.getEnReportProfitResponse(strData);
+				if(null != reportProfitResponse){
+					if(null != reportProfitResponse.getGroups() && (reportProfitResponse.getGroups().size() > 0)){
+						updateDataScreen(reportProfitResponse);
+					} else {
+						BuManagement.alertErrorMessageString(reportProfitResponse.getMessage()
+								, "Error", AcTotalSales.this);
+					}
+				} else {
+					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+							, "Error", AcTotalSales.this);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcTotalSales.this);
+			}
+		}
+		
+		@SuppressWarnings("deprecation")
+		@Override
+		public void failure(RetrofitError retrofitError) {
+			if(null == retrofitError) return;
+			
+			retrofitError.printStackTrace();
+			if(null != AcTotalSales.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			if(retrofitError.isNetworkError()){
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_INTERNET_CONNECTION)
+						, "Error", AcTotalSales.this);
+			} else {
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcTotalSales.this);
+			}
+		}
+	};
 }
