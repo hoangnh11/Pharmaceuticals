@@ -30,6 +30,10 @@ public interface ViviApi {
 	void getProductImageCategory(@Query("access-token") String token, 
 	          Callback<String> callback);
 	
+	@GET("/v1/presentations/product_image_list")
+	void getProductImageList(@Query("access-token") String token, @Query("cat_id") String cat_id, @Query("page") int page,
+	          @Query("per_page") int per_page, Callback<String> callback);
+	
 	@GET("/v1/presentations/news")
 	void getPresentationsNews(@Query("access-token") String token, @Query("page") int page,
 	          @Query("per_page") int per_page, Callback<String> callback);

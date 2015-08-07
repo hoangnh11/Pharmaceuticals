@@ -17,28 +17,29 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.viviproject.R;
+import com.viviproject.core.ImageLoaderSinggleton;
+import com.viviproject.entities.EnImageUrl;
 import com.viviproject.entities.EnProduct;
 
 
 public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickListener{
 	private GridView productsGrid;
 	
-	private ArrayList<String> listUrlPicture;
+	private ArrayList<EnImageUrl> listUrlPicture;
 	private ImageAdapter imageAdapter;
 	private View mView;
 	private Activity mActivity;
 	private Context mContext;
+	public static DisplayImageOptions options;
+	public static ImageLoader imageLoader;
 	
-	public static FrgProducts newInstance(Context context, EnProduct enProduct, ArrayList<String> listUrlPicture){
+	public static FrgProducts newInstance(Context context, EnProduct enProduct, ArrayList<EnImageUrl> listUrlPicture){
 		FrgProducts f = new FrgProducts();
 		f.enProduct = enProduct;
 		f.mContext = context;
@@ -46,6 +47,18 @@ public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickL
 		if(null != listUrlPicture){
 			f.listUrlPicture = listUrlPicture;
 		}
+		
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.ic_stub)
+				.showImageForEmptyUri(R.drawable.ic_empty)
+				.showImageOnFail(R.drawable.ic_error)
+				.cacheInMemory(true)
+				.cacheOnDisk(true)
+				.considerExifParams(true)
+				.bitmapConfig(Bitmap.Config.RGB_565)
+				.build();
+		
+		imageLoader = ImageLoaderSinggleton.getInstance(context);
 		return f;
 	}
 	
@@ -104,41 +117,37 @@ public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickL
 		startActivity(i);
 	}
 	
+	public void updateListImage(ArrayList<EnImageUrl> enImageUrlList) {
+		for (int i = 0; i < listUrlPicture.size(); i++) {
+			listUrlPicture.remove(i);
+		}
+		
+		listUrlPicture = enImageUrlList;
+		imageAdapter.updateList(enImageUrlList);
+		imageAdapter.notifyDataSetChanged();
+	}
+	
 	/**
 	 * ImageAdapter
 	 * @author Do Thin
 	 *
 	 */
 	private static class ImageAdapter extends BaseAdapter {
-		private static ArrayList<String> IMAGE_URLS = new ArrayList<String>();
+		private static ArrayList<EnImageUrl> IMAGE_URLS = new ArrayList<EnImageUrl>();
 		private LayoutInflater inflater;
-		private DisplayImageOptions options;
-		protected ImageLoader imageLoader;
 		
-		ImageAdapter(Context context, ArrayList<String> listUrl) {
+		ImageAdapter(Context context, ArrayList<EnImageUrl> listUrl) {
 			inflater = LayoutInflater.from(context);
 
-			options = new DisplayImageOptions.Builder()
-					.showImageOnLoading(R.drawable.ic_stub)
-					.showImageForEmptyUri(R.drawable.ic_empty)
-					.showImageOnFail(R.drawable.ic_error)
-					.cacheInMemory(true)
-					.cacheOnDisk(true)
-					.considerExifParams(true)
-					.bitmapConfig(Bitmap.Config.RGB_565)
-					.build();
-			
-			ImageLoaderConfiguration imageLoaderConfiguration = 
-					new ImageLoaderConfiguration.Builder(context)
-					.threadPriority(Thread.NORM_PRIORITY - 2)
-					.denyCacheImageMultipleSizesInMemory()
-					.diskCacheFileNameGenerator(new Md5FileNameGenerator())
-					.tasksProcessingOrder(QueueProcessingType.LIFO)
-					.build();
-			imageLoader = ImageLoader.getInstance();
-			imageLoader.init(imageLoaderConfiguration);
-			
 			IMAGE_URLS = listUrl;
+		}
+
+		public void updateList(ArrayList<EnImageUrl> enImageUrlList) {
+			for (int i = 0; i < IMAGE_URLS.size(); i++) {
+				IMAGE_URLS.remove(i);
+			}
+			
+			IMAGE_URLS = enImageUrlList;
 		}
 
 		@Override
@@ -147,7 +156,7 @@ public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickL
 		}
 
 		@Override
-		public String getItem(int position) {
+		public EnImageUrl getItem(int position) {
 			if(position < 0 || null == IMAGE_URLS || getCount() == 0){
 				return null;
 			}
@@ -161,7 +170,11 @@ public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickL
 		}
 
 		public ArrayList<String> getAllList(){
-			return IMAGE_URLS;
+			ArrayList<String> list = new ArrayList<String>();
+			for (EnImageUrl enImageUrl : IMAGE_URLS) {
+				list.add(enImageUrl.getImage_url());
+			}
+			return list;
 		}
 		
 		static class ViewHolder {
@@ -184,34 +197,34 @@ public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickL
 				holder = (ViewHolder) view.getTag();
 			}
 			
-			imageLoader.displayImage(getItem(position), holder.imageView, options, new SimpleImageLoadingListener() {
-				@Override
-				public void onLoadingStarted(String imageUri, View view) {
-					holder.progressBar.setProgress(0);
-					holder.progressBar.setVisibility(View.VISIBLE);
-				}
-
-				@Override
-				public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-					holder.progressBar.setVisibility(View.GONE);
-				}
-
-				
-				@Override
-				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-					holder.progressBar.setVisibility(View.GONE);
-				}
-			}, new ImageLoadingProgressListener() {
-				@Override
-				public void onProgressUpdate(String imageUri, View view, int current, int total) {
-					holder.progressBar.setProgress(Math.round(100.0f * current / total));
-				}
-			});
-			
+			EnImageUrl item = getItem(position);
+			if(null != item){
+				imageLoader.displayImage(item.getImage_url(), holder.imageView, options, new SimpleImageLoadingListener() {
+					@Override
+					public void onLoadingStarted(String imageUri, View view) {
+						holder.progressBar.setProgress(0);
+						holder.progressBar.setVisibility(View.VISIBLE);
+					}
+	
+					@Override
+					public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+						holder.progressBar.setVisibility(View.GONE);
+					}
+	
+					
+					@Override
+					public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+						holder.progressBar.setVisibility(View.GONE);
+					}
+				}, new ImageLoadingProgressListener() {
+					@Override
+					public void onProgressUpdate(String imageUri, View view, int current, int total) {
+						holder.progressBar.setProgress(Math.round(100.0f * current / total));
+					}
+				});
+			}
 			return view;
 		}
 	}
-
-
 	
 }

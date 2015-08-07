@@ -20,6 +20,7 @@ import com.viviproject.entities.EnDiscountProgram;
 import com.viviproject.entities.EnElement;
 import com.viviproject.entities.EnFeedback;
 import com.viviproject.entities.EnGimicManager;
+import com.viviproject.entities.EnImageUrlResponse;
 import com.viviproject.entities.EnNews;
 import com.viviproject.entities.EnNewsList;
 import com.viviproject.entities.EnProductResponse;
@@ -378,6 +379,22 @@ public final class DataParser {
 			Type collectionType = new TypeToken<EnProductResponse>() {}.getType();
 
 			EnProductResponse details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static EnImageUrlResponse getEnImageUrlResponse(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnImageUrlResponse>() {}.getType();
+
+			EnImageUrlResponse details = mGson.fromJson(jsonData, collectionType);
 			return details;
 		} catch (Exception e) {
 			Logger.error(e);
