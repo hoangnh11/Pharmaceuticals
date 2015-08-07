@@ -243,104 +243,14 @@
                     android:src="@drawable/icon_arrow_bottom" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linSubOwnerPharmacy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ListView
+                android:id="@+id/lvOwner"
+                style="@style/NormalListView"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@color/BG_GRAY_LIGHT"
-                android:orientation="vertical"
-                android:padding="8dp" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp" >
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/OWNER_PHARMACY_TWO_DOTS"
-                        android:textColor="@color/GRAY88"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Đỗ Hồng loan"
-                        android:textColor="@color/TEXT_COLOR_RED"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp" >
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/BIRTHDAY"
-                        android:textColor="@color/GRAY88"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="26/03/1987"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp" >
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/PHONE_NUMBER"
-                        android:textColor="@color/GRAY88"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="097.696.xxxx"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="4dp" >
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/NOTE"
-                        android:textColor="@color/GRAY88"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sở thích nấu ăn, đi du lịch"
-                        android:textColor="@color/BLACK"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
+                android:background="@color/WHITE"
+                android:fadingEdge="none"
+                android:scrollbarSize="3dp" />
 
             <LinearLayout
                 android:id="@+id/linSaler"
@@ -385,7 +295,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/BLUE"
+                android:background="@color/BG_GRAY9E"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="8dp" >
@@ -395,20 +305,23 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
                     android:paddingRight="16dp"
-                    android:text="@string/PROFIT_INFORMATION"
+                    android:text="@string/PROFIT_SUM"
                     android:textColor="@color/WHITE"
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tvTotalRevenue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/BLANK"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/icon_arrow_bottom" />
+                    android:paddingRight="8dp"
+                    android:textColor="@color/WHITE"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linProfitThree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -434,6 +347,29 @@
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
                     android:src="@drawable/icon_arrow_bottom" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linSubProfitThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@color/BG_GRAY_LIGHT"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:visibility="gone" >
+
+                <include layout="@layout/header_five_order" />
+
+                <ListView
+                    android:id="@+id/lvThreeOrder"
+                    style="@style/NormalListViewNoDivider"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/WHITE"
+                    android:fadingEdge="none"
+                    android:scrollbarSize="3dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -473,394 +409,19 @@
                 android:layout_marginRight="8dp"
                 android:background="@color/BG_GRAY_LIGHT"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:padding="8dp" >
+                android:padding="8dp"
+                android:visibility="gone" >
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/BG_GRAY_LIGHT"
-                    android:layout_margin="4dp" >
+                <include layout="@layout/header_five_order" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/BLACK" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/PINK_RED"
-                        android:gravity="center" >
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"                           
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="@string/INDEX"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="@string/TIME"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="@string/PROFIT_VND_HORIZION"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/BLACK" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/WHITE"
-                        android:gravity="center" >
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"                       
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="1"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/BLACK" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/WHITE"
-                        android:gravity="center" >
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"                       
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="2"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/BLACK" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/WHITE"
-                        android:gravity="center" >
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"                        
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="3"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/BLACK" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/WHITE"
-                        android:gravity="center" >
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"                     
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="4"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/BLACK" />
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/WHITE"
-                        android:gravity="center" >
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"                     
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:text="5"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="4dp"
-                            android:textColor="@color/BLACK"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="@color/BLACK" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/BLACK" />
-                </TableLayout>
+                <ListView
+                    android:id="@+id/lvFiveOrder"
+                    style="@style/NormalListViewNoDivider"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/WHITE"
+                    android:fadingEdge="none"
+                    android:scrollbarSize="3dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

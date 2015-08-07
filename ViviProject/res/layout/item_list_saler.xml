@@ -45,6 +45,7 @@
                 android:textSize="12sp" />
             
             <TextView
+                android:id="@+id/tvPoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="6"
@@ -68,6 +69,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tvDateOfBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="26/03/1987"
@@ -84,6 +86,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tvPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="097.696.xxxx"

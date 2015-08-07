@@ -107,6 +107,7 @@
     <string name="SALER">N.Viên bán hàng</string>
     <string name="SALER_TWO_DOTS">N.Viên bán hàng: </string>
     <string name="MARK">Điểm: </string>
+    <string name="PROFIT_SUM">Tổng doanh số: </string>
     <string name="PROFIT_INFORMATION">Thông tin doanh số</string>
     <string name="PROFIT_THRE_AGO">Doanh số 3 tháng gần đây</string>
     <string name="PROFIT_FIVE_ORDER">Doanh số 5 đơn hàng gần nhất</string>

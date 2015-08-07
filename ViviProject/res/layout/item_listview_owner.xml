@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linSubOwnerPharmacy"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/BG_GRAY_LIGHT"
+    android:orientation="vertical"
+    android:padding="8dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp" >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/OWNER_PHARMACY_TWO_DOTS"
+            android:textColor="@color/GRAY88"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đỗ Hồng loan"
+            android:textColor="@color/TEXT_COLOR_RED"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp" >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/BIRTHDAY"
+            android:textColor="@color/GRAY88"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvDateOfBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="26/03/1987"
+            android:textColor="@color/BLACK"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp" >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/PHONE_NUMBER"
+            android:textColor="@color/GRAY88"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="097.696.xxxx"
+            android:textColor="@color/BLACK"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp" >
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/NOTE"
+            android:textColor="@color/GRAY88"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sở thích nấu ăn, đi du lịch"
+            android:textColor="@color/BLACK"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
