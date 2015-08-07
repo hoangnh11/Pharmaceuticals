@@ -176,35 +176,39 @@ public class ListCustomer extends Activity implements OnClickListener{
 		protected void onPostExecute(String result) {
 			progressDialog.dismiss();
 			if (!isCancelled()) {
-				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
-					arrEnStores.addAll(enStores.getStores());
-					listCustomerAdapter = new ListCustomerAdapter(ListCustomer.this, arrEnStores);
-					listCustomerAdapter.setOnItemClickHandler(onItemClickHandler);
-					lvCustomer.setAdapter(listCustomerAdapter);
-					imgBackToTop.setVisibility(View.VISIBLE);
-					lvCustomer.setOnScrollListener(new OnScrollListener() {
-						
-						@Override
-						public void onScrollStateChanged(AbsListView view, int scrollState) {
-							int threshold = 1;
-							int count = lvCustomer.getCount();
-							if (enStores != null && enStores.getStores().size() > 0) {
-								if (scrollState == SCROLL_STATE_IDLE) {
-									if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
-										// Execute LoadMoreDataTask AsyncTask
-										qtyPage++;
-										getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
-										getStores.execute();
+				try {
+					if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
+						arrEnStores.addAll(enStores.getStores());
+						listCustomerAdapter = new ListCustomerAdapter(ListCustomer.this, arrEnStores);
+						listCustomerAdapter.setOnItemClickHandler(onItemClickHandler);
+						lvCustomer.setAdapter(listCustomerAdapter);
+						imgBackToTop.setVisibility(View.VISIBLE);
+						lvCustomer.setOnScrollListener(new OnScrollListener() {
+							
+							@Override
+							public void onScrollStateChanged(AbsListView view, int scrollState) {
+								int threshold = 1;
+								int count = lvCustomer.getCount();
+								if (enStores != null && enStores.getStores().size() > 0) {
+									if (scrollState == SCROLL_STATE_IDLE) {
+										if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
+											// Execute LoadMoreDataTask AsyncTask
+											qtyPage++;
+											getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+											getStores.execute();
+										}
 									}
-								}
-							}							
-						}
-						
-						@Override
-						public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-						}
-					});
-				}
+								}							
+							}
+							
+							@Override
+							public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+							}
+						});
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}				
 			}
 		}
 	}

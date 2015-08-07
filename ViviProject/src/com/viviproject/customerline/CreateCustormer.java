@@ -21,10 +21,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.adapter.StaffAdapter;
 import com.viviproject.entities.EnCreateStaff;
 import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.network.NetParameter;
@@ -46,8 +48,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 	private List<String> listDay, listMonth, listYear;
 	private String yearOwner, monthOwner, dayOwner, yearStaff, monthStaff, dayStaff;
 
-	private EditText edtStoreName, edtStoreAddress, edtStorePhone;
-	
+	private EditText edtStoreName, edtStoreAddress, edtStorePhone;	
 	private EditText edtNameOwner, edtPhoneOwner, edtNoteOwner;
 	private EditText edtNameStaff, edtPhoneStaff; 
 	
@@ -55,6 +56,10 @@ public class CreateCustormer extends Activity implements OnClickListener {
 	private CheckBox ckTimeOne, ckTimeTwo, ckTimeThree, ckTimeFour;
 	private String vip, times;
 	private ArrayList<Integer> line;
+	
+	private LinearLayout linAddStaff;
+	private StaffAdapter staffAdapter;
+	private ListView lvAddStaff;
 	
 	private AppPreferences app;
 	private ProgressDialog progressDialog;
@@ -187,6 +192,10 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		btnSendRequest = (Button) findViewById(R.id.btnSendRequest);
 		btnSendRequest.setOnClickListener(this);
 		
+		linAddStaff = (LinearLayout) findViewById(R.id.linAddStaff);
+		linAddStaff.setOnClickListener(this);		
+		lvAddStaff = (ListView) findViewById(R.id.lvAddStaff);
+		
 		spDay = (Spinner) findViewById(R.id.spDay);
 		spMonth = (Spinner) findViewById(R.id.spMonth);
 		spYear = (Spinner) findViewById(R.id.spYear);
@@ -257,30 +266,44 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		case R.id.linBack:
 			finish();
 			break;
-
+			
+		case R.id.linAddStaff:
+			enCreateStaff = new EnCreateStaff();
+			enCreateStaff.setFullname(edtNameOwner.getEditableText().toString());
+			enCreateStaff.setBirthday(dayOwner + "-" + monthOwner + "-" + yearOwner);
+			enCreateStaff.setPhone(edtPhoneOwner.getEditableText().toString());
+			enCreateStaff.setRole("owner");
+			enCreateStaff.setNote(edtNoteOwner.getEditableText().toString());			
+			arrCreateStaff.add(enCreateStaff);
+			
+			staffAdapter = new StaffAdapter(this, arrCreateStaff);
+			lvAddStaff.setAdapter(staffAdapter);
+			app.setListViewHeight(lvAddStaff, staffAdapter);
+			break;
+			
 		case R.id.btnSendRequest:
 			
 			int errorCode = validateInput();
 			if (errorCode == 0) {
-				arrCreateStaff = new ArrayList<EnCreateStaff>();
-				
-				enCreateStaff = new EnCreateStaff();
-				enCreateStaff.setFullname(edtNameOwner.getEditableText().toString());
-				enCreateStaff.setBirthday(yearOwner + "-" + monthOwner + "-" + dayOwner);
-				enCreateStaff.setPhone(edtPhoneOwner.getEditableText().toString());
-				enCreateStaff.setRole("owner");
-				enCreateStaff.setNote(edtNoteOwner.getEditableText().toString());
-				
-				arrCreateStaff.add(enCreateStaff);
-				
-				enCreateStaff = new EnCreateStaff();
-				enCreateStaff.setFullname(edtNameStaff.getEditableText().toString());
-				enCreateStaff.setBirthday(yearStaff + "-" + monthStaff + "-" + dayStaff);
-				enCreateStaff.setPhone(edtPhoneStaff.getEditableText().toString());
-				enCreateStaff.setRole("employee");
-				enCreateStaff.setNote("");
-				
-				arrCreateStaff.add(enCreateStaff);
+//				arrCreateStaff = new ArrayList<EnCreateStaff>();
+//				
+//				enCreateStaff = new EnCreateStaff();
+//				enCreateStaff.setFullname(edtNameOwner.getEditableText().toString());
+//				enCreateStaff.setBirthday(dayOwner + "-" + monthOwner + "-" + yearOwner);
+//				enCreateStaff.setPhone(edtPhoneOwner.getEditableText().toString());
+//				enCreateStaff.setRole("owner");
+//				enCreateStaff.setNote(edtNoteOwner.getEditableText().toString());
+//				
+//				arrCreateStaff.add(enCreateStaff);
+//				
+//				enCreateStaff = new EnCreateStaff();
+//				enCreateStaff.setFullname(edtNameStaff.getEditableText().toString());
+//				enCreateStaff.setBirthday(dayOwner + "-" + monthOwner + "-" + yearOwner);
+//				enCreateStaff.setPhone(edtPhoneStaff.getEditableText().toString());
+//				enCreateStaff.setRole("employee");
+//				enCreateStaff.setNote("");
+//				
+//				arrCreateStaff.add(enCreateStaff);
 				
 				line = new ArrayList<Integer>();
 				if (ckT2.isChecked()) {

@@ -157,6 +157,8 @@
     <string name="STORES_NAME_NOT_BLANK">Tên nhà thuốc không được để trống</string>
     <string name="STORES_ADDRESS_NOT_BLANK">Địa chỉ nhà thuốc không được để trống</string>
     <string name="STORES_PHONE_NOT_BLANK">Điện thoại nhà thuốc không được để trống</string>
+    <string name="NAME">Tên</string>
+    <string name="ROLE">Vai trò</string>
 
     <!-- ================================= Ghe tham screen ================================ -->
     <string name="DEFAULT_FILTER_LOCATIONEST">Mặc định sắp xếp theo vị trí gần nhất</string>

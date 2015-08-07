@@ -263,9 +263,9 @@
                 <CheckBox
                     android:id="@+id/ckTimeOne"
                     android:layout_width="wrap_content"
-                    android:checked="true"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="124dp" />
+                    android:layout_marginLeft="124dp"
+                    android:checked="true" />
 
                 <CheckBox
                     android:id="@+id/ckTimeTwo"
@@ -517,6 +517,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linAddStaff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -538,6 +539,36 @@
                     android:textColor="@color/TEXT_COLOR_SKYBLUE"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linStaff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:paddingBottom="8dp"
+                android:background="@color/BG_GRAY_LIGHT"
+                android:orientation="vertical"
+                android:visibility="visible" >
+
+                <include layout="@layout/header_listview_staff" />
+
+                <ListView
+                    android:id="@+id/lvAddStaff"
+                    style="@style/NormalListViewNoDivider"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/WHITE"
+                    android:fadingEdge="none"
+                    android:scrollbarSize="3dp" />
+                
+                <View 
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/BLACK"/>
             </LinearLayout>
 
             <LinearLayout
