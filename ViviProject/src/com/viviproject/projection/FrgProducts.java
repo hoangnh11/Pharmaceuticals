@@ -26,6 +26,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.viviproject.R;
+import com.viviproject.entities.EnProduct;
 
 
 public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickListener{
@@ -37,9 +38,9 @@ public class FrgProducts extends FrgBaseFragmentProducts implements OnItemClickL
 	private Activity mActivity;
 	private Context mContext;
 	
-	public static FrgProducts newInstance(Context context, String frgName, ArrayList<String> listUrlPicture){
+	public static FrgProducts newInstance(Context context, EnProduct enProduct, ArrayList<String> listUrlPicture){
 		FrgProducts f = new FrgProducts();
-		f.frgName = frgName;
+		f.enProduct = enProduct;
 		f.mContext = context;
 		
 		if(null != listUrlPicture){

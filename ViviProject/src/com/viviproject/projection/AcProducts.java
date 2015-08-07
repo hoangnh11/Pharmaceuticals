@@ -2,6 +2,14 @@ package com.viviproject.projection;
 
 import java.util.ArrayList;
 
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,7 +21,16 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.AdapterFrgProducts;
+import com.viviproject.entities.EnNewsList;
+import com.viviproject.entities.EnProduct;
+import com.viviproject.entities.EnProductResponse;
 import com.viviproject.library.TabPageIndicator;
+import com.viviproject.network.access.HttpFunctionFactory;
+import com.viviproject.network.access.ViviApi;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.StringConverter;
 
 public class AcProducts extends FragmentActivity implements OnClickListener{
 	private LinearLayout linBack;
@@ -24,6 +41,10 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 	
 	private ArrayList<Fragment> listFrgProducts;
 	private AdapterFrgProducts adapterFrgProducts;
+	private static RestAdapter restAdapter;
+	private ProgressDialog dialog;
+	private int page = 1;
+	private int perPage = 10;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,41 +79,33 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 		productIndicator = (TabPageIndicator) findViewById(R.id.product_type_title_indicator);
 		
 		listFrgProducts = new ArrayList<Fragment>();
-		ArrayList<String> listUrl = new ArrayList<String>();
-		listUrl.add("https://lh3.googleusercontent.com/-PyggXXZRykM/URquh-kVvoI/AAAAAAAAAbs/hFtDwhtrHHQ/s1024/Colorado%252520River%252520Sunset.jpg");
-		listUrl.add("https://lh5.googleusercontent.com/-WVpRptWH8Yw/URqugh-QmDI/AAAAAAAAAbs/E-MgBgtlUWU/s1024/Chihuly.jpg");
-		listUrl.add("https://lh3.googleusercontent.com/-rrFnVC8xQEg/URqufdrLBaI/AAAAAAAAAbs/s69WYy_fl1E/s1024/Chess.jpg");
-		listUrl.add("https://lh6.googleusercontent.com/-55osAWw3x0Q/URquUtcFr5I/AAAAAAAAAbs/rWlj1RUKrYI/s1024/A%252520Photographer.jpg");
-		listUrl.add("https://lh4.googleusercontent.com/--dq8niRp7W4/URquVgmXvgI/AAAAAAAAAbs/-gnuLQfNnBA/s1024/A%252520Song%252520of%252520Ice%252520and%252520Fire.jpg");
-		listUrl.add("https://lh5.googleusercontent.com/-7qZeDtRKFKc/URquWZT1gOI/AAAAAAAAAbs/hqWgteyNXsg/s1024/Another%252520Rockaway%252520Sunset.jpg");
-		listUrl.add("https://lh3.googleusercontent.com/--L0Km39l5J8/URquXHGcdNI/AAAAAAAAAbs/3ZrSJNrSomQ/s1024/Antelope%252520Butte.jpg");
-		listUrl.add("https://lh4.googleusercontent.com/-WIuWgVcU3Qw/URqubRVcj4I/AAAAAAAAAbs/YvbwgGjwdIQ/s1024/Antelope%252520Walls.jpg");
-		listUrl.add("https://lh5.googleusercontent.com/-bvmif9a9YOQ/URquea3heHI/AAAAAAAAAbs/rcr6wyeQtAo/s1024/Bee%252520and%252520Flower.jpg");
-		listUrl.add("https://lh3.googleusercontent.com/-KtLJ3k858eY/URqvC_2h_bI/AAAAAAAAAbs/zzEBImwDA_g/s1024/Stream.jpg");
-		listUrl.add("https://lh6.googleusercontent.com/-4CN4X4t0M1k/URqufPozWzI/AAAAAAAAAbs/8wK41lg1KPs/s1024/Caterpillar.jpg");
-		listUrl.add("https://lh3.googleusercontent.com/-A9LMoRyuQUA/URqvCYx_JoI/AAAAAAAAAbs/s7sde1Bz9cI/s1024/Starry%252520Night.jpg");
-		listUrl.add("https://lh4.googleusercontent.com/-_0cYiWW8ccY/URqvBz3iM4I/AAAAAAAAAbs/9N_Wq8MhLTY/s1024/Starry%252520Lake.jpg");
-		listUrl.add("https://lh4.googleusercontent.com/-Z4zGiC5nWdc/URqvBdEwivI/AAAAAAAAAbs/ZRZR1VJ84QA/s1024/Sin%252520Lights.jpg");
-		listUrl.add("https://lh3.googleusercontent.com/-897VXrJB6RE/URquxxxd-5I/AAAAAAAAAbs/j-Cz4T4YvIw/s1024/Leica%25252050mm%252520Summilux.jpg");
-		listUrl.add("https://lh6.googleusercontent.com/-8QdYYQEpYjw/URquwvdh88I/AAAAAAAAAbs/cktDy-ysfHo/s1024/Kyoto%252520Sunset.jpg");
-		listUrl.add("https://lh5.googleusercontent.com/-GoUQVw1fnFw/URquv6xbC0I/AAAAAAAAAbs/zEUVTQQ43Zc/s1024/Kauai.jpg");
-		listUrl.add("https://lh4.googleusercontent.com/-zAvf__52ONk/URqutT_IuxI/AAAAAAAAAbs/D_bcuc0thoU/s1024/Highway%2525201.jpg");
-		listUrl.add("https://lh3.googleusercontent.com/-6hZiEHXx64Q/URqurxvNdqI/AAAAAAAAAbs/kWMXM3o5OVI/s1024/Green%252520Grass.jpg");
-		listUrl.add("https://lh5.googleusercontent.com/-6LVb9OXtQ60/URquteBFuKI/AAAAAAAAAbs/4F4kRgecwFs/s1024/Hanging%252520Leaf.jpg");
-		listUrl.add("https://lh4.googleusercontent.com/-WoMxZvmN9nY/URquq1v2AoI/AAAAAAAAAbs/grj5uMhL6NA/s1024/Grass%252520Closeup.jpg");
-		listUrl.add("https://lh4.googleusercontent.com/-EIBGfnuLtII/URquqVHwaRI/AAAAAAAAAbs/FA4McV2u8VE/s1024/Grand%252520Teton.jpg");
 		
-		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), " TPL ", listUrl));
-		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), "TPL Plus", listUrl));
-		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), "TPL Fast", listUrl));
-		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), "Maxxhair", listUrl));
-		listFrgProducts.add(FrgProducts.newInstance(getApplicationContext(), getResources().getString(R.string.TEXT_NIEU_BAO), listUrl));
+		
 		adapterFrgProducts = new AdapterFrgProducts(getSupportFragmentManager(), listFrgProducts);
 		productPager.setAdapter(adapterFrgProducts);
 		productIndicator.setViewPager(productPager);
 		
+		refreshData();
 	}
 
+	private void refreshData() {
+		getDataFromServer();
+	}
+
+	private void updateDataScreen(ArrayList<EnProduct> list){
+		ArrayList<String> listUrl = new ArrayList<String>();
+		
+		//udpate tabindecator
+		ArrayList<Fragment> frgProductList = new ArrayList<Fragment>();
+		for (EnProduct enProduct : list) {
+			FrgProducts frgProducts = FrgProducts.newInstance(AcProducts.this, enProduct, listUrl);
+			frgProductList.add(frgProducts);
+		}
+		adapterFrgProducts.setListFragment(frgProductList);
+		adapterFrgProducts.notifyDataSetChanged();
+		productIndicator.notifyDataSetChanged();
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -106,4 +119,79 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 		
 	}
 
+	/**
+	 * get data from server
+	 */
+	private void getDataFromServer() {
+		if(null == restAdapter ){
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(HttpFunctionFactory.viviHostURLshort)
+                    .setConverter(new StringConverter())
+                    .build();
+        }
+		
+		String token = BuManagement.getToken(getApplicationContext());
+		Logger.error("access-token: " + token);
+		
+		if(null == dialog){
+			dialog = new ProgressDialog(AcProducts.this);
+			dialog.setMessage(getResources().getString(R.string.LOADING));	
+			dialog.setCancelable(true);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					//cancel threat 
+					imageCatogoryCallback.failure(null);
+				}
+			});
+		}
+		dialog.show();
+		
+		restAdapter.create(ViviApi.class).getProductImageCategory(token, imageCatogoryCallback);
+	}
+
+	Callback<String> imageCatogoryCallback = new Callback<String>() {
+		
+		@Override
+		public void success(String responseString, Response arg1) {
+			Logger.error("GET Image Catogory response: " + responseString);
+			if(null != AcProducts.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			
+			try{
+				EnProductResponse enProductResponse = DataParser.getEnProductResponse(responseString);
+				if(null != enProductResponse){
+					ArrayList<EnProduct> enProduct = enProductResponse.getCategories();
+					updateDataScreen(enProduct);
+				} else {
+					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+							, "Error", AcProducts.this);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcProducts.this);
+			}
+		}
+		
+		@SuppressWarnings("deprecation")
+		@Override
+		public void failure(RetrofitError retrofitError) {
+			retrofitError.printStackTrace();
+			if(null != AcProducts.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			if(retrofitError.isNetworkError()){
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_INTERNET_CONNECTION)
+						, "Error", AcProducts.this);
+			} else {
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcProducts.this);
+			}
+			
+		}
+	};
 }

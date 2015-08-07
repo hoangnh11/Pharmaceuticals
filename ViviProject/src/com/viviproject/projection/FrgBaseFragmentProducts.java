@@ -1,15 +1,14 @@
 package com.viviproject.projection;
 
+import com.viviproject.entities.EnProduct;
+
 import android.support.v4.app.Fragment;
 
 public class FrgBaseFragmentProducts extends Fragment{
-	protected String frgName;
+	protected EnProduct enProduct;
 	
 	public String getFragmentName(){
-		return frgName;
+		return enProduct.getName();
 	}
 	
-	public void setFragmentName(String frgName){
-		this.frgName = frgName;
-	}
 }

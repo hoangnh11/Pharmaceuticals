@@ -22,6 +22,7 @@ import com.viviproject.entities.EnFeedback;
 import com.viviproject.entities.EnGimicManager;
 import com.viviproject.entities.EnNews;
 import com.viviproject.entities.EnNewsList;
+import com.viviproject.entities.EnProductResponse;
 import com.viviproject.entities.EnRegions;
 import com.viviproject.entities.EnReportImageResponse;
 import com.viviproject.entities.EnVideosResponse;
@@ -361,6 +362,22 @@ public final class DataParser {
 			Type collectionType = new TypeToken<EnVideosResponse>() {}.getType();
 
 			EnVideosResponse details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static EnProductResponse getEnProductResponse(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnProductResponse>() {}.getType();
+
+			EnProductResponse details = mGson.fromJson(jsonData, collectionType);
 			return details;
 		} catch (Exception e) {
 			Logger.error(e);
