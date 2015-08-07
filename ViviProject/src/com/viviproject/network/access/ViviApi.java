@@ -54,4 +54,8 @@ public interface ViviApi {
 	void getTotalSale(@Query("access-token") String token, @Query("from") String from,
 	          @Query("to") String to, Callback<String> callback);
 
+	@GET("/v1/reports/chart_sale")
+	void getReportChartSale(@Query("access-token") String token, @Query("day") String day,
+	          @Query("month") String month, Callback<String> callback);
+	
 }

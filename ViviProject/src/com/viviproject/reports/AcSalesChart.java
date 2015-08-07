@@ -4,16 +4,25 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -37,8 +46,19 @@ import com.github.mikephil.charting.utils.ValueFormatter;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 import com.viviproject.R;
+import com.viviproject.entities.EnItemDataChart;
+import com.viviproject.entities.EnReportChartResponse;
+import com.viviproject.entities.EnReportDay;
+import com.viviproject.entities.EnReportMonth;
+import com.viviproject.network.access.HttpFunctionFactory;
+import com.viviproject.network.access.ViviApi;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.MyValueFormatter;
+import com.viviproject.ultilities.StringConverter;
 
+@SuppressLint("SimpleDateFormat")
 public class AcSalesChart extends FragmentActivity implements OnClickListener, OnChartValueSelectedListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
@@ -47,18 +67,26 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 	private BarChart mChartProductByMonth;
 	private Spinner spMonth, spYear;
 	private ImageView imgIconCalendar;
+	private TextView tvTime;
+	private Button btOK;
 	
 	private CaldroidListener listener;
-	private SimpleDateFormat formatter;
+	private SimpleDateFormat formatterDay = new SimpleDateFormat("dd/MM/yyyy");
+	private SimpleDateFormat formatterMonth = new SimpleDateFormat("MM/yyyy");
 	private CaldroidFragment dialogCaldroidFragment;
 	
 	private List<String> listMonth, listYear;
+	private static RestAdapter restAdapter;
+	private ProgressDialog dialog;
+	private String strDay;
+	private String strMonth;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_sales_chart);
+		getCurrentDate();
 		
 		initLayout();
 	}
@@ -76,16 +104,23 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linOptionSearch = (LinearLayout) findViewById(R.id.linSearch);
-		linOptionSearch.setVisibility(View.VISIBLE);
+		linOptionSearch.setVisibility(View.INVISIBLE);
 		
 		linOptionFilter = (LinearLayout) findViewById(R.id.linUpdate);
-		linOptionFilter.setVisibility(View.VISIBLE);
+		linOptionFilter.setVisibility(View.INVISIBLE);
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
+		linOptionRefresh.setOnClickListener(this);
 		
 		imgIconCalendar = (ImageView) findViewById(R.id.imgIconCalendar);
 		imgIconCalendar.setOnClickListener(this);
+		
+		tvTime = (TextView) findViewById(R.id.tvTime);
+		tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
+		
+		btOK =(Button) findViewById(R.id.btOK);
+		btOK.setOnClickListener(this);
 		
 		spMonth = (Spinner) findViewById(R.id.spMonth);
 		String[] month = getResources().getStringArray(R.array.month);
@@ -99,12 +134,159 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listYear);
 		spYear.setAdapter(yearAdapter);
 		
+		try {
+			Calendar calendar = Calendar.getInstance();
+			int positionMonth = calendar.get(Calendar.MONTH);
+			spMonth.setSelection(positionMonth);
+			
+			int currentYear = calendar.get(Calendar.YEAR);	
+			int startYear = Integer.parseInt(listYear.get(0));
+			Logger.error("currentYear:" + currentYear + "*startYear:" + startYear);
+			int positionYear = currentYear - startYear;
+			spYear.setSelection(positionYear);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		mChartProductByDay = (BarChart) findViewById(R.id.chartProduct);
 		setUpChartByDay();
         
 		mChartProductByMonth = (BarChart) findViewById(R.id.chartProductByMonth);
 		setUpChartByMonth();
 		
+		refreshData();
+	}
+	
+	/**
+	 * get current date and update to from field and to field
+	 */
+	public void getCurrentDate(){
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date date = calendar.getTime();
+			
+			strDay = formatterDay.format(date);
+			strMonth = formatterMonth.format(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * get postion of month in list
+	 * @param month
+	 * @return
+	 *//*
+	public int getPositonMonth(String textMonth){
+		int postion = 0;
+		for (int i = 0; i < listMonth.size(); i++) {
+			try {
+				int inMonth = Integer.parseInt(textMonth);
+				int inListMonth = Integer.parseInt(listMonth.get(i));
+				
+				if(inMonth == inListMonth){
+					postion = i;
+					break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Logger.error("Posstion month:" + postion);
+		return postion;
+	}
+	
+	*//**
+	 * get postion of year in list
+	 * @param month
+	 * @return
+	 *//*
+	public int getPositonYear(String textYear){
+		int postion = 0;
+		for (int i = 0; i < listYear.size(); i++) {
+			try {
+				int inyear = Integer.parseInt(textYear);
+				int inListYear = Integer.parseInt(listYear.get(i));
+				
+				if(inyear == inListYear){
+					postion = i;
+					break;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		Logger.error("Posstion year:" + postion);
+		return postion;
+	}
+	*/
+	public void refreshData(){
+		getDataFromServer();
+	}
+	
+	/**
+	 * updateDataScreen
+	 * @param chartResponse
+	 */
+	protected void updateDataScreen(EnReportChartResponse chartResponse) {
+		if(null == chartResponse) return;
+		
+		// update data on day
+		EnReportDay enReportDay = chartResponse.getDay();
+		if(null != enReportDay){
+			ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+			ArrayList<String> labels = new ArrayList<String>();
+			
+			for (int i = 0; i < enReportDay.getChart_data().size(); i++) {
+				EnItemDataChart enItemDataChart = enReportDay.getChart_data().get(i);
+				entries.add(new BarEntry(enItemDataChart.getValue_percent(), i));
+				labels.add(enItemDataChart.getName());
+			}
+			
+			BarDataSet dataset = new BarDataSet(entries, getResources().getString(R.string.PROFIT));
+			dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+			dataset.setValueTextSize(10f);
+			dataset.setValueFormatter(new ValueFormatter() {
+				
+				@Override
+				public String getFormattedValue(float value) {
+					DecimalFormat mFormat = new DecimalFormat("###,###,###,##0");
+					return mFormat.format(value);
+				}
+			});
+			BarData data = new BarData(labels, dataset);
+			mChartProductByDay.setData(data);
+			mChartProductByDay.invalidate();
+		}
+		
+		// update data on month
+		EnReportMonth enReportMonth = chartResponse.getMonth();
+		if(null != enReportMonth){
+			ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
+			ArrayList<String> labels = new ArrayList<String>();
+			
+			for (int i = 0; i < enReportMonth.getChart_data().size(); i++) {
+				EnItemDataChart enItemDataChart = enReportMonth.getChart_data().get(i);
+				entries.add(new BarEntry(enItemDataChart.getValue_percent(), i));
+				labels.add(enItemDataChart.getName());
+			}
+			
+			BarDataSet dataset = new BarDataSet(entries, getResources().getString(R.string.PROFIT));
+			dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+			dataset.setValueTextSize(10f);
+			dataset.setValueFormatter(new ValueFormatter() {
+				
+				@Override
+				public String getFormattedValue(float value) {
+					DecimalFormat mFormat = new DecimalFormat("###,###,###,##0");
+					return mFormat.format(value);
+				}
+			});
+			BarData data = new BarData(labels, dataset);
+			mChartProductByMonth.setData(data);
+			mChartProductByMonth.invalidate();
+		}
 	}
 	
 	/**
@@ -119,9 +301,10 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
         mChartProductByDay.setDoubleTapToZoomEnabled(false);
         mChartProductByDay.setScaleEnabled(false);
         
-        LimitLine limitLine = new LimitLine(100f, "Đạt");
+        LimitLine limitLine = new LimitLine(100f, getResources().getString(R.string.PASS));
         limitLine.setLineWidth(0.5f);
         limitLine.setLineColor(Color.BLACK);
+        limitLine.enableDashedLine(10, 10, 0);
         limitLine.setLabelPosition(LimitLabelPosition.POS_RIGHT);
         limitLine.setTextSize(10f);
         
@@ -131,11 +314,10 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(limitLine);
         leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setAxisMaxValue(120);
+        leftAxis.setAxisMinValue(110);
         leftAxis.setSpaceTop(10);
         ValueFormatter valueFormatter = new MyValueFormatter();
         leftAxis.setValueFormatter(valueFormatter);
-        
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
         
@@ -148,7 +330,7 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         
-        setData(true, 12, 50);
+        //setData(true, 12, 50);
 	}
 	
 	/**
@@ -163,9 +345,10 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		mChartProductByMonth.setDoubleTapToZoomEnabled(false);
 		mChartProductByMonth.setScaleEnabled(false);
 		
-        LimitLine limitLine = new LimitLine(80f, "Đạt");
+        LimitLine limitLine = new LimitLine(80f, getResources().getString(R.string.PASS));
         limitLine.setLineWidth(0.5f);
         limitLine.setLineColor(Color.BLACK);
+        limitLine.enableDashedLine(10, 10, 0);
         limitLine.setLabelPosition(LimitLabelPosition.POS_RIGHT);
         limitLine.setTextSize(10f);
         
@@ -175,7 +358,7 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(limitLine);
         leftAxis.setPosition(YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setAxisMaxValue(120);
+        leftAxis.setAxisMinValue(110);
         leftAxis.setSpaceTop(10);
         ValueFormatter valueFormatter = new MyValueFormatter();
         leftAxis.setValueFormatter(valueFormatter);
@@ -190,43 +373,9 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
         xAxis.setSpaceBetweenLabels(2);
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        
-        setData(false, 12, 50);
+        //setData(false, 12, 50);
 	}
 	
-	private void setData(boolean byDay, int count, float range) {
-		ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-		entries.add(new BarEntry(40f, 0));
-		entries.add(new BarEntry(100f, 1));
-		entries.add(new BarEntry(60f, 2));
-		entries.add(new BarEntry(50f, 3));
-		entries.add(new BarEntry(80f, 4));
-		
-		ArrayList<String> labels = new ArrayList<String>();
-		labels.add(getResources().getString(R.string.TPL)); 
-		labels.add(getResources().getString(R.string.TPL_PLUS1)); 
-		labels.add(getResources().getString(R.string.TPL_FAST1)); 
-		labels.add(getResources().getString(R.string.MXH)); 
-		labels.add(getResources().getString(R.string.NIEU_BAO));
-		
-		BarDataSet dataset = new BarDataSet(entries, getResources().getString(R.string.PROFIT));
-		dataset.setColors(ColorTemplate.COLORFUL_COLORS);
-		dataset.setValueFormatter(new ValueFormatter() {
-			
-			@Override
-			public String getFormattedValue(float value) {
-				DecimalFormat mFormat = new DecimalFormat("###,###,###,##0");
-				return mFormat.format(value);
-			}
-		});
-		BarData data = new BarData(labels, dataset);
-		
-		if(byDay){
-			mChartProductByDay.setData(data);
-		} else {
-			mChartProductByMonth.setData(data);
-		}
-    }
 
 	@Override
 	public void onClick(View v) {
@@ -237,6 +386,33 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 			
 		case R.id.imgIconCalendar:
 			showCalender();
+			break;
+		
+		case R.id.btOK:
+			String textMonth = (String) spMonth.getSelectedItem();
+			String textYear = (String) spYear.getSelectedItem();
+			strMonth = textMonth + "/" + textYear;
+			getDataFromServer();
+			break;
+			
+		case R.id.linRefresh:
+			getCurrentDate();
+			tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
+			try {
+				Calendar calendar = Calendar.getInstance();
+				int positionMonth = calendar.get(Calendar.MONTH);
+				spMonth.setSelection(positionMonth);
+				
+				int currentYear = calendar.get(Calendar.YEAR);	
+				int startYear = Integer.parseInt(listYear.get(0));
+				Logger.error("currentYear:" + currentYear + "*startYear:" + startYear);
+				int positionYear = currentYear - startYear;
+				spYear.setSelection(positionYear);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			getDataFromServer();
+			
 			break;
 			
 		default:
@@ -257,13 +433,15 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 	
 	@SuppressLint("SimpleDateFormat")
 	private void showCalender() {
-		formatter = new SimpleDateFormat("yyyy-MM-dd");
 		listener = new CaldroidListener() {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
 				dialogCaldroidFragment.dismiss();
 				
+				strDay = formatterDay.format(date);
+				tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
+				getDataFromServer();
 			}
 
 			@Override
@@ -291,4 +469,79 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		dialogCaldroidFragment.show(getSupportFragmentManager(),
 				"CalenderAndroid");
 	}
+	
+	private void getDataFromServer() {
+		if(null == restAdapter ){
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(HttpFunctionFactory.viviHostURLshort)
+                    .setConverter(new StringConverter())
+                    .build();
+        }
+		
+		
+		String token = BuManagement.getToken(getApplicationContext());
+		
+		if(null == dialog){
+			dialog = new ProgressDialog(AcSalesChart.this);
+			dialog.setMessage(getResources().getString(R.string.LOADING));	
+			dialog.setCancelable(true);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setOnCancelListener(new OnCancelListener() {
+				
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					//cancel get data
+				}
+			});
+		}
+		
+		dialog.show();
+		restAdapter.create(ViviApi.class).getReportChartSale(token, strDay, strMonth, callback);
+	}
+	
+	Callback<String> callback = new Callback<String>() {
+		
+		@Override
+		public void success(String strData, Response arg1) {
+			Logger.error("Get Total Sale: #success: " + strData);
+			if(null != AcSalesChart.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			
+			try {
+				EnReportChartResponse chartResponse = DataParser.getEnReportChartResponse(strData);
+				
+				if(null != chartResponse){
+					updateDataScreen(chartResponse);
+				} else {
+					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+							, "Error", AcSalesChart.this);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcSalesChart.this);
+			}
+		}
+		
+		@SuppressWarnings("deprecation")
+		@Override
+		public void failure(RetrofitError retrofitError) {
+			if(null == retrofitError) return;
+			
+			retrofitError.printStackTrace();
+			if(null != AcSalesChart.this && null != dialog){
+				if(dialog.isShowing()) dialog.dismiss();
+			}
+			if(retrofitError.isNetworkError()){
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_INTERNET_CONNECTION)
+						, "Error", AcSalesChart.this);
+			} else {
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcSalesChart.this);
+			}
+			
+		}
+	};
+	
 }
