@@ -49,6 +49,7 @@ public final class GlobalParams {
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
     public static final String STORES_ID = "store id";
+    public static final String DELETE = "Delete";
     public static final String FOLDER_DATA = Environment
 			.getExternalStorageDirectory().getAbsolutePath()
 			+ SPLASH_STRING

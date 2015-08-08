@@ -22,6 +22,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.ultilities.StringUtils;
 
 public class CreateCustormer extends Activity implements OnClickListener {
@@ -44,48 +48,56 @@ public class CreateCustormer extends Activity implements OnClickListener {
 	private TextView tvHeader;
 	private Button btnHere, btnSendRequest;
 	
-	private Spinner spDay, spMonth, spYear, spDayStaff, spMonthStaff, spYearStaff;
+	private Spinner spDay, spMonth, spYear;
 	private List<String> listDay, listMonth, listYear;
-	private String yearOwner, monthOwner, dayOwner, yearStaff, monthStaff, dayStaff;
+	private String yearOwner, monthOwner, dayOwner;
 
 	private EditText edtStoreName, edtStoreAddress, edtStorePhone;	
-	private EditText edtNameOwner, edtPhoneOwner, edtNoteOwner;
-	private EditText edtNameStaff, edtPhoneStaff; 
+	private EditText edtNameOwner, edtPhoneOwner, edtNoteOwner;	
+	private RadioGroup radioGroup;
+	private RadioButton radioOwner,radioStaff;
 	
 	private CheckBox ckVipA, ckVipB, ckVipC, ckT2, ckT3, ckT4, ckT5, ckT6, ckT7;
 	private CheckBox ckTimeOne, ckTimeTwo, ckTimeThree, ckTimeFour;
 	private String vip, times;
 	private ArrayList<Integer> line;
 	
-	private LinearLayout linAddStaff;
+	private LinearLayout linAddStaff, linRemoveStaff, linStaff;
 	private StaffAdapter staffAdapter;
 	private ListView lvAddStaff;
 	
 	private AppPreferences app;
+	private SharedPreferenceManager sm;
 	private ProgressDialog progressDialog;
 	private CreateStores createStores;
 	private ResponseCreateStores responseCreateStores;
 	private ArrayList<EnCreateStaff> arrCreateStaff;
 	private EnCreateStaff enCreateStaff;
-	
+	private boolean remove;
+	private int positionDelete = 0;
+	private String role;
+ 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_customer_layout);
 		app = new AppPreferences(this);
+		sm = new SharedPreferenceManager(this);
+		sm.saveString(GlobalParams.DELETE, GlobalParams.FALSE);
 		responseCreateStores = new ResponseCreateStores();
 		arrCreateStaff = new ArrayList<EnCreateStaff>();
-		enCreateStaff = new EnCreateStaff();
+		enCreateStaff = new EnCreateStaff();		
 		line = new ArrayList<Integer>();
 		vip = GlobalParams.BLANK_CHARACTER;
 		times = "1";
+		remove = false;
+		role = "owner";
 		initLayout();
 		
 		String[] day = getResources().getStringArray(R.array.day);
 		listDay = Arrays.asList(day);
 		ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listDay);
-		spDay.setAdapter(dayAdapter);
-		spDayStaff.setAdapter(dayAdapter);
+		spDay.setAdapter(dayAdapter);		
 		
 		spDay.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -96,24 +108,12 @@ public class CreateCustormer extends Activity implements OnClickListener {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		spDayStaff.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				dayStaff = listDay.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
+		});		
 		
 		String[] month = getResources().getStringArray(R.array.month);
 		listMonth = Arrays.asList(month);
 		ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listMonth);
-		spMonth.setAdapter(monthAdapter);
-		spMonthStaff.setAdapter(monthAdapter);
+		spMonth.setAdapter(monthAdapter);		
 		
 		spMonth.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -124,25 +124,13 @@ public class CreateCustormer extends Activity implements OnClickListener {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		spMonthStaff.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				monthStaff = listMonth.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
+		});		
 		
 		String[] year = getResources().getStringArray(R.array.year);
 		listYear = Arrays.asList(year);
 		ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listYear);
 		spYear.setAdapter(yearAdapter);
-		spYearStaff.setAdapter(yearAdapter);
-		
+				
 		spYear.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -152,18 +140,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		spYearStaff.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				yearStaff = listYear.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
+		});		
 	}
 	
 	public void initLayout(){
@@ -192,16 +169,16 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		btnSendRequest = (Button) findViewById(R.id.btnSendRequest);
 		btnSendRequest.setOnClickListener(this);
 		
+		linStaff = (LinearLayout) findViewById(R.id.linStaff);
 		linAddStaff = (LinearLayout) findViewById(R.id.linAddStaff);
 		linAddStaff.setOnClickListener(this);		
+		linRemoveStaff = (LinearLayout) findViewById(R.id.linRemoveStaff);
+		linRemoveStaff.setOnClickListener(this);
 		lvAddStaff = (ListView) findViewById(R.id.lvAddStaff);
 		
 		spDay = (Spinner) findViewById(R.id.spDay);
 		spMonth = (Spinner) findViewById(R.id.spMonth);
-		spYear = (Spinner) findViewById(R.id.spYear);
-		spDayStaff = (Spinner) findViewById(R.id.spDayStaff);
-		spMonthStaff = (Spinner) findViewById(R.id.spMonthStaff);
-		spYearStaff = (Spinner) findViewById(R.id.spYearStaff);		
+		spYear = (Spinner) findViewById(R.id.spYear);		
 		
 		edtStoreName = (EditText) findViewById(R.id.edtStoreName);
 		edtStoreAddress = (EditText) findViewById(R.id.edtStoreAddress);
@@ -210,10 +187,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		edtNameOwner = (EditText) findViewById(R.id.edtNameOwner);
 		edtPhoneOwner = (EditText) findViewById(R.id.edtPhoneOwner);
 		edtNoteOwner = (EditText) findViewById(R.id.edtNoteOwner);
-		
-		edtNameStaff = (EditText) findViewById(R.id.edtNameStaff);
-		edtPhoneStaff = (EditText) findViewById(R.id.edtPhoneStaff);
-		
+	
 		ckVipA = (CheckBox) findViewById(R.id.ckVipA);	
 		ckVipA.setOnCheckedChangeListener(new CheckBoxChecked());
 		ckVipB = (CheckBox) findViewById(R.id.ckVipB);
@@ -240,6 +214,33 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		ckTimeThree.setOnCheckedChangeListener(new CheckBoxChecked());
 		ckTimeFour= (CheckBox) findViewById(R.id.ckTimeFour);
 		ckTimeFour.setOnCheckedChangeListener(new CheckBoxChecked());
+		
+		radioOwner = (RadioButton) findViewById(R.id.radioOwner);
+		radioStaff = (RadioButton) findViewById(R.id.radioStaff);		
+		radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				//radioDay = (RadioButton) findViewById(checkedId);		
+				switch (checkedId) {
+				case R.id.radioOwner:
+					if(radioOwner.isChecked()){					
+						role = "owner";			
+					}
+					break;
+						
+				case R.id.radioStaff:
+					if(radioStaff.isChecked()){						
+						role = "employee";	
+					}
+					break;
+					
+				default:
+					break;
+				}
+			}
+		});
 	}
 		
 	private int validateInput() {
@@ -259,6 +260,25 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		return errorCode;
 	}
 	
+	OnClickListener onItemClickDelete = new OnClickListener()
+	{
+        @Override
+        public void onClick(View v)
+        {
+        	positionDelete = ((ItemListviewStaff) v).get_position();        	
+        	arrCreateStaff.remove(positionDelete);
+        	staffAdapter = new StaffAdapter(CreateCustormer.this, arrCreateStaff);
+			staffAdapter.setOnItemClickHandler(onItemClickDelete);
+			lvAddStaff.setAdapter(staffAdapter);
+			app.setListViewHeight(lvAddStaff, staffAdapter);
+			
+			if (arrCreateStaff.size() == 0) {
+				linStaff.setVisibility(View.GONE);
+				linRemoveStaff.setVisibility(View.GONE);
+			}
+        }
+    };
+	
 	@Override
 	public void onClick(View v) {
 		Intent intent;
@@ -268,43 +288,39 @@ public class CreateCustormer extends Activity implements OnClickListener {
 			break;
 			
 		case R.id.linAddStaff:
+			linStaff.setVisibility(View.VISIBLE);
+			linRemoveStaff.setVisibility(View.VISIBLE);
 			enCreateStaff = new EnCreateStaff();
 			enCreateStaff.setFullname(edtNameOwner.getEditableText().toString());
 			enCreateStaff.setBirthday(dayOwner + "-" + monthOwner + "-" + yearOwner);
 			enCreateStaff.setPhone(edtPhoneOwner.getEditableText().toString());
-			enCreateStaff.setRole("owner");
+			enCreateStaff.setRole(role);
 			enCreateStaff.setNote(edtNoteOwner.getEditableText().toString());			
 			arrCreateStaff.add(enCreateStaff);
 			
 			staffAdapter = new StaffAdapter(this, arrCreateStaff);
+			staffAdapter.setOnItemClickHandler(onItemClickDelete);
 			lvAddStaff.setAdapter(staffAdapter);
 			app.setListViewHeight(lvAddStaff, staffAdapter);
+			break;
+			
+		case R.id.linRemoveStaff:
+			
+			if (!remove) {
+				sm.saveString(GlobalParams.DELETE, GlobalParams.TRUE);
+				remove = true;
+			} else {
+				sm.saveString(GlobalParams.DELETE, GlobalParams.FALSE);
+				remove = false;
+			}
+			
+			lvAddStaff.setAdapter(staffAdapter);	
 			break;
 			
 		case R.id.btnSendRequest:
 			
 			int errorCode = validateInput();
 			if (errorCode == 0) {
-//				arrCreateStaff = new ArrayList<EnCreateStaff>();
-//				
-//				enCreateStaff = new EnCreateStaff();
-//				enCreateStaff.setFullname(edtNameOwner.getEditableText().toString());
-//				enCreateStaff.setBirthday(dayOwner + "-" + monthOwner + "-" + yearOwner);
-//				enCreateStaff.setPhone(edtPhoneOwner.getEditableText().toString());
-//				enCreateStaff.setRole("owner");
-//				enCreateStaff.setNote(edtNoteOwner.getEditableText().toString());
-//				
-//				arrCreateStaff.add(enCreateStaff);
-//				
-//				enCreateStaff = new EnCreateStaff();
-//				enCreateStaff.setFullname(edtNameStaff.getEditableText().toString());
-//				enCreateStaff.setBirthday(dayOwner + "-" + monthOwner + "-" + yearOwner);
-//				enCreateStaff.setPhone(edtPhoneStaff.getEditableText().toString());
-//				enCreateStaff.setRole("employee");
-//				enCreateStaff.setNote("");
-//				
-//				arrCreateStaff.add(enCreateStaff);
-				
 				line = new ArrayList<Integer>();
 				if (ckT2.isChecked()) {
 					line.add(2);

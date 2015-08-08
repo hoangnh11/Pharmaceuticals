@@ -713,4 +713,21 @@ public final class BuManagement {
 			return Integer.signum(vals1.length - vals2.length);
 		}
 	}
+	
+	/**
+	 * return
+	 */
+	public static String getCheckDelete(Activity activity) {
+		SharedPreferenceManager share = new SharedPreferenceManager(activity);
+		String firstLoad = null;
+		String tmp = GlobalParams.BLANK_CHARACTER;
+
+		tmp = share.getString(GlobalParams.DELETE, GlobalParams.BLANK_CHARACTER);
+
+		if (!GlobalParams.BLANK_CHARACTER.equalsIgnoreCase(tmp)) {
+			firstLoad = tmp;
+		}
+
+		return firstLoad;
+	}
 }

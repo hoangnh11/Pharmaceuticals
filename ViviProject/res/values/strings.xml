@@ -121,6 +121,8 @@
     <string name="C">C</string>
     <string name="OWNER_PHARMACY_INFORMATION">THÔNG TIN CHỦ NHÀ THUỐC</string>
     <string name="ADD_OWNER_PHARMACY">Thêm chủ nhà thuốc</string>
+    <string name="ADD_STAFF">Thêm nhân sự</string>
+    <string name="REMOVE_STAFF">Xóa nhân sự</string>
     <string name="SALER_INFORMATION">THÔNG TIN N.VIÊN BÁN HÀNG</string>
     <string name="STAFF">N.Viên</string>
     <string name="ADD_SALER">Thêm nhân viên bán hàng</string>
@@ -159,6 +161,8 @@
     <string name="STORES_PHONE_NOT_BLANK">Điện thoại nhà thuốc không được để trống</string>
     <string name="NAME">Tên</string>
     <string name="ROLE">Vai trò</string>
+    <string name="OWNER">Chủ nhà thuốc</string>
+    <string name="STAFF_FULL">Nhân viên nhà thuốc</string>
 
     <!-- ================================= Ghe tham screen ================================ -->
     <string name="DEFAULT_FILTER_LOCATIONEST">Mặc định sắp xếp theo vị trí gần nhất</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <View
@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:background="@color/WHITE"
         android:orientation="horizontal" >
 
@@ -23,9 +23,9 @@
         <TextView
             android:id="@+id/tvIndex"
             android:layout_width="24dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="4dp"           
+            android:padding="4dp"
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/tvName"
             android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:padding="4dp"           
             android:textColor="@color/BLACK"
@@ -53,9 +53,9 @@
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="4dp"          
+            android:padding="4dp"            
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -68,9 +68,9 @@
         <TextView
             android:id="@+id/tvBirthDay"
             android:layout_width="48dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="4dp"          
+            android:padding="4dp"
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -82,10 +82,10 @@
 
         <TextView
             android:id="@+id/tvRole"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="4dp"           
+            android:padding="4dp"
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -95,16 +95,28 @@
             android:layout_height="match_parent"
             android:background="@color/BLACK" />
 
-        <TextView
-            android:id="@+id/tvNote"
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"         
-            android:textColor="@color/BLACK"
-            android:textSize="8sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvNote"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:textColor="@color/BLACK"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/list_delete_remove"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <View
             android:layout_width="0.5dp"

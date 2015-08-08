@@ -368,17 +368,50 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radioOwner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/OWNER"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/radioStaff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/STAFF_FULL"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RadioGroup>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/OWNER_PHARMACY"
+                    android:text="@string/NAME"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -388,6 +421,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/BLANK"
+                    android:singleLine="true"
                     android:text=""
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
@@ -481,6 +515,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/BLANK"
                     android:inputType="phone"
+                    android:singleLine="true"
                     android:text=""
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
@@ -532,10 +567,10 @@
                     android:src="@drawable/icon_union" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="4dp"
-                    android:text="@string/ADD_OWNER_PHARMACY"
+                    android:text="@string/ADD_STAFF"
                     android:textColor="@color/TEXT_COLOR_SKYBLUE"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -547,10 +582,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:paddingBottom="8dp"
                 android:background="@color/BG_GRAY_LIGHT"
                 android:orientation="vertical"
-                android:visibility="visible" >
+                android:paddingBottom="8dp"
+                android:visibility="gone" >
 
                 <include layout="@layout/header_listview_staff" />
 
@@ -562,153 +597,37 @@
                     android:background="@color/WHITE"
                     android:fadingEdge="none"
                     android:scrollbarSize="3dp" />
-                
-                <View 
+
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:background="@color/BLACK"/>
+                    android:background="@color/BLACK" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/SALER"
-                    android:textColor="@color/BLACK"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edtNameStaff"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/BLANK"
-                    android:text=""
-                    android:textColor="@color/BLACK"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/DAY_OF_BIRTH"
-                    android:textColor="@color/BLACK"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/spDayStaff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="4dp"
-                    android:background="@drawable/bg_spinner_day"
-                    android:gravity="center"
-                    android:paddingRight="22dp"
-                    android:prompt="@string/SELECT_DAY"
-                    android:scrollbars="none" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="/"
-                    android:textColor="@color/BLACK" />
-
-                <Spinner
-                    android:id="@+id/spMonthStaff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_spinner_day"
-                    android:gravity="center"
-                    android:paddingRight="22dp"
-                    android:prompt="@string/SELECT_MONTH"
-                    android:scrollbars="none" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:text="/"
-                    android:textColor="@color/BLACK" />
-
-                <Spinner
-                    android:id="@+id/spYearStaff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_spinner_year"
-                    android:gravity="center"
-                    android:paddingRight="22dp"
-                    android:prompt="@string/SELECT_YEAR"
-                    android:scrollbars="none" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/PHONE_NUMBER_DETAILS"
-                    android:textColor="@color/BLACK"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edtPhoneStaff"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/BLANK"
-                    android:inputType="phone"
-                    android:text=""
-                    android:textColor="@color/BLACK"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
+                android:id="@+id/linRemoveStaff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/BLANK"
                     android:scaleType="fitXY"
-                    android:src="@drawable/icon_union" />
+                    android:src="@drawable/icon_union"
+                    android:visibility="invisible" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="4dp"
-                    android:text="@string/ADD_SALER"
+                    android:text="@string/REMOVE_STAFF"
                     android:textColor="@color/TEXT_COLOR_SKYBLUE"
                     android:textSize="14sp"
                     android:textStyle="bold" />

@@ -2,6 +2,7 @@ package com.viviproject.customerline;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
 
 import com.viviproject.R;
 import com.viviproject.ultilities.BaseLinearLayout;
@@ -9,11 +10,14 @@ import com.viviproject.ultilities.BaseLinearLayout;
 public class ItemListviewStaff extends BaseLinearLayout{
 	private int _position;	
 	private OnClickListener _onItemClick;
+	private Button btnDelete;
 
 	public ItemListviewStaff(Context context)
 	{
 		super(context);
-		initControl(R.layout.item_listview_staff, context);		
+		initControl(R.layout.item_listview_staff, context);
+		btnDelete = (Button) findViewById(R.id.btnDelete);
+		btnDelete.setOnClickListener(onItemClick);
 	}
 	
 	/**

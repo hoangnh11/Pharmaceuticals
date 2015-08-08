@@ -76,6 +76,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		store = new EnStores();
 		store = (EnStores) bundle.getSerializable(GlobalParams.STORES);
 		line = new ArrayList<Integer>();		
+		times = "1";
 		
 		initLayout();
 		

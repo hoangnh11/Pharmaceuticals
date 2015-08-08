@@ -48,47 +48,7 @@
         <item>11</item>
         <item>12</item>
     </string-array>
-    <string-array name="year">
-        <item>1900</item>
-        <item>1901</item>
-        <item>1902</item>
-        <item>1903</item>
-        <item>1904</item>
-        <item>1905</item>
-        <item>1906</item>
-        <item>1907</item>
-        <item>1908</item>
-        <item>1909</item>
-        <item>1910</item>
-        <item>1911</item>
-        <item>1912</item>
-        <item>1913</item>
-        <item>1914</item>
-        <item>1915</item>
-        <item>1916</item>
-        <item>1917</item>
-        <item>1918</item>
-        <item>1919</item>
-        <item>1920</item>
-        <item>1921</item>
-        <item>1922</item>
-        <item>1923</item>
-        <item>1924</item>
-        <item>1925</item>
-        <item>1926</item>
-        <item>1927</item>
-        <item>1928</item>
-        <item>1929</item>
-        <item>1930</item>
-        <item>1931</item>
-        <item>1932</item>
-        <item>1933</item>
-        <item>1934</item>
-        <item>1935</item>
-        <item>1936</item>
-        <item>1937</item>
-        <item>1938</item>
-        <item>1939</item>
+    <string-array name="year">        
         <item>1940</item>
         <item>1941</item>
         <item>1942</item>

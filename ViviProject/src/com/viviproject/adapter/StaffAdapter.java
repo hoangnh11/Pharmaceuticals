@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.customerline.ItemListviewStaff;
 import com.viviproject.entities.EnCreateStaff;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.GlobalParams;
 
 public class StaffAdapter extends BaseAdapter{
 	private List<EnCreateStaff> _data;
@@ -61,6 +64,7 @@ public class StaffAdapter extends BaseAdapter{
             holder.tvBirthDay = (TextView) convertView.findViewById(R.id.tvBirthDay);
             holder.tvRole = (TextView) convertView.findViewById(R.id.tvRole);
             holder.tvNote = (TextView) convertView.findViewById(R.id.tvNote);
+            holder.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
             
             convertView.setTag(holder);
         }
@@ -84,6 +88,15 @@ public class StaffAdapter extends BaseAdapter{
         	holder.tvBirthDay.setText(items.getBirthday());
         	holder.tvRole.setText(items.getRole());
         	holder.tvNote.setText(items.getNote());
+        	
+        	if (BuManagement.Instance.getCheckDelete(mActivity).toString().equals(GlobalParams.TRUE))
+	        {            
+        		holder.btnDelete.setVisibility(View.VISIBLE);				
+			}
+	        else
+	        {
+        		holder.btnDelete.setVisibility(View.GONE);
+			}
 		}
         
         ((ItemListviewStaff) convertView).set_position(position);
@@ -93,6 +106,7 @@ public class StaffAdapter extends BaseAdapter{
 	static class ViewHolder
     {      
         TextView tvIndex, tvName, tvPhone, tvBirthDay, tvRole, tvNote;
+        Button btnDelete;
     }
 	
 	OnClickListener onItemClickHandler = new OnClickListener() 
