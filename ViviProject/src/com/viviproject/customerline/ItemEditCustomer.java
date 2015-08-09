@@ -14,8 +14,8 @@ public class ItemEditCustomer extends BaseLinearLayout {
 	private int _position;
 	private OnClickListener _onItemClick;
 	private Button btnDelete;
-	private EditText edtNote;
-	private TextWatcher _TextWatcher;	
+	private EditText edtNote, edtName, edtPhone, edtBirthday;
+	private TextWatcher _TextWatcher, _TextWatcherName, _TextWatcherPhone, _TextWatcherBirthday;	
 
 	public ItemEditCustomer(Context context) {
 		super(context);
@@ -23,7 +23,13 @@ public class ItemEditCustomer extends BaseLinearLayout {
 		btnDelete = (Button) findViewById(R.id.btnDelete);
 		btnDelete.setOnClickListener(onItemClick);
 		edtNote = (EditText) findViewById(R.id.tvNote);
-		edtNote.addTextChangedListener(textWatcher);		
+		edtNote.addTextChangedListener(textWatcher);
+		edtName = (EditText) findViewById(R.id.tvName);
+		edtName.addTextChangedListener(textWatcherName);
+		edtPhone = (EditText) findViewById(R.id.tvPhone);
+		edtPhone.addTextChangedListener(textWatcherPhone);
+		edtBirthday = (EditText) findViewById(R.id.tvBirthDay);
+		edtBirthday.addTextChangedListener(textWatcherBirthDay);
 	}
 
 	/**
@@ -77,5 +83,80 @@ public class ItemEditCustomer extends BaseLinearLayout {
 	
 	public void setTextChangedHandler(TextWatcher onTextChanged) {
 		_TextWatcher = onTextChanged;
+	}
+	
+	TextWatcher textWatcherName = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			EditCustomer.indexEditCustomer = _position;
+			if (_TextWatcherName != null) {
+				_TextWatcherName.onTextChanged(s, start, before, count);
+			}
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	public void setTextChangedNameHandler(TextWatcher onTextChanged) {
+		_TextWatcherName = onTextChanged;
+	}
+	
+	TextWatcher textWatcherPhone = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			EditCustomer.indexEditCustomer = _position;
+			if (_TextWatcherPhone != null) {
+				_TextWatcherPhone.onTextChanged(s, start, before, count);
+			}
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	public void setTextChangedPhoneHandler(TextWatcher onTextChanged) {
+		_TextWatcherPhone = onTextChanged;
+	}
+	
+	TextWatcher textWatcherBirthDay = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			EditCustomer.indexEditCustomer = _position;
+			if (_TextWatcherBirthday != null) {
+				_TextWatcherBirthday.onTextChanged(s, start, before, count);
+			}
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	public void setTextChangedBirthDayHandler(TextWatcher onTextChanged) {
+		_TextWatcherBirthday = onTextChanged;
 	}
 }

@@ -11,8 +11,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:background="@color/WHITE"
+        android:layout_height="wrap_content"
+        android:background="@color/PINK_RED"
         android:orientation="horizontal" >
 
         <View
@@ -20,46 +20,12 @@
             android:layout_height="match_parent"
             android:background="@color/BLACK" />
 
-        <EditText
-            android:id="@+id/tvName"
+        <TextView
             android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="@string/BLANK"
             android:padding="4dp"
-            android:textColor="@color/BLACK"
-            android:textSize="8sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/BLACK" />
-
-        <EditText
-            android:id="@+id/tvPhone"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:hint="@string/BLANK"
-            android:inputType="phone"
-            android:padding="4dp"
-            android:textColor="@color/BLACK"
-            android:textSize="8sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/BLACK" />
-
-        <EditText
-            android:id="@+id/tvBirthDay"
-            android:layout_width="54dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:hint="@string/BLANK"
-            android:padding="4dp"
+            android:text="@string/NAME"
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -70,11 +36,11 @@
             android:background="@color/BLACK" />
 
         <TextView
-            android:id="@+id/tvRole"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="4dp"
+            android:text="@string/PHONE_NUMBER_DETAILS"
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -84,29 +50,46 @@
             android:layout_height="match_parent"
             android:background="@color/BLACK" />
 
-        <FrameLayout
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="@string/DAY_OF_BIRTH"
+            android:textColor="@color/BLACK"
+            android:textSize="8sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:background="@color/BLACK" />
 
-            <EditText
-                android:id="@+id/tvNote"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/BLANK"
-                android:padding="4dp"
-                android:textColor="@color/BLACK"
-                android:textSize="8sp"
-                android:textStyle="bold" />
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="@string/ROLE"
+            android:textColor="@color/BLACK"
+            android:textSize="8sp"
+            android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnDelete"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="center"
-                android:background="@drawable/list_delete_remove"
-                android:visibility="gone" />
-        </FrameLayout>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/BLACK" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="@string/NOTE_TWO_DOTS"
+            android:textColor="@color/BLACK"
+            android:textSize="8sp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="0.5dp"

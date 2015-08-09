@@ -1,8 +1,6 @@
 package com.viviproject.customerline;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -14,21 +12,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.EditStaffAdapter;
-import com.viviproject.adapter.StaffAdapter;
 import com.viviproject.entities.EnStaff;
 import com.viviproject.entities.EnStores;
 import com.viviproject.entities.ResponseCreateStores;
@@ -43,19 +36,12 @@ import com.viviproject.ultilities.StringUtils;
 
 public class EditCustomer extends Activity implements OnClickListener{
 	
-	public static int indexEditCustomer;
+	public static int indexEditCustomer = -1;
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	private Button btnUpdate;
-	private EditText edtStoreName, edtStorePhone, edtStoreAddress;
-	
-	private Spinner spDay, spMonth, spYear, spDayStaff, spMonthStaff, spYearStaff;
-	private List<String> listDay, listMonth, listYear;
-	private String yearOwner, monthOwner, dayOwner, yearStaff, monthStaff, dayStaff;
-	
-	private EditText edtNameOwner, edtPhoneOwner, edtNoteOwner;
-	private EditText edtNameStaff, edtPhoneStaff;
-	private LinearLayout linStaff;
+	private EditText edtStoreName, edtStorePhone, edtStoreAddress;		
+
 	private EditStaffAdapter editStaffAdapter;
 	private ListView lvAddStaff;
 	
@@ -72,15 +58,12 @@ public class EditCustomer extends Activity implements OnClickListener{
 	private ResponseCreateStores responseUpdateStores;
 	private ArrayList<EnStaff> arrStaff;
 	private EnStaff enStaff;
-	private int posEdit;
-	private ItemEditCustomer itemEditCustomer;
  	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_customer_layout);
-		app = new AppPreferences(this);		
-		itemEditCustomer = new ItemEditCustomer(this);
+		app = new AppPreferences(this);
 		arrStaff = new ArrayList<EnStaff>();
 		enStaff = new EnStaff();
 		bundle = app.getBundle(this);
@@ -88,8 +71,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		store = new EnStores();
 		store = (EnStores) bundle.getSerializable(GlobalParams.STORES);
 		line = new ArrayList<Integer>();		
-		times = "1";
-		posEdit = 0;
+		times = "1";	
 		
 		initLayout();
 		
@@ -105,9 +87,10 @@ public class EditCustomer extends Activity implements OnClickListener{
 				ckVipC.setChecked(true);
 			}
 			
-			if (store.getOwners() != null & store.getOwners().size() > 0) {
+			if (store.getOwners() != null && store.getOwners().size() > 0) {
 				for (int i = 0; i < store.getOwners().size(); i++) {
 					enStaff = new EnStaff();
+					enStaff.setId(store.getOwners().get(i).getId());
 					enStaff.setFullname(store.getOwners().get(i).getFullname());
 					enStaff.setBirthday(store.getOwners().get(i).getBirthday());
 					enStaff.setPhone(store.getOwners().get(i).getPhone());
@@ -117,9 +100,10 @@ public class EditCustomer extends Activity implements OnClickListener{
 				}
 			}			
 			
-			if (store.getEmployees() != null & store.getEmployees().size() > 0) {
+			if (store.getEmployees() != null && store.getEmployees().size() > 0) {
 				for (int i = 0; i < store.getEmployees().size(); i++) {
 					enStaff = new EnStaff();
+					enStaff.setId(store.getEmployees().get(i).getId());
 					enStaff.setFullname(store.getEmployees().get(i).getFullname());
 					enStaff.setBirthday(store.getEmployees().get(i).getBirthday());
 					enStaff.setPhone(store.getEmployees().get(i).getPhone());
@@ -128,97 +112,16 @@ public class EditCustomer extends Activity implements OnClickListener{
 					arrStaff.add(enStaff);
 				}
 			}			
-		}		
+		}
 		
-		String[] day = getResources().getStringArray(R.array.day);
-		listDay = Arrays.asList(day);
-		ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listDay);
-		spDay.setAdapter(dayAdapter);
-		spDayStaff.setAdapter(dayAdapter);
-		
-		spDay.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				dayOwner = listDay.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		spDayStaff.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				dayStaff = listDay.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		String[] month = getResources().getStringArray(R.array.month);
-		listMonth = Arrays.asList(month);
-		ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listMonth);
-		spMonth.setAdapter(monthAdapter);
-		spMonthStaff.setAdapter(monthAdapter);
-		
-		spMonth.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				monthOwner = listMonth.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		spMonthStaff.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				monthStaff = listMonth.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		String[] year = getResources().getStringArray(R.array.year);
-		listYear = Arrays.asList(year);
-		ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listYear);
-		spYear.setAdapter(yearAdapter);
-		spYearStaff.setAdapter(yearAdapter);
-		
-		spYear.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				yearOwner = listYear.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		spYearStaff.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				yearStaff = listYear.get(arg2);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {}			
-		});
-		
-		editStaffAdapter = new EditStaffAdapter(this, arrStaff);
-		editStaffAdapter.setOnItemClickHandler(onItemClickDelete);
-		editStaffAdapter.setTextChangedHandler(textWatcher);	
+		editStaffAdapter = new EditStaffAdapter(this, arrStaff);	
+		editStaffAdapter.setTextChangedHandler(edtNote);
+		editStaffAdapter.setTextChangedNameHandler(edtName);
+		editStaffAdapter.setTextChangedPhoneHandler(edtPhone);
+		editStaffAdapter.setTextChangedBirthDayHandler(edtBirthDay);
 		lvAddStaff.setAdapter(editStaffAdapter);
 		app.setListViewHeight(lvAddStaff, editStaffAdapter);
+		indexEditCustomer = -1;
 	}
 	
 	public void initLayout(){
@@ -246,22 +149,8 @@ public class EditCustomer extends Activity implements OnClickListener{
 		
 		edtStoreName = (EditText) findViewById(R.id.edtStoreName);
 		edtStorePhone = (EditText) findViewById(R.id.edtStorePhone);
-		edtStoreAddress = (EditText) findViewById(R.id.edtStoreAddress);
-		
-		spDay = (Spinner) findViewById(R.id.spDay);
-		spMonth = (Spinner) findViewById(R.id.spMonth);
-		spYear = (Spinner) findViewById(R.id.spYear);
-		spDayStaff = (Spinner) findViewById(R.id.spDayStaff);
-		spMonthStaff = (Spinner) findViewById(R.id.spMonthStaff);
-		spYearStaff = (Spinner) findViewById(R.id.spYearStaff);
-		
-		edtNameOwner = (EditText) findViewById(R.id.edtNameOwner);
-		edtPhoneOwner = (EditText) findViewById(R.id.edtPhoneOwner);
-		edtNoteOwner = (EditText) findViewById(R.id.edtNoteOwner);
-		
-		edtNameStaff = (EditText) findViewById(R.id.edtNameStaff);
-		edtPhoneStaff = (EditText) findViewById(R.id.edtPhoneStaff);
-		
+		edtStoreAddress = (EditText) findViewById(R.id.edtStoreAddress);		
+	
 		ckVipA = (CheckBox) findViewById(R.id.ckVipA);	
 		ckVipA.setOnCheckedChangeListener(new CheckBoxChecked());
 		ckVipB = (CheckBox) findViewById(R.id.ckVipB);
@@ -288,8 +177,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		ckTimeThree.setOnCheckedChangeListener(new CheckBoxChecked());
 		ckTimeFour= (CheckBox) findViewById(R.id.ckTimeFour);
 		ckTimeFour.setOnCheckedChangeListener(new CheckBoxChecked());
-		
-		linStaff = (LinearLayout) findViewById(R.id.linStaff);
+	
 		lvAddStaff = (ListView) findViewById(R.id.lvAddStaff);
 	}
 	
@@ -309,32 +197,102 @@ public class EditCustomer extends Activity implements OnClickListener{
 
 		return errorCode;
 	}
-	
-	OnClickListener onItemClickDelete = new OnClickListener()
-	{
-        @Override
-        public void onClick(View v)
-        {
-//        	posEdit = ((ItemEditCustomer) v).get_position();
-//        	arrCreateStaff.remove(positionDelete);
-//        	staffAdapter = new StaffAdapter(CreateCustormer.this, arrCreateStaff);
-//			staffAdapter.setOnItemClickHandler(onItemClickDelete);
-//			lvAddStaff.setAdapter(staffAdapter);
-//			app.setListViewHeight(lvAddStaff, staffAdapter);
-//			
-//			if (arrCreateStaff.size() == 0) {
-//				linStaff.setVisibility(View.GONE);
-//				linRemoveStaff.setVisibility(View.GONE);
-//			}
-        }
-    };
 
-    TextWatcher textWatcher = new TextWatcher() {
+    TextWatcher edtNote = new TextWatcher() {
 		
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {			
-			Logger.error("1111111111111:              " + s
-					+ " :  " + indexEditCustomer);
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			if (indexEditCustomer != -1) {
+				enStaff = new EnStaff();
+				enStaff.setId(arrStaff.get(indexEditCustomer).getId());
+				enStaff.setFullname(arrStaff.get(indexEditCustomer).getFullname());
+				enStaff.setBirthday(arrStaff.get(indexEditCustomer).getBirthday());
+				enStaff.setPhone(arrStaff.get(indexEditCustomer).getPhone());
+				enStaff.setRole(arrStaff.get(indexEditCustomer).getRole());
+				enStaff.setNote(s.toString());
+				arrStaff.set(indexEditCustomer, enStaff);
+			} 
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	TextWatcher edtName = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			if (indexEditCustomer != -1) {
+				enStaff = new EnStaff();
+				enStaff.setId(arrStaff.get(indexEditCustomer).getId());
+				enStaff.setFullname(s.toString());
+				enStaff.setBirthday(arrStaff.get(indexEditCustomer).getBirthday());
+				enStaff.setPhone(arrStaff.get(indexEditCustomer).getPhone());
+				enStaff.setRole(arrStaff.get(indexEditCustomer).getRole());
+				enStaff.setNote(arrStaff.get(indexEditCustomer).getNote());
+				arrStaff.set(indexEditCustomer, enStaff);
+			} 
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	TextWatcher edtPhone = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			if (indexEditCustomer != -1) {
+				enStaff = new EnStaff();
+				enStaff.setId(arrStaff.get(indexEditCustomer).getId());
+				enStaff.setFullname(arrStaff.get(indexEditCustomer).getFullname());
+				enStaff.setBirthday(arrStaff.get(indexEditCustomer).getBirthday());
+				enStaff.setPhone(s.toString());
+				enStaff.setRole(arrStaff.get(indexEditCustomer).getRole());
+				enStaff.setNote(arrStaff.get(indexEditCustomer).getNote());
+				arrStaff.set(indexEditCustomer, enStaff);
+			} 
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	TextWatcher edtBirthDay = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			if (indexEditCustomer != -1) {
+				enStaff = new EnStaff();
+				enStaff.setId(arrStaff.get(indexEditCustomer).getId());
+				enStaff.setFullname(arrStaff.get(indexEditCustomer).getFullname());
+				enStaff.setBirthday(s.toString());
+				enStaff.setPhone(arrStaff.get(indexEditCustomer).getPhone());
+				enStaff.setRole(arrStaff.get(indexEditCustomer).getRole());
+				enStaff.setNote(arrStaff.get(indexEditCustomer).getNote());
+				arrStaff.set(indexEditCustomer, enStaff);
+			} 
 		}
 		
 		@Override
@@ -360,28 +318,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 			
 			int errorCode = validateInput();
 			if (errorCode == 0) {
-//				arrStaff = new ArrayList<EnStaff>();
-//				
-//				enStaff = new EnStaff();
-//				enStaff.setId("");
-//				enStaff.setFullname(edtNameOwner.getEditableText().toString());
-//				enStaff.setBirthday(yearOwner + "-" + monthOwner + "-" + dayOwner);
-//				enStaff.setPhone(edtPhoneOwner.getEditableText().toString());
-//				enStaff.setRole("owner");
-//				enStaff.setNote(edtNoteOwner.getEditableText().toString());
-//				
-//				arrStaff.add(enStaff);
-//				
-//				enStaff = new EnStaff();
-//				enStaff.setId("");
-//				enStaff.setFullname(edtNameStaff.getEditableText().toString());
-//				enStaff.setBirthday(yearStaff + "-" + monthStaff + "-" + dayStaff);
-//				enStaff.setPhone(edtPhoneStaff.getEditableText().toString());
-//				enStaff.setRole("employee");
-//				enStaff.setNote("");
-//				
-//				arrStaff.add(enStaff);
-				
+
 				line = new ArrayList<Integer>();
 				if (ckT2.isChecked()) {
 					line.add(2);

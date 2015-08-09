@@ -21,15 +21,13 @@ public class EditStaffAdapter extends BaseAdapter {
 	private List<EnStaff> _data;
     private EnStaff items;
     private Activity mActivity;
-    private OnClickListener _onItemClick;
-    private int index;
-    private TextWatcher _TextWatcher;   
+    private OnClickListener _onItemClick;  
+    private TextWatcher _TextWatcher, _TextWatcherName, _TextWatcherPhone, _TextWatcherBirthday;   
 	
     public EditStaffAdapter(Activity activity, List<EnStaff> data)
 	{
 		 mActivity = activity;
-        _data = data;
-        index = 0;
+        _data = data;      
 	}
     
     @Override
@@ -58,14 +56,16 @@ public class EditStaffAdapter extends BaseAdapter {
         {
             convertView = new ItemEditCustomer(mActivity.getApplicationContext());
             ((ItemEditCustomer) convertView).setOnThisItemClickHandler(onItemClickHandler);
-            ((ItemEditCustomer) convertView).setTextChangedHandler(textWatcher);          
-                  
-            holder = new ViewHolder();    
-            holder.tvIndex = (TextView) convertView.findViewById(R.id.tvIndex);
+            ((ItemEditCustomer) convertView).setTextChangedHandler(textWatcher);
+            ((ItemEditCustomer) convertView).setTextChangedNameHandler(textWatcherName);
+            ((ItemEditCustomer) convertView).setTextChangedPhoneHandler(textWatcherPhone);
+            ((ItemEditCustomer) convertView).setTextChangedBirthDayHandler(textWatcherBirthDay);
+            
+            holder = new ViewHolder();
             holder.tvName = (EditText) convertView.findViewById(R.id.tvName);
             holder.tvPhone = (EditText) convertView.findViewById(R.id.tvPhone);
             holder.tvBirthDay = (EditText) convertView.findViewById(R.id.tvBirthDay);
-            holder.tvRole = (EditText) convertView.findViewById(R.id.tvRole);
+            holder.tvRole = (TextView) convertView.findViewById(R.id.tvRole);
             holder.tvNote = (EditText) convertView.findViewById(R.id.tvNote);
             holder.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
             
@@ -78,20 +78,12 @@ public class EditStaffAdapter extends BaseAdapter {
         
         items = _data.get(position);
         
-        if (items != null) {        
-        	if (position == 0) {
-        		index = 0;
-			}        	
-        	
-        	index++;
-        	
-        	holder.tvIndex.setText(String.valueOf(index));
+        if (items != null) {
         	holder.tvName.setText(items.getFullname());
         	holder.tvPhone.setText(items.getPhone());
         	holder.tvBirthDay.setText(items.getBirthday());
         	holder.tvRole.setText(items.getRole());
         	holder.tvNote.setText(items.getNote());
-//        	holder.btnDelete.setVisibility(View.VISIBLE);
 		}
         
         ((ItemEditCustomer) convertView).set_position(position);
@@ -100,8 +92,8 @@ public class EditStaffAdapter extends BaseAdapter {
 	
 	static class ViewHolder
     {      
-		TextView tvIndex;
-        EditText tvName, tvPhone, tvBirthDay, tvRole, tvNote;
+		TextView tvRole;
+        EditText tvName, tvPhone, tvBirthDay, tvNote;
         Button btnDelete;
     }
 	
@@ -144,4 +136,76 @@ public class EditStaffAdapter extends BaseAdapter {
 	public void setTextChangedHandler(TextWatcher onTextChanged) {
 		_TextWatcher = onTextChanged;
 	}	
+	
+	TextWatcher textWatcherName = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {		
+			if (_TextWatcherName != null) {
+				_TextWatcherName.onTextChanged(s, start, before, count);
+			}
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	public void setTextChangedNameHandler(TextWatcher onTextChanged) {
+		_TextWatcherName = onTextChanged;
+	}
+	
+	TextWatcher textWatcherPhone = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {	
+			if (_TextWatcherPhone != null) {
+				_TextWatcherPhone.onTextChanged(s, start, before, count);
+			}
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	public void setTextChangedPhoneHandler(TextWatcher onTextChanged) {
+		_TextWatcherPhone = onTextChanged;
+	}
+	
+	TextWatcher textWatcherBirthDay = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {		
+			if (_TextWatcherBirthday != null) {
+				_TextWatcherBirthday.onTextChanged(s, start, before, count);
+			}
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	public void setTextChangedBirthDayHandler(TextWatcher onTextChanged) {
+		_TextWatcherBirthday = onTextChanged;
+	}
 }
