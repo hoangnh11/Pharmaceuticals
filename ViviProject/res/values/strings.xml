@@ -119,6 +119,7 @@
     <string name="A">A</string>
     <string name="B">B</string>
     <string name="C">C</string>
+    <string name="EDIT_HUMAN_RESOURCE">(*) Để chỉnh sửa thông tin nhân sự, xin vui lòng click vào trường muốn sửa.</string>
     <string name="HUMAN_RESOURCE_INFORMATION">THÔNG TIN NHÂN SỰ</string>
     <string name="OWNER_PHARMACY_INFORMATION">THÔNG TIN CHỦ NHÀ THUỐC</string>
     <string name="ADD_OWNER_PHARMACY">Thêm chủ nhà thuốc</string>

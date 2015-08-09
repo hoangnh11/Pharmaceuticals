@@ -409,6 +409,15 @@
                     android:background="@color/BLACK" />
             </LinearLayout>
 
+            <TextView 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/EDIT_HUMAN_RESOURCE"
+                android:textColor="@color/BLACK"
+                android:layout_marginTop="4dp"
+                android:textStyle="italic"
+                android:textSize="14sp"/>
+            
             <Button
                 android:id="@+id/btnUpdate"
                 android:layout_width="88dp"
