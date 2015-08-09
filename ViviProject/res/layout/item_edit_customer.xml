@@ -2,9 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginTop="8dp"
     android:orientation="vertical" >
 
     <View
@@ -14,8 +11,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/PINK_RED"
+        android:layout_height="32dp"
+        android:background="@color/WHITE"
         android:orientation="horizontal" >
 
         <View
@@ -24,11 +21,11 @@
             android:background="@color/BLACK" />
 
         <TextView
+            android:id="@+id/tvIndex"
             android:layout_width="24dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:padding="4dp"
-            android:text="@string/INDEX"
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -38,12 +35,13 @@
             android:layout_height="match_parent"
             android:background="@color/BLACK" />
 
-        <TextView
+        <EditText
+            android:id="@+id/tvName"
             android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="4dp"
-            android:text="@string/NAME"
+            android:hint="@string/BLANK"
+            android:padding="4dp"           
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -53,12 +51,13 @@
             android:layout_height="match_parent"
             android:background="@color/BLACK" />
 
-        <TextView
+        <EditText
+            android:id="@+id/tvPhone"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="4dp"
-            android:text="@string/PHONE_NUMBER_DETAILS"
+            android:padding="4dp"     
+            android:hint="@string/BLANK"       
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -68,12 +67,13 @@
             android:layout_height="match_parent"
             android:background="@color/BLACK" />
 
-        <TextView
+        <EditText
+            android:id="@+id/tvBirthDay"
             android:layout_width="54dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:padding="4dp"
-            android:text="@string/DAY_OF_BIRTH"
+            android:hint="@string/BLANK"
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -83,12 +83,13 @@
             android:layout_height="match_parent"
             android:background="@color/BLACK" />
 
-        <TextView
+        <EditText
+            android:id="@+id/tvRole"
             android:layout_width="48dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:padding="4dp"
-            android:text="@string/ROLE"
+            android:hint="@string/BLANK"
             android:textColor="@color/BLACK"
             android:textSize="8sp"
             android:textStyle="bold" />
@@ -98,16 +99,29 @@
             android:layout_height="match_parent"
             android:background="@color/BLACK" />
 
-        <TextView
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="4dp"
-            android:text="@string/NOTE_TWO_DOTS"
-            android:textColor="@color/BLACK"
-            android:textSize="8sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/tvNote"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:hint="@string/BLANK"
+                android:textColor="@color/BLACK"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/list_delete_remove"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <View
             android:layout_width="0.5dp"

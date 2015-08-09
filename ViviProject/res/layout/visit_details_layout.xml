@@ -273,6 +273,12 @@
                     android:background="@color/WHITE"
                     android:fadingEdge="none"
                     android:scrollbarSize="3dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/BLACK" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -309,6 +315,13 @@
                     android:background="@color/WHITE"
                     android:fadingEdge="none"
                     android:scrollbarSize="3dp" />
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/BLACK" />
             </LinearLayout>
 
             <LinearLayout

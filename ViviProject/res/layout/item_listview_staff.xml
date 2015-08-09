@@ -67,7 +67,7 @@
 
         <TextView
             android:id="@+id/tvBirthDay"
-            android:layout_width="48dp"
+            android:layout_width="54dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:padding="4dp"

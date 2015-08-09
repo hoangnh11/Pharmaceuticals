@@ -73,9 +73,11 @@
             android:configChanges="orientation|screenSize" />
         <activity
             android:name="com.viviproject.customerline.EditCustomer"
+            android:windowSoftInputMode="stateHidden"
             android:configChanges="orientation|screenSize" />
         <activity
             android:name="com.viviproject.customerline.CreateCustormer"
+            android:windowSoftInputMode="stateHidden"
             android:configChanges="orientation|screenSize" />
         <activity
             android:name="com.viviproject.customerline.MapActivity"

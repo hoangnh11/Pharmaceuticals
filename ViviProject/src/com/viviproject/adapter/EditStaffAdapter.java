@@ -3,27 +3,29 @@ package com.viviproject.adapter;
 import java.util.List;
 
 import android.app.Activity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.viviproject.R;
-import com.viviproject.customerline.ItemListviewStaff;
-import com.viviproject.entities.EnCreateStaff;
-import com.viviproject.ultilities.BuManagement;
-import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.customerline.ItemEditCustomer;
+import com.viviproject.entities.EnStaff;
 
-public class StaffAdapter extends BaseAdapter{
-	private List<EnCreateStaff> _data;
-    private EnCreateStaff items;
+public class EditStaffAdapter extends BaseAdapter {
+	private List<EnStaff> _data;
+    private EnStaff items;
     private Activity mActivity;
     private OnClickListener _onItemClick;
     private int index;
+    private TextWatcher _TextWatcher;   
 	
-    public StaffAdapter(Activity activity, List<EnCreateStaff> data) 
+    public EditStaffAdapter(Activity activity, List<EnStaff> data)
 	{
 		 mActivity = activity;
         _data = data;
@@ -54,16 +56,17 @@ public class StaffAdapter extends BaseAdapter{
 		ViewHolder holder;
         if (convertView == null)
         {
-            convertView = new ItemListviewStaff(mActivity.getApplicationContext());
-            ((ItemListviewStaff) convertView).setOnThisItemClickHandler(onItemClickHandler);
+            convertView = new ItemEditCustomer(mActivity.getApplicationContext());
+            ((ItemEditCustomer) convertView).setOnThisItemClickHandler(onItemClickHandler);
+            ((ItemEditCustomer) convertView).setTextChangedHandler(textWatcher);          
                   
             holder = new ViewHolder();    
             holder.tvIndex = (TextView) convertView.findViewById(R.id.tvIndex);
-            holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
-            holder.tvPhone = (TextView) convertView.findViewById(R.id.tvPhone);
-            holder.tvBirthDay = (TextView) convertView.findViewById(R.id.tvBirthDay);
-            holder.tvRole = (TextView) convertView.findViewById(R.id.tvRole);
-            holder.tvNote = (TextView) convertView.findViewById(R.id.tvNote);
+            holder.tvName = (EditText) convertView.findViewById(R.id.tvName);
+            holder.tvPhone = (EditText) convertView.findViewById(R.id.tvPhone);
+            holder.tvBirthDay = (EditText) convertView.findViewById(R.id.tvBirthDay);
+            holder.tvRole = (EditText) convertView.findViewById(R.id.tvRole);
+            holder.tvNote = (EditText) convertView.findViewById(R.id.tvNote);
             holder.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
             
             convertView.setTag(holder);
@@ -78,7 +81,7 @@ public class StaffAdapter extends BaseAdapter{
         if (items != null) {        
         	if (position == 0) {
         		index = 0;
-			}
+			}        	
         	
         	index++;
         	
@@ -88,24 +91,17 @@ public class StaffAdapter extends BaseAdapter{
         	holder.tvBirthDay.setText(items.getBirthday());
         	holder.tvRole.setText(items.getRole());
         	holder.tvNote.setText(items.getNote());
-        	
-        	if (BuManagement.Instance.getCheckDelete(mActivity).toString().equals(GlobalParams.TRUE))
-	        {            
-        		holder.btnDelete.setVisibility(View.VISIBLE);
-			}
-	        else
-	        {
-        		holder.btnDelete.setVisibility(View.GONE);
-			}
+//        	holder.btnDelete.setVisibility(View.VISIBLE);
 		}
         
-        ((ItemListviewStaff) convertView).set_position(position);
+        ((ItemEditCustomer) convertView).set_position(position);
         return convertView;
 	}
 	
 	static class ViewHolder
     {      
-        TextView tvIndex, tvName, tvPhone, tvBirthDay, tvRole, tvNote;
+		TextView tvIndex;
+        EditText tvName, tvPhone, tvBirthDay, tvRole, tvNote;
         Button btnDelete;
     }
 	
@@ -123,5 +119,29 @@ public class StaffAdapter extends BaseAdapter{
     public void setOnItemClickHandler(OnClickListener itemClick)
     {
         _onItemClick = itemClick;
-    } 
+    }
+    
+    TextWatcher textWatcher = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			if (_TextWatcher != null) {
+				_TextWatcher.onTextChanged(s, start, before, count);			
+			}
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	public void setTextChangedHandler(TextWatcher onTextChanged) {
+		_TextWatcher = onTextChanged;
+	}	
 }
