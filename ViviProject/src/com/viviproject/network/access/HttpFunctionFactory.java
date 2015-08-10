@@ -318,4 +318,12 @@ public final class HttpFunctionFactory {
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo getStoreWaitApprove(NetParameter[] netParameters) {
+		HttpFunctionInfo functionInfo = createGetMethod("getStoreWaitApprove");
+		String params = funcLogParams(netParameters);
+		Log.e("getStoreWaitApprove", "getStoreWaitApprove: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/wait_approve?" + params);
+		return functionInfo;
+	}
 }

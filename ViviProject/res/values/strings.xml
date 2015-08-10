@@ -93,6 +93,7 @@
     <string name="CREATE_NEW_CUSTOMER">Tạo khách hàng mới</string>
     <string name="CREATE_NEW_CUSTOMER_PENDING">Danh sách yêu cầu tạo mới đang chờ duyệt: </string>
     <string name="LIST_CUSTOMER_PENDING">Danh sách chờ duyệt</string>
+    <string name="LIST_STORE_PENDING">Danh sách khách hàng đang chờ duyệt</string>
     <string name="PENDING">Đang chờ duyệt&#8230;</string>
     <string name="CUSTOMER_INFORMATION">Thông tin khách hàng</string>
     <string name="PHARMACY_NAME">Tên nhà thuốc: </string>

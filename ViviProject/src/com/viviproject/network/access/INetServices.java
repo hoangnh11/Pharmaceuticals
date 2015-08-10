@@ -39,4 +39,5 @@ public interface INetServices {
 	String orderCancel(NetParameter[] netParameters, String token) throws Exception;
 	String refund(NetParameter[] netParameters, String token) throws Exception;
 	String storesNoSale(NetParameter[] netParameters) throws Exception;
+	String getStoreWaitApprove(NetParameter[] netParameters) throws Exception;
 }

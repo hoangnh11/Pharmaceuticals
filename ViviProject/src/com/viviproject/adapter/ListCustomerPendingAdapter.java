@@ -1,6 +1,6 @@
 package com.viviproject.adapter;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.view.View;
@@ -13,18 +13,20 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemListCustomer;
-import com.viviproject.entities.EnCustomer;
+import com.viviproject.entities.EnStores;
 
 public class ListCustomerPendingAdapter extends BaseAdapter{
-	private List<EnCustomer> _data;
-    private EnCustomer items;
+	private ArrayList<EnStores> _data;
+    private EnStores items;
     private Activity mActivity;
     private OnClickListener _onItemClick;
+    String lines;
 	
-    public ListCustomerPendingAdapter(Activity activity, List<EnCustomer> data) 
+    public ListCustomerPendingAdapter(Activity activity, ArrayList<EnStores> data) 
 	{
 		 mActivity = activity;
         _data = data;
+        lines = "";
 	}
     
     @Override
@@ -62,6 +64,9 @@ public class ListCustomerPendingAdapter extends BaseAdapter{
             holder.imgLocationGray = (ImageView) convertView.findViewById(R.id.imgLocationGray);
             holder.linVisitTimes = (LinearLayout) convertView.findViewById(R.id.linVisitTimes);
             holder.tvCodeName = (TextView) convertView.findViewById(R.id.tvCodeName);
+            holder.tvRound = (TextView) convertView.findViewById(R.id.tvRound);
+            holder.tvNamePharmacy = (TextView) convertView.findViewById(R.id.tvNamePharmacy);
+            holder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
           
             convertView.setTag(holder);
         }
@@ -74,11 +79,28 @@ public class ListCustomerPendingAdapter extends BaseAdapter{
         
         if (items != null) {        
         	holder.tvId.setText(String.valueOf(items.getId()));
-        	holder.tvCodeName.setText(mActivity.getResources().getString(R.string.PENDING));
+        	holder.tvNamePharmacy.setText(items.getName());
+        	holder.tvCodeName.setText(items.getCode());
+        	holder.tvAddress.setText(items.getAddress());
 			holder.imgLocationGray.setVisibility(View.GONE);
     		holder.tvLocation.setVisibility(View.GONE);
     		holder.imgLocationBlue.setVisibility(View.GONE);
     		holder.linVisitTimes.setVisibility(View.GONE);
+    		
+    		if (items.getLines() != null && items.getLines().length > 0) {
+        		
+        		for (int i = 0; i < items.getLines().length; i++) {
+        			lines += items.getLines()[i] + ", ";
+    			}
+			}
+        	
+        	if (!lines.equals("")) {
+        		holder.tvRound.setText(lines.substring(0, lines.length() - 2));
+			} else {
+				holder.tvRound.setText(lines);
+			}
+        	
+        	lines = "";
 		}
         
         ((ItemListCustomer) convertView).set_position(position);

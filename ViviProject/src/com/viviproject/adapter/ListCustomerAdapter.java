@@ -19,11 +19,13 @@ public class ListCustomerAdapter extends BaseAdapter{
     private EnStores items;
     private Activity mActivity;
     private OnClickListener _onItemClick;
+    String lines;
 	
     public ListCustomerAdapter(Activity activity, ArrayList<EnStores> data) 
 	{
 		 mActivity = activity;
         _data = data;
+        lines = "";
 	}
     
     @Override
@@ -79,17 +81,25 @@ public class ListCustomerAdapter extends BaseAdapter{
         	holder.tvNamePharmacy.setText(items.getName());
         	holder.tvCodeName.setText(items.getCode());
         	holder.tvAddress.setText(items.getAddress());
-        	holder.tvRound.setText(items.getRegion_id());
-        	holder.tvVisitTime.setText(items.getActive());
-        	if (items.getId().equals("2")) {
-				holder.imgLocationGray.setVisibility(View.VISIBLE);
-        		holder.tvLocation.setVisibility(View.VISIBLE);
-        		holder.imgLocationBlue.setVisibility(View.GONE);
-			} else {
-				holder.imgLocationGray.setVisibility(View.GONE);
-        		holder.tvLocation.setVisibility(View.GONE);
-        		holder.imgLocationBlue.setVisibility(View.VISIBLE);
+        	
+        	if (items.getLines() != null && items.getLines().length > 0) {
+        		
+        		for (int i = 0; i < items.getLines().length; i++) {
+        			lines += items.getLines()[i] + ", ";
+    			}
 			}
+        	
+        	if (!lines.equals("")) {
+        		holder.tvRound.setText(lines.substring(0, lines.length() - 2));
+			} else {
+				holder.tvRound.setText(lines);
+			}
+        	
+        	lines = "";
+        	holder.tvVisitTime.setText(items.getTotal_visit());
+        	holder.tvLocation.setText(items.getDistance());
+        	holder.imgLocationGray.setVisibility(View.VISIBLE);    		
+    		holder.imgLocationBlue.setVisibility(View.GONE);
 		}
         
         ((ItemListCustomer) convertView).set_position(position);

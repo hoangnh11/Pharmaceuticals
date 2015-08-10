@@ -101,15 +101,6 @@ public class CustomerAdapter extends BaseAdapter{
         	holder.tvLocation.setText(items.getDistance());
 			holder.imgLocationGray.setVisibility(View.VISIBLE);    		
     		holder.imgLocationBlue.setVisibility(View.GONE);
-//        	if (items.getId().equals("2")) {
-//				holder.imgLocationGray.setVisibility(View.VISIBLE);
-//        		holder.tvLocation.setVisibility(View.VISIBLE);
-//        		holder.imgLocationBlue.setVisibility(View.GONE);
-//			} else {
-//				holder.imgLocationGray.setVisibility(View.GONE);
-//        		holder.tvLocation.setVisibility(View.GONE);
-//        		holder.imgLocationBlue.setVisibility(View.VISIBLE);
-//			}
 		}
         
         ((ItemCustomer) convertView).set_position(position);

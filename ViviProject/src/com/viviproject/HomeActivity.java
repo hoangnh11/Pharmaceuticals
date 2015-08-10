@@ -26,6 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.viviproject.customerline.CreateCustormer;
 import com.viviproject.customerline.ListCustomer;
+import com.viviproject.customerline.ListCustomerPending;
 import com.viviproject.customerline.MapActivity;
 import com.viviproject.deliver.Delived_Order;
 import com.viviproject.deliver.OrderActivity;
@@ -58,7 +59,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private ImageView imgSetting;
 	private LinearLayout linSetting, linLogout, linRefresh;
 	private LinearLayout linTongquan, linSubTongquan, linBaocaodoanhso, linBaocaodophu, linkhachhangchuaphatsinhdoanhso;
-	private LinearLayout linRoundCustomer, linSubRoundCustomer, linListCustomer, linMap, linCreateNewCustomer;
+	private LinearLayout linRoundCustomer, linSubRoundCustomer, linListCustomer, linMap, linCreateNewCustomer, linCustomerPending;
 	private LinearLayout linVisit;
 	private LinearLayout linSales;
 	private LinearLayout linDeliver, linSubDeliver, linOrder, linDelivedOrder;
@@ -162,6 +163,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 		linMap.setOnClickListener(this);
 		linCreateNewCustomer = (LinearLayout) findViewById(R.id.linCreateNewCustomer);
 		linCreateNewCustomer.setOnClickListener(this);
+		linCustomerPending = (LinearLayout) findViewById(R.id.linCustomerPending);
+		linCustomerPending.setOnClickListener(this);
 		
 		linVisit = (LinearLayout) findViewById(R.id.linVisit);
 		linVisit.setOnClickListener(this);
@@ -288,7 +291,12 @@ public class HomeActivity extends Activity implements OnClickListener{
 			intent = new Intent(this, CreateCustormer.class);
 			startActivity(intent);
 			break;
-		
+			
+		case R.id.linCustomerPending:
+			intent = new Intent(this, ListCustomerPending.class);
+			startActivity(intent);
+			break;
+			
 		case R.id.linVisit:
 			intent = new Intent(this, VisitAcitvity.class);
 			startActivity(intent);

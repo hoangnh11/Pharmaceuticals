@@ -212,4 +212,10 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.storesNoSale(netParameters);
 		return executer(functionInfo);
 	}
+	
+	@Override
+	public String getStoreWaitApprove(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.getStoreWaitApprove(netParameters);
+		return executer(functionInfo);
+	}
 }

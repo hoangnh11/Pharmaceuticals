@@ -366,6 +366,30 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/linCustomerPending"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_item_press"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="48dp"
+                        android:background="@color/BLUE" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingLeft="12dp"
+                        android:text="@string/LIST_STORE_PENDING"
+                        android:textColor="@color/BLACK"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

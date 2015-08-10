@@ -3,10 +3,16 @@ package com.viviproject.customerline;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -15,7 +21,13 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.adapter.ListCustomerPendingAdapter;
 import com.viviproject.core.ItemListCustomer;
-import com.viviproject.entities.EnCustomer;
+import com.viviproject.entities.EnArrayStores;
+import com.viviproject.entities.EnStores;
+import com.viviproject.network.NetParameter;
+import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.GlobalParams;
 
 public class ListCustomerPending extends Activity implements OnClickListener{
 	
@@ -25,18 +37,26 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 	private ImageView imgBackToTop;
 	
 	private ListCustomerPendingAdapter listCustomerPendingAdapter;
-	private ArrayList<EnCustomer> listCustomer;
-	private EnCustomer enCustomer;
-	private EnCustomer items;
+	private EnStores items;
+	private ProgressDialog progressDialog;
+	private GetStoresWaitApprove getStoresWaitApprove;
+	private int qtyPage, qtyPerPage;
+	private EnArrayStores enStores;
+	private ArrayList<EnStores> arrEnStores;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list_customer_pending_layout);
-		listCustomer = new ArrayList<EnCustomer>();
-		enCustomer = new EnCustomer();
-		items = new EnCustomer();
+		setContentView(R.layout.list_customer_pending_layout);		
+		items = new EnStores();
+		enStores = new EnArrayStores();
+		arrEnStores = new ArrayList<EnStores>();
+		qtyPage = 1;
+		qtyPerPage = 10;
 		initLayout();
+		
+		getStoresWaitApprove = new GetStoresWaitApprove(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+		getStoresWaitApprove.execute();
 	}
 
 	public void initLayout(){
@@ -62,17 +82,7 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 		imgBackToTop = (ImageView) findViewById(R.id.imgBackToTop);
 		imgBackToTop.setOnClickListener(this);
 		
-		lvCustomer = (ListView) findViewById(R.id.lvCustomer);		
-		
-		for (int i = 0; i < 10; i++) {
-			enCustomer = new EnCustomer();
-			enCustomer.setId(i + 1);
-			listCustomer.add(enCustomer);
-		}
-		
-		listCustomerPendingAdapter = new ListCustomerPendingAdapter(this, listCustomer);
-		listCustomerPendingAdapter.setOnItemClickHandler(onItemClickHandler);
-		lvCustomer.setAdapter(listCustomerPendingAdapter);
+		lvCustomer = (ListView) findViewById(R.id.lvCustomer);
 	}
 	
 	@Override
@@ -86,6 +96,15 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 			lvCustomer.setSelectionAfterHeaderView();
 			break;
 			
+		case R.id.linRefresh:
+			enStores = new EnArrayStores();	
+			arrEnStores = new ArrayList<EnStores>();
+			qtyPage = 1;
+			qtyPerPage = 10;
+			getStoresWaitApprove = new GetStoresWaitApprove(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+			getStoresWaitApprove.execute();
+			break;
+			
 		default:
 			break;
 		}
@@ -97,11 +116,94 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 		
         @Override
         public void onClick(View v)
-        {
-        	int position = ((ItemListCustomer) v).get_position();
-            items = listCustomer.get(position);
+        {   
+            int position = ((ItemListCustomer) v).get_position();
+            items = arrEnStores.get(position);
             intent = new Intent(ListCustomerPending.this, CustomerDetails.class);
+            intent.putExtra(GlobalParams.STORES, items);  
             startActivity(intent);
         }
     };
+    
+    class GetStoresWaitApprove extends AsyncTask<Void, Void, String> {
+		String data, page, per_page;
+		
+		protected GetStoresWaitApprove(String page, String per_page) {
+			this.page = page;
+			this.per_page = per_page;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(ListCustomerPending.this);
+			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					getStoresWaitApprove.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[3];
+				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(ListCustomerPending.this));
+				netParameter[1] = new NetParameter("page", page);
+				netParameter[2] = new NetParameter("per_page", per_page);
+				try {
+					data = HttpNetServices.Instance.getStoreWaitApprove(netParameter);					
+					enStores = DataParser.getStores(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				try {
+					if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
+						arrEnStores.addAll(enStores.getStores());
+						listCustomerPendingAdapter = new ListCustomerPendingAdapter(ListCustomerPending.this, arrEnStores);
+						listCustomerPendingAdapter.setOnItemClickHandler(onItemClickHandler);
+						lvCustomer.setAdapter(listCustomerPendingAdapter);
+						imgBackToTop.setVisibility(View.VISIBLE);
+						lvCustomer.setOnScrollListener(new OnScrollListener() {
+							
+							@Override
+							public void onScrollStateChanged(AbsListView view, int scrollState) {
+								int threshold = 1;
+								int count = lvCustomer.getCount();
+								if (enStores != null && enStores.getStores().size() > 0) {
+									if (scrollState == SCROLL_STATE_IDLE) {
+										if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
+											// Execute LoadMoreDataTask AsyncTask
+											qtyPage++;
+											getStoresWaitApprove = new GetStoresWaitApprove(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+											getStoresWaitApprove.execute();
+										}
+									}
+								}							
+							}
+							
+							@Override
+							public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+							}
+						});
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}				
+			}
+		}
+	}
 }
