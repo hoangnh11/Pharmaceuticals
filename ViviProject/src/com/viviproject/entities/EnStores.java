@@ -30,12 +30,38 @@ public class EnStores implements Serializable{
 	private String approve;
 	private String latest_order;
 	private String last_month_revenue;
+	private String total_visit;
+	private String distance;
 	private ArrayList<EnOwner> owners;
 	private ArrayList<EnEmployee> employees;
-	private ArrayList<String> lines;
+	private String[] lines;
 	private ArrayList<EnLatestFiveOrder> latest_5_orders;
 	private ArrayList<EnLatestThreeOrder> latest_3_months;
 	
+	/**
+	 * @return the total_visit
+	 */
+	public String getTotal_visit() {
+		return total_visit;
+	}
+	/**
+	 * @param total_visit the total_visit to set
+	 */
+	public void setTotal_visit(String total_visit) {
+		this.total_visit = total_visit;
+	}
+	/**
+	 * @return the distance
+	 */
+	public String getDistance() {
+		return distance;
+	}
+	/**
+	 * @param distance the distance to set
+	 */
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
 	/**
 	 * @return the latest_3_months
 	 */
@@ -60,16 +86,17 @@ public class EnStores implements Serializable{
 	public void setLatest_5_orders(ArrayList<EnLatestFiveOrder> latest_5_orders) {
 		this.latest_5_orders = latest_5_orders;
 	}
+	
 	/**
 	 * @return the lines
 	 */
-	public ArrayList<String> getLines() {
+	public String[] getLines() {
 		return lines;
 	}
 	/**
 	 * @param lines the lines to set
 	 */
-	public void setLines(ArrayList<String> lines) {
+	public void setLines(String[] lines) {
 		this.lines = lines;
 	}
 	/**

@@ -17,11 +17,13 @@ public class CustomerAdapter extends BaseAdapter{
 	private ArrayList<EnStores> _data;
     private EnStores items;
     private Activity mActivity;
+    String lines;
 	
     public CustomerAdapter(Activity activity, ArrayList<EnStores> data) 
 	{
 		 mActivity = activity;
         _data = data;
+        lines = "";
 	}
     
     @Override
@@ -73,24 +75,41 @@ public class CustomerAdapter extends BaseAdapter{
         
         items = _data.get(position);
         
-        if (items != null) {        
+        if (items != null) {
         	holder.tvId.setText(items.getId());
         	holder.tvNamePharmacy.setText(items.getName());
         	holder.tvCodeName.setText(items.getCode());
         	holder.tvAddress.setText(items.getAddress());
-        	holder.tvRound.setText(items.getRegion_id());
-        	holder.tvVisitTime.setText(items.getActive());
+        	
+        	if (items.getLines() != null && items.getLines().length > 0) {
+        		
+        		for (int i = 0; i < items.getLines().length; i++) {
+        			lines += items.getLines()[i] + ", ";
+    			}
+			}
+        	
+        	if (!lines.equals("")) {
+        		holder.tvRound.setText(lines.substring(0, lines.length() - 2));
+			} else {
+				holder.tvRound.setText(lines);
+			}
+        	
+        	lines = "";
+        	holder.tvVisitTime.setText(items.getTotal_visit());
         	holder.tvProfit.setText(items.getLast_month_revenue());
         	holder.tvLateOrder.setText(items.getLatest_order());
-        	if (items.getId().equals("2")) {
-				holder.imgLocationGray.setVisibility(View.VISIBLE);
-        		holder.tvLocation.setVisibility(View.VISIBLE);
-        		holder.imgLocationBlue.setVisibility(View.GONE);
-			} else {
-				holder.imgLocationGray.setVisibility(View.GONE);
-        		holder.tvLocation.setVisibility(View.GONE);
-        		holder.imgLocationBlue.setVisibility(View.VISIBLE);
-			}
+        	holder.tvLocation.setText(items.getDistance());
+			holder.imgLocationGray.setVisibility(View.VISIBLE);    		
+    		holder.imgLocationBlue.setVisibility(View.GONE);
+//        	if (items.getId().equals("2")) {
+//				holder.imgLocationGray.setVisibility(View.VISIBLE);
+//        		holder.tvLocation.setVisibility(View.VISIBLE);
+//        		holder.imgLocationBlue.setVisibility(View.GONE);
+//			} else {
+//				holder.imgLocationGray.setVisibility(View.GONE);
+//        		holder.tvLocation.setVisibility(View.GONE);
+//        		holder.imgLocationBlue.setVisibility(View.VISIBLE);
+//			}
 		}
         
         ((ItemCustomer) convertView).set_position(position);
