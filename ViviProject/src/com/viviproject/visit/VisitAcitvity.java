@@ -1,5 +1,7 @@
 package com.viviproject.visit;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -9,6 +11,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,6 +41,8 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 	private GetStores getStores;
 	private EnArrayStores enStores;
 	private EnStores items;
+	private int qtyPage, qtyPerPage;
+	private ArrayList<EnStores> arrEnStores;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -44,10 +50,13 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		setContentView(R.layout.visit_layout);
 		enStores = new EnArrayStores();
 		items = new EnStores();
+		arrEnStores = new ArrayList<EnStores>();
+		qtyPage = 1;
+		qtyPerPage = 10;
 		
 		initLayout();
 		
-		getStores = new GetStores();
+		getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
 		getStores.execute();
 	}
 
@@ -89,6 +98,15 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 			lvCustomer.setSelectionAfterHeaderView();
 			break;
 			
+		case R.id.linRefresh:
+			enStores = new EnArrayStores();	
+			arrEnStores = new ArrayList<EnStores>();
+			qtyPage = 1;
+			qtyPerPage = 10;
+			getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+			getStores.execute();
+			break;
+			
 		default:
 			break;
 		}
@@ -102,7 +120,7 @@ public class VisitAcitvity extends Activity implements OnClickListener{
         public void onClick(View v)
         {
         	int position = ((ItemListCustomer) v).get_position();
-            items = enStores.getStores().get(position);
+            items = arrEnStores.get(position);
             intent = new Intent(VisitAcitvity.this, VisitDetailsActivity.class);            
             intent.putExtra(GlobalParams.STORES, items);
             startActivity(intent);
@@ -115,8 +133,13 @@ public class VisitAcitvity extends Activity implements OnClickListener{
      *
      */
     class GetStores extends AsyncTask<Void, Void, String> {
-		String data;
+		String data, page, per_page;
 
+		protected GetStores(String page, String per_page) {
+			this.page = page;
+			this.per_page = per_page;
+		}
+		
 		@Override
 		protected void onPreExecute() {
 			progressDialog = new ProgressDialog(VisitAcitvity.this);
@@ -134,8 +157,10 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[1];
+				NetParameter[] netParameter = new NetParameter[3];
 				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(VisitAcitvity.this));
+				netParameter[1] = new NetParameter("page", page);
+				netParameter[2] = new NetParameter("per_page", per_page);
 				try {
 					data = HttpNetServices.Instance.getStores(netParameter);					
 					enStores = DataParser.getStores(data);
@@ -153,10 +178,33 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 			progressDialog.dismiss();
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
-					listVisitAdapter = new VisitAdapter(VisitAcitvity.this, enStores);
+					arrEnStores.addAll(enStores.getStores());
+					listVisitAdapter = new VisitAdapter(VisitAcitvity.this, arrEnStores);
 					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
 					lvCustomer.setAdapter(listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
+					lvCustomer.setOnScrollListener(new OnScrollListener() {
+						
+						@Override
+						public void onScrollStateChanged(AbsListView view, int scrollState) {
+							int threshold = 1;
+							int count = lvCustomer.getCount();
+							if (enStores != null && enStores.getStores().size() > 0) {
+								if (scrollState == SCROLL_STATE_IDLE) {
+									if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
+										// Execute LoadMoreDataTask AsyncTask
+										qtyPage++;
+										getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+										getStores.execute();
+									}
+								}
+							}							
+						}
+						
+						@Override
+						public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+						}
+					});
 				}
 			}
 		}

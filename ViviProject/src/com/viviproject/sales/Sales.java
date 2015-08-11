@@ -1,5 +1,6 @@
 package com.viviproject.sales;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -51,6 +54,8 @@ public class Sales extends Activity implements OnClickListener{
 	private GetStoresLine getStoresLine;
 	private String selectDay;
 	private Map<String, String> mapDay;
+	private int qtyPage, qtyPerPage;
+	private ArrayList<EnStores> arrEnStores;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -58,6 +63,9 @@ public class Sales extends Activity implements OnClickListener{
 		setContentView(R.layout.sale_layout);
 		enStores = new EnArrayStores();
 		items = new EnStores();
+		arrEnStores = new ArrayList<EnStores>();
+		qtyPage = 1;
+		qtyPerPage = 10;
 		
 		initLayout();
 		
@@ -75,14 +83,17 @@ public class Sales extends Activity implements OnClickListener{
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				arrEnStores.clear();
 				selectDay = mapDay.get(listWeek.get(arg2));
+				qtyPage = 1;
+				qtyPerPage = 10;
 				if (selectDay.equals("1")) {
-					getStores = new GetStores();
+					getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
 					getStores.execute();
 				} else {
-					getStoresLine = new GetStoresLine();
+					getStoresLine = new GetStoresLine(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
 					getStoresLine.execute();
-				}				
+				}
 			}
 
 			@Override
@@ -130,6 +141,19 @@ public class Sales extends Activity implements OnClickListener{
 			lvCustomer.setSelectionAfterHeaderView();
 			break;
 			
+		case R.id.linRefresh:		
+			arrEnStores = new ArrayList<EnStores>();
+			qtyPage = 1;
+			qtyPerPage = 10;			
+			if (selectDay.equals("1")) {
+				getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+				getStores.execute();
+			} else {
+				getStoresLine = new GetStoresLine(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+				getStoresLine.execute();
+			}
+			break;
+			
 		default:
 			break;
 		}
@@ -143,10 +167,10 @@ public class Sales extends Activity implements OnClickListener{
         public void onClick(View v)
         {
         	int position = ((ItemListCustomer) v).get_position();
-            items = enStores.getStores().get(position);
+            items = arrEnStores.get(position);
             intent = new Intent(Sales.this, VisitDetailsActivity.class);            
             intent.putExtra(GlobalParams.STORES, items);
-//            startActivity(intent);
+            startActivity(intent);
         }
     };
     
@@ -156,7 +180,12 @@ public class Sales extends Activity implements OnClickListener{
      *
      */
     class GetStores extends AsyncTask<Void, Void, String> {
-		String data;
+    	String data, page, per_page;
+
+		protected GetStores(String page, String per_page) {
+			this.page = page;
+			this.per_page = per_page;
+		}
 
 		@Override
 		protected void onPreExecute() {
@@ -175,8 +204,10 @@ public class Sales extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[1];
+				NetParameter[] netParameter = new NetParameter[3];
 				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(Sales.this));
+				netParameter[1] = new NetParameter("page", page);
+				netParameter[2] = new NetParameter("per_page", per_page);
 				try {
 					data = HttpNetServices.Instance.getStores(netParameter);					
 					enStores = DataParser.getStores(data);
@@ -194,10 +225,34 @@ public class Sales extends Activity implements OnClickListener{
 			progressDialog.dismiss();
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
-					listVisitAdapter = new VisitAdapter(Sales.this, enStores);
+					arrEnStores.addAll(enStores.getStores());
+					listVisitAdapter = new VisitAdapter(Sales.this, arrEnStores);
 					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
 					lvCustomer.setAdapter(listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
+					lvCustomer.setOnScrollListener(new OnScrollListener() {
+						
+						@Override
+						public void onScrollStateChanged(AbsListView view, int scrollState) {
+							int threshold = 1;
+							int count = lvCustomer.getCount();
+							if (enStores != null && enStores.getStores().size() > 0) {
+								if (scrollState == SCROLL_STATE_IDLE) {
+									if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
+										// Execute LoadMoreDataTask AsyncTask
+										qtyPage++;
+										
+										getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+										getStores.execute();										
+									}
+								}
+							}							
+						}
+						
+						@Override
+						public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+						}
+					});					
 				}
 			}
 		}
@@ -209,7 +264,12 @@ public class Sales extends Activity implements OnClickListener{
      *
      */
     class GetStoresLine extends AsyncTask<Void, Void, String> {
-		String data;
+    	String data, page, per_page;
+
+		protected GetStoresLine(String page, String per_page) {
+			this.page = page;
+			this.per_page = per_page;
+		}
 
 		@Override
 		protected void onPreExecute() {
@@ -228,9 +288,11 @@ public class Sales extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[2];
+				NetParameter[] netParameter = new NetParameter[4];
 				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(Sales.this));
-				netParameter[1] = new NetParameter("line", selectDay);
+				netParameter[1] = new NetParameter("page", page);
+				netParameter[2] = new NetParameter("per_page", per_page);
+				netParameter[3] = new NetParameter("line", selectDay);
 				try {
 					data = HttpNetServices.Instance.getStoresLine(netParameter, selectDay);					
 					enStores = DataParser.getStores(data);
@@ -249,10 +311,39 @@ public class Sales extends Activity implements OnClickListener{
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores() != null 
 						&& enStores.getStores().size() > 0) {
-					listVisitAdapter = new VisitAdapter(Sales.this, enStores);
+					arrEnStores.addAll(enStores.getStores());
+					listVisitAdapter = new VisitAdapter(Sales.this, arrEnStores);
 					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
 					lvCustomer.setAdapter(listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
+					lvCustomer.setOnScrollListener(new OnScrollListener() {
+						
+						@Override
+						public void onScrollStateChanged(AbsListView view, int scrollState) {
+							int threshold = 1;
+							int count = lvCustomer.getCount();
+							if (enStores != null && enStores.getStores().size() > 0) {
+								if (scrollState == SCROLL_STATE_IDLE) {
+									if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
+										// Execute LoadMoreDataTask AsyncTask
+										qtyPage++;
+										getStoresLine = new GetStoresLine(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
+										getStoresLine.execute();										
+									}
+								}
+							}
+						}
+						
+						@Override
+						public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+						}
+					});
+					
+				} else {
+					listVisitAdapter = new VisitAdapter(Sales.this, arrEnStores);
+					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
+					lvCustomer.setAdapter(listVisitAdapter);
+					imgBackToTop.setVisibility(View.GONE);
 				}
 			}
 		}

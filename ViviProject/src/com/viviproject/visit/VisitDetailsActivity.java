@@ -44,7 +44,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private LinearLayout linCustomerInformation;
 	private TextView tvBuy, tvGivegimic, tvCloseDoor, tvFeedback;
 	private LinearLayout linBuyHistory, linSubBuyHistory;
-	private TextView tvNameStore, tvAddressStores, tvLineStore, tvVip, tvPointSum, tvTotalProfit;
+	private TextView tvNameStore, tvAddressStores, tvLineStore, tvVip, tvPointSum, tvTotalProfit, tvLocation;
 	private ListView lvInventory, lvFiveOrder, lvThreeOrder;
 	private Button btnSendReport, btnImport;
 	
@@ -62,6 +62,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private ResponseReport responseReport;
 	private EnReport enReport;
 	private ArrayList<EnReport> arrReport;
+	private String lines;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -76,13 +77,26 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		responseReport = new ResponseReport();
 		enReport = new EnReport();
 		arrReport = new ArrayList<EnReport>();
-		
+		lines = "";
 		initLayout();
 		
 		if (itemStore != null) {
 			tvNameStore.setText(itemStore.getName());
 			tvAddressStores.setText(itemStore.getAddress());
-			tvLineStore.setText(itemStore.getRegion_id());
+			tvLocation.setText(itemStore.getDistance());
+			if (itemStore.getLines() != null && itemStore.getLines().length > 0) {
+        		
+        		for (int i = 0; i < itemStore.getLines().length; i++) {
+        			lines += itemStore.getLines()[i] + ", ";
+    			}
+			}
+        	
+        	if (!lines.equals("")) {
+        		tvLineStore.setText(lines.substring(0, lines.length() - 2));
+			} else {
+				tvLineStore.setText(lines);
+			}        	
+        	
 			tvVip.setText(itemStore.getVip());
 			tvPointSum.setText(itemStore.getActive());
 			tvTotalProfit.setText(itemStore.getTotal_revenue() + " VND");
@@ -142,6 +156,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		linBuyHistory.setOnClickListener(this);
 		linSubBuyHistory = (LinearLayout) findViewById(R.id.linSubBuyHistory);
 		
+		tvLocation = (TextView) findViewById(R.id.tvLocation);
 		tvNameStore = (TextView) findViewById(R.id.tvNameStore);		
 		tvAddressStores = (TextView) findViewById(R.id.tvAddressStores);		
 		tvLineStore = (TextView) findViewById(R.id.tvLineStore);		
