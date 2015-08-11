@@ -205,7 +205,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 			btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
 			linSubCreateOrder.setVisibility(View.GONE);
 			tvCreateOrder.setBackgroundResource(R.color.BLUE);
-			break;	
+			break;
 			
 		default:
 			break;
@@ -616,7 +616,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				netParameter[4] = new NetParameter("discount_sale_value", String.valueOf(responsePrepare.getTotal_discount()));
 				netParameter[5] = new NetParameter("subtotal", String.valueOf(responsePrepare.getSubtotal()));
 				netParameter[6] = new NetParameter("total", String.valueOf(responsePrepare.getTotal()));
-				netParameter[7] = new NetParameter("basket", DataParser.convertObjectToString(arrBasket));
+				netParameter[7] = new NetParameter("basket", DataParser.convertObjectToString(responsePrepare.getBasket()));
 				
 				try {
 					data = HttpNetServices.Instance.createSale(netParameter, BuManagement.getToken(PlaceOrderActivity.this));					

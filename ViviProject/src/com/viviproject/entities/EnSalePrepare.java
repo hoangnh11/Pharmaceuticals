@@ -20,7 +20,7 @@ public class EnSalePrepare implements Serializable{
 	private float discount_point;
 	private String note;
 	private int discount_sale;
-	private ArrayList<EnDiscountGift> discount_gift;	
+	private ArrayList<EnDiscountGift> discount_gift;
 	private int total;
 
 	/**

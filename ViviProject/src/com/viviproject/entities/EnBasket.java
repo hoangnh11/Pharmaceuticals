@@ -13,6 +13,7 @@ public class EnBasket implements Serializable{
 	private int point;
 	private int sale;
 	private int other;
+		
 	/**
 	 * @return the product_id
 	 */
