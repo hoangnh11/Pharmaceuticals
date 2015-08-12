@@ -326,4 +326,13 @@ public final class HttpFunctionFactory {
 		functionInfo.setUrl(viviHostURLshort + "/v1/stores/wait_approve?" + params);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo lineChange(NetParameter[] netParameters, String token) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("lineChange");
+		String params = funcLogParams(netParameters);
+		Log.e("lineChange", "lineChange: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/line_change?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
 }

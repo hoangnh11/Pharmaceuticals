@@ -1,11 +1,13 @@
 package com.viviproject.adapter;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,8 +21,9 @@ public class InventoryAdapter extends BaseAdapter{
     private EnProducts items;
     private Activity mActivity;
     private OnClickListener _onMinusClick, _onPlusClick;
+    private TextWatcher _TextWatcher;
 	
-    public InventoryAdapter(Activity activity, Products data) 
+    public InventoryAdapter(Activity activity, Products data)
 	{
 		 mActivity = activity;
         _data = data;
@@ -53,10 +56,11 @@ public class InventoryAdapter extends BaseAdapter{
             convertView = new ItemListViewInventory(mActivity.getApplicationContext());
             ((ItemListViewInventory) convertView).setOnMinusClickHandler(onMinusClick);
             ((ItemListViewInventory) convertView).setOnPlusClickHandler(onPlusClick);
+            ((ItemListViewInventory) convertView).setTextChangedHandler(textWatcher);
             
             holder = new ViewHolder();         
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
-            holder.tvQuantity = (TextView) convertView.findViewById(R.id.tvQuantity);         
+            holder.tvQuantity = (EditText) convertView.findViewById(R.id.tvQuantity);
             holder.imgMinus = (ImageView) convertView.findViewById(R.id.imgMinus);
             holder.imgPlus = (ImageView) convertView.findViewById(R.id.imgPlus);
             
@@ -83,8 +87,9 @@ public class InventoryAdapter extends BaseAdapter{
 	
 	static class ViewHolder
     { 
-        TextView tvName, tvQuantity;
+        TextView tvName;
         ImageView imgMinus, imgPlus;
+        EditText tvQuantity;
     }
     
     OnClickListener onMinusClick = new OnClickListener() 
@@ -118,4 +123,28 @@ public class InventoryAdapter extends BaseAdapter{
     {
     	_onPlusClick = itemClick;
     }
+    
+    TextWatcher textWatcher = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			if (_TextWatcher != null) {
+				_TextWatcher.onTextChanged(s, start, before, count);			
+			}
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+			
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	public void setTextChangedHandler(TextWatcher onTextChanged) {
+		_TextWatcher = onTextChanged;
+	}
 }

@@ -301,6 +301,7 @@
                 android:orientation="horizontal" >
 
                 <Button
+                    android:id="@+id/btnLineChange"
                     android:layout_width="110dp"
                     android:layout_height="24dp"
                     android:background="@drawable/bg_blue_gray"

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ public class CustomerAdapter extends BaseAdapter{
 	private ArrayList<EnStores> _data;
     private EnStores items;
     private Activity mActivity;
+    private OnClickListener _onItemClick;
     String lines;
 	
     public CustomerAdapter(Activity activity, ArrayList<EnStores> data) 
@@ -51,7 +53,7 @@ public class CustomerAdapter extends BaseAdapter{
         if (convertView == null)
         {
             convertView = new ItemCustomer(mActivity.getApplicationContext());
-           
+            ((ItemCustomer) convertView).setOnThisItemClickHandler(onItemClick);
             holder = new ViewHolder();
          
             holder.tvId = (TextView) convertView.findViewById(R.id.tvId);
@@ -111,5 +113,21 @@ public class CustomerAdapter extends BaseAdapter{
     {      
         TextView tvId, tvNamePharmacy, tvCodeName, tvAddress, tvRound, tvProfit, tvVisitTime, tvLateOrder, tvLocation;
         ImageView imgLocationBlue, imgLocationGray;
+    }
+	
+	OnClickListener onItemClick = new OnClickListener() 
+	{
+
+        @Override
+        public void onClick(View v)
+        {
+            if (_onItemClick != null)
+                _onItemClick.onClick(v);
+        }
+    };
+    
+    public void setOnThisItemClickHandler(OnClickListener itemClick)
+    {
+        _onItemClick = itemClick;
     }
 }

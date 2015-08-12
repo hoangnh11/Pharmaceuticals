@@ -130,7 +130,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		listYear = Arrays.asList(year);
 		ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listYear);
 		spYear.setAdapter(yearAdapter);
-				
+		spYear.setSelection(40);
 		spYear.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -302,6 +302,14 @@ public class CreateCustormer extends Activity implements OnClickListener {
 			staffAdapter.setOnItemClickHandler(onItemClickDelete);
 			lvAddStaff.setAdapter(staffAdapter);
 			app.setListViewHeight(lvAddStaff, staffAdapter);
+			
+			edtNameOwner.setText("");
+			edtPhoneOwner.setText("");
+			edtNoteOwner.setText("");
+			spDay.setSelection(0);
+			spMonth.setSelection(0);
+			spYear.setSelection(40);
+			
 			break;
 			
 		case R.id.linRemoveStaff:

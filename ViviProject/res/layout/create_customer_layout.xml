@@ -579,9 +579,7 @@
             <LinearLayout
                 android:id="@+id/linStaff"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="wrap_content"              
                 android:background="@color/BG_GRAY_LIGHT"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"

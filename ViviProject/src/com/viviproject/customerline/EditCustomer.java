@@ -39,7 +39,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 	public static int indexEditCustomer = -1;
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
-	private Button btnUpdate;
+	private Button btnUpdate, btnLineChange;
 	private EditText edtStoreName, edtStorePhone, edtStoreAddress;		
 
 	private EditStaffAdapter editStaffAdapter;
@@ -58,6 +58,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 	private ResponseCreateStores responseUpdateStores;
 	private ArrayList<EnStaff> arrStaff;
 	private EnStaff enStaff;
+	private LineChange lineChange;
  	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -68,6 +69,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		enStaff = new EnStaff();
 		bundle = app.getBundle(this);
 		responseUpdateStores = new ResponseCreateStores();
+		lineChange = new LineChange();
 		store = new EnStores();
 		store = (EnStores) bundle.getSerializable(GlobalParams.STORES);
 		line = new ArrayList<Integer>();		
@@ -111,7 +113,64 @@ public class EditCustomer extends Activity implements OnClickListener{
 					enStaff.setNote(store.getEmployees().get(i).getNote());
 					arrStaff.add(enStaff);
 				}
-			}			
+			}
+			
+			if (store.getVip() != null) {
+				if (store.getVip().equalsIgnoreCase("A")) {
+					ckVipA.setChecked(true);
+				} else if (store.getVip().equalsIgnoreCase("B")) {
+					ckVipB.setChecked(true);
+				} else if (store.getVip().equalsIgnoreCase("C")) {
+					ckVipC.setChecked(true);
+				} else {
+					ckVipA.setChecked(false);
+					ckVipB.setChecked(false);
+					ckVipC.setChecked(false);
+				}
+			}
+			
+			if (store.getRepeat() != null) {
+				if (store.getRepeat().equals("1")) {
+					ckTimeOne.setChecked(true);
+				} else if (store.getRepeat().equals("2")) {
+					ckTimeTwo.setChecked(true);
+				} else if (store.getRepeat().equals("3")) {
+					ckTimeThree.setChecked(true);
+				} else if (store.getRepeat().equals("4")) {
+					ckTimeFour.setChecked(true);
+				} else {
+					ckTimeOne.setChecked(false);
+					ckTimeTwo.setChecked(false);
+					ckTimeThree.setChecked(false);
+					ckTimeFour.setChecked(false);
+				}
+			}
+			
+			if (store.getLines() != null && store.getLines().length > 0) {
+        		
+        		for (int i = 0; i < store.getLines().length; i++) {
+        			if (store.getLines()[i].equals("2")) {
+        				ckT2.setChecked(true);
+					} else if (store.getLines()[i].equals("3")) {
+						ckT3.setChecked(true);
+					} else if (store.getLines()[i].equals("4")) {
+						ckT4.setChecked(true);
+					} else if (store.getLines()[i].equals("5")) {
+						ckT5.setChecked(true);
+					} else if (store.getLines()[i].equals("6")) {
+						ckT6.setChecked(true);
+					} else if (store.getLines()[i].equals("7")) {
+						ckT7.setChecked(true);
+					} else {
+						ckT2.setChecked(false);
+						ckT3.setChecked(false);
+						ckT4.setChecked(false);
+						ckT5.setChecked(false);
+						ckT6.setChecked(false);
+						ckT7.setChecked(false);					
+					} 			
+    			}
+			}
 		}
 		
 		editStaffAdapter = new EditStaffAdapter(this, arrStaff);	
@@ -146,6 +205,8 @@ public class EditCustomer extends Activity implements OnClickListener{
 		
 		btnUpdate = (Button) findViewById(R.id.btnUpdate);
 		btnUpdate.setOnClickListener(this);
+		btnLineChange = (Button) findViewById(R.id.btnLineChange);
+		btnLineChange.setOnClickListener(this);
 		
 		edtStoreName = (EditText) findViewById(R.id.edtStoreName);
 		edtStorePhone = (EditText) findViewById(R.id.edtStorePhone);
@@ -282,7 +343,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 	TextWatcher edtBirthDay = new TextWatcher() {
 		
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		public void onTextChanged(CharSequence s, int start, int before, int count) {			
 			if (indexEditCustomer != -1) {
 				enStaff = new EnStaff();
 				enStaff.setId(arrStaff.get(indexEditCustomer).getId());
@@ -351,7 +412,12 @@ public class EditCustomer extends Activity implements OnClickListener{
 			}
 			
 			break;
-
+			
+		case R.id.btnLineChange:
+			lineChange = new LineChange();
+			lineChange.execute();
+			break;
+			
 		default:
 			break;
 		}
@@ -363,7 +429,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		@Override
 		protected void onPreExecute() {
 			progressDialog = new ProgressDialog(EditCustomer.this);
-			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.setMessage(getResources().getString(R.string.PROCESSING));
 			progressDialog.show();
 			progressDialog.setCancelable(false);
 			progressDialog.setOnCancelListener(new OnCancelListener() {
@@ -420,6 +486,64 @@ public class EditCustomer extends Activity implements OnClickListener{
 					} catch (Exception e) {
 						Logger.error("responseUpdateStores: " + e);
 					}					
+				}
+			}
+		}
+	}
+	
+	class LineChange extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(EditCustomer.this);
+			progressDialog.setMessage(getResources().getString(R.string.PROCESSING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					lineChange.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[3];
+				netParameter[0] = new NetParameter("store_id", store.getStore_id());
+				netParameter[1] = new NetParameter("lines", DataParser.convertObjectToString(line));
+				netParameter[2] = new NetParameter("repeat", times);
+				
+				try {
+					data = HttpNetServices.Instance.lineChange(netParameter, BuManagement.getToken(EditCustomer.this));							
+					Logger.error(":         "+data);
+					responseUpdateStores = DataParser.updateStores(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && responseUpdateStores != null
+						&& String.valueOf(responseUpdateStores.getStatus()).equalsIgnoreCase("success")) {
+					app.alertErrorMessageString(String.valueOf(responseUpdateStores.getMessage()),
+							getString(R.string.COMMON_MESSAGE), EditCustomer.this);
+				} else {
+					try {
+						app.alertErrorMessageString(responseUpdateStores.getMessage(),
+								getString(R.string.COMMON_MESSAGE), EditCustomer.this);
+					} catch (Exception e) {
+						Logger.error("responseUpdateStores: " + e);
+					}
 				}
 			}
 		}

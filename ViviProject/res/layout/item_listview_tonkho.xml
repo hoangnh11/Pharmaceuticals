@@ -52,7 +52,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/icon_minus" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tvQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,6 +61,9 @@
                 android:background="@drawable/bg_minus_union"
                 android:gravity="center"
                 android:text="0"
+                android:maxLength="3"
+                android:inputType="number"
+                android:hint="@string/BLANK"
                 android:textColor="@color/BLACK"
                 android:textSize="12sp"
                 android:textStyle="bold" />

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.CustomerAdapter;
+import com.viviproject.core.ItemCustomer;
+import com.viviproject.customerline.CustomerDetails;
 import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 import com.viviproject.network.NetParameter;
@@ -39,6 +42,7 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 	private GetStores getStores;
 	private EnArrayStores enStores;
 	private ArrayList<EnStores> arrEnStores;
+	private EnStores items;
 	private int qtyPage, qtyPerPage;
 
 	@Override
@@ -47,6 +51,7 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.customer_layout);	
 		enStores = new EnArrayStores();	
 		arrEnStores = new ArrayList<EnStores>();
+		items = new EnStores();
 		qtyPage = 1;
 		qtyPerPage = 10;
 		initLayout();
@@ -108,6 +113,21 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 		}
 	}
 	
+	OnClickListener onItemClickHandler = new OnClickListener() 
+	{
+		Intent intent;
+		
+        @Override
+        public void onClick(View v)
+        {
+        	int position = ((ItemCustomer) v).get_position();
+            items = arrEnStores.get(position);
+            intent = new Intent(CustomerProfitActivity.this, CustomerDetails.class);
+            intent.putExtra(GlobalParams.STORES, items);  
+            startActivity(intent);
+        }
+    };
+	
 	class GetStores extends AsyncTask<Void, Void, String> {
 		String data, page, per_page;
 
@@ -156,6 +176,7 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
 					arrEnStores.addAll(enStores.getStores());
 					customerAdapter = new CustomerAdapter(CustomerProfitActivity.this, arrEnStores);
+					customerAdapter.setOnThisItemClickHandler(onItemClickHandler);
 					lvCustomer.setAdapter(customerAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);					
 					lvCustomer.setOnScrollListener(new OnScrollListener() {
