@@ -299,7 +299,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 				enStaff.setRole(arrStaff.get(indexEditCustomer).getRole());
 				enStaff.setNote(arrStaff.get(indexEditCustomer).getNote());
 				arrStaff.set(indexEditCustomer, enStaff);
-			} 
+			}
 		}
 		
 		@Override

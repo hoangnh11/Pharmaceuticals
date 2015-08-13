@@ -39,7 +39,7 @@ import com.viviproject.ultilities.Logger;
 
 public class VisitDetailsActivity extends Activity implements OnClickListener{
 
-	public static int indexWareHouse = -2;
+	public static int indexWareHouse = -1;
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	
@@ -251,21 +251,29 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		default:
 			break;
 		}
-	}
+	}	
 
 	TextWatcher onTextWatcher = new TextWatcher() {
 		
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {	
-			Logger.error(VisitDetailsActivity.indexWareHouse + " : " + s);
-			if (indexWareHouse > -1) {
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			if (indexWareHouse > 0) {
 				if (s.length() > 0) {
-					enProducts.getProducts().get(indexWareHouse + 1).setUnit(s.toString());
+					enProducts.getProducts().get(indexWareHouse).setUnit(s.toString());
 					
 	    			enReport = new EnReport();
-	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(indexWareHouse + 1).getId()));
-	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(indexWareHouse + 1).getUnit()));
-	    			arrReport.set(indexWareHouse + 1, enReport);
+	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(indexWareHouse).getId()));
+	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(indexWareHouse).getUnit()));
+	    			arrReport.set(indexWareHouse, enReport);
+				}
+			} else if (indexWareHouse == 0) {
+				if (s.length() > 0 && checkIndex) {
+					enProducts.getProducts().get(0).setUnit(s.toString());
+					
+	    			enReport = new EnReport();
+	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(0).getId()));
+	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(0).getUnit()));
+	    			arrReport.set(0, enReport);
 				}
 			}
 		}

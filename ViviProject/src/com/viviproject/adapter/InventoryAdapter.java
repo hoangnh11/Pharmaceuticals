@@ -56,7 +56,7 @@ public class InventoryAdapter extends BaseAdapter{
             convertView = new ItemListViewInventory(mActivity.getApplicationContext());
             ((ItemListViewInventory) convertView).setOnMinusClickHandler(onMinusClick);
             ((ItemListViewInventory) convertView).setOnPlusClickHandler(onPlusClick);
-            ((ItemListViewInventory) convertView).setTextChangedHandler(textWatcher);
+            ((ItemListViewInventory) convertView).setTextChangedHandler(textWatcher);         
             
             holder = new ViewHolder();         
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
@@ -125,7 +125,7 @@ public class InventoryAdapter extends BaseAdapter{
     }
     
     TextWatcher textWatcher = new TextWatcher() {
-		
+    	
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before, int count) {
 			if (_TextWatcher != null) {
@@ -146,5 +146,5 @@ public class InventoryAdapter extends BaseAdapter{
 	
 	public void setTextChangedHandler(TextWatcher onTextChanged) {
 		_TextWatcher = onTextChanged;
-	}
+	}	
 }

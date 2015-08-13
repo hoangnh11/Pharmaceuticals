@@ -244,7 +244,7 @@ public final class HttpFunctionFactory {
 	}
 	
 	public static HttpFunctionInfo createGimic(NetParameter[] netParameters, String token) {
-		HttpFunctionInfo functionInfo = createPostBodyMethod("createGimic");
+		HttpFunctionInfo functionInfo = createPostMethod("createGimic");
 		String params = funcLogParams(netParameters);
 		Log.e("createGimic", "createGimic: " + params);
 		functionInfo.setUrl(viviHostURLshort + "/v1/gimics/create?access-token=" + token);

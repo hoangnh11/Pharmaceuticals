@@ -29,7 +29,7 @@ public class ItemListViewInventory extends BaseLinearLayout{
 		imgPlus.setOnClickListener(onPlusClick);
 		
 		tvQuantity = (EditText) findViewById(R.id.tvQuantity);
-		tvQuantity.addTextChangedListener(textWatcher);
+		tvQuantity.addTextChangedListener(textWatcher);	
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class ItemListViewInventory extends BaseLinearLayout{
 	{
         @Override
         public void onClick(View v)
-        {        	
+        {        	        
             if (_onMinusClick != null)
             	_onMinusClick.onClick(ItemListViewInventory.this);
         }
@@ -68,7 +68,7 @@ public class ItemListViewInventory extends BaseLinearLayout{
 
         @Override
         public void onClick(View v)
-        {        	
+        {        	       
             if (_onPlusClick != null)
             	_onPlusClick.onClick(ItemListViewInventory.this);
         }
@@ -80,25 +80,27 @@ public class ItemListViewInventory extends BaseLinearLayout{
     }
 	    
     TextWatcher textWatcher = new TextWatcher() {
-		
+    	
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before, int count) {
-			VisitDetailsActivity.indexWareHouse = _position - 1;
-			if (_TextWatcher != null) {
+			VisitDetailsActivity.indexWareHouse = _position;
+			if (_TextWatcher != null) {				
 				_TextWatcher.onTextChanged(s, start, before, count);
 			}
 		}
 		
 		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {			
+		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {	
+			
 		}
 		
 		@Override
-		public void afterTextChanged(Editable s) {			
+		public void afterTextChanged(Editable s) {	
+		
 		}
 	};
 	
 	public void setTextChangedHandler(TextWatcher onTextChanged) {
 		_TextWatcher = onTextChanged;
-	}
+	}	
 }

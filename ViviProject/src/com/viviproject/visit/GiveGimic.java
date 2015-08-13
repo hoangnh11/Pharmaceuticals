@@ -43,13 +43,13 @@ public class GiveGimic extends Activity implements OnClickListener{
 	private EnStores itemStore;
 	private ProgressDialog progressDialog;
 	private GetGimics getGimics;
-	private EnElement elements;
+	public static EnElement elements;
 	private EnGimic items;
 	private GimicAdapter gimicAdapter;
 	private CreateGimics createGimics;
 	private ResponseCreateGimics responseCreateGimics;
 	private EnGimicBasket enGimicBasket;
-	private ArrayList<EnGimicBasket> arrGimicBasket;
+	public static ArrayList<EnGimicBasket> arrGimicBasket;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -127,16 +127,16 @@ public class GiveGimic extends Activity implements OnClickListener{
         @Override
         public void onClick(View v)
         {
-        	int position = ((ItemListviewGimic) v).get_position();        
+        	int position = ((ItemListviewGimic) v).get_position();
             items = elements.getElements().get(position);
-            	
+        
             if (Integer.parseInt(items.getUnit()) > 0) {
             	elements.getElements().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) - 1));            	
 				
             	gimicAdapter = new GimicAdapter(GiveGimic.this, elements);
             	gimicAdapter.setOnMinusClickHandler(onMinusClickHandler);
-            	gimicAdapter.setOnPlusClickHandler(onPlusClickHandler);
-            	lvGimic.setAdapter(gimicAdapter);
+	        	gimicAdapter.setOnPlusClickHandler(onPlusClickHandler);
+            	lvGimic.setAdapter(gimicAdapter);            
     			app.setListViewHeight(lvGimic, gimicAdapter);
     			
     			enGimicBasket = new EnGimicBasket();
@@ -152,17 +152,16 @@ public class GiveGimic extends Activity implements OnClickListener{
 	{		
         @Override
         public void onClick(View v)
-        {
-        	int position = ((ItemListviewGimic) v).get_position();        
+        {      
+        	int position = ((ItemListviewGimic) v).get_position();
             items = elements.getElements().get(position);
-            
             if (Integer.parseInt(items.getUnit()) < Integer.parseInt(elements.getElements().get(position).getQuantity_max())) {
             	elements.getElements().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) + 1));
         	
 	        	gimicAdapter = new GimicAdapter(GiveGimic.this, elements);		
 	        	gimicAdapter.setOnMinusClickHandler(onMinusClickHandler);
 	        	gimicAdapter.setOnPlusClickHandler(onPlusClickHandler);
-	        	lvGimic.setAdapter(gimicAdapter);
+	        	lvGimic.setAdapter(gimicAdapter);	        
 				app.setListViewHeight(lvGimic, gimicAdapter);
 				
 				enGimicBasket = new EnGimicBasket();
@@ -172,7 +171,7 @@ public class GiveGimic extends Activity implements OnClickListener{
             }
         }
     };
-	
+
 	/**
      * Get Gimics list follow line
      * @author hoangnh11
@@ -222,6 +221,8 @@ public class GiveGimic extends Activity implements OnClickListener{
 						&& elements.getStatus().equalsIgnoreCase("success")) {
 					
 					for (int i = 0; i < elements.getElements().size(); i++) {
+						elements.getElements().get(i).setUnit("0");
+						
 						enGimicBasket = new EnGimicBasket();
 						enGimicBasket.setGimic_id(Integer.parseInt(elements.getElements().get(i).getId()));
 						enGimicBasket.setQuantity(Integer.parseInt(elements.getElements().get(i).getUnit()));
@@ -231,7 +232,7 @@ public class GiveGimic extends Activity implements OnClickListener{
 					gimicAdapter = new GimicAdapter(GiveGimic.this, elements);
 					gimicAdapter.setOnMinusClickHandler(onMinusClickHandler);
 					gimicAdapter.setOnPlusClickHandler(onPlusClickHandler);
-					lvGimic.setAdapter(gimicAdapter);
+					lvGimic.setAdapter(gimicAdapter);	
 					app.setListViewHeight(lvGimic, gimicAdapter);
 				}
 			}
@@ -289,6 +290,21 @@ public class GiveGimic extends Activity implements OnClickListener{
 				if (result.equals(GlobalParams.TRUE) && responseCreateGimics != null) {
 					app.alertErrorMessageString(responseCreateGimics.getStatus(),
 							getString(R.string.COMMON_MESSAGE), GiveGimic.this);
+					
+					for (int i = 0; i < elements.getElements().size(); i++) {
+						elements.getElements().get(i).setUnit("0");
+						
+						enGimicBasket = new EnGimicBasket();
+						enGimicBasket.setGimic_id(Integer.parseInt(elements.getElements().get(i).getId()));
+						enGimicBasket.setQuantity(Integer.parseInt(elements.getElements().get(i).getUnit()));					
+						arrGimicBasket.set(i, enGimicBasket);
+					}
+					
+					gimicAdapter = new GimicAdapter(GiveGimic.this, elements);
+					gimicAdapter.setOnMinusClickHandler(onMinusClickHandler);
+					gimicAdapter.setOnPlusClickHandler(onPlusClickHandler);
+					lvGimic.setAdapter(gimicAdapter);				
+					app.setListViewHeight(lvGimic, gimicAdapter);
 				}
 			}
 		}
