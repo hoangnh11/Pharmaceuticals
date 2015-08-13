@@ -80,15 +80,28 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 	private ProgressDialog dialog;
 	private String strDay;
 	private String strMonth;
+	private boolean flagCalenDerDialodgIsShowing = false;
+	private EnReportChartResponse chartResponse;
+	
+	//key for oriontation change layout 
+	private String SELECTED_MONTH = "SELECTED_MONTH";
+	private String SELECTED_DAY = "SELECTED_DAY";
+	private String KEY_EN_REPORT_CHART_RESPONSE = "KEY_EN_REPORT_CHART_RESPONSE";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_sales_chart);
-		getCurrentDate();
 		
-		initLayout();
+		if(null != savedInstanceState){
+			initLayout();
+			initOrientationLayout(savedInstanceState);
+		} else {
+			getCurrentDate();
+			initLayout();
+			initData();
+		}
 	}
 
 	/**
@@ -117,18 +130,29 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		imgIconCalendar.setOnClickListener(this);
 		
 		tvTime = (TextView) findViewById(R.id.tvTime);
-		tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
 		
 		btOK =(Button) findViewById(R.id.btOK);
 		btOK.setOnClickListener(this);
 		
 		spMonth = (Spinner) findViewById(R.id.spMonth);
+		spYear = (Spinner) findViewById(R.id.spYear);
+		mChartProductByDay = (BarChart) findViewById(R.id.chartProduct);
+		setUpChartByDay();
+		mChartProductByMonth = (BarChart) findViewById(R.id.chartProductByMonth);
+		setUpChartByMonth();
+	}
+	
+	/**
+	 * initial layout of screen
+	 */
+	private void initData() {
+		tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
+		
 		String[] month = getResources().getStringArray(R.array.month);
 		listMonth = Arrays.asList(month);
 		ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listMonth);
 		spMonth.setAdapter(monthAdapter);
 		
-		spYear = (Spinner) findViewById(R.id.spYear);
 		String[] year = getResources().getStringArray(R.array.year);
 		listYear = Arrays.asList(year);
 		ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listYear);
@@ -148,13 +172,50 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 			e.printStackTrace();
 		}
 		
-		mChartProductByDay = (BarChart) findViewById(R.id.chartProduct);
-		setUpChartByDay();
-        
-		mChartProductByMonth = (BarChart) findViewById(R.id.chartProductByMonth);
-		setUpChartByMonth();
-		
 		refreshData();
+	}
+	
+	public void initOrientationLayout(Bundle savedInstanceState){
+		if(savedInstanceState.containsKey("SELECTED_DAY")){
+			strDay = savedInstanceState.getString("SELECTED_DAY");
+			tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
+		}
+		
+		if(savedInstanceState.containsKey(SELECTED_MONTH)){
+			strMonth = savedInstanceState.getString(SELECTED_MONTH);
+		}
+		
+		String[] month = getResources().getStringArray(R.array.month);
+		listMonth = Arrays.asList(month);
+		ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listMonth);
+		spMonth.setAdapter(monthAdapter);
+		
+		String[] year = getResources().getStringArray(R.array.year);
+		listYear = Arrays.asList(year);
+		ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listYear);
+		spYear.setAdapter(yearAdapter);
+		
+		try {
+			String[] dateSplit = strDay.split("/");
+			int monthIntent = Integer.parseInt(dateSplit[1]);
+			int yearIntent = Integer.parseInt(dateSplit[2]);
+			
+			spMonth.setSelection(monthIntent);
+			
+			int startYear = Integer.parseInt(listYear.get(0));
+			int positionYear = yearIntent - startYear;
+			spYear.setSelection(positionYear);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(savedInstanceState.containsKey(KEY_EN_REPORT_CHART_RESPONSE)){
+			chartResponse = (EnReportChartResponse) savedInstanceState.getSerializable(KEY_EN_REPORT_CHART_RESPONSE);
+			if(null != chartResponse){
+				updateDataScreen(chartResponse);
+			}
+		}
+		
 	}
 	
 	/**
@@ -172,55 +233,35 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		}
 	}
 	
-	/**
-	 * get postion of month in list
-	 * @param month
-	 * @return
-	 *//*
-	public int getPositonMonth(String textMonth){
-		int postion = 0;
-		for (int i = 0; i < listMonth.size(); i++) {
+	@Override
+	protected void onResume() {
+		if(null != dialogCaldroidFragment) {
 			try {
-				int inMonth = Integer.parseInt(textMonth);
-				int inListMonth = Integer.parseInt(listMonth.get(i));
-				
-				if(inMonth == inListMonth){
-					postion = i;
-					break;
+				if(flagCalenDerDialodgIsShowing){
+					dialogCaldroidFragment.show(getSupportFragmentManager(),
+							"CalenderAndroid");
+				} else {
+					dialogCaldroidFragment.dismiss();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
-		Logger.error("Posstion month:" + postion);
-		return postion;
+		super.onResume();
 	}
 	
-	*//**
-	 * get postion of year in list
-	 * @param month
-	 * @return
-	 *//*
-	public int getPositonYear(String textYear){
-		int postion = 0;
-		for (int i = 0; i < listYear.size(); i++) {
-			try {
-				int inyear = Integer.parseInt(textYear);
-				int inListYear = Integer.parseInt(listYear.get(i));
-				
-				if(inyear == inListYear){
-					postion = i;
-					break;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	@Override
+    protected void onSaveInstanceState(Bundle saveState) {
+		saveState.putString(SELECTED_DAY,strDay);
+		saveState.putString(SELECTED_MONTH, strMonth);
+		
+		if(null != chartResponse){
+			saveState.putSerializable(KEY_EN_REPORT_CHART_RESPONSE, chartResponse);
 		}
-		Logger.error("Posstion year:" + postion);
-		return postion;
+		
+		super.onSaveInstanceState(saveState);
 	}
-	*/
+	
 	public void refreshData(){
 		getDataFromServer();
 	}
@@ -385,9 +426,16 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 			break;
 			
 		case R.id.imgIconCalendar:
-			showCalender();
+			try{
+				String[] dateSplit = strDay.split("/");
+				int month = Integer.parseInt(dateSplit[1]);
+				int year = Integer.parseInt(dateSplit[2]);
+				showCalender(month, year);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			break;
-		
 		case R.id.btOK:
 			String textMonth = (String) spMonth.getSelectedItem();
 			String textYear = (String) spYear.getSelectedItem();
@@ -396,9 +444,10 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 			break;
 			
 		case R.id.linRefresh:
-			getCurrentDate();
-			tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
 			try {
+				getCurrentDate();
+				tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
+				
 				Calendar calendar = Calendar.getInstance();
 				int positionMonth = calendar.get(Calendar.MONTH);
 				spMonth.setSelection(positionMonth);
@@ -432,13 +481,13 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 	}
 	
 	@SuppressLint("SimpleDateFormat")
-	private void showCalender() {
+	private void showCalender(int month, int year) {
 		listener = new CaldroidListener() {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
 				dialogCaldroidFragment.dismiss();
-				
+				flagCalenDerDialodgIsShowing = false;
 				strDay = formatterDay.format(date);
 				tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
 				getDataFromServer();
@@ -460,14 +509,18 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 
 			@Override
 			public void onNothingSelected() {
+				Logger.error("Calender dialog #onNothingSelected");
+				flagCalenDerDialodgIsShowing = false;
 			}
 
 		};
 		
-		dialogCaldroidFragment = new CaldroidFragment();
+		dialogCaldroidFragment = CaldroidFragment.newInstance("", month, year);
 		dialogCaldroidFragment.setCaldroidListener(listener);
+		
 		dialogCaldroidFragment.show(getSupportFragmentManager(),
 				"CalenderAndroid");
+		flagCalenDerDialodgIsShowing = true;
 	}
 	
 	private void getDataFromServer() {
@@ -493,9 +546,15 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 					//cancel get data
 				}
 			});
+			
+			dialog.show();
+		} else {
+			if(!dialog.isShowing()){
+				dialog.show();
+			}
 		}
 		
-		dialog.show();
+		
 		restAdapter.create(ViviApi.class).getReportChartSale(token, strDay, strMonth, callback);
 	}
 	
@@ -505,11 +564,13 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		public void success(String strData, Response arg1) {
 			Logger.error("Get Total Sale: #success: " + strData);
 			if(null != AcSalesChart.this && null != dialog){
-				if(dialog.isShowing()) dialog.dismiss();
+				if(dialog.isShowing()){ 
+					dialog.dismiss();
+				}
 			}
 			
 			try {
-				EnReportChartResponse chartResponse = DataParser.getEnReportChartResponse(strData);
+				chartResponse = DataParser.getEnReportChartResponse(strData);
 				
 				if(null != chartResponse){
 					updateDataScreen(chartResponse);
@@ -531,7 +592,9 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 			
 			retrofitError.printStackTrace();
 			if(null != AcSalesChart.this && null != dialog){
-				if(dialog.isShowing()) dialog.dismiss();
+				if(dialog.isShowing()){ 
+					dialog.dismiss();
+				}
 			}
 			if(retrofitError.isNetworkError()){
 				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_INTERNET_CONNECTION)

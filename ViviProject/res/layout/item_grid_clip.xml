@@ -32,6 +32,7 @@
 	    android:layout_height="wrap_content"
 	    android:gravity="center"
 	    android:textSize="13sp"
+	    android:maxLines="2"
 	    android:textColor="@color/BLACK"
 	    android:text="@string/BLANK"/>
 </LinearLayout>
