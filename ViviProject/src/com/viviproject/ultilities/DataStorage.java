@@ -21,6 +21,7 @@ import com.viviproject.entities.EnCoverReport;
 import com.viviproject.entities.EnDiscountProgram;
 import com.viviproject.entities.EnDiscountProgramItem;
 import com.viviproject.entities.EnPlanSale;
+import com.viviproject.entities.EnReportChartResponse;
 import com.viviproject.entities.UserInformation;
 
 /**
@@ -32,6 +33,7 @@ public final class DataStorage {
 	private final String FILE_NAME_DATA_COVER_REPORT = "dataEnCoverReport";
 	private final String FILE_NAME_DATA_LIST_DISCOUNT_PROGRAM = "listEnDiscountProgram";
 	private final String FILE_NAME_DATA_DISCOUNT_PROGRAM = "enDiscountProgram";
+	private final String FILE_NAME_DATA_ENREPORTCHARTRESPONSE = "com.vivi.EnReportChartResponse";
 	
 	private static DataStorage instance = new DataStorage();
 
@@ -53,6 +55,7 @@ public final class DataStorage {
 		delete_EnPlanSale(context);
 		delete_EnCoverReport(context);
 		delete_EnDiscountProgram(context);
+		delete_EnReportChartResponse(context);
 	}
 
 	/**
@@ -237,6 +240,44 @@ public final class DataStorage {
 			Logger.debug("Deleted EnCoverReport!");
 		} else {
 			Logger.debug("Not deleted EnCoverReport!");
+		}
+	}
+	
+	
+	//=================== REPORT SALE CHART =======================
+	/**
+	 * save data of Bieu do doanh so
+	 */
+	public void save_EnReportChartResponse(EnReportChartResponse enReportChartResponse, Context context) throws IOException {
+		FileOutputStream fos = context.openFileOutput(FILE_NAME_DATA_ENREPORTCHARTRESPONSE, Context.MODE_PRIVATE);
+		ObjectOutputStream os = new ObjectOutputStream(fos);
+		os.writeObject(enReportChartResponse);
+		os.close();
+		Logger.debug("Finished writing EnReportChartResponse!");
+	}
+
+	/**
+	 * read data of bieu do doanh so
+	 */
+	public EnReportChartResponse read_EnReportChartResponse(Context context) throws StreamCorruptedException, IOException, ClassNotFoundException {
+		FileInputStream fis = context.openFileInput(FILE_NAME_DATA_ENREPORTCHARTRESPONSE);
+		ObjectInputStream is = new ObjectInputStream(fis);
+		EnReportChartResponse enDiscountProgram = (EnReportChartResponse) is.readObject();
+		is.close();
+		Logger.debug("Finished reading EnReportChartResponse!");
+		return enDiscountProgram;
+	}
+
+	/**
+	 * delete all data of Sale chart (Bieu do doanh so)
+	 */
+	public void delete_EnReportChartResponse(Context context) {
+		File file = context.getFileStreamPath(FILE_NAME_DATA_ENREPORTCHARTRESPONSE);
+		boolean result = file.delete();
+		if (result) {
+			Logger.debug("Deleted EnReportChartResponse!");
+		} else {
+			Logger.debug("Not deleted EnReportChartResponse!");
 		}
 	}
 }
