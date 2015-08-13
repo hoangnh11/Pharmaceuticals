@@ -43,13 +43,13 @@ public class OrderImportActivity extends Activity implements OnClickListener{
 	private AppPreferences app;
 	private ProgressDialog progressDialog;
 	private GetProduct getProduct;
-	private Products enProducts;
+	public static Products enProducts;
 	private Bundle bundle;
 	private EnStores itemStore;
 	private ReturnImportAdapter returnImportAdapter;
 	private EnProducts items;
 	private Refund refund;
-	private ArrayList<EnProductBasket> arrProductBasket;
+	public static ArrayList<EnProductBasket> arrProductBasket;
 	private ResponseCreateSales Response;
 	private EnProductBasket enProductBasket;
 	
@@ -242,6 +242,8 @@ public class OrderImportActivity extends Activity implements OnClickListener{
 				if (result.equals(GlobalParams.TRUE) && enProducts != null && enProducts.getStatus().equalsIgnoreCase("success")) {
 					
 					for (int i = 0; i < enProducts.getProducts().size(); i++) {
+						enProducts.getProducts().get(i).setUnit("0");
+						
 						enProductBasket = new EnProductBasket();
 						enProductBasket.setProduct_id(Integer.parseInt(enProducts.getProducts().get(i).getId()));
 						enProductBasket.setQuantity(Integer.parseInt(enProducts.getProducts().get(i).getUnit()));
@@ -310,6 +312,21 @@ public class OrderImportActivity extends Activity implements OnClickListener{
 				if (result.equals(GlobalParams.TRUE) && Response != null) {
 					app.alertErrorMessageString(Response.getStatus(),
 							getString(R.string.COMMON_MESSAGE), OrderImportActivity.this);
+					
+					for (int i = 0; i < enProducts.getProducts().size(); i++) {
+						enProducts.getProducts().get(i).setUnit("0");
+						
+						enProductBasket = new EnProductBasket();
+						enProductBasket.setProduct_id(Integer.parseInt(enProducts.getProducts().get(i).getId()));
+						enProductBasket.setQuantity(Integer.parseInt(enProducts.getProducts().get(i).getUnit()));
+						arrProductBasket.set(i, enProductBasket);
+					}
+					
+					returnImportAdapter = new ReturnImportAdapter(OrderImportActivity.this, enProducts);
+					returnImportAdapter.setOnMinusClickHandler(onMinusClickHandler);
+					returnImportAdapter.setOnPlusClickHandler(onPlusClickHandler);
+					lvReturnImport.setAdapter(returnImportAdapter);
+					app.setListViewHeight(lvReturnImport, returnImportAdapter);
 				} else {
 					app.alertErrorMessageString(getString(R.string.COMMON_ERROR),
 							getString(R.string.COMMON_MESSAGE), OrderImportActivity.this);

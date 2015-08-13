@@ -2,10 +2,13 @@ package com.viviproject.adapter;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.Products;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.visit.ItemListViewForsale;
+import com.viviproject.visit.PlaceOrderActivity;
 
 public class ForsaleAdapter extends BaseAdapter{
 	private Products _data;
@@ -49,7 +53,7 @@ public class ForsaleAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		ViewHolder holder;
+		final ViewHolder holder;
         if (convertView == null)
         {
             convertView = new ItemListViewForsale(mActivity.getApplicationContext());
@@ -62,7 +66,7 @@ public class ForsaleAdapter extends BaseAdapter{
             holder = new ViewHolder();
             holder.linHeader = (LinearLayout) convertView.findViewById(R.id.linHeader);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
-            holder.tvQuantity = (TextView) convertView.findViewById(R.id.tvQuantity);
+            holder.tvQuantity = (EditText) convertView.findViewById(R.id.tvQuantity);
             holder.imgTD = (ImageView) convertView.findViewById(R.id.imgTD);
             holder.imgCK = (ImageView) convertView.findViewById(R.id.imgCK);
             holder.imgOther = (ImageView) convertView.findViewById(R.id.imgOther);
@@ -77,6 +81,7 @@ public class ForsaleAdapter extends BaseAdapter{
         }
         
         items = _data.getProducts().get(position);
+        holder.ref = position;
         
         if (items != null) {
         	
@@ -97,6 +102,28 @@ public class ForsaleAdapter extends BaseAdapter{
         	
         	if (items.getUnit() != null) {
         		holder.tvQuantity.setText(items.getUnit());
+        		holder.tvQuantity.addTextChangedListener(new TextWatcher() {
+					
+					@Override
+					public void onTextChanged(CharSequence s, int start, int before, int count) {
+						
+					}
+					
+					@Override
+					public void beforeTextChanged(CharSequence s, int start, int count,	int after) {						
+					}
+					
+					@Override
+					public void afterTextChanged(Editable s) {
+						if (s.length() > 0) {								
+							_data.getProducts().get(holder.ref).setUnit(s.toString());
+							PlaceOrderActivity.enProducts.getProducts().get(holder.ref).setUnit(s.toString());
+						} else {
+							_data.getProducts().get(holder.ref).setUnit("0");
+							PlaceOrderActivity.enProducts.getProducts().get(holder.ref).setUnit("0");
+						}
+					}
+				});
 			}
         	
         	if (items.getDiscount() != null) {
@@ -139,8 +166,10 @@ public class ForsaleAdapter extends BaseAdapter{
 	static class ViewHolder
     {      
         LinearLayout linHeader;
-        TextView tvName, tvQuantity;
+        TextView tvName;
+        EditText tvQuantity;
         ImageView imgTD, imgCK, imgOther, imgMinus, imgPlus;
+        int ref;
     }
 	
 	OnClickListener onTDClickHandler = new OnClickListener() 

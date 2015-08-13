@@ -52,7 +52,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	private EnStores itemStore;
 	private ProgressDialog progressDialog;
 	private GetProduct getProduct;
-	private Products enProducts;
+	public static Products enProducts;
 	private ForsaleAdapter forsaleAdapter;
 	private EnProducts items;
 	
@@ -489,7 +489,8 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					for (int i = 0; i < enProducts.getProducts().size(); i++) {
 						enProducts.getProducts().get(i).setCheckTD(GlobalParams.FALSE);
 						enProducts.getProducts().get(i).setCheckCK(GlobalParams.FALSE);
-						enProducts.getProducts().get(i).setCheckOther(GlobalParams.FALSE);						
+						enProducts.getProducts().get(i).setCheckOther(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setUnit("0");
 					}
 					
 					forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
@@ -568,6 +569,22 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					} catch (Exception e) {
 						Logger.error("responsePrepare: " + e);
 					}
+					
+					for (int i = 0; i < enProducts.getProducts().size(); i++) {
+						enProducts.getProducts().get(i).setCheckTD(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setCheckCK(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setCheckOther(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setUnit("0");
+					}
+					
+					forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+					forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+					forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+					forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+					forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
+					forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
+					lvForsale.setAdapter(forsaleAdapter);
+					app.setListViewHeight(lvForsale, forsaleAdapter);
 					
 				} else {
 					try {

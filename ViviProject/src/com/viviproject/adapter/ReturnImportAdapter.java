@@ -2,29 +2,35 @@ package com.viviproject.adapter;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.deliver.ItemListviewReturnImport;
+import com.viviproject.deliver.OrderImportActivity;
+import com.viviproject.entities.EnProductBasket;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.Products;
-import com.viviproject.visit.ItemListviewGimic;
 
 public class ReturnImportAdapter extends BaseAdapter{
 	private Products _data;
     private EnProducts items;
     private Activity mActivity;
     private OnClickListener _onMinusClick, _onPlusClick;
+    private EnProductBasket enProductBasket;
 	
     public ReturnImportAdapter(Activity activity, Products data) 
 	{
 		 mActivity = activity;
         _data = data;
+        enProductBasket = new EnProductBasket();
 	}
     
     @Override
@@ -48,7 +54,7 @@ public class ReturnImportAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		ViewHolder holder;
+		final ViewHolder holder;
         if (convertView == null)
         {
             convertView = new ItemListviewReturnImport(mActivity.getApplicationContext());       
@@ -57,7 +63,7 @@ public class ReturnImportAdapter extends BaseAdapter{
            
             holder = new ViewHolder();         
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
-            holder.tvQuantity = (TextView) convertView.findViewById(R.id.tvQuantity);           
+            holder.tvQuantity = (EditText) convertView.findViewById(R.id.tvQuantity);           
             holder.imgMinus = (ImageView) convertView.findViewById(R.id.imgMinus);
             holder.imgPlus = (ImageView) convertView.findViewById(R.id.imgPlus);
           
@@ -69,6 +75,7 @@ public class ReturnImportAdapter extends BaseAdapter{
         }
         
         items = _data.getProducts().get(position);
+        holder.ref = position;
         
         if (items != null) {
         
@@ -77,12 +84,48 @@ public class ReturnImportAdapter extends BaseAdapter{
         	if (items.getColor() != null) {
         		try {
         			holder.tvName.setBackgroundColor(Color.parseColor("#"+items.getColor()));
-				} catch (Exception e) {		
+				} catch (Exception e) {
 				}
 			}
         	
         	if (items.getUnit() != null) {
         		holder.tvQuantity.setText(items.getUnit());
+        		holder.tvQuantity.addTextChangedListener(new TextWatcher() {
+					
+					@Override
+					public void onTextChanged(CharSequence s, int start, int before, int count) {
+						
+					}
+					
+					@Override
+					public void beforeTextChanged(CharSequence s, int start, int count,	int after) {						
+					}
+					
+					@Override
+					public void afterTextChanged(Editable s) {
+						if (s.length() > 0) {								
+							_data.getProducts().get(holder.ref).setUnit(s.toString());
+							OrderImportActivity.enProducts.getProducts().get(holder.ref).setUnit(s.toString());
+							
+							enProductBasket = new EnProductBasket();
+			    			enProductBasket.setProduct_id(Integer.parseInt
+			    					(OrderImportActivity.enProducts.getProducts().get(holder.ref).getId()));
+							enProductBasket.setQuantity(Integer.parseInt
+									(OrderImportActivity.enProducts.getProducts().get(holder.ref).getUnit()));
+							OrderImportActivity.arrProductBasket.set(holder.ref, enProductBasket);
+						} else {
+							_data.getProducts().get(holder.ref).setUnit("0");
+							OrderImportActivity.enProducts.getProducts().get(holder.ref).setUnit("0");
+							
+							enProductBasket = new EnProductBasket();
+			    			enProductBasket.setProduct_id(Integer.parseInt
+			    					(OrderImportActivity.enProducts.getProducts().get(holder.ref).getId()));
+							enProductBasket.setQuantity(Integer.parseInt
+									(OrderImportActivity.enProducts.getProducts().get(holder.ref).getUnit()));
+							OrderImportActivity.arrProductBasket.set(holder.ref, enProductBasket);
+						}
+					}
+				});
 			}
 		}
         
@@ -92,8 +135,10 @@ public class ReturnImportAdapter extends BaseAdapter{
 	
 	static class ViewHolder
     {            
-        TextView tvName, tvQuantity;
+        TextView tvName;
+        EditText tvQuantity;
         ImageView imgMinus, imgPlus;
+        int ref;
     }	
     
     OnClickListener onMinusClick = new OnClickListener() 
