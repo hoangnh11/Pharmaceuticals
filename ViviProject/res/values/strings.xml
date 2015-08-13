@@ -17,6 +17,7 @@
     <string name="COMMON_DAY">Ngày</string>
     <string name="COMMON_CUMULATIVE">Lũy kế đến</string>
     <string name="COMMON_DATA_NULL">Không có dữ liệu</string>
+    <string name="COMMON_FILTER">Tìm kiếm&#8230;</string>
     <string name="API_KEY">AIzaSyCGvM_I5LkyLHfqBLGKMg_1WP84NQOl5ds</string>
 
     <!-- Content descriptions -->
