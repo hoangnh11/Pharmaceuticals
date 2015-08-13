@@ -1,10 +1,7 @@
 package com.viviproject.visit;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.viviproject.R;
@@ -13,9 +10,7 @@ import com.viviproject.ultilities.BaseLinearLayout;
 public class ItemListViewInventory extends BaseLinearLayout{
 	private int _position;	
 	private OnClickListener _onMinusClick, _onPlusClick;
-	private ImageView imgMinus, imgPlus;
-	private EditText tvQuantity;
-	private TextWatcher _TextWatcher;
+	private ImageView imgMinus, imgPlus;	
 	
 	public ItemListViewInventory(Context context)
 	{
@@ -26,10 +21,7 @@ public class ItemListViewInventory extends BaseLinearLayout{
 		imgPlus = (ImageView) findViewById(R.id.imgPlus);
 		
 		imgMinus.setOnClickListener(onMinusClick);
-		imgPlus.setOnClickListener(onPlusClick);
-		
-		tvQuantity = (EditText) findViewById(R.id.tvQuantity);
-		tvQuantity.addTextChangedListener(textWatcher);	
+		imgPlus.setOnClickListener(onPlusClick);		
 	}
 	
 	/**
@@ -77,30 +69,5 @@ public class ItemListViewInventory extends BaseLinearLayout{
     public void setOnPlusClickHandler(OnClickListener itemClick)
     {
     	_onPlusClick = itemClick;
-    }
-	    
-    TextWatcher textWatcher = new TextWatcher() {
-    	
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-			VisitDetailsActivity.indexWareHouse = _position;
-			if (_TextWatcher != null) {				
-				_TextWatcher.onTextChanged(s, start, before, count);
-			}
-		}
-		
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {	
-			
-		}
-		
-		@Override
-		public void afterTextChanged(Editable s) {	
-		
-		}
-	};
-	
-	public void setTextChangedHandler(TextWatcher onTextChanged) {
-		_TextWatcher = onTextChanged;
-	}	
+    }	
 }

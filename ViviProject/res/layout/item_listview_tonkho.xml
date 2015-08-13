@@ -61,7 +61,7 @@
                 android:background="@drawable/bg_minus_union"
                 android:gravity="center"
                 android:text="0"
-                android:maxLength="3"
+                android:maxLength="4"
                 android:inputType="number"
                 android:hint="@string/BLANK"
                 android:textColor="@color/BLACK"

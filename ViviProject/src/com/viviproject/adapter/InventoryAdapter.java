@@ -13,20 +13,24 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.entities.EnProducts;
+import com.viviproject.entities.EnReport;
 import com.viviproject.entities.Products;
 import com.viviproject.visit.ItemListViewInventory;
+import com.viviproject.visit.VisitDetailsActivity;
 
 public class InventoryAdapter extends BaseAdapter{
-	private Products _data;
+	private Products _data, temp;
     private EnProducts items;
     private Activity mActivity;
     private OnClickListener _onMinusClick, _onPlusClick;
-    private TextWatcher _TextWatcher;
+    private EnReport enReport;
 	
     public InventoryAdapter(Activity activity, Products data)
 	{
 		 mActivity = activity;
         _data = data;
+        temp = data;
+        enReport = new EnReport();
 	}
     
     @Override
@@ -50,13 +54,12 @@ public class InventoryAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		ViewHolder holder;
+		final ViewHolder holder;
         if (convertView == null)
         {
             convertView = new ItemListViewInventory(mActivity.getApplicationContext());
             ((ItemListViewInventory) convertView).setOnMinusClickHandler(onMinusClick);
-            ((ItemListViewInventory) convertView).setOnPlusClickHandler(onPlusClick);
-            ((ItemListViewInventory) convertView).setTextChangedHandler(textWatcher);         
+            ((ItemListViewInventory) convertView).setOnPlusClickHandler(onPlusClick);                 
             
             holder = new ViewHolder();         
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
@@ -72,12 +75,45 @@ public class InventoryAdapter extends BaseAdapter{
         }
         
         items = _data.getProducts().get(position);
+        holder.ref = position;
         
         if (items != null) {
         	holder.tvName.setText(items.getName());
         	        	
         	if (items.getUnit() != null) {
         		holder.tvQuantity.setText(items.getUnit());
+        		holder.tvQuantity.addTextChangedListener(new TextWatcher() {
+					
+					@Override
+					public void onTextChanged(CharSequence s, int start, int before, int count) {
+					}
+					
+					@Override
+					public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+					}
+					
+					@Override
+					public void afterTextChanged(Editable s) {
+						if (s.length() > 0) {								
+							temp.getProducts().get(holder.ref).setUnit(s.toString());
+							VisitDetailsActivity.enProducts.getProducts().get(holder.ref).setUnit(s.toString());
+							
+							enReport = new EnReport();
+							enReport.setProduct_id(Integer.parseInt(VisitDetailsActivity.enProducts.getProducts().get(holder.ref).getId()));
+							enReport.setQuantity(Integer.parseInt(VisitDetailsActivity.enProducts.getProducts().get(holder.ref).getUnit()));
+							VisitDetailsActivity.arrReport.set(holder.ref, enReport);
+							
+						} else {
+							temp.getProducts().get(holder.ref).setUnit("0");
+							VisitDetailsActivity.enProducts.getProducts().get(holder.ref).setUnit("0");	
+							
+							enReport = new EnReport();
+							enReport.setProduct_id(Integer.parseInt(VisitDetailsActivity.enProducts.getProducts().get(holder.ref).getId()));
+							enReport.setQuantity(Integer.parseInt(VisitDetailsActivity.enProducts.getProducts().get(holder.ref).getUnit()));
+							VisitDetailsActivity.arrReport.set(holder.ref, enReport);
+						}						
+					}
+				});
 			}
 		}
         
@@ -90,6 +126,7 @@ public class InventoryAdapter extends BaseAdapter{
         TextView tvName;
         ImageView imgMinus, imgPlus;
         EditText tvQuantity;
+        int ref;
     }
     
     OnClickListener onMinusClick = new OnClickListener() 
@@ -122,29 +159,5 @@ public class InventoryAdapter extends BaseAdapter{
     public void setOnPlusClickHandler(OnClickListener itemClick)
     {
     	_onPlusClick = itemClick;
-    }
-    
-    TextWatcher textWatcher = new TextWatcher() {
-    	
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-			if (_TextWatcher != null) {
-				_TextWatcher.onTextChanged(s, start, before, count);			
-			}
-		}
-		
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
-			
-		}
-		
-		@Override
-		public void afterTextChanged(Editable s) {
-			
-		}
-	};
-	
-	public void setTextChangedHandler(TextWatcher onTextChanged) {
-		_TextWatcher = onTextChanged;
-	}	
+    }  
 }

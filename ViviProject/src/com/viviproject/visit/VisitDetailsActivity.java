@@ -9,8 +9,6 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -39,7 +37,6 @@ import com.viviproject.ultilities.Logger;
 
 public class VisitDetailsActivity extends Activity implements OnClickListener{
 
-	public static int indexWareHouse = -1;
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	
@@ -58,15 +55,14 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 	private EnStores itemStore;
 	private ProgressDialog progressDialog;
 	private GetProduct getProduct;
-	private Products enProducts;
+	public static Products enProducts;
 	private EnProducts items;
 	private InventoryAdapter itemListViewInventory;
 	private SendReportInventory sendReportInventory;
 	private ResponseReport responseReport;
 	private EnReport enReport;
-	private ArrayList<EnReport> arrReport;
+	public static ArrayList<EnReport> arrReport;
 	private String lines;
-	private boolean checkIndex;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -81,8 +77,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		responseReport = new ResponseReport();
 		enReport = new EnReport();
 		arrReport = new ArrayList<EnReport>();
-		lines = "";
-		checkIndex = true;
+		lines = "";	
 		initLayout();
 		
 		if (itemStore != null) {
@@ -253,48 +248,47 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		}
 	}	
 
-	TextWatcher onTextWatcher = new TextWatcher() {
-		
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
-			if (indexWareHouse > 0) {
-				if (s.length() > 0) {
-					enProducts.getProducts().get(indexWareHouse).setUnit(s.toString());
-					
-	    			enReport = new EnReport();
-	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(indexWareHouse).getId()));
-	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(indexWareHouse).getUnit()));
-	    			arrReport.set(indexWareHouse, enReport);
-				}
-			} else if (indexWareHouse == 0) {
-				if (s.length() > 0 && checkIndex) {
-					enProducts.getProducts().get(0).setUnit(s.toString());
-					
-	    			enReport = new EnReport();
-	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(0).getId()));
-	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(0).getUnit()));
-	    			arrReport.set(0, enReport);
-				}
-			}
-		}
-		
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
-			
-		}
-		
-		@Override
-		public void afterTextChanged(Editable s) {
-			
-		}
-	};
+//	TextWatcher onTextWatcher = new TextWatcher() {
+//		
+//		@Override
+//		public void onTextChanged(CharSequence s, int start, int before, int count) {
+//			if (indexWareHouse > 0) {
+//				if (s.length() > 0) {
+//					enProducts.getProducts().get(indexWareHouse).setUnit(s.toString());
+//					
+//	    			enReport = new EnReport();
+//	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(indexWareHouse).getId()));
+//	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(indexWareHouse).getUnit()));
+//	    			arrReport.set(indexWareHouse, enReport);
+//				}
+//			} else if (indexWareHouse == 0) {
+//				if (s.length() > 0 && checkIndex) {
+//					enProducts.getProducts().get(0).setUnit(s.toString());
+//					
+//	    			enReport = new EnReport();
+//	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(0).getId()));
+//	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(0).getUnit()));
+//	    			arrReport.set(0, enReport);
+//				}
+//			}
+//		}
+//		
+//		@Override
+//		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+//			
+//		}
+//		
+//		@Override
+//		public void afterTextChanged(Editable s) {
+//			
+//		}
+//	};
 	
 	OnClickListener onMinusClickHandler = new OnClickListener() 
 	{		
         @Override
         public void onClick(View v)
-        {
-        	checkIndex = false;
+        {        	
         	int position = ((ItemListViewInventory) v).get_position();
             items = enProducts.getProducts().get(position);          
             if (Integer.parseInt(items.getUnit()) > 0) {
@@ -302,8 +296,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 				
             	itemListViewInventory = new InventoryAdapter(VisitDetailsActivity.this, enProducts);
             	itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
-            	itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
-            	itemListViewInventory.setTextChangedHandler(onTextWatcher);
+            	itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);            	
             	lvInventory.setAdapter(itemListViewInventory);
     			app.setListViewHeight(lvInventory, itemListViewInventory);
     			
@@ -320,15 +313,13 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
         @Override
         public void onClick(View v)
         {
-        	checkIndex = false;
         	int position = ((ItemListViewInventory) v).get_position();
             items = enProducts.getProducts().get(position);
         	enProducts.getProducts().get(position).setUnit(String.valueOf(Integer.parseInt(items.getUnit()) + 1));
         	
         	itemListViewInventory = new InventoryAdapter(VisitDetailsActivity.this, enProducts);		
         	itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
-        	itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
-        	itemListViewInventory.setTextChangedHandler(onTextWatcher);
+        	itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);        
         	lvInventory.setAdapter(itemListViewInventory);
 			app.setListViewHeight(lvInventory, itemListViewInventory);
 			
@@ -395,8 +386,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 					
 					itemListViewInventory = new InventoryAdapter(VisitDetailsActivity.this, enProducts);
 					itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
-					itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
-					itemListViewInventory.setTextChangedHandler(onTextWatcher);
+					itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);				
 					lvInventory.setAdapter(itemListViewInventory);
 					app.setListViewHeight(lvInventory, itemListViewInventory);
 				}
@@ -465,8 +455,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 					
 					itemListViewInventory = new InventoryAdapter(VisitDetailsActivity.this, enProducts);
 					itemListViewInventory.setOnMinusClickHandler(onMinusClickHandler);
-					itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);
-					itemListViewInventory.setTextChangedHandler(onTextWatcher);
+					itemListViewInventory.setOnPlusClickHandler(onPlusClickHandler);					
 					lvInventory.setAdapter(itemListViewInventory);
 					app.setListViewHeight(lvInventory, itemListViewInventory);
 				}
