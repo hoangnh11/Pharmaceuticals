@@ -470,6 +470,27 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 		
 	}
 
+	/**
+	 * valid date
+	 * @param mDate date to check valid
+	 * @return return true if date before to day and false otherwise
+	 */
+	public boolean compareDateWithToDay(Date mDate){
+		boolean isBefore = false;
+		try {
+			Calendar calendar = Calendar.getInstance();
+			if(mDate.compareTo(calendar.getTime()) > 0){
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isBefore;
+	}
+	
 	@Override
 	public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
 		
@@ -488,9 +509,15 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 			public void onSelectDate(Date date, View view) {
 				dialogCaldroidFragment.dismiss();
 				flagCalenDerDialodgIsShowing = false;
-				strDay = formatterDay.format(date);
-				tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
-				getDataFromServer();
+				
+				if(compareDateWithToDay(date)){
+					strDay = formatterDay.format(date);
+					tvTime.setText(String.format(getResources().getString(R.string.DAY_TIME), strDay));
+					getDataFromServer();
+				} else {
+					BuManagement.alertErrorMessageString(getResources().getString(R.string.MSG_OVER_CURRENT_DATE)
+							, "Error", AcSalesChart.this);
+				}
 			}
 
 			@Override
