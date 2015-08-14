@@ -54,6 +54,7 @@ import com.viviproject.network.access.HttpFunctionFactory;
 import com.viviproject.network.access.ViviApi;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.DataStorage;
 import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.MyValueFormatter;
 import com.viviproject.ultilities.StringConverter;
@@ -82,11 +83,13 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 	private String strMonth;
 	private boolean flagCalenDerDialodgIsShowing = false;
 	private EnReportChartResponse chartResponse;
+	private int positionDataToSave = 0;
 	
 	//key for oriontation change layout 
 	private String SELECTED_MONTH = "SELECTED_MONTH";
 	private String SELECTED_DAY = "SELECTED_DAY";
 	private String KEY_EN_REPORT_CHART_RESPONSE = "KEY_EN_REPORT_CHART_RESPONSE";
+	private String KEY_POSITION_DATA_TO_SAVE = "KEY_POSITION_DATA_TO_SAVE";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +188,10 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 			strMonth = savedInstanceState.getString(SELECTED_MONTH);
 		}
 		
+		if(savedInstanceState.containsKey(KEY_POSITION_DATA_TO_SAVE)){
+			positionDataToSave = savedInstanceState.getInt(KEY_POSITION_DATA_TO_SAVE);
+		}
+		
 		String[] month = getResources().getStringArray(R.array.month);
 		listMonth = Arrays.asList(month);
 		ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listMonth);
@@ -254,6 +261,7 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
     protected void onSaveInstanceState(Bundle saveState) {
 		saveState.putString(SELECTED_DAY,strDay);
 		saveState.putString(SELECTED_MONTH, strMonth);
+		saveState.putInt(KEY_POSITION_DATA_TO_SAVE, positionDataToSave);
 		
 		if(null != chartResponse){
 			saveState.putSerializable(KEY_EN_REPORT_CHART_RESPONSE, chartResponse);
@@ -457,11 +465,12 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 				Logger.error("currentYear:" + currentYear + "*startYear:" + startYear);
 				int positionYear = currentYear - startYear;
 				spYear.setSelection(positionYear);
+				
+				positionDataToSave = 0;
+				getDataFromServer();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			getDataFromServer();
-			
 			break;
 			
 		default:
@@ -601,6 +610,10 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 				
 				if(null != chartResponse){
 					updateDataScreen(chartResponse);
+					if(positionDataToSave == 0){
+						DataStorage.getInstance().save_EnReportChartResponse(chartResponse, AcSalesChart.this);
+					}
+					positionDataToSave++;
 				} else {
 					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
 							, "Error", AcSalesChart.this);
@@ -624,8 +637,14 @@ public class AcSalesChart extends FragmentActivity implements OnClickListener, O
 				}
 			}
 			if(retrofitError.isNetworkError()){
-				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_INTERNET_CONNECTION)
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG_LOAD_DATA_LOCAL)
 						, "Error", AcSalesChart.this);
+				try{
+					chartResponse = DataStorage.getInstance().read_EnReportChartResponse(getApplicationContext());
+					updateDataScreen(chartResponse);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} else {
 				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
 						, "Error", AcSalesChart.this);
