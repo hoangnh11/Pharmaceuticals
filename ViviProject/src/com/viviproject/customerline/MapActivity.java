@@ -71,21 +71,15 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
 		linSearch.setOnClickListener(this);	
-		linSearch.setVisibility(View.VISIBLE);
+		linSearch.setVisibility(View.GONE);
 		
 		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
 		linUpdate.setOnClickListener(this);
-		linUpdate.setVisibility(View.VISIBLE);
+		linUpdate.setVisibility(View.GONE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
-		
-		try {
-            // Loading map
-//            initilizeMap(); 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		linRefresh.setVisibility(View.GONE);
 	}
 	
 	/**
@@ -104,17 +98,6 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
             	googleMap.setMyLocationEnabled(true);
             	googleMap.getUiSettings().setCompassEnabled(true);
             	googleMap.getUiSettings().setRotateGesturesEnabled(true);
-//            	CameraPosition cameraPosition = new CameraPosition.Builder().target
-//            			(new LatLng(21.001349, 105.841372)).zoom(15).build();
-//            	googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-//            	LatLng latLng = new LatLng(21.001349, 105.841372);
-//             	// create marker
-//            	MarkerOptions marker = new MarkerOptions().position(latLng).title("Nhà thuốc Huy Hoàng")
-//            			.snippet("Số 2 Ngõ 67 Lê Thanh Nghị - Hai Bà Trưng - Hà Nội");
-//            	// Changing marker icon
-//            	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_red_point));            	 
-//            	// adding marker
-//            	googleMap.addMarker(marker);
 			}
         }
     }
@@ -128,15 +111,6 @@ public class MapActivity extends Activity implements OnClickListener, LocationLi
     @Override
     public void onLocationChanged(Location location) {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//     	// create marker
-//    	MarkerOptions marker = new MarkerOptions().position
-//    			(new LatLng(location.getLatitude(), location.getLongitude())).title("Nhà thuốc Tuyết Lan")
-//    			.snippet("Số 1 Ngõ 9 Đào Tấn - Ba Đình - Hà Nội");
-//    	// Changing marker icon
-//    	marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_green_point));            	 
-//    	// adding marker
-//    	googleMap.addMarker(marker);
-    	
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
         googleMap.animateCamera(cameraUpdate);
         locationManager.removeUpdates(this);

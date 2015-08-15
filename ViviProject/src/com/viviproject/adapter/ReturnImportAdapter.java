@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.deliver.ItemListviewReturnImport;
-import com.viviproject.deliver.OrderImportActivity;
 import com.viviproject.entities.EnProductBasket;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.Products;
+import com.viviproject.visit.OrderImportActivity;
 
 public class ReturnImportAdapter extends BaseAdapter{
 	private Products _data;

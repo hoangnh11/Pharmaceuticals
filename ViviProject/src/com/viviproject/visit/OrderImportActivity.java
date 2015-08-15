@@ -1,4 +1,4 @@
-package com.viviproject.deliver;
+package com.viviproject.visit;
 
 import java.util.ArrayList;
 
@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.ReturnImportAdapter;
+import com.viviproject.deliver.ItemListviewReturnImport;
 import com.viviproject.entities.EnProductBasket;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.EnStores;
@@ -93,14 +94,15 @@ public class OrderImportActivity extends Activity implements OnClickListener{
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
 		linSearch.setOnClickListener(this);
-		linSearch.setVisibility(View.VISIBLE);
+		linSearch.setVisibility(View.GONE);
 		
 		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
 		linUpdate.setOnClickListener(this);
-		linUpdate.setVisibility(View.VISIBLE);
+		linUpdate.setVisibility(View.GONE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
+		linRefresh.setVisibility(View.GONE);
 		
 		edtContent = (EditText) findViewById(R.id.edtContent);
 		

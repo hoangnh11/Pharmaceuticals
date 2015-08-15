@@ -65,14 +65,15 @@ public class FeedbackActivity extends Activity implements OnClickListener{
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
 		linSearch.setOnClickListener(this);	
-		linSearch.setVisibility(View.VISIBLE);
+		linSearch.setVisibility(View.GONE);
 		
 		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
 		linUpdate.setOnClickListener(this);
-		linUpdate.setVisibility(View.VISIBLE);
+		linUpdate.setVisibility(View.GONE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
+		linRefresh.setVisibility(View.GONE);
 		
 		btSendFeedBack = (Button) findViewById(R.id.btSendFeedBack);
 		btSendFeedBack.setOnClickListener(this);

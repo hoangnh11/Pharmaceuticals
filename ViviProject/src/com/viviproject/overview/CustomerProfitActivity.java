@@ -47,7 +47,7 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 	private ProgressDialog progressDialog;
 	private GetStores getStores;
 	private EnArrayStores enStores;
-	private ArrayList<EnStores> arrEnStores;
+	public static ArrayList<EnStores> arrEnStores;
 	private EnStores items;
 	private int qtyPage, qtyPerPage;
 
@@ -90,9 +90,9 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 		imgBackToTop.setOnClickListener(this);
 		imgBackToTop.setVisibility(View.GONE);
 		
-		linFilter = (RelativeLayout) findViewById(R.id.linFilter);
-		
 		lvCustomer = (ListView) findViewById(R.id.lvCustomer);
+		
+		linFilter = (RelativeLayout) findViewById(R.id.linFilter);
 		imgDelete = (ImageView) findViewById(R.id.imgDelete);
 		imgDelete.setOnClickListener(this);
 		edtFilter = (EditText) findViewById(R.id.edtFilter);
@@ -164,7 +164,7 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
         	int position = ((ItemCustomer) v).get_position();
             items = arrEnStores.get(position);
             intent = new Intent(CustomerProfitActivity.this, CustomerDetails.class);
-            intent.putExtra(GlobalParams.STORES, items);  
+            intent.putExtra(GlobalParams.STORES, items);
             startActivity(intent);
         }
     };

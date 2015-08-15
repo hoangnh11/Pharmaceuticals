@@ -154,14 +154,15 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
 		linSearch.setOnClickListener(this);	
-		linSearch.setVisibility(View.VISIBLE);
+		linSearch.setVisibility(View.GONE);
 		
 		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
 		linUpdate.setOnClickListener(this);
-		linUpdate.setVisibility(View.VISIBLE);
+		linUpdate.setVisibility(View.GONE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
+		linRefresh.setVisibility(View.GONE);
 		
 		btnHere = (Button) findViewById(R.id.btnHere);
 		btnHere.setOnClickListener(this);

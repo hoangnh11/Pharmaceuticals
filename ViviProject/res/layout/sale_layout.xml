@@ -37,6 +37,45 @@
             android:paddingRight="23dp" />
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/linFilter"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/WHITE"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:contentDescription="@string/BLANK"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_search" />
+
+        <EditText
+            android:id="@+id/edtFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:hint="@string/COMMON_FILTER"
+            android:paddingLeft="32dp" />
+
+        <ImageView
+            android:id="@+id/imgDelete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:contentDescription="@string/BLANK"
+            android:scaleType="fitXY"
+            android:src="@drawable/cancel"
+            android:visibility="gone" />
+    </RelativeLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >

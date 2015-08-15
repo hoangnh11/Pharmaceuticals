@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.core.ItemCustomer;
 import com.viviproject.entities.EnStores;
+import com.viviproject.overview.CustomerProfitActivity;
 
 @SuppressLint("DefaultLocale") 
 public class CustomerAdapter extends BaseAdapter implements Filterable{
@@ -115,14 +116,6 @@ public class CustomerAdapter extends BaseAdapter implements Filterable{
         return convertView;
 	}
 	
-	@Override
-	public Filter getFilter() {
-		if (valueFilter == null) {
-            valueFilter = new ValueFilter();
-        }
-        return valueFilter;
-	}
-	
 	static class ViewHolder
     {      
         TextView tvId, tvNamePharmacy, tvCodeName, tvAddress, tvRound, tvProfit, tvVisitTime, tvLateOrder, tvLocation;
@@ -144,6 +137,14 @@ public class CustomerAdapter extends BaseAdapter implements Filterable{
     {
         _onItemClick = itemClick;
     }
+    
+    @Override
+	public Filter getFilter() {
+		if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+	}
     
     private class ValueFilter extends Filter {
         @Override
@@ -170,6 +171,7 @@ public class CustomerAdapter extends BaseAdapter implements Filterable{
 		@Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             _data = (ArrayList<EnStores>) results.values;
+            CustomerProfitActivity.arrEnStores = _data;
             notifyDataSetChanged();
         }
     }

@@ -9,13 +9,17 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.viviproject.R;
@@ -34,7 +38,9 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	private ListView lvCustomer;
-	private ImageView imgBackToTop;
+	private ImageView imgBackToTop, imgDelete;
+	private RelativeLayout linFilter;
+	private EditText edtFilter;
 	
 	private VisitAdapter listVisitAdapter;
 	private ProgressDialog progressDialog;
@@ -42,7 +48,7 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 	private EnArrayStores enStores;
 	private EnStores items;
 	private int qtyPage, qtyPerPage;
-	private ArrayList<EnStores> arrEnStores;
+	public static ArrayList<EnStores> arrEnStores;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -84,7 +90,30 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		imgBackToTop.setOnClickListener(this);
 		imgBackToTop.setVisibility(View.GONE);
 		
-		lvCustomer = (ListView) findViewById(R.id.lvCustomer);		
+		lvCustomer = (ListView) findViewById(R.id.lvCustomer);	
+		
+		linFilter = (RelativeLayout) findViewById(R.id.linFilter);
+		imgDelete = (ImageView) findViewById(R.id.imgDelete);
+		imgDelete.setOnClickListener(this);
+		edtFilter = (EditText) findViewById(R.id.edtFilter);
+		edtFilter.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				listVisitAdapter.getFilter().filter(s);
+				if (s.length() > 0) {
+					imgDelete.setVisibility(View.VISIBLE);
+				} else {
+					imgDelete.setVisibility(View.GONE);
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,	int after) {}
+			
+			@Override
+			public void afterTextChanged(Editable s) {}
+		});
 	}
 	
 	@Override
@@ -93,7 +122,20 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		case R.id.linBack:
 			finish();
 			break;
-	
+			
+		case R.id.linUpdate:
+			if (linFilter.getVisibility() == View.VISIBLE) {
+				linFilter.setVisibility(View.GONE);
+				edtFilter.setText("");
+			} else {
+				linFilter.setVisibility(View.VISIBLE);
+			}
+			break;
+			
+		case R.id.imgDelete:
+			edtFilter.setText("");
+			break;
+			
 		case R.id.imgBackToTop:
 			lvCustomer.setSelectionAfterHeaderView();
 			break;

@@ -2,29 +2,36 @@ package com.viviproject.adapter;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemListCustomer;
+import com.viviproject.customerline.ListCustomer;
 import com.viviproject.entities.EnStores;
 
-public class ListCustomerAdapter extends BaseAdapter{
-	private ArrayList<EnStores> _data;
+@SuppressLint("DefaultLocale") 
+public class ListCustomerAdapter extends BaseAdapter implements Filterable{
+	private ArrayList<EnStores> _data, arraylist;
     private EnStores items;
     private Activity mActivity;
     private OnClickListener _onItemClick;
+    private ValueFilter valueFilter;
     String lines;
 	
     public ListCustomerAdapter(Activity activity, ArrayList<EnStores> data) 
 	{
 		 mActivity = activity;
         _data = data;
+        arraylist = data;
         lines = "";
 	}
     
@@ -125,5 +132,43 @@ public class ListCustomerAdapter extends BaseAdapter{
     public void setOnItemClickHandler(OnClickListener itemClick)
     {
         _onItemClick = itemClick;
-    } 
+    }
+
+    @Override
+	public Filter getFilter() {
+		if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+	}
+    
+    private class ValueFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                ArrayList<EnStores> filterList = new ArrayList<EnStores>();
+                for (int i = 0; i < arraylist.size(); i++) {
+                    if ( (arraylist.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        filterList.add(arraylist.get(i));
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+            } else {
+                results.count = arraylist.size();
+                results.values = arraylist;
+            }
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+		@Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            _data = (ArrayList<EnStores>) results.values;
+            ListCustomer.arrEnStores = _data;
+            notifyDataSetChanged();
+        }
+    }
 }

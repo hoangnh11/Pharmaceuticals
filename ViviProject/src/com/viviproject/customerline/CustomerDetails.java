@@ -137,17 +137,18 @@ public class CustomerDetails extends Activity implements OnClickListener{
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
 		linSearch.setOnClickListener(this);
-		linSearch.setVisibility(View.VISIBLE);
+		linSearch.setVisibility(View.GONE);
 		
 		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
 		linUpdate.setOnClickListener(this);
-		linUpdate.setVisibility(View.VISIBLE);
+		linUpdate.setVisibility(View.GONE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
+		linRefresh.setVisibility(View.GONE);
 	
 		linEdit = (LinearLayout) findViewById(R.id.linEdit);
-		linEdit.setOnClickListener(this);
+		linEdit.setOnClickListener(this);		
 		
 		tvNameStore = (TextView) findViewById(R.id.tvNameStore);
 		tvCode = (TextView) findViewById(R.id.tvCode);
