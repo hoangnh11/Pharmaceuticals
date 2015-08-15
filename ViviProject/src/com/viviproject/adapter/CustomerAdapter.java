@@ -171,7 +171,7 @@ public class CustomerAdapter extends BaseAdapter implements Filterable{
 		@Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             _data = (ArrayList<EnStores>) results.values;
-            CustomerProfitActivity.arrEnStores = _data;
+            CustomerProfitActivity.arrEnStores = _data;         
             notifyDataSetChanged();
         }
     }

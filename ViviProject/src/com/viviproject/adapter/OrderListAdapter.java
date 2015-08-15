@@ -1,40 +1,48 @@
 package com.viviproject.adapter;
 
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemOrderList;
+import com.viviproject.deliver.OrderActivity;
 import com.viviproject.entities.EnOrder;
-import com.viviproject.entities.ResponseOrders;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.GlobalParams;
 
-public class OrderListAdapter extends BaseAdapter{
-	private ResponseOrders _data;
+@SuppressLint("DefaultLocale") 
+public class OrderListAdapter extends BaseAdapter implements Filterable{
+	private ArrayList<EnOrder> _data, arraylist;
     private EnOrder items;
     private Activity mActivity;
     private OnClickListener _onItemClick, _onCheckboxClick;
-    private SubOrderAdapter subOrderAdapter;
+    private SubOrderAdapter subOrderAdapter;    
     private AppPreferences app;
+    private ValueFilter valueFilter;
 	
-    public OrderListAdapter(Activity activity, ResponseOrders data) 
+    public OrderListAdapter(Activity activity, ArrayList<EnOrder> data) 
 	{
 		 mActivity = activity;
         _data = data;
+        arraylist = data;
         app = new AppPreferences(mActivity);
 	}
     
     @Override
 	public int getCount()
 	{
-		 return (_data == null ? 0 : _data.getOrders().size());
+		 return (_data == null ? 0 : _data.size());
 	}
 
 	@Override
@@ -76,7 +84,7 @@ public class OrderListAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
         
-        items = _data.getOrders().get(position);
+        items = _data.get(position);
         
         if (items != null) {        
         	holder.tvNameStore.setText(items.getName());
@@ -137,5 +145,43 @@ public class OrderListAdapter extends BaseAdapter{
     public void setOnCheckboxItemClickHandler(OnClickListener itemClick)
     {
     	_onCheckboxClick = itemClick;
+    }
+    
+    @Override
+	public Filter getFilter() {
+		if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+	}
+    
+    private class ValueFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                ArrayList<EnOrder> filterList = new ArrayList<EnOrder>();
+                for (int i = 0; i < arraylist.size(); i++) {
+                    if ( (arraylist.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        filterList.add(arraylist.get(i));                      
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+            } else {
+                results.count = arraylist.size();
+                results.values = arraylist;
+            }
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+		@Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            _data = (ArrayList<EnOrder>) results.values;
+            OrderActivity.arrEnOrders = _data;
+            notifyDataSetChanged();
+        }
     }
 }

@@ -1,39 +1,48 @@
 package com.viviproject.adapter;
 
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemDelivedOrder;
+import com.viviproject.deliver.Delived_Order;
 import com.viviproject.entities.EnOrder;
-import com.viviproject.entities.ResponseOrders;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.Logger;
 
-public class DelivedOrderAdapter extends BaseAdapter{
-	private ResponseOrders _data;
+@SuppressLint("DefaultLocale") 
+public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
+	private ArrayList<EnOrder> _data, arraylist;
     private EnOrder items;
     private Activity mActivity;
     private OnClickListener _onItemClick;
     private SubOrderDeliverAdapter subOrderDeliverAdapter;
     private AppPreferences app;
+    private ValueFilter valueFilter;
 	
-    public DelivedOrderAdapter(Activity activity, ResponseOrders data) 
+    public DelivedOrderAdapter(Activity activity, ArrayList<EnOrder> data) 
 	{
 		 mActivity = activity;
         _data = data;
+        arraylist = data;
         app = new AppPreferences(mActivity);
 	}
     
     @Override
 	public int getCount()
 	{
-		 return (_data == null ? 0 : _data.getOrders().size());
+		 return (_data == null ? 0 : _data.size());
 	}
 
 	@Override
@@ -72,7 +81,7 @@ public class DelivedOrderAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
         
-        items = _data.getOrders().get(position);
+        items = _data.get(position);
         
         if (items != null) {
         	holder.tvNameStore.setText(items.getName());
@@ -110,5 +119,45 @@ public class DelivedOrderAdapter extends BaseAdapter{
     public void setOnItemClickHandler(OnClickListener itemClick)
     {
         _onItemClick = itemClick;
+    }
+    
+    @Override
+	public Filter getFilter() {
+		if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+	}
+    
+    private class ValueFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                ArrayList<EnOrder> filterList = new ArrayList<EnOrder>();
+                for (int i = 0; i < arraylist.size(); i++) {
+                    if ( (arraylist.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        filterList.add(arraylist.get(i));                        
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+               
+            } else {
+                results.count = arraylist.size();
+                results.values = arraylist;
+            }
+            Logger.error(":            " + results.values);
+            return results;
+        }
+
+        @SuppressWarnings("unchecked")
+		@Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            _data = (ArrayList<EnOrder>) results.values;
+            Delived_Order.arrEnOrders = _data;            
+            notifyDataSetChanged();
+        }
     }
 }
