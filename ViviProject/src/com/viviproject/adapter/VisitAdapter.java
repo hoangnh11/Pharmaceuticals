@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.core.ConvertUnsigned;
 import com.viviproject.core.ItemListCustomer;
 import com.viviproject.entities.EnStores;
 import com.viviproject.sales.Sales;
@@ -27,12 +28,14 @@ public class VisitAdapter extends BaseAdapter implements Filterable{
     private OnClickListener _onItemClick;
     private ValueFilter valueFilter;
     String lines;
+    private ConvertUnsigned crtUn;
 	
     public VisitAdapter(Activity activity, ArrayList<EnStores> data) 
 	{
 		 mActivity = activity;
         _data = data;
         arraylist = data;
+        crtUn = new ConvertUnsigned();
 	}
     
     @Override
@@ -149,7 +152,8 @@ public class VisitAdapter extends BaseAdapter implements Filterable{
             if (constraint != null && constraint.length() > 0) {
                 ArrayList<EnStores> filterList = new ArrayList<EnStores>();
                 for (int i = 0; i < arraylist.size(); i++) {
-                    if ( (arraylist.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                    if (crtUn.ConvertString(arraylist.get(i).getName().toLowerCase()).contains
+                    		(crtUn.ConvertString(constraint.toString().toLowerCase()))) {
                         filterList.add(arraylist.get(i));
                     }
                 }

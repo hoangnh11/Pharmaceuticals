@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.core.ConvertUnsigned;
 import com.viviproject.core.ItemListCustomer;
 import com.viviproject.customerline.ListCustomerPending;
 import com.viviproject.entities.EnStores;
@@ -27,6 +28,7 @@ public class ListCustomerPendingAdapter extends BaseAdapter implements Filterabl
     private OnClickListener _onItemClick;
     private ValueFilter valueFilter;
     String lines;
+    private ConvertUnsigned crtUn;
 	
     public ListCustomerPendingAdapter(Activity activity, ArrayList<EnStores> data) 
 	{
@@ -34,6 +36,7 @@ public class ListCustomerPendingAdapter extends BaseAdapter implements Filterabl
         _data = data;
         arraylist = data;
         lines = "";
+        crtUn = new ConvertUnsigned();
 	}
     
     @Override
@@ -153,7 +156,8 @@ public class ListCustomerPendingAdapter extends BaseAdapter implements Filterabl
             if (constraint != null && constraint.length() > 0) {
                 ArrayList<EnStores> filterList = new ArrayList<EnStores>();
                 for (int i = 0; i < arraylist.size(); i++) {
-                    if ( (arraylist.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                    if (crtUn.ConvertString(arraylist.get(i).getName().toLowerCase()).contains
+                    		(crtUn.ConvertString(constraint.toString().toLowerCase()))) {
                         filterList.add(arraylist.get(i));
                     }
                 }

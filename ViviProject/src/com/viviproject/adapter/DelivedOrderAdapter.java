@@ -14,12 +14,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.core.ConvertUnsigned;
 import com.viviproject.core.ItemDelivedOrder;
 import com.viviproject.deliver.Delived_Order;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.GlobalParams;
-import com.viviproject.ultilities.Logger;
 
 @SuppressLint("DefaultLocale") 
 public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
@@ -30,6 +30,7 @@ public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
     private SubOrderDeliverAdapter subOrderDeliverAdapter;
     private AppPreferences app;
     private ValueFilter valueFilter;
+    private ConvertUnsigned crtUn;
 	
     public DelivedOrderAdapter(Activity activity, ArrayList<EnOrder> data) 
 	{
@@ -37,6 +38,7 @@ public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
         _data = data;
         arraylist = data;
         app = new AppPreferences(mActivity);
+        crtUn = new ConvertUnsigned();
 	}
     
     @Override
@@ -137,7 +139,8 @@ public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
             if (constraint != null && constraint.length() > 0) {
                 ArrayList<EnOrder> filterList = new ArrayList<EnOrder>();
                 for (int i = 0; i < arraylist.size(); i++) {
-                    if ( (arraylist.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                    if (crtUn.ConvertString(arraylist.get(i).getName().toLowerCase()).contains
+                    		(crtUn.ConvertString(constraint.toString().toLowerCase()))) {
                         filterList.add(arraylist.get(i));                        
                     }
                 }
@@ -147,8 +150,7 @@ public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
             } else {
                 results.count = arraylist.size();
                 results.values = arraylist;
-            }
-            Logger.error(":            " + results.values);
+            }        
             return results;
         }
 

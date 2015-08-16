@@ -107,7 +107,7 @@
             android:name="com.viviproject.deliver.Delived_Order"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name="com.viviproject.deliver.OrderImportActivity"
+            android:name="com.viviproject.visit.OrderImportActivity"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity

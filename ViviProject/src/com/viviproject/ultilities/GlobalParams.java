@@ -72,6 +72,5 @@ public final class GlobalParams {
 	public static final String USING_VI_RESOUCE = "STRING-VI";
 	public static final String USING_EN_RESOUCE = "STRING-EN";
 	public static final String USING_KO_RESOUCE = "STRING-KO";
-	public static final String USING_JA_RESOUCE = "STRING-JA";
-	
+	public static final String USING_JA_RESOUCE = "STRING-JA";	
 }

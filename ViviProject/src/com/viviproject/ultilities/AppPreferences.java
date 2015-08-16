@@ -244,5 +244,5 @@ public class AppPreferences {
     	w.getDefaultDisplay().getSize(size);
     	float result = (float) size.x/size.y;
     	return result;
-    }
+    }    
 }

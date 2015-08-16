@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.core.ConvertUnsigned;
 import com.viviproject.core.ItemOrderList;
 import com.viviproject.deliver.OrderActivity;
 import com.viviproject.entities.EnOrder;
@@ -30,6 +31,7 @@ public class OrderListAdapter extends BaseAdapter implements Filterable{
     private SubOrderAdapter subOrderAdapter;    
     private AppPreferences app;
     private ValueFilter valueFilter;
+    private ConvertUnsigned crtUn;
 	
     public OrderListAdapter(Activity activity, ArrayList<EnOrder> data) 
 	{
@@ -37,6 +39,7 @@ public class OrderListAdapter extends BaseAdapter implements Filterable{
         _data = data;
         arraylist = data;
         app = new AppPreferences(mActivity);
+        crtUn = new ConvertUnsigned();
 	}
     
     @Override
@@ -163,7 +166,8 @@ public class OrderListAdapter extends BaseAdapter implements Filterable{
             if (constraint != null && constraint.length() > 0) {
                 ArrayList<EnOrder> filterList = new ArrayList<EnOrder>();
                 for (int i = 0; i < arraylist.size(); i++) {
-                    if ( (arraylist.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                    if (crtUn.ConvertString(arraylist.get(i).getName().toLowerCase()).contains
+                    		(crtUn.ConvertString(constraint.toString().toLowerCase()))) {
                         filterList.add(arraylist.get(i));                      
                     }
                 }
