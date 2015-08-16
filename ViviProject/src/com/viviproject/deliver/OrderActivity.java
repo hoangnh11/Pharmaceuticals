@@ -61,6 +61,8 @@ public class OrderActivity extends Activity implements OnClickListener{
 	private ResponseDelivery responseDelivery;
 	private AppPreferences app;
 	private int qtyPage, qtyPerPage;
+	private String tempFilter;
+	private boolean checkFilter;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -74,6 +76,8 @@ public class OrderActivity extends Activity implements OnClickListener{
 		responseDelivery = new ResponseDelivery();
 		qtyPage = 1;
 		qtyPerPage = 10;
+		tempFilter = "";
+		checkFilter = false;
 		initLayout();
 		
 		getSales = new GetSales(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -174,8 +178,10 @@ public class OrderActivity extends Activity implements OnClickListener{
 				if (linFilter.getVisibility() == View.VISIBLE) {
 					linFilter.setVisibility(View.GONE);
 					edtFilter.setText("");
+					checkFilter = false;
 				} else {
 					linFilter.setVisibility(View.VISIBLE);
+					checkFilter = true;
 				}
 			}			
 			break;
@@ -191,6 +197,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 		case R.id.linRefresh:
 			responseOrders = new ResponseOrders();	
 			arrEnOrders = new ArrayList<EnOrder>();
+			tempFilter = "";
 			qtyPage = 1;
 			qtyPerPage = 10;
 			getSales = new GetSales(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -344,6 +351,14 @@ public class OrderActivity extends Activity implements OnClickListener{
 					orderListAdapter = new OrderListAdapter(OrderActivity.this, arrEnOrders);
 					orderListAdapter.setOnItemClickHandler(onItemClickHandler);
 					orderListAdapter.setOnCheckboxItemClickHandler(onCheckboxClickHandler);
+					
+					if (checkFilter) {
+						orderListAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvOrder.setVisibility(View.VISIBLE);						
+					}
+					
 					lvOrder.setAdapter(orderListAdapter);
 					lvOrder.setOnScrollListener(new OnScrollListener() {
 						
@@ -354,6 +369,13 @@ public class OrderActivity extends Activity implements OnClickListener{
 							if (responseOrders != null && responseOrders.getOrders().size() > 0) {
 								if (scrollState == SCROLL_STATE_IDLE) {
 									if (lvOrder.getLastVisiblePosition() >= count - threshold) {
+										if (checkFilter) {
+											tempFilter = edtFilter.getEditableText().toString();
+											edtFilter.setText("");
+											linFilter.setVisibility(View.GONE);
+											lvOrder.setVisibility(View.GONE);
+											imgBackToTop.setVisibility(View.GONE);
+										}
 										// Execute LoadMoreDataTask AsyncTask
 										qtyPage++;
 										getSales = new GetSales(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -367,9 +389,14 @@ public class OrderActivity extends Activity implements OnClickListener{
 						public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 						}
 					});
-				} else if (result.equals(GlobalParams.TRUE) && (responseOrders == null || responseOrders.getOrders() == null)){
-					app.alertErrorMessageString(getResources().getString(R.string.COMMON_DATA_NULL),
-							getResources().getString(R.string.COMMON_MESSAGE), OrderActivity.this);
+				} else {
+					if (checkFilter) {
+						orderListAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvOrder.setVisibility(View.VISIBLE);
+						imgBackToTop.setVisibility(View.VISIBLE);
+					}
 				}
 			}
 		}

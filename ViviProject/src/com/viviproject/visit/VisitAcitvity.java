@@ -49,6 +49,8 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 	private EnStores items;
 	private int qtyPage, qtyPerPage;
 	public static ArrayList<EnStores> arrEnStores;
+	private String tempFilter;
+	private boolean checkFilter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -59,7 +61,8 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		arrEnStores = new ArrayList<EnStores>();
 		qtyPage = 1;
 		qtyPerPage = 10;
-		
+		tempFilter = "";
+		checkFilter = false;
 		initLayout();
 		
 		getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -127,8 +130,10 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 			if (linFilter.getVisibility() == View.VISIBLE) {
 				linFilter.setVisibility(View.GONE);
 				edtFilter.setText("");
+				checkFilter = false;
 			} else {
 				linFilter.setVisibility(View.VISIBLE);
+				checkFilter = true;
 			}
 			break;
 			
@@ -143,6 +148,7 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 		case R.id.linRefresh:
 			enStores = new EnArrayStores();	
 			arrEnStores = new ArrayList<EnStores>();
+			tempFilter = "";
 			qtyPage = 1;
 			qtyPerPage = 10;
 			getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -223,6 +229,15 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 					arrEnStores.addAll(enStores.getStores());
 					listVisitAdapter = new VisitAdapter(VisitAcitvity.this, arrEnStores);
 					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
+					
+					if (checkFilter) {
+						listVisitAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvCustomer.setVisibility(View.VISIBLE);
+						
+					}
+					
 					lvCustomer.setAdapter(listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
 					lvCustomer.setOnScrollListener(new OnScrollListener() {
@@ -234,6 +249,13 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 							if (enStores != null && enStores.getStores().size() > 0) {
 								if (scrollState == SCROLL_STATE_IDLE) {
 									if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
+										if (checkFilter) {
+											tempFilter = edtFilter.getEditableText().toString();
+											edtFilter.setText("");
+											linFilter.setVisibility(View.GONE);
+											lvCustomer.setVisibility(View.GONE);
+											imgBackToTop.setVisibility(View.GONE);
+										}
 										// Execute LoadMoreDataTask AsyncTask
 										qtyPage++;
 										getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -247,6 +269,14 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 						public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 						}
 					});
+				} else {
+					if (checkFilter) {
+						listVisitAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvCustomer.setVisibility(View.VISIBLE);
+						imgBackToTop.setVisibility(View.VISIBLE);
+					}
 				}
 			}
 		}

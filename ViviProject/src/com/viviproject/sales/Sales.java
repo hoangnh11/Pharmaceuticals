@@ -62,6 +62,8 @@ public class Sales extends Activity implements OnClickListener{
 	private Map<String, String> mapDay;
 	private int qtyPage, qtyPerPage;
 	public static ArrayList<EnStores> arrEnStores;
+	private String tempFilter;
+	private boolean checkFilter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -72,7 +74,8 @@ public class Sales extends Activity implements OnClickListener{
 		arrEnStores = new ArrayList<EnStores>();
 		qtyPage = 1;
 		qtyPerPage = 10;
-		
+		tempFilter = "";
+		checkFilter = false;
 		initLayout();
 		
 		mapDay = new HashMap<String, String>();		
@@ -88,7 +91,7 @@ public class Sales extends Activity implements OnClickListener{
 		spLine.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {				
 				arrEnStores.clear();
 				selectDay = mapDay.get(listWeek.get(arg2));
 				qtyPage = 1;
@@ -96,7 +99,7 @@ public class Sales extends Activity implements OnClickListener{
 				if (selectDay.equals("1")) {
 					getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
 					getStores.execute();
-				} else {
+				} else {					
 					getStoresLine = new GetStoresLine(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
 					getStoresLine.execute();
 				}
@@ -170,8 +173,10 @@ public class Sales extends Activity implements OnClickListener{
 			if (linFilter.getVisibility() == View.VISIBLE) {
 				linFilter.setVisibility(View.GONE);
 				edtFilter.setText("");
+				checkFilter = false;
 			} else {
 				linFilter.setVisibility(View.VISIBLE);
+				checkFilter = true;
 			}
 			break;
 			
@@ -185,6 +190,7 @@ public class Sales extends Activity implements OnClickListener{
 			
 		case R.id.linRefresh:		
 			arrEnStores = new ArrayList<EnStores>();
+			tempFilter = "";
 			qtyPage = 1;
 			qtyPerPage = 10;			
 			if (selectDay.equals("1")) {
@@ -356,6 +362,14 @@ public class Sales extends Activity implements OnClickListener{
 					arrEnStores.addAll(enStores.getStores());
 					listVisitAdapter = new VisitAdapter(Sales.this, arrEnStores);
 					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
+					
+					if (checkFilter) {
+						listVisitAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvCustomer.setVisibility(View.VISIBLE);						
+					}
+					
 					lvCustomer.setAdapter(listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
 					lvCustomer.setOnScrollListener(new OnScrollListener() {
@@ -367,6 +381,13 @@ public class Sales extends Activity implements OnClickListener{
 							if (enStores != null && enStores.getStores().size() > 0) {
 								if (scrollState == SCROLL_STATE_IDLE) {
 									if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
+										if (checkFilter) {
+											tempFilter = edtFilter.getEditableText().toString();
+											edtFilter.setText("");
+											linFilter.setVisibility(View.GONE);
+											lvCustomer.setVisibility(View.GONE);
+											imgBackToTop.setVisibility(View.GONE);
+										}
 										// Execute LoadMoreDataTask AsyncTask
 										qtyPage++;
 										getStoresLine = new GetStoresLine(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -382,10 +403,18 @@ public class Sales extends Activity implements OnClickListener{
 					});
 					
 				} else {
-					listVisitAdapter = new VisitAdapter(Sales.this, arrEnStores);
-					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
-					lvCustomer.setAdapter(listVisitAdapter);
-					imgBackToTop.setVisibility(View.GONE);
+					if (checkFilter) {
+						listVisitAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvCustomer.setVisibility(View.VISIBLE);
+						imgBackToTop.setVisibility(View.VISIBLE);
+					} else {
+						listVisitAdapter = new VisitAdapter(Sales.this, arrEnStores);
+						listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
+						lvCustomer.setAdapter(listVisitAdapter);
+						imgBackToTop.setVisibility(View.GONE);
+					}					
 				}
 			}
 		}

@@ -60,6 +60,8 @@ public class Delived_Order extends Activity implements OnClickListener{
 	private ResponseCreateSales responseCancel;
 	public static ArrayList<EnOrder> arrEnOrders;
 	private int qtyPage, qtyPerPage;
+	private String tempFilter;
+	private boolean checkFilter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -75,6 +77,8 @@ public class Delived_Order extends Activity implements OnClickListener{
 		responseCancel = new ResponseCreateSales();
 		qtyPage = 1;
 		qtyPerPage = 10;
+		tempFilter = "";
+		checkFilter = false;
 		initLayout();
 		
 		getSalesDelivery = new GetSalesDelivery(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -153,8 +157,10 @@ public class Delived_Order extends Activity implements OnClickListener{
 			if (linFilter.getVisibility() == View.VISIBLE) {
 				linFilter.setVisibility(View.GONE);
 				edtFilter.setText("");
+				checkFilter = false;
 			} else {
 				linFilter.setVisibility(View.VISIBLE);
+				checkFilter = true;
 			}
 			break;
 			
@@ -182,6 +188,7 @@ public class Delived_Order extends Activity implements OnClickListener{
 			arrEnOrders = new ArrayList<EnOrder>();
 			responseOrders = new ResponseOrders();		
 			responseCancel = new ResponseCreateSales();
+			tempFilter = "";
 			qtyPage = 1;
 			qtyPerPage = 10;
 			getSalesDelivery = new GetSalesDelivery(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -259,7 +266,15 @@ public class Delived_Order extends Activity implements OnClickListener{
 						&& responseOrders.getStatus().equalsIgnoreCase("success")) {
 					arrEnOrders.addAll(responseOrders.getOrders());
 					delivedOrderAdapter = new DelivedOrderAdapter(Delived_Order.this, arrEnOrders);
-					delivedOrderAdapter.setOnItemClickHandler(onItemClickHandler);		
+					delivedOrderAdapter.setOnItemClickHandler(onItemClickHandler);	
+					
+					if (checkFilter) {
+						delivedOrderAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvOrder.setVisibility(View.VISIBLE);						
+					}
+					
 					lvOrder.setAdapter(delivedOrderAdapter);
 					lvOrder.setOnScrollListener(new OnScrollListener() {
 						
@@ -270,6 +285,13 @@ public class Delived_Order extends Activity implements OnClickListener{
 							if (responseOrders != null && responseOrders.getOrders().size() > 0) {
 								if (scrollState == SCROLL_STATE_IDLE) {
 									if (lvOrder.getLastVisiblePosition() >= count - threshold) {
+										if (checkFilter) {
+											tempFilter = edtFilter.getEditableText().toString();
+											edtFilter.setText("");
+											linFilter.setVisibility(View.GONE);
+											lvOrder.setVisibility(View.GONE);
+											imgBackToTop.setVisibility(View.GONE);
+										}
 										// Execute LoadMoreDataTask AsyncTask
 										qtyPage++;
 										getSalesDelivery = new GetSalesDelivery(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
@@ -284,8 +306,13 @@ public class Delived_Order extends Activity implements OnClickListener{
 						}
 					});
 				} else {
-					app.alertErrorMessageString(getResources().getString(R.string.COMMON_DATA_NULL),
-							getResources().getString(R.string.COMMON_MESSAGE), Delived_Order.this);
+					if (checkFilter) {
+						delivedOrderAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvOrder.setVisibility(View.VISIBLE);
+						imgBackToTop.setVisibility(View.VISIBLE);
+					}
 				}
 			}
 		}
