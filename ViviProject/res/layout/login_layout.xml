@@ -83,6 +83,7 @@
                     android:hint="@string/PASSWORD"
                     android:inputType="textPassword"
                     android:padding="12dp"
+                    android:imeOptions="actionDone"
                     android:textSize="14sp" />
             </LinearLayout>
 

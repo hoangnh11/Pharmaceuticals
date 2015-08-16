@@ -12,10 +12,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.google.gson.JsonSyntaxException;
 import com.viviproject.entities.ResponseLogin;
@@ -60,6 +64,28 @@ public class LoginActivity extends Activity implements OnClickListener{
 		edtPassword = (EditText) findViewById(R.id.edtPassword);
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(this);
+		
+		edtPassword.setOnEditorActionListener(new OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					if(checkAdminSignIn()){
+						Intent i = new Intent(LoginActivity.this, AcSettingUrl.class);
+						startActivity(i);						
+					} else {
+//						int errorCode = validateInput();
+//						if (errorCode == 0) {
+							loginAsyncTask = new LoginAsyncTask();
+							loginAsyncTask.execute();								
+//						} else {				
+//							app.alertErrorMessageInt(errorCode, getString(R.string.COMMON_MESSAGE), this);
+//						}
+					}
+	            }
+				return false;
+			}
+		});
 	}
 	
 	/**
