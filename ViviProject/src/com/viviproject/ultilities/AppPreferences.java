@@ -26,7 +26,9 @@ import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -244,5 +246,15 @@ public class AppPreferences {
     	w.getDefaultDisplay().getSize(size);
     	float result = (float) size.x/size.y;
     	return result;
+    }    
+    
+    public void hideKeyboard(Activity activity, EditText edittext) {
+        InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(edittext.getWindowToken(), 0);       
+    }
+    
+    public void showKeyboard(Activity activity, EditText edittext) {
+        InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(edittext, 0);       
     }    
 }

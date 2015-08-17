@@ -224,4 +224,10 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.lineChange(netParameters, token);
 		return executer(functionInfo);
 	}
+	
+	@Override
+	public String search(NetParameter[] netParameters) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.search(netParameters);
+		return executer(functionInfo);
+	}
 }

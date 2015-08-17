@@ -41,4 +41,5 @@ public interface INetServices {
 	String storesNoSale(NetParameter[] netParameters) throws Exception;
 	String getStoreWaitApprove(NetParameter[] netParameters) throws Exception;
 	String lineChange(NetParameter[] netParameters, String token) throws Exception;
+	String search(NetParameter[] netParameters) throws Exception;
 }
