@@ -14,7 +14,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/tvId"
+            android:id="@+id/tvSTT"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:background="@color/RED"
@@ -45,6 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
+            android:visibility="gone"
             android:text="@string/PRICE_TYPE_VND"
             android:textSize="12sp"
             android:textColor="@color/GRAY88" />

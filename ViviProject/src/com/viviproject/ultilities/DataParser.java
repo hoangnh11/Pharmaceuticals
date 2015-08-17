@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.viviproject.entities.EnArrayStores;
-import com.viviproject.entities.EnCompanyNewsDetails;
 import com.viviproject.entities.EnCompanyNewsDetailsRespone;
 import com.viviproject.entities.EnDiscountProgram;
 import com.viviproject.entities.EnElement;
@@ -28,6 +27,7 @@ import com.viviproject.entities.EnRegions;
 import com.viviproject.entities.EnReportChartResponse;
 import com.viviproject.entities.EnReportImageResponse;
 import com.viviproject.entities.EnReportProfitResponse;
+import com.viviproject.entities.EnStoreReport;
 import com.viviproject.entities.EnVideosResponse;
 import com.viviproject.entities.Products;
 import com.viviproject.entities.ResponseCreateGimics;
@@ -445,6 +445,22 @@ public final class DataParser {
 			Type collectionType = new TypeToken<EnGimicManager>() {}.getType();
 
 			EnGimicManager details = mGson.fromJson(jsonData, collectionType);
+			return details;
+		} catch (Exception e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+	
+	public static EnStoreReport getEnStoreReport(String jsonData) throws JsonSyntaxException {
+		if (StringUtils.isBlank(jsonData)) {
+			return null;
+		}
+		try {
+			initGson();
+			Type collectionType = new TypeToken<EnStoreReport>() {}.getType();
+
+			EnStoreReport details = mGson.fromJson(jsonData, collectionType);
 			return details;
 		} catch (Exception e) {
 			Logger.error(e);

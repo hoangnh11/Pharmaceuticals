@@ -58,4 +58,11 @@ public interface ViviApi {
 	void getReportChartSale(@Query("access-token") String token, @Query("day") String day,
 	          @Query("month") String month, Callback<String> callback);
 	
+	@GET("/v1/products/simple")
+	void getProducts(@Query("access-token") String token, Callback<String> callback);
+	
+	@GET("/v1/reports/revenue_by_store")
+	void getRealueByStore(@Query("access-token") String token, @Query("from") String from, @Query("to") String to,
+	          @Query("product_id") String productId, @Query("sort_by") String sortBy, 
+	          @Query("page") int page, @Query("per_page") int perPage, Callback<String> callback);
 }

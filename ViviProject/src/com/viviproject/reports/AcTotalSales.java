@@ -44,7 +44,7 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 	private TextView tvTotalSales;
 	
  	private CaldroidListener listener;
-	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");;
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	private CaldroidFragment dialogCaldroidFragment;
 	private String strDateFrom, strDateTo;
 	private static RestAdapter restAdapter;
