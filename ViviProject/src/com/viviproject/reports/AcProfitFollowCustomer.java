@@ -20,6 +20,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -67,6 +69,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 	private ProgressDialog dialog;
 	private Date dateFrom, dateTo;
 	private int page = 0, perPage = 10;
+	private String productId = "0";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +126,52 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		spProductProfitView = (Spinner) findViewById(R.id.spProducts);
 		adapterSpProducts = new AdapterSpProducts(AcProfitFollowCustomer.this, lisProduct);
 		spProductProfitView.setAdapter(adapterSpProducts);
+		spProductProfitView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				Logger.error("selected positon:" + position);
+				EnProducts enProducts = adapterSpProducts.getItem(position);
+				if(null != enProducts){
+					productId = enProducts.getId();
+					getDataFromServer();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		lvProfitFollowCustomer = (ListView) findViewById(R.id.lvProfitFllowCustomer);
 		adapterProfitFollowCustomer = new AdapterProfitFollowCustomer(getApplicationContext(), listCustomer);
 		lvProfitFollowCustomer.setAdapter(adapterProfitFollowCustomer);
 		lvProfitFollowCustomer.setOnItemClickListener(this);
+		lvProfitFollowCustomer.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				int threshold = 1;
+				int count = lvProfitFollowCustomer.getCount();
+				if (count > 0) {
+					if (scrollState == SCROLL_STATE_IDLE) {
+						if (lvProfitFollowCustomer.getLastVisiblePosition() >= count - threshold) {
+							page++;
+							getListReportProductFromServer(productId, "name");
+						}
+					}
+				}
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				
+			}
+		});
 		
 		imgBackToTop = (ImageView) findViewById(R.id.imgBackToTop);
 		imgBackToTop.setOnClickListener(this);
@@ -147,11 +191,15 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		
 	}
 	
-	protected void updateStoreReportScreen(ArrayList<EnStoreReportItem> stores) {
+	protected void updateStoreReportScreen(ArrayList<EnStoreReportItem> stores, boolean isNew) {
 		if(null == stores) return;
-		
-		adapterProfitFollowCustomer.setListProfitCustomer(stores);
-		adapterProfitFollowCustomer.notifyDataSetChanged();
+		if(isNew){
+			adapterProfitFollowCustomer.setListProfitCustomer(stores);
+			adapterProfitFollowCustomer.notifyDataSetChanged();
+		} else {
+			adapterProfitFollowCustomer.addListProfitCustomer(stores);
+			adapterProfitFollowCustomer.notifyDataSetChanged();
+		}
 	}
 	
 	@Override
@@ -264,7 +312,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				if(null != enProducts){
 					updateProductType(enProducts);
 					//get list product data
-					getListReportProductFromServer("0", "name");
+					getListReportProductFromServer(productId, "name");
 				} else {
 					if(null != AcProfitFollowCustomer.this && null != dialog){
 						if(dialog.isShowing()) dialog.dismiss();
@@ -359,7 +407,11 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				EnStoreReport enStoreReport = DataParser.getEnStoreReport(strData);
 				if(null != enStoreReport){
 					if(null != enStoreReport.getStores()){
-						updateStoreReportScreen(enStoreReport.getStores());
+						if(page == 0){
+							updateStoreReportScreen(enStoreReport.getStores(), true);
+						} else {
+							updateStoreReportScreen(enStoreReport.getStores(), false);
+						}
 					}
 				} else {
 					BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)

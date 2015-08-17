@@ -48,6 +48,12 @@ public class AdapterProfitFollowCustomer extends ArrayAdapter<EnStoreReportItem>
 		listCustomer = list;
 	}
 	
+	public void addListProfitCustomer(ArrayList<EnStoreReportItem> list){
+		for (int i = 0; i < list.size(); i++) {
+			listCustomer.add(list.get(i));
+		}
+	}
+	
 	static class ViewHolder {      
         TextView tvSTT;
         TextView tvNamePharmacyName;
