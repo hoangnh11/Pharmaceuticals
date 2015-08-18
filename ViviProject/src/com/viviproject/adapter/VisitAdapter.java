@@ -35,6 +35,7 @@ public class VisitAdapter extends BaseAdapter implements Filterable{
 		 mActivity = activity;
         _data = data;
         arraylist = data;
+        lines = "";
         crtUn = new ConvertUnsigned();
 	}
     
