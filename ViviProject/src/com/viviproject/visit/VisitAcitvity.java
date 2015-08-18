@@ -234,8 +234,7 @@ public class VisitAcitvity extends Activity implements OnClickListener{
 						listVisitAdapter.getFilter().filter(tempFilter);
 						edtFilter.setText(tempFilter);
 						linFilter.setVisibility(View.VISIBLE);
-						lvCustomer.setVisibility(View.VISIBLE);
-						
+						lvCustomer.setVisibility(View.VISIBLE);						
 					}
 					
 					lvCustomer.setAdapter(listVisitAdapter);

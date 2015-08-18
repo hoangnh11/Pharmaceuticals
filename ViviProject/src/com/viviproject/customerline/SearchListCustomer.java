@@ -1,7 +1,5 @@
 package com.viviproject.customerline;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -13,8 +11,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,18 +19,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.viviproject.R;
-import com.viviproject.adapter.ListCustomerAdapter;
-import com.viviproject.core.ItemListCustomer;
+import com.viviproject.core.ItemCustomer;
 import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
 
-public class ListCustomer extends Activity implements OnClickListener{
-
+public class SearchListCustomer extends Activity implements OnClickListener{
+	
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	private ListView lvCustomer;
@@ -42,33 +38,27 @@ public class ListCustomer extends Activity implements OnClickListener{
 	private RelativeLayout linFilter;
 	private EditText edtFilter;
 	
-	private ListCustomerAdapter listCustomerAdapter;
+	private Search search;
 	private ProgressDialog progressDialog;
-	private GetStores getStores;
+	private AppPreferences app;
 	private EnArrayStores enStores;
-	public static ArrayList<EnStores> arrEnStores;
 	private EnStores items;
-	private int qtyPage, qtyPerPage;
-	private String tempFilter;
-	private boolean checkFilter;
+	private SearchListCustomerAdapter searchListCustomerAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_customer);
+		app = new AppPreferences(this);
 		enStores = new EnArrayStores();
 		items = new EnStores();
-		arrEnStores = new ArrayList<EnStores>();
-		qtyPage = 1;
-		qtyPerPage = 10;
-		tempFilter = "";
-		checkFilter = false;
+		
 		initLayout();
 		
-		getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
-		getStores.execute();
+		search = new Search("", "");
+		search.execute();
 	}
-
+	
 	public void initLayout(){
 		linBack = (LinearLayout) findViewById(R.id.linBack);
 		linBack.setOnClickListener(this);
@@ -84,10 +74,11 @@ public class ListCustomer extends Activity implements OnClickListener{
 		
 		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
 		linUpdate.setOnClickListener(this);
-		linUpdate.setVisibility(View.VISIBLE);
+		linUpdate.setVisibility(View.GONE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
+		linRefresh.setVisibility(View.GONE);
 		
 		imgBackToTop = (ImageView) findViewById(R.id.imgBackToTop);
 		imgBackToTop.setOnClickListener(this);
@@ -96,14 +87,14 @@ public class ListCustomer extends Activity implements OnClickListener{
 		lvCustomer = (ListView) findViewById(R.id.lvCustomer);
 		
 		linFilter = (RelativeLayout) findViewById(R.id.linFilter);
+		linFilter.setVisibility(View.VISIBLE);
 		imgDelete = (ImageView) findViewById(R.id.imgDelete);
 		imgDelete.setOnClickListener(this);
 		edtFilter = (EditText) findViewById(R.id.edtFilter);
 		edtFilter.addTextChangedListener(new TextWatcher() {
 			
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				listCustomerAdapter.getFilter().filter(s);
+			public void onTextChanged(CharSequence s, int start, int before, int count) {				
 				if (s.length() > 0) {
 					imgDelete.setVisibility(View.VISIBLE);
 				} else {
@@ -121,26 +112,18 @@ public class ListCustomer extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
-		Intent intent;
 		switch (v.getId()) {
 		case R.id.linBack:
 			finish();
 			break;
 			
 		case R.id.linSearch:
-			intent = new Intent(this, SearchListCustomer.class);
-			startActivity(intent);
-			break;
-			
-		case R.id.linUpdate:
-			if (linFilter.getVisibility() == View.VISIBLE) {
-				linFilter.setVisibility(View.GONE);
-				edtFilter.setText("");
-				checkFilter = false;
-			} else {
-				linFilter.setVisibility(View.VISIBLE);
-				checkFilter = true;
-			}
+			enStores = new EnArrayStores();
+			searchListCustomerAdapter = new SearchListCustomerAdapter(SearchListCustomer.this, enStores.getStores());
+			searchListCustomerAdapter.setOnItemClickHandler(onItemClickHandler);					
+			lvCustomer.setAdapter(searchListCustomerAdapter);
+			search = new Search("", "");
+			search.execute();
 			break;
 			
 		case R.id.imgDelete:
@@ -149,56 +132,46 @@ public class ListCustomer extends Activity implements OnClickListener{
 			
 		case R.id.imgBackToTop:
 			lvCustomer.setSelectionAfterHeaderView();
-			break;	
-			
-		case R.id.linRefresh:
-			enStores = new EnArrayStores();	
-			arrEnStores = new ArrayList<EnStores>();
-			tempFilter = "";
-			qtyPage = 1;
-			qtyPerPage = 10;
-			getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
-			getStores.execute();
 			break;
-			
+		
 		default:
 			break;
 		}
 	}
-
+	
 	OnClickListener onItemClickHandler = new OnClickListener() 
 	{
 		Intent intent;
 		
         @Override
         public void onClick(View v)
-        {
-        	int position = ((ItemListCustomer) v).get_position();
-            items = arrEnStores.get(position);
-            intent = new Intent(ListCustomer.this, CustomerDetails.class);
-            intent.putExtra(GlobalParams.STORES, items);  
+        { 
+        	int position = ((ItemCustomer) v).get_position();
+            items = enStores.getStores().get(position);
+            intent = new Intent(SearchListCustomer.this, CustomerDetails.class);
+            intent.putExtra(GlobalParams.STORES, items);
             startActivity(intent);
         }
     };
-    
-    class GetStores extends AsyncTask<Void, Void, String> {
+	
+	class Search extends AsyncTask<Void, Void, String> {
 		String data, page, per_page;
-		
-		protected GetStores(String page, String per_page) {
+
+		protected Search(String page, String per_page) {
 			this.page = page;
 			this.per_page = per_page;
 		}
-
+		
 		@Override
 		protected void onPreExecute() {
-			progressDialog = new ProgressDialog(ListCustomer.this);
+			progressDialog = new ProgressDialog(SearchListCustomer.this);
 			progressDialog.setMessage(getResources().getString(R.string.LOADING));
 			progressDialog.show();
 			progressDialog.setCancelable(false);
 			progressDialog.setOnCancelListener(new OnCancelListener() {
 				@Override
 				public void onCancel(DialogInterface dialog) {
-					getStores.cancel(true);
+					search.cancel(true);
 				}
 			});
 		}
@@ -206,13 +179,14 @@ public class ListCustomer extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[3];
-				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(ListCustomer.this));
+				NetParameter[] netParameter = new NetParameter[4];
+				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(SearchListCustomer.this));
 				netParameter[1] = new NetParameter("page", page);
 				netParameter[2] = new NetParameter("per_page", per_page);
+				netParameter[3] = new NetParameter("q", edtFilter.getEditableText().toString());
 				try {
-					data = HttpNetServices.Instance.getStores(netParameter);					
-					enStores = DataParser.getStores(data);
+					data = HttpNetServices.Instance.search(netParameter);
+					enStores = DataParser.getStores(data);					
 					return GlobalParams.TRUE;
 				} catch (Exception e) {
 					return GlobalParams.FALSE;
@@ -226,62 +200,13 @@ public class ListCustomer extends Activity implements OnClickListener{
 		protected void onPostExecute(String result) {
 			progressDialog.dismiss();
 			if (!isCancelled()) {
-				try {
-					if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {
-						arrEnStores.addAll(enStores.getStores());
-						listCustomerAdapter = new ListCustomerAdapter(ListCustomer.this, arrEnStores);
-						listCustomerAdapter.setOnItemClickHandler(onItemClickHandler);
-						
-						if (checkFilter) {
-							listCustomerAdapter.getFilter().filter(tempFilter);
-							edtFilter.setText(tempFilter);
-							linFilter.setVisibility(View.VISIBLE);
-							lvCustomer.setVisibility(View.VISIBLE);							
-						}
-						
-						lvCustomer.setAdapter(listCustomerAdapter);
-						imgBackToTop.setVisibility(View.VISIBLE);
-						lvCustomer.setOnScrollListener(new OnScrollListener() {
-							
-							@Override
-							public void onScrollStateChanged(AbsListView view, int scrollState) {
-								int threshold = 1;
-								int count = lvCustomer.getCount();
-								if (enStores != null && enStores.getStores().size() > 0) {
-									if (scrollState == SCROLL_STATE_IDLE) {
-										if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
-											if (checkFilter) {
-												tempFilter = edtFilter.getEditableText().toString();
-												edtFilter.setText("");
-												linFilter.setVisibility(View.GONE);
-												lvCustomer.setVisibility(View.GONE);
-												imgBackToTop.setVisibility(View.GONE);
-											}
-											// Execute LoadMoreDataTask AsyncTask
-											qtyPage++;
-											getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
-											getStores.execute();
-										}
-									}
-								}							
-							}
-							
-							@Override
-							public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-							}
-						});
-					} else {
-						if (checkFilter) {
-							listCustomerAdapter.getFilter().filter(tempFilter);
-							edtFilter.setText(tempFilter);
-							linFilter.setVisibility(View.VISIBLE);
-							lvCustomer.setVisibility(View.VISIBLE);
-							imgBackToTop.setVisibility(View.VISIBLE);
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}				
+				if (result.equals(GlobalParams.TRUE) && enStores != null && enStores.getStores().size() > 0) {					
+					searchListCustomerAdapter = new SearchListCustomerAdapter(SearchListCustomer.this, enStores.getStores());
+					searchListCustomerAdapter.setOnItemClickHandler(onItemClickHandler);					
+					lvCustomer.setAdapter(searchListCustomerAdapter);
+					imgBackToTop.setVisibility(View.VISIBLE);
+					app.hideKeyboard(SearchListCustomer.this, edtFilter);
+				}
 			}
 		}
 	}

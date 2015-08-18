@@ -129,7 +129,7 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 			
 		case R.id.linSearch:
 			Intent i = new Intent(this, SearchCustomerProfit.class);
-			startActivity(i);
+//			startActivity(i);
 			break;
 			
 		case R.id.linUpdate:

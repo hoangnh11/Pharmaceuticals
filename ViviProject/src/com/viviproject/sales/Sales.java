@@ -276,6 +276,14 @@ public class Sales extends Activity implements OnClickListener{
 					arrEnStores.addAll(enStores.getStores());
 					listVisitAdapter = new VisitAdapter(Sales.this, arrEnStores);
 					listVisitAdapter.setOnItemClickHandler(onItemClickHandler);
+					
+					if (checkFilter) {
+						listVisitAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvCustomer.setVisibility(View.VISIBLE);						
+					}
+					
 					lvCustomer.setAdapter(listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
 					lvCustomer.setOnScrollListener(new OnScrollListener() {
@@ -287,6 +295,13 @@ public class Sales extends Activity implements OnClickListener{
 							if (enStores != null && enStores.getStores().size() > 0) {
 								if (scrollState == SCROLL_STATE_IDLE) {
 									if (lvCustomer.getLastVisiblePosition() >= count - threshold) {
+										if (checkFilter) {
+											tempFilter = edtFilter.getEditableText().toString();
+											edtFilter.setText("");
+											linFilter.setVisibility(View.GONE);
+											lvCustomer.setVisibility(View.GONE);
+											imgBackToTop.setVisibility(View.GONE);
+										}
 										// Execute LoadMoreDataTask AsyncTask
 										qtyPage++;
 										
@@ -301,6 +316,14 @@ public class Sales extends Activity implements OnClickListener{
 						public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 						}
 					});					
+				} else {
+					if (checkFilter) {
+						listVisitAdapter.getFilter().filter(tempFilter);
+						edtFilter.setText(tempFilter);
+						linFilter.setVisibility(View.VISIBLE);
+						lvCustomer.setVisibility(View.VISIBLE);
+						imgBackToTop.setVisibility(View.VISIBLE);
+					}
 				}
 			}
 		}

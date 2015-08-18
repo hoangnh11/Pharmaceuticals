@@ -120,9 +120,15 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
+		Intent intent;
 		switch (v.getId()) {
 		case R.id.linBack:
 			finish();
+			break;
+			
+		case R.id.linSearch:
+			intent = new Intent(this, SearchListCustomerPending.class);
+//			startActivity(intent);
 			break;
 			
 		case R.id.linUpdate:
