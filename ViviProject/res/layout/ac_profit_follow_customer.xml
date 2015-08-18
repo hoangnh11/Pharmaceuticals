@@ -134,6 +134,9 @@
 	        <ListView
 	            android:id="@+id/lvProfitFllowCustomer"
 	            style="@style/NormalListView"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="top"
 	            android:background="@color/WHITE"
 	            android:fadingEdge="none"
 	            android:scrollbarSize="3dp" />

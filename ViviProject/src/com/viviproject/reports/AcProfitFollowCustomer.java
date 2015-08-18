@@ -18,6 +18,8 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -25,6 +27,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -50,6 +53,8 @@ import com.viviproject.ultilities.StringConverter;
 public class AcProfitFollowCustomer extends FragmentActivity implements OnClickListener, OnItemClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
+	private EditText edtSearch;
+	private ImageView imgFitter;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
 	private ListView lvProfitFollowCustomer;
 	private ImageView imgBackToTop;
@@ -68,8 +73,9 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 	private static RestAdapter restAdapter;
 	private ProgressDialog dialog;
 	private Date dateFrom, dateTo;
-	private int page = 0, perPage = 10;
+	private int page = 0, perPage = 15;
 	private String productId = "0";
+	private int flagGetAllProducts = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,11 +111,31 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		tvHeader.setText(getResources().getString(R.string.PROFIT_FOLLOW_CUSTOMER));
 		tvHeader.setVisibility(View.VISIBLE);
 		
+		imgFitter = (ImageView) findViewById(R.id.imgUpdate);
+		edtSearch = (EditText) findViewById(R.id.edtSearch);
+		edtSearch.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				adapterProfitFollowCustomer.getFilter().filter(s.toString());
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+			}
+		});
+		
 		linOptionSearch = (LinearLayout) findViewById(R.id.linSearch);
-		linOptionSearch.setVisibility(View.VISIBLE);
+		linOptionSearch.setVisibility(View.GONE);
 		
 		linOptionFilter = (LinearLayout) findViewById(R.id.linUpdate);
 		linOptionFilter.setVisibility(View.VISIBLE);
+		linOptionFilter.setOnClickListener(this);
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
@@ -135,7 +161,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				EnProducts enProducts = adapterSpProducts.getItem(position);
 				if(null != enProducts){
 					productId = enProducts.getId();
-					getDataFromServer();
+					//getDataFromServer();
 				}
 			}
 
@@ -158,7 +184,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				int count = lvProfitFollowCustomer.getCount();
 				if (count > 0) {
 					if (scrollState == SCROLL_STATE_IDLE) {
-						if (lvProfitFollowCustomer.getLastVisiblePosition() >= count - threshold) {
+						if ((flagGetAllProducts > 0) && lvProfitFollowCustomer.getLastVisiblePosition() >= count - threshold) {
 							page++;
 							getListReportProductFromServer(productId, "name");
 						}
@@ -188,7 +214,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		ArrayList<EnProducts> lisProduct = enProducts.getProducts(); 
 		adapterSpProducts.setListProduct(lisProduct);
 		adapterSpProducts.notifyDataSetChanged();
-		
+		flagGetAllProducts ++;
 	}
 	
 	protected void updateStoreReportScreen(ArrayList<EnStoreReportItem> stores, boolean isNew) {
@@ -215,6 +241,21 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 			
 		case R.id.imgIconCalendar:
 			showCalender();
+			break;
+			
+		case R.id.linUpdate:
+			if(edtSearch.getVisibility() == View.VISIBLE){
+				edtSearch.setVisibility(View.GONE);
+				imgFitter.setImageResource(R.drawable.icon_filter);
+				tvHeader.setVisibility(View.VISIBLE);
+				linOptionRefresh.setVisibility(View.VISIBLE);
+			} else {
+				edtSearch.setVisibility(View.VISIBLE);
+				imgFitter.setImageResource(R.drawable.ic_cancel);
+				edtSearch.requestFocus();
+				tvHeader.setVisibility(View.GONE);
+				linOptionRefresh.setVisibility(View.GONE);
+			}
 			break;
 			
 		default:

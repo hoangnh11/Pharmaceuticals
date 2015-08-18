@@ -5,7 +5,7 @@
     android:background="@color/BG_HEADER"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
-
+	
     <LinearLayout
         android:id="@+id/linBack"
         android:layout_width="wrap_content"
@@ -23,19 +23,36 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_back" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvHeader"
+	
+    <FrameLayout 
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/action_settings"
-        android:textColor="@color/WHITE"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:visibility="invisible" />
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1">
+        
+        <EditText 
+            android:id="@+id/edtSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+	        android:singleLine="true"
+	        android:textColor="@color/WHITE"
+	        android:hint="Nhập để tìm kiếm"
+	        android:visibility="gone"/>
+        
+        <TextView
+	        android:id="@+id/tvHeader"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/action_settings"
+	        android:textColor="@color/WHITE"
+	        android:textSize="16sp"
+	        android:textStyle="bold"
+	        android:ellipsize="end"
+	        android:singleLine="true"
+	        android:visibility="invisible" />
+	        
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/linSearch"

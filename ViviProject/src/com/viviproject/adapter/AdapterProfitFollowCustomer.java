@@ -7,18 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.viviproject.R;
+import com.viviproject.core.ConvertUnsigned;
 import com.viviproject.entities.EnStoreReportItem;
 
-public class AdapterProfitFollowCustomer extends ArrayAdapter<EnStoreReportItem> {
-	private ArrayList<EnStoreReportItem> listCustomer;
+public class AdapterProfitFollowCustomer extends ArrayAdapter<EnStoreReportItem> implements Filterable{
+	private ArrayList<EnStoreReportItem> listCustomer = new ArrayList<EnStoreReportItem>();
+	private ArrayList<EnStoreReportItem> orionListCustomer = new ArrayList<EnStoreReportItem>();
 	private Context context;
+	private ItemFilter mFilter;
+	private ConvertUnsigned crtUn = new ConvertUnsigned();;
 	
 	public AdapterProfitFollowCustomer(Context context, ArrayList<EnStoreReportItem> listCustomer) {
 		super(context, R.layout.item_profit_follow_customer);
 		this.listCustomer = listCustomer;
+		this.orionListCustomer = listCustomer;
 		this.context = context;
 	}
 
@@ -43,14 +50,19 @@ public class AdapterProfitFollowCustomer extends ArrayAdapter<EnStoreReportItem>
 	public void setListProfitCustomer(ArrayList<EnStoreReportItem> list){
 		for (int i = 0; i < listCustomer.size(); i++) {
 			listCustomer.remove(i);
+			orionListCustomer.remove(i);
 		}
 		
 		listCustomer = list;
+		orionListCustomer = list;
 	}
 	
 	public void addListProfitCustomer(ArrayList<EnStoreReportItem> list){
+		listCustomer = new ArrayList<EnStoreReportItem>();
+		listCustomer = orionListCustomer;
 		for (int i = 0; i < list.size(); i++) {
 			listCustomer.add(list.get(i));
+			orionListCustomer.add(list.get(i));
 		}
 	}
 	
@@ -87,5 +99,48 @@ public class AdapterProfitFollowCustomer extends ArrayAdapter<EnStoreReportItem>
 			holder.tvPrice.setText(item.getSumary());
 		}
 		return convertView;
+	}
+	
+	public Filter getFilter() {
+		if(null == mFilter){
+			mFilter = new ItemFilter();
+		}
+		
+        return mFilter;
+    }
+	
+	private class ItemFilter extends Filter {
+
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			ArrayList<EnStoreReportItem> listSearch = new ArrayList<EnStoreReportItem>();
+			FilterResults results = new FilterResults();
+			
+			String filter = constraint.toString().toLowerCase();
+			String srtConvert = crtUn.ConvertString(filter);
+			for (int i = 0; i < orionListCustomer.size(); i++) {
+				String strName = crtUn.ConvertString(orionListCustomer.get(i).getName());
+				if(strName.contains(srtConvert)){
+					listSearch.add(orionListCustomer.get(i));
+				}
+			}
+			
+			results.values = listSearch;
+			results.count = listSearch.size();
+			return results;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
+			listCustomer = (ArrayList<EnStoreReportItem>) results.values;
+			
+			if(null == listCustomer) {
+				listCustomer = new ArrayList<EnStoreReportItem>();
+			}
+			notifyDataSetChanged();
+		}
+		
 	}
 }
