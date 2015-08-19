@@ -309,6 +309,7 @@
 	<string name="PROFIT_BY_MONTH">Doanh số trong tháng</string>
 	<string name="CURRENT_DEFAUT">(Mặc định hiện tại)</string>
 	<string name="MSG_OVER_CURRENT_DATE">Nhập quá ngày hiện tại</string>
+	<string name="MSG_OVER_TO_DATE">Nhập quá ngày sau</string>
 	<string name="DEFAULT_SORT_BY_TOP_PROFIT">Mặc định sắp xếp theo doanh số cao nhất</string>
 	<string name="IMAGE_TITLE">Tiêu đề:</string>
 	<string name="IMAGE_NOTE_TITLE">Ghi chú:</string>

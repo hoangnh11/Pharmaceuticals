@@ -27,6 +27,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -59,7 +60,9 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 	private ListView lvProfitFollowCustomer;
 	private ImageView imgBackToTop;
 	private Spinner spProductProfitView, spSortType;
-	private ImageView imgIconCalendar;
+	private TextView tvRevalueTimeFrom, tvRevalueTimeTo;
+	private ImageView imgIconCalendarFrom, imgIconCalendarTo;
+	private Button btRevalueSearchOK;
 	
 	private CaldroidListener listener;
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");;
@@ -75,7 +78,10 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 	private Date dateFrom, dateTo;
 	private int page = 0, perPage = 15;
 	private String productId = "0";
+	private String orderType = "name";
 	private int flagGetAllProducts = 0;
+	private int flagOrderType = 0;
+	private boolean flagCalenDerDialodgIsShowing = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -141,14 +147,57 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		linOptionRefresh.setVisibility(View.VISIBLE);
 		linOptionRefresh.setOnClickListener(this);
 		
-		imgIconCalendar = (ImageView) findViewById(R.id.imgIconCalendar);
-		imgIconCalendar.setOnClickListener(this);
+		tvRevalueTimeFrom = (TextView) findViewById(R.id.tvRevalueTimeFrom);
+		tvRevalueTimeFrom.setText("" + formatter.format(dateFrom));
+		
+		tvRevalueTimeTo = (TextView) findViewById(R.id.tvRevalueTimeTo);
+		tvRevalueTimeTo.setText("" + formatter.format(dateTo));
+		
+		imgIconCalendarFrom = (ImageView) findViewById(R.id.imgIconCalendarFrom);
+		imgIconCalendarFrom.setOnClickListener(this);
+		imgIconCalendarTo = (ImageView) findViewById(R.id.imgIconCalendarTo);
+		imgIconCalendarTo.setOnClickListener(this);
+		
+		btRevalueSearchOK = (Button) findViewById(R.id.btRevalueSearchOK);
+		btRevalueSearchOK.setOnClickListener(this);
 		
 		spSortType = (Spinner) findViewById(R.id.spSortType);
 		String[] sort_type = getResources().getStringArray(R.array.sort_type);
 		listSortType = Arrays.asList(sort_type);
 		ArrayAdapter<String> sortTypeAdaper = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listSortType);
 		spSortType.setAdapter(sortTypeAdaper);
+		spSortType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				if(flagOrderType > 0){
+					switch (position) {
+					case 0:
+						orderType = "name";
+						break;
+					
+					case 1:
+						orderType = "sale_bigest";
+						break;
+	
+					case 2:
+						orderType = "sale_lowest";
+						break;
+	
+					default:
+						break;
+					}
+					getListRevalueProductFromServer(productId, orderType);
+				}
+				flagOrderType++;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		spProductProfitView = (Spinner) findViewById(R.id.spProducts);
 		adapterSpProducts = new AdapterSpProducts(AcProfitFollowCustomer.this, lisProduct);
@@ -163,7 +212,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				if((flagGetAllProducts > 0) && null != enProducts){
 					productId = enProducts.getId();
 					Logger.error("product ID:" + productId);
-					getListRevalueProductFromServer(productId, "name");
+					getListRevalueProductFromServer(productId, orderType);
 				}
 				flagGetAllProducts++;
 			}
@@ -176,7 +225,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		lvProfitFollowCustomer = (ListView) findViewById(R.id.lvProfitFllowCustomer);
 		adapterProfitFollowCustomer = new AdapterProfitFollowCustomer(getApplicationContext(), listCustomer);
 		lvProfitFollowCustomer.setAdapter(adapterProfitFollowCustomer);
-		lvProfitFollowCustomer.setOnItemClickListener(this);
+		//lvProfitFollowCustomer.setOnItemClickListener(this);
 		lvProfitFollowCustomer.setOnScrollListener(new OnScrollListener() {
 			
 			@Override
@@ -187,7 +236,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 					if (scrollState == SCROLL_STATE_IDLE) {
 						if (lvProfitFollowCustomer.getLastVisiblePosition() >= count - threshold) {
 							page++;
-							getListRevalueProductFromServer(productId, "name");
+							getListRevalueProductFromServer(productId, orderType);
 						}
 					}
 				}
@@ -212,8 +261,11 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 	private void resetDataToDefault(){
 		setDateDataToCurrent();
 		flagGetAllProducts = 0;
+		flagOrderType = 0;
 		productId = "0";
+		orderType = "name";
 		spProductProfitView.setSelection(0);
+		spSortType.setSelection(0);
 		refreshLayout();
 	}
 	
@@ -242,6 +294,25 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 	}
 	
 	@Override
+	protected void onResume() {
+		if(null != dialogCaldroidFragment) {
+			try {
+				if(flagCalenDerDialodgIsShowing){
+					dialogCaldroidFragment.show(getSupportFragmentManager(),
+							"CalenderAndroid");
+				} else {
+					dialogCaldroidFragment.dismiss();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		super.onResume();
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.linBack:
@@ -252,8 +323,32 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 			lvProfitFollowCustomer.setSelectionAfterHeaderView();
 			break;
 			
-		case R.id.imgIconCalendar:
-			showCalender();
+		case R.id.btRevalueSearchOK:
+			getListRevalueProductFromServer(productId, orderType);
+			break;
+			
+		case R.id.imgIconCalendarTo:
+			try{
+				String strDateTo = formatter.format(dateTo);
+				String[] dateSplit = strDateTo.split("/");
+				int month = Integer.parseInt(dateSplit[1]);
+				int year = Integer.parseInt(dateSplit[2]);
+				showCalender(R.id.imgIconCalendarTo, month, year);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case R.id.imgIconCalendarFrom:
+			try{
+				String strDateFrom = formatter.format(dateFrom);
+				String[] dateSplit = strDateFrom.split("/");
+				int month = Integer.parseInt(dateSplit[1]);
+				int year = Integer.parseInt(dateSplit[2]);
+				showCalender(R.id.imgIconCalendarFrom, month, year);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			break;
 			
 		case R.id.linUpdate:
@@ -287,14 +382,85 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		startActivity(i);
 	}
 	
+	/**
+	 * valid date
+	 * @param mDate date to check valid
+	 * @return return true if date before to day and false otherwise
+	 */
+	public boolean compareDateWithToDay(Date mDate){
+		boolean isBefore = false;
+		try {
+			Calendar calendar = Calendar.getInstance();
+			if(mDate.compareTo(calendar.getTime()) > 0){
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isBefore;
+	}
+	
+	/**
+	 * valid date
+	 * @param mDate date to check valid
+	 * @return return true if date before to day and false otherwise
+	 */
+	public boolean compareDateWithDay(Date mDate, Date mDate2){
+		boolean isBefore = false;
+		try {
+			if(mDate.compareTo(mDate2) > 0){
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isBefore;
+	}
+	
 	@SuppressLint("SimpleDateFormat")
-	private void showCalender() {
+	private void showCalender(final int viewID, int month, int year) {
 		listener = new CaldroidListener() {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
 				dialogCaldroidFragment.dismiss();
+				flagCalenDerDialodgIsShowing = false;
 				
+				switch (viewID) {
+				case R.id.imgIconCalendarFrom:
+					if(compareDateWithToDay(date)){
+						if(compareDateWithDay(date, dateTo)){
+							dateFrom = date;
+							tvRevalueTimeFrom.setText("" + formatter.format(dateFrom));
+						} else {
+							BuManagement.alertErrorMessageString(getResources().getString(R.string.MSG_OVER_TO_DATE)
+									, "Error", AcProfitFollowCustomer.this);
+						}
+					} else {
+						BuManagement.alertErrorMessageString(getResources().getString(R.string.MSG_OVER_CURRENT_DATE)
+								, "Error", AcProfitFollowCustomer.this);
+					}
+					break;
+					
+				case R.id.imgIconCalendarTo:
+					if(compareDateWithToDay(date)){
+						dateTo = date;
+						tvRevalueTimeTo.setText("" + formatter.format(dateTo));
+					} else {
+						BuManagement.alertErrorMessageString(getResources().getString(R.string.MSG_OVER_CURRENT_DATE)
+								, "Error", AcProfitFollowCustomer.this);
+					}
+					break;
+					
+				default:
+					break;
+				}
 			}
 
 			@Override
@@ -313,14 +479,17 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 
 			@Override
 			public void onNothingSelected() {
+				flagCalenDerDialodgIsShowing = false;
 			}
 
 		};
 		
-		dialogCaldroidFragment = new CaldroidFragment();
+		dialogCaldroidFragment = CaldroidFragment.newInstance("", month, year);
 		dialogCaldroidFragment.setCaldroidListener(listener);
+		
 		dialogCaldroidFragment.show(getSupportFragmentManager(),
 				"CalenderAndroid");
+		flagCalenDerDialodgIsShowing = true;
 	}
 	
 	/**
@@ -369,7 +538,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				if(null != enProducts){
 					updateProductType(enProducts);
 					//get list product data
-					getListRevalueProductFromServer(productId, "name");
+					getListRevalueProductFromServer(productId, orderType);
 				} else {
 					if(null != AcProfitFollowCustomer.this && null != dialog){
 						if(dialog.isShowing()) dialog.dismiss();
