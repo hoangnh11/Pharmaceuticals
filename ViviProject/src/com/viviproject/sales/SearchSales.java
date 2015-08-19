@@ -32,12 +32,12 @@ import com.viviproject.visit.SearchVisitAdapter;
 import com.viviproject.visit.VisitDetailsActivity;
 
 public class SearchSales extends Activity implements OnClickListener{
-	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
+	private LinearLayout linBack, linRefresh;
 	private TextView tvHeader;
 	private ListView lvCustomer;
-	private ImageView imgBackToTop, imgDelete;
-	private RelativeLayout linFilter;
-	private EditText edtFilter;
+	private ImageView imgBackToTop, imgDel, imgSearchOnline;
+	private EditText edtSearchOnline;
+	private RelativeLayout relSearch;
 	private LinearLayout linLines;
 	
 	private Search search;
@@ -55,10 +55,7 @@ public class SearchSales extends Activity implements OnClickListener{
 		enStores = new EnArrayStores();
 		items = new EnStores();
 		
-		initLayout();
-		
-		search = new Search("", "");
-		search.execute();
+		initLayout();		
 	}
 	
 	public void initLayout(){
@@ -69,14 +66,6 @@ public class SearchSales extends Activity implements OnClickListener{
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
 		tvHeader.setText(getResources().getString(R.string.SALE));
 		tvHeader.setVisibility(View.VISIBLE);
-		
-		linSearch = (LinearLayout) findViewById(R.id.linSearch);
-		linSearch.setOnClickListener(this);	
-		linSearch.setVisibility(View.VISIBLE);
-		
-		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
-		linUpdate.setOnClickListener(this);
-		linUpdate.setVisibility(View.GONE);
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
@@ -90,19 +79,21 @@ public class SearchSales extends Activity implements OnClickListener{
 		linLines.setVisibility(View.GONE);
 		lvCustomer = (ListView) findViewById(R.id.lvCustomer);
 		
-		linFilter = (RelativeLayout) findViewById(R.id.linFilter);
-		linFilter.setVisibility(View.VISIBLE);
-		imgDelete = (ImageView) findViewById(R.id.imgDelete);
-		imgDelete.setOnClickListener(this);
-		edtFilter = (EditText) findViewById(R.id.edtFilter);
-		edtFilter.addTextChangedListener(new TextWatcher() {
+		relSearch = (RelativeLayout) findViewById(R.id.relSearch);
+		relSearch.setVisibility(View.VISIBLE);
+		imgDel = (ImageView) findViewById(R.id.imgDel);
+		imgDel.setOnClickListener(this);
+		imgSearchOnline = (ImageView) findViewById(R.id.imgSearchOnline);
+		imgSearchOnline.setOnClickListener(this);
+		edtSearchOnline = (EditText) findViewById(R.id.edtSearchOnline);
+		edtSearchOnline.addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {				
 				if (s.length() > 0) {
-					imgDelete.setVisibility(View.VISIBLE);
+					imgDel.setVisibility(View.VISIBLE);
 				} else {
-					imgDelete.setVisibility(View.GONE);
+					imgDel.setVisibility(View.GONE);
 				}
 			}
 			
@@ -121,7 +112,7 @@ public class SearchSales extends Activity implements OnClickListener{
 			finish();
 			break;
 			
-		case R.id.linSearch:
+		case R.id.imgSearchOnline:
 			enStores = new EnArrayStores();
 			searchVistiAdapter = new SearchVisitAdapter(this, enStores.getStores());
 			searchVistiAdapter.setOnItemClickHandler(onItemClickHandler);					
@@ -130,8 +121,8 @@ public class SearchSales extends Activity implements OnClickListener{
 			search.execute();
 			break;
 			
-		case R.id.imgDelete:
-			edtFilter.setText("");
+		case R.id.imgDel:
+			edtSearchOnline.setText("");
 			break;
 			
 		case R.id.imgBackToTop:
@@ -187,7 +178,7 @@ public class SearchSales extends Activity implements OnClickListener{
 				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(SearchSales.this));
 				netParameter[1] = new NetParameter("page", page);
 				netParameter[2] = new NetParameter("per_page", per_page);
-				netParameter[3] = new NetParameter("q", edtFilter.getEditableText().toString());
+				netParameter[3] = new NetParameter("q", edtSearchOnline.getEditableText().toString());
 				try {
 					data = HttpNetServices.Instance.search(netParameter);
 					enStores = DataParser.getStores(data);					
@@ -209,7 +200,9 @@ public class SearchSales extends Activity implements OnClickListener{
 					searchVistiAdapter.setOnItemClickHandler(onItemClickHandler);					
 					lvCustomer.setAdapter(searchVistiAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
-					app.hideKeyboard(SearchSales.this, edtFilter);
+					app.hideKeyboard(SearchSales.this, edtSearchOnline);
+				} else {
+					imgBackToTop.setVisibility(View.GONE);
 				}
 			}
 		}

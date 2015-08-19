@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.viviproject.R;
-import com.viviproject.core.ItemCustomer;
+import com.viviproject.core.ItemListCustomer;
 import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 import com.viviproject.network.NetParameter;
@@ -31,12 +31,12 @@ import com.viviproject.ultilities.GlobalParams;
 
 public class SearchListCustomer extends Activity implements OnClickListener{
 	
-	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
+	private LinearLayout linBack, linRefresh;
 	private TextView tvHeader;
 	private ListView lvCustomer;
-	private ImageView imgBackToTop, imgDelete;
-	private RelativeLayout linFilter;
-	private EditText edtFilter;
+	private ImageView imgBackToTop, imgDel, imgSearchOnline;
+	private EditText edtSearchOnline;
+	private RelativeLayout relSearch;
 	
 	private Search search;
 	private ProgressDialog progressDialog;
@@ -54,9 +54,7 @@ public class SearchListCustomer extends Activity implements OnClickListener{
 		items = new EnStores();
 		
 		initLayout();
-		
-		search = new Search("", "");
-		search.execute();
+
 	}
 	
 	public void initLayout(){
@@ -66,18 +64,9 @@ public class SearchListCustomer extends Activity implements OnClickListener{
 		
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
 		tvHeader.setText(getResources().getString(R.string.LIST_CUSTOMER));
-		tvHeader.setVisibility(View.VISIBLE);
-		
-		linSearch = (LinearLayout) findViewById(R.id.linSearch);
-		linSearch.setOnClickListener(this);	
-		linSearch.setVisibility(View.VISIBLE);
-		
-		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
-		linUpdate.setOnClickListener(this);
-		linUpdate.setVisibility(View.GONE);
+		tvHeader.setVisibility(View.VISIBLE);	
 		
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
-		linRefresh.setOnClickListener(this);
 		linRefresh.setVisibility(View.GONE);
 		
 		imgBackToTop = (ImageView) findViewById(R.id.imgBackToTop);
@@ -86,19 +75,21 @@ public class SearchListCustomer extends Activity implements OnClickListener{
 		
 		lvCustomer = (ListView) findViewById(R.id.lvCustomer);
 		
-		linFilter = (RelativeLayout) findViewById(R.id.linFilter);
-		linFilter.setVisibility(View.VISIBLE);
-		imgDelete = (ImageView) findViewById(R.id.imgDelete);
-		imgDelete.setOnClickListener(this);
-		edtFilter = (EditText) findViewById(R.id.edtFilter);
-		edtFilter.addTextChangedListener(new TextWatcher() {
+		relSearch = (RelativeLayout) findViewById(R.id.relSearch);
+		relSearch.setVisibility(View.VISIBLE);
+		imgDel = (ImageView) findViewById(R.id.imgDel);
+		imgDel.setOnClickListener(this);
+		imgSearchOnline = (ImageView) findViewById(R.id.imgSearchOnline);
+		imgSearchOnline.setOnClickListener(this);
+		edtSearchOnline = (EditText) findViewById(R.id.edtSearchOnline);
+		edtSearchOnline.addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {				
 				if (s.length() > 0) {
-					imgDelete.setVisibility(View.VISIBLE);
+					imgDel.setVisibility(View.VISIBLE);
 				} else {
-					imgDelete.setVisibility(View.GONE);
+					imgDel.setVisibility(View.GONE);
 				}
 			}
 			
@@ -117,7 +108,7 @@ public class SearchListCustomer extends Activity implements OnClickListener{
 			finish();
 			break;
 			
-		case R.id.linSearch:
+		case R.id.imgSearchOnline:
 			enStores = new EnArrayStores();
 			searchListCustomerAdapter = new SearchListCustomerAdapter(SearchListCustomer.this, enStores.getStores());
 			searchListCustomerAdapter.setOnItemClickHandler(onItemClickHandler);					
@@ -126,8 +117,8 @@ public class SearchListCustomer extends Activity implements OnClickListener{
 			search.execute();
 			break;
 			
-		case R.id.imgDelete:
-			edtFilter.setText("");
+		case R.id.imgDel:
+			edtSearchOnline.setText("");
 			break;
 			
 		case R.id.imgBackToTop:
@@ -146,7 +137,7 @@ public class SearchListCustomer extends Activity implements OnClickListener{
         @Override
         public void onClick(View v)
         { 
-        	int position = ((ItemCustomer) v).get_position();
+        	int position = ((ItemListCustomer) v).get_position();
             items = enStores.getStores().get(position);
             intent = new Intent(SearchListCustomer.this, CustomerDetails.class);
             intent.putExtra(GlobalParams.STORES, items);
@@ -183,7 +174,7 @@ public class SearchListCustomer extends Activity implements OnClickListener{
 				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(SearchListCustomer.this));
 				netParameter[1] = new NetParameter("page", page);
 				netParameter[2] = new NetParameter("per_page", per_page);
-				netParameter[3] = new NetParameter("q", edtFilter.getEditableText().toString());
+				netParameter[3] = new NetParameter("q", edtSearchOnline.getEditableText().toString());
 				try {
 					data = HttpNetServices.Instance.search(netParameter);
 					enStores = DataParser.getStores(data);					
@@ -205,7 +196,9 @@ public class SearchListCustomer extends Activity implements OnClickListener{
 					searchListCustomerAdapter.setOnItemClickHandler(onItemClickHandler);					
 					lvCustomer.setAdapter(searchListCustomerAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
-					app.hideKeyboard(SearchListCustomer.this, edtFilter);
+					app.hideKeyboard(SearchListCustomer.this, edtSearchOnline);
+				} else {
+					imgBackToTop.setVisibility(View.GONE);
 				}
 			}
 		}

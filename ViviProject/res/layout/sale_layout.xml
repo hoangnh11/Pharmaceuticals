@@ -77,6 +77,53 @@
             android:visibility="gone" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/relSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/GREY_BACKGROUND_IMAGE"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:visibility="gone" >
+
+        <EditText
+            android:id="@+id/edtSearchOnline"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/WHITE"
+            android:hint="@string/COMMON_FILTER"
+            android:paddingLeft="8dp"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/imgDel"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp"
+            android:contentDescription="@string/BLANK"
+            android:scaleType="fitXY"
+            android:src="@drawable/cancel"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imgSearchOnline"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@color/BLUE"
+            android:contentDescription="@string/BLANK"
+            android:padding="4dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_search" />
+    </RelativeLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
