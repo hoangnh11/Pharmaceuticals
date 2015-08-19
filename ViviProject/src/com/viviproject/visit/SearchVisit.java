@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.core.ItemListCustomer;
-import com.viviproject.customerline.CustomerDetails;
 import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 import com.viviproject.network.NetParameter;
@@ -149,7 +148,7 @@ public class SearchVisit extends Activity implements OnClickListener{
         { 
         	int position = ((ItemListCustomer) v).get_position();
             items = enStores.getStores().get(position);
-            intent = new Intent(SearchVisit.this, CustomerDetails.class);
+            intent = new Intent(SearchVisit.this, VisitDetailsActivity.class);
             intent.putExtra(GlobalParams.STORES, items);
             startActivity(intent);
         }
