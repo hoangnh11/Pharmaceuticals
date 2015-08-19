@@ -139,6 +139,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linOptionRefresh.setVisibility(View.VISIBLE);
+		linOptionRefresh.setOnClickListener(this);
 		
 		imgIconCalendar = (ImageView) findViewById(R.id.imgIconCalendar);
 		imgIconCalendar.setOnClickListener(this);
@@ -159,16 +160,16 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 					int position, long id) {
 				Logger.error("selected positon:" + position);
 				EnProducts enProducts = adapterSpProducts.getItem(position);
-				if(null != enProducts){
+				if((flagGetAllProducts > 0) && null != enProducts){
 					productId = enProducts.getId();
-					//getDataFromServer();
+					Logger.error("product ID:" + productId);
+					getListRevalueProductFromServer(productId, "name");
 				}
+				flagGetAllProducts++;
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		
@@ -184,9 +185,9 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				int count = lvProfitFollowCustomer.getCount();
 				if (count > 0) {
 					if (scrollState == SCROLL_STATE_IDLE) {
-						if ((flagGetAllProducts > 0) && lvProfitFollowCustomer.getLastVisiblePosition() >= count - threshold) {
+						if (lvProfitFollowCustomer.getLastVisiblePosition() >= count - threshold) {
 							page++;
-							getListReportProductFromServer(productId, "name");
+							getListRevalueProductFromServer(productId, "name");
 						}
 					}
 				}
@@ -208,13 +209,25 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		getDataFromServer();
 	}
 	
+	private void resetDataToDefault(){
+		setDateDataToCurrent();
+		flagGetAllProducts = 0;
+		productId = "0";
+		spProductProfitView.setSelection(0);
+		refreshLayout();
+	}
+	
 	protected void updateProductType(Products enProducts){
 		if(null == enProducts) return;
 		
+		EnProducts enAll = new EnProducts();
+		enAll.setName(getResources().getString(R.string.ALL));
+		enAll.setId("0");
+		
 		ArrayList<EnProducts> lisProduct = enProducts.getProducts(); 
+		lisProduct.add(0, enAll);
 		adapterSpProducts.setListProduct(lisProduct);
 		adapterSpProducts.notifyDataSetChanged();
-		flagGetAllProducts ++;
 	}
 	
 	protected void updateStoreReportScreen(ArrayList<EnStoreReportItem> stores, boolean isNew) {
@@ -257,7 +270,10 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				linOptionRefresh.setVisibility(View.GONE);
 			}
 			break;
-			
+		
+		case R.id.linRefresh:
+			resetDataToDefault();
+			break;
 		default:
 			break;
 		}
@@ -353,7 +369,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				if(null != enProducts){
 					updateProductType(enProducts);
 					//get list product data
-					getListReportProductFromServer(productId, "name");
+					getListRevalueProductFromServer(productId, "name");
 				} else {
 					if(null != AcProfitFollowCustomer.this && null != dialog){
 						if(dialog.isShowing()) dialog.dismiss();
@@ -392,7 +408,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 		}
 	};
 	
-	public void getListReportProductFromServer(String productId, String sortBy){
+	public void getListRevalueProductFromServer(String productId, String sortBy){
 		if(null == restAdapter ){
             restAdapter = new RestAdapter.Builder()
                     .setEndpoint(HttpFunctionFactory.viviHostURLshort)
