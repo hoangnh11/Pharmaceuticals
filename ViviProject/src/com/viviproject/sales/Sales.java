@@ -48,7 +48,7 @@ public class Sales extends Activity implements OnClickListener{
 	private ListView lvCustomer;
 	private ImageView imgBackToTop, imgDelete;
 	private RelativeLayout linFilter;
-	private EditText edtFilter;
+	private EditText edtFilter;	
 	
 	private Spinner spLine;
 	private List<String> listWeek;
@@ -97,9 +97,11 @@ public class Sales extends Activity implements OnClickListener{
 				qtyPage = 1;
 				qtyPerPage = 10;
 				if (selectDay.equals("1")) {
+					linSearch.setVisibility(View.VISIBLE);
 					getStores = new GetStores(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
 					getStores.execute();
-				} else {					
+				} else {
+					linSearch.setVisibility(View.GONE);
 					getStoresLine = new GetStoresLine(String.valueOf(qtyPage), String.valueOf(qtyPerPage));
 					getStoresLine.execute();
 				}
@@ -132,7 +134,7 @@ public class Sales extends Activity implements OnClickListener{
 		
 		imgBackToTop = (ImageView) findViewById(R.id.imgBackToTop);
 		imgBackToTop.setOnClickListener(this);
-		imgBackToTop.setVisibility(View.GONE);
+		imgBackToTop.setVisibility(View.GONE);		
 		
 		spLine = (Spinner) findViewById(R.id.spLine);		
 		
@@ -164,9 +166,15 @@ public class Sales extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
+		Intent intent;
 		switch (v.getId()) {
 		case R.id.linBack:
 			finish();
+			break;
+			
+		case R.id.linSearch:
+			intent = new Intent(this, SearchSales.class);
+			startActivity(intent);
 			break;
 			
 		case R.id.linUpdate:

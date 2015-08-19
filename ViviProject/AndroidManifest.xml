@@ -96,6 +96,10 @@
             android:name="com.viviproject.customerline.MapActivity"
             android:configChanges="orientation|screenSize" />
         <activity
+            android:name="com.viviproject.visit.SearchVisit"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name="com.viviproject.visit.VisitAcitvity"
             android:configChanges="orientation|screenSize" />
         <activity
@@ -125,6 +129,10 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="com.viviproject.deliver.OrderActivity"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.viviproject.sales.SearchSales"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
