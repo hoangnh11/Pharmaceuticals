@@ -98,8 +98,11 @@ public class ChangeOrderAdapter extends BaseAdapter{
 					if (_products.get(i).getColor() != null) {
 						try {
 			    			holder.tvName.setBackgroundColor(Color.parseColor("#"+_products.get(0).getColor()));
-						} catch (Exception e) {					
+						} catch (Exception e) {
+							holder.tvName.setBackgroundColor(mActivity.getResources().getColor(R.color.GREEN));
 						}
+					} else {
+						holder.tvName.setBackgroundColor(mActivity.getResources().getColor(R.color.GREEN));
 					}
 					
 					if (_products.get(i).getDiscount() != null) {

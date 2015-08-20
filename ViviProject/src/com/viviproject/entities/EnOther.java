@@ -11,10 +11,23 @@ public class EnOther implements Serializable{
 	private String subtype;
 	private String discount_id;
 	private String quantity;
+	private String discount;
 	private String max;
 	private String with_point;	
 	
 	
+	/**
+	 * @return the discount
+	 */
+	public String getDiscount() {
+		return discount;
+	}
+	/**
+	 * @param discount the discount to set
+	 */
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
 	/**
 	 * @return the subtype
 	 */

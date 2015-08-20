@@ -8,11 +8,62 @@ public class EnPoint implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -2598012631872825876L;
+	private String subtype;
 	private String discount_id;
 	private String quantity;
 	private String point;	
+	private String discount;
+	private String max;
+	private String with_point;
 	
-	
+	/**
+	 * @return the subtype
+	 */
+	public String getSubtype() {
+		return subtype;
+	}
+	/**
+	 * @param subtype the subtype to set
+	 */
+	public void setSubtype(String subtype) {
+		this.subtype = subtype;
+	}
+	/**
+	 * @return the discount
+	 */
+	public String getDiscount() {
+		return discount;
+	}
+	/**
+	 * @param discount the discount to set
+	 */
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+	/**
+	 * @return the max
+	 */
+	public String getMax() {
+		return max;
+	}
+	/**
+	 * @param max the max to set
+	 */
+	public void setMax(String max) {
+		this.max = max;
+	}
+	/**
+	 * @return the with_point
+	 */
+	public String getWith_point() {
+		return with_point;
+	}
+	/**
+	 * @param with_point the with_point to set
+	 */
+	public void setWith_point(String with_point) {
+		this.with_point = with_point;
+	}
 	/**
 	 * @return the discount_id
 	 */

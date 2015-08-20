@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.adapter.ListviewPrepareAdapter;
 import com.viviproject.entities.EnBasket;
+import com.viviproject.entities.EnDiscountGift;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.entities.EnProductSales;
 import com.viviproject.entities.EnProducts;
@@ -63,6 +64,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 	private String nowDelivery = "0";
 	private ArrayList<EnProducts> products;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
@@ -170,35 +172,64 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 			btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
 			if (linSubCreateOrder.getVisibility() == View.GONE) {
 				arrBasket = new ArrayList<EnBasket>();
-				for (int i = 0; i < enOrder.getProducts().size(); i++) {
-					enBasket = new EnBasket();
-					enBasket.setProduct_id(Integer.parseInt(enOrder.getProducts().get(i).getId()));
-					enBasket.setQuantity(Integer.parseInt(enOrder.getProducts().get(i).getTempProductQty()));
-					
-//					if (enOrder.getProducts().get(i).getDiscount() != null 
-//						&& enOrder.getProducts().get(i).getDiscount().getPoint() != null) {
-//						enBasket.setPoint(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getPoint().getDiscount_id()));
-//					} else {
-						enBasket.setPoint(Integer.parseInt("0"));
-//					}
-					
-//					if (enOrder.getProducts().get(i).getDiscount() != null 
-//						&& enOrder.getProducts().get(i).getDiscount().getSale() != null ) {
-//						enBasket.setSale(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getSale().getDiscount_id()));
-//					} else {
-						enBasket.setSale(Integer.parseInt("0"));
-//					}
-					
-//					if (enOrder.getProducts().get(i).getDiscount() != null 
-//						&& enOrder.getProducts().get(i).getDiscount().getOther() != null ) {
-//						enBasket.setOther(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getOther().getDiscount_id()));
-//					} else {
-						enBasket.setOther(Integer.parseInt("0"));
-//					}
-					
-					arrBasket.add(enBasket);
-				}
 				
+				for (int i = 0; i < enOrder.getProducts().size(); i++) {
+					if (enOrder != null && enOrder.getProducts() != null && enOrder.getProducts().size() > 0) {
+						enBasket = new EnBasket();
+						enBasket.setProduct_id(Integer.parseInt(enOrder.getProducts().get(i).getId()));
+						enBasket.setQuantity(Integer.parseInt(enOrder.getProducts().get(i).getTempProductQty()));
+						
+//							if (enOrder.getProducts().get(i).getDiscount() != null 
+//								&& enOrder.getProducts().get(i).getDiscount().getPoint() != null) {
+//								enBasket.setPoint(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getPoint().getDiscount_id()));
+//							} else {
+							enBasket.setPoint(Integer.parseInt("0"));
+//							}
+						
+//							if (enOrder.getProducts().get(i).getDiscount() != null 
+//								&& enOrder.getProducts().get(i).getDiscount().getSale() != null ) {
+//								enBasket.setSale(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getSale().getDiscount_id()));
+//							} else {
+							enBasket.setSale(Integer.parseInt("0"));
+//							}
+						
+//							if (enOrder.getProducts().get(i).getDiscount() != null 
+//								&& enOrder.getProducts().get(i).getDiscount().getOther() != null ) {
+//								enBasket.setOther(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getOther().getDiscount_id()));
+//							} else {
+							enBasket.setOther(Integer.parseInt("0"));
+//							}
+							
+						if (enOrder.getProducts().get(i).getName() != null) {
+							enBasket.setName(enOrder.getProducts().get(i).getName());
+						}
+						
+						if (products != null && products.size() > 0) {
+							if (products.get(i).getPrice() != null) {
+								enBasket.setPrice(products.get(i).getPrice());
+							}
+							
+							if (products.get(i).getDiscount() != null) {
+								if (products.get(i).getDiscount().getPoint() != null 
+										&& products.get(i).getDiscount().getPoint().getPoint() != null) {
+									enBasket.setDiscount_point(Float.parseFloat("0"));
+								}
+								if (products.get(i).getDiscount().getSale() != null 
+										&& products.get(i).getDiscount().getSale().getDiscount() != null) {
+									enBasket.setDiscount_sale(Integer.parseInt("0"));
+								}								
+							}							
+						}						
+						
+						if (enOrder.getTotal() != null) {
+							enBasket.setTotal(Integer.parseInt(enOrder.getTotal()));
+						}
+						
+						enBasket.setNote("");
+						enBasket.setDiscountGift(new ArrayList<EnDiscountGift>());
+						arrBasket.add(enBasket);
+					}													
+				}
 				prepareSale = new PrepareSale();
 				prepareSale.execute();
 				tvCreateOrder.setBackgroundResource(R.color.BG_GRAY9E);
