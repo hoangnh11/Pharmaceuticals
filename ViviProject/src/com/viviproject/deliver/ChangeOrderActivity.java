@@ -176,35 +176,34 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 				for (int i = 0; i < enOrder.getProducts().size(); i++) {
 					if (enOrder != null && enOrder.getProducts() != null && enOrder.getProducts().size() > 0) {
 						enBasket = new EnBasket();
-						enBasket.setProduct_id(Integer.parseInt(enOrder.getProducts().get(i).getId()));
+						
 						enBasket.setQuantity(Integer.parseInt(enOrder.getProducts().get(i).getTempProductQty()));
 						
-//							if (enOrder.getProducts().get(i).getDiscount() != null 
-//								&& enOrder.getProducts().get(i).getDiscount().getPoint() != null) {
-//								enBasket.setPoint(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getPoint().getDiscount_id()));
-//							} else {
-							enBasket.setPoint(Integer.parseInt("0"));
-//							}
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null) {
+								enBasket.setPoint(Integer.parseInt(products.get(i).getDiscount().getPoint().getDiscount_id()));
+							} else {
+								enBasket.setPoint(Integer.parseInt("0"));
+							}
 						
-//							if (enOrder.getProducts().get(i).getDiscount() != null 
-//								&& enOrder.getProducts().get(i).getDiscount().getSale() != null ) {
-//								enBasket.setSale(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getSale().getDiscount_id()));
-//							} else {
-							enBasket.setSale(Integer.parseInt("0"));
-//							}
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null ) {
+								enBasket.setSale(Integer.parseInt(products.get(i).getDiscount().getSale().getDiscount_id()));
+							} else {
+								enBasket.setSale(Integer.parseInt("0"));
+							}
 						
-//							if (enOrder.getProducts().get(i).getDiscount() != null 
-//								&& enOrder.getProducts().get(i).getDiscount().getOther() != null ) {
-//								enBasket.setOther(Integer.parseInt(enOrder.getProducts().get(i).getDiscount().getOther().getDiscount_id()));
-//							} else {
-							enBasket.setOther(Integer.parseInt("0"));
-//							}
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null ) {
+								enBasket.setOther(Integer.parseInt(products.get(i).getDiscount().getOther().getDiscount_id()));
+							} else {
+								enBasket.setOther(Integer.parseInt("0"));
+							}
 							
 						if (enOrder.getProducts().get(i).getName() != null) {
 							enBasket.setName(enOrder.getProducts().get(i).getName());
 						}
 						
 						if (products != null && products.size() > 0) {
+							enBasket.setProduct_id(Integer.parseInt(products.get(i).getId()));
+							
 							if (products.get(i).getPrice() != null) {
 								enBasket.setPrice(products.get(i).getPrice());
 							}

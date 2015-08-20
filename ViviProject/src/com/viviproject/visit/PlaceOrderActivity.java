@@ -438,7 +438,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
 				lvForsale.setAdapter(forsaleAdapter);
 				app.setListViewHeight(lvForsale, forsaleAdapter);
-			}            
+			}
         }
     };
 	
