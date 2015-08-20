@@ -105,6 +105,7 @@ public final class HttpFunctionFactory {
 						+ netParameters[i].getValue().trim() + "&";
 			}
 		}
+		params = params.replaceAll(" " , "%20");
 		return params;
 	}
 

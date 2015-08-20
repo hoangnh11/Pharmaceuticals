@@ -148,7 +148,7 @@
     
     <string-array name="sort_type">
         <item>Tên</item>
-        <item>Loại</item>
-        <item>Tất cả</item>
+        <item>Doanh số lớn nhất</item>
+        <item>Doanh số nhỏ nhất</item>
     </string-array>
 </resources>
