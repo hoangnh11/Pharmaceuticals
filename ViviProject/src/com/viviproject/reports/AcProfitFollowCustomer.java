@@ -76,7 +76,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 	private static RestAdapter restAdapter;
 	private ProgressDialog dialog;
 	private Date dateFrom, dateTo;
-	private int page = 0, perPage = 15;
+	private int page = 1, perPage = 15;
 	private String productId = "0";
 	private String orderType = "name";
 	private int flagGetAllProducts = 0;
@@ -186,6 +186,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 					default:
 						break;
 					}
+					page = 1;
 					getListRevalueProductFromServer(productId, orderType);
 				}
 				flagOrderType++;
@@ -212,6 +213,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				if((flagGetAllProducts > 0) && null != enProducts){
 					productId = enProducts.getId();
 					Logger.error("product ID:" + productId);
+					page = 1;
 					getListRevalueProductFromServer(productId, orderType);
 				}
 				flagGetAllProducts++;

@@ -46,7 +46,7 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 	private static RestAdapter restAdapter;
 	private ProgressDialog dialog;
 	private int page = 1;
-	private int perPage = 10;
+	private int perPage = 15;
 	private int currentFragment = 0;
 	
 	@Override

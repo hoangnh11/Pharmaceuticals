@@ -69,7 +69,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	private ProgressDialog dialog;
 	private String dateFrom = "04/07/2015";
 	private String dateTo = "04/08/2015";
-	private int page = 0, perPage = 10;
+	private int page = 1, perPage = 10;
 	private int paddingTitle = 5;
 	private boolean flagOnBottomOfScroolView = false;
 	
