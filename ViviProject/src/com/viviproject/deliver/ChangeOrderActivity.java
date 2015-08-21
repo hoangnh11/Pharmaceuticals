@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.adapter.ListviewPrepareAdapter;
 import com.viviproject.entities.EnBasket;
-import com.viviproject.entities.EnDiscountGift;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.entities.EnProductSales;
 import com.viviproject.entities.EnProducts;
@@ -196,17 +195,17 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 							} else {
 								enBasket.setOther(Integer.parseInt("0"));
 							}
-							
-						if (enOrder.getProducts().get(i).getName() != null) {
-//							enBasket.setName(enOrder.getProducts().get(i).getName());
-						}
-						
+													
 						if (products != null && products.size() > 0) {
 							enBasket.setProduct_id(Integer.parseInt(products.get(i).getId()));
 							
-							if (products.get(i).getPrice() != null) {
+//							if (products.get(i).getName() != null) {
+//								enBasket.setName(products.get(i).getName());
+//							}
+							
+//							if (products.get(i).getPrice() != null) {
 //								enBasket.setPrice(products.get(i).getPrice());
-							}
+//							}
 							
 							if (products.get(i).getDiscount() != null) {
 								if (products.get(i).getDiscount().getPoint() != null 

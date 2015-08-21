@@ -570,23 +570,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					} catch (Exception e) {
 						Logger.error("responsePrepare: " + e);
 					}
-					
-					for (int i = 0; i < enProducts.getProducts().size(); i++) {
-						enProducts.getProducts().get(i).setCheckTD(GlobalParams.FALSE);
-						enProducts.getProducts().get(i).setCheckCK(GlobalParams.FALSE);
-						enProducts.getProducts().get(i).setCheckOther(GlobalParams.FALSE);
-						enProducts.getProducts().get(i).setUnit("0");
-					}
-					
-					forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
-					forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
-					forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
-					forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
-					forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
-					forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
-					lvForsale.setAdapter(forsaleAdapter);
-					app.setListViewHeight(lvForsale, forsaleAdapter);
-					
+										
 				} else {
 					try {
 						app.alertErrorMessageString(responsePrepare.getMessage(),
@@ -663,6 +647,22 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
 					linSubCreateOrder.setVisibility(View.GONE);
 					tvCreateOrder.setBackgroundResource(R.color.BLUE);
+					
+					for (int i = 0; i < enProducts.getProducts().size(); i++) {
+						enProducts.getProducts().get(i).setCheckTD(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setCheckCK(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setCheckOther(GlobalParams.FALSE);
+						enProducts.getProducts().get(i).setUnit("0");
+					}
+				
+					forsaleAdapter = new ForsaleAdapter(PlaceOrderActivity.this, enProducts);
+					forsaleAdapter.setOnTDClickHandler(onTDClickHandler);
+					forsaleAdapter.setOnCKClickHandler(onCKClickHandler);
+					forsaleAdapter.setOnOtherClickHandler(onOtherClickHandler);
+					forsaleAdapter.setOnMinusClickHandler(onMinusClickHandler);
+					forsaleAdapter.setOnPlusClickHandler(onPlusClickHandler);
+					lvForsale.setAdapter(forsaleAdapter);
+					app.setListViewHeight(lvForsale, forsaleAdapter);
 				} else {
 					try {
 						app.alertErrorMessageString(responseCreateSales.getMessage(),
