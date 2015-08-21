@@ -194,7 +194,7 @@ public class ListCustomer extends Activity implements OnClickListener{
 			progressDialog = new ProgressDialog(ListCustomer.this);
 			progressDialog.setMessage(getResources().getString(R.string.LOADING));
 			progressDialog.show();
-			progressDialog.setCancelable(false);
+			progressDialog.setCancelable(true);
 			progressDialog.setOnCancelListener(new OnCancelListener() {
 				@Override
 				public void onCancel(DialogInterface dialog) {

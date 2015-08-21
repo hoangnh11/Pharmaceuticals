@@ -198,14 +198,14 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 							}
 							
 						if (enOrder.getProducts().get(i).getName() != null) {
-							enBasket.setName(enOrder.getProducts().get(i).getName());
+//							enBasket.setName(enOrder.getProducts().get(i).getName());
 						}
 						
 						if (products != null && products.size() > 0) {
 							enBasket.setProduct_id(Integer.parseInt(products.get(i).getId()));
 							
 							if (products.get(i).getPrice() != null) {
-								enBasket.setPrice(products.get(i).getPrice());
+//								enBasket.setPrice(products.get(i).getPrice());
 							}
 							
 							if (products.get(i).getDiscount() != null) {
@@ -224,8 +224,8 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 							enBasket.setTotal(Integer.parseInt(enOrder.getTotal()));
 						}
 						
-						enBasket.setNote("");
-						enBasket.setDiscountGift(new ArrayList<EnDiscountGift>());
+//						enBasket.setNote("");
+//						enBasket.setDiscountGift(new ArrayList<EnDiscountGift>());
 						arrBasket.add(enBasket);
 					}													
 				}
@@ -297,7 +297,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
             changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
             changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
             lvChangeOrder.setAdapter(changeOrderAdapter);
-			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);		
+			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
         }
     };
 
@@ -599,7 +599,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
 				NetParameter[] netParameter = new NetParameter[7];		
-				netParameter[0] = new NetParameter("store_id", enOrder.getId());
+				netParameter[0] = new NetParameter("store_id", enOrder.getStore_id());
 				netParameter[1] = new NetParameter("delivery", nowDelivery);
 				netParameter[2] = new NetParameter("discount_point_value", String.valueOf(responsePrepare.getTotal_point()));
 				netParameter[3] = new NetParameter("discount_sale_value", String.valueOf(responsePrepare.getTotal_discount()));
@@ -609,7 +609,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 				
 				try {
 					data = HttpNetServices.Instance.createSale(netParameter,
-							BuManagement.getToken(ChangeOrderActivity.this), enOrder.getId());					
+							BuManagement.getToken(ChangeOrderActivity.this), enOrder.getId());
 					responseCreateSales = DataParser.createSale(data);
 					Logger.error(data);
 					return GlobalParams.TRUE;

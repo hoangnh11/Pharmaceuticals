@@ -12,6 +12,7 @@ public class EnOrder implements Serializable{
 	private String id;
 	private String uid;
 	private String code;
+	private String store_id;
 	private String date_book;
 	private String delivery;
 	private String total;
@@ -20,6 +21,18 @@ public class EnOrder implements Serializable{
 	private ArrayList<EnProductSales> products;
 	private ArrayList<EnGift> gifts;
 		
+	/**
+	 * @return the store_id
+	 */
+	public String getStore_id() {
+		return store_id;
+	}
+	/**
+	 * @param store_id the store_id to set
+	 */
+	public void setStore_id(String store_id) {
+		this.store_id = store_id;
+	}
 	/**
 	 * @return the products
 	 */
