@@ -1,6 +1,8 @@
 package com.viviproject.customerline;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,12 +14,19 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.viviproject.R;
@@ -32,12 +41,13 @@ import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.ultilities.StringUtils;
 
 public class EditCustomer extends Activity implements OnClickListener{
 	
 	public static int indexEditCustomer = -1;
-	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
+	private LinearLayout linBack, linSearch, linUpdate, linRefresh, linStaff, linRemoveStaff, linAddStaff;
 	private TextView tvHeader;
 	private Button btnUpdate, btnLineChange;
 	private EditText edtStoreName, edtStorePhone, edtStoreAddress;		
@@ -50,6 +60,13 @@ public class EditCustomer extends Activity implements OnClickListener{
 	private String vip, times;
 	private ArrayList<Integer> line;
 	
+	private Spinner spDay, spMonth, spYear;
+	private List<String> listDay, listMonth, listYear;
+	private String yearOwner, monthOwner, dayOwner;
+	private EditText edtNameOwner, edtPhoneOwner, edtNoteOwner;	
+	private RadioGroup radioGroup;
+	private RadioButton radioOwner,radioStaff;
+	
 	private ProgressDialog progressDialog;
 	private UpdateStores updateStores;
 	private AppPreferences app;
@@ -59,12 +76,18 @@ public class EditCustomer extends Activity implements OnClickListener{
 	private ArrayList<EnStaff> arrStaff;
 	private EnStaff enStaff;
 	private LineChange lineChange;
+	private int positionDelete = 0;
+	private boolean remove;
+	private SharedPreferenceManager sm;
+	private String role;
  	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_customer_layout);
 		app = new AppPreferences(this);
+		sm = new SharedPreferenceManager(this);
+		sm.saveString(GlobalParams.DELETE, GlobalParams.FALSE);
 		arrStaff = new ArrayList<EnStaff>();
 		enStaff = new EnStaff();
 		bundle = app.getBundle(this);
@@ -74,8 +97,58 @@ public class EditCustomer extends Activity implements OnClickListener{
 		store = (EnStores) bundle.getSerializable(GlobalParams.STORES);
 		line = new ArrayList<Integer>();		
 		times = "1";
+		role = "owner";
+		remove = false;
 		
 		initLayout();
+		
+		String[] day = getResources().getStringArray(R.array.day);
+		listDay = Arrays.asList(day);
+		ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listDay);
+		spDay.setAdapter(dayAdapter);		
+		
+		spDay.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				dayOwner = listDay.get(arg2);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {}			
+		});		
+		
+		String[] month = getResources().getStringArray(R.array.month);
+		listMonth = Arrays.asList(month);
+		ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listMonth);
+		spMonth.setAdapter(monthAdapter);		
+		
+		spMonth.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				monthOwner = listMonth.get(arg2);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {}			
+		});		
+		
+		String[] year = getResources().getStringArray(R.array.year);
+		listYear = Arrays.asList(year);
+		ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listYear);
+		spYear.setAdapter(yearAdapter);
+		spYear.setSelection(40);
+		spYear.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				yearOwner = listYear.get(arg2);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {}			
+		});
 		
 		if (store != null) {
 			edtStoreName.setText(store.getName());
@@ -173,7 +246,8 @@ public class EditCustomer extends Activity implements OnClickListener{
 			}
 		}
 		
-		editStaffAdapter = new EditStaffAdapter(this, arrStaff);	
+		editStaffAdapter = new EditStaffAdapter(this, arrStaff);
+		editStaffAdapter.setOnItemClickHandler(onItemClickDelete);
 		editStaffAdapter.setTextChangedHandler(edtNote);
 		editStaffAdapter.setTextChangedNameHandler(edtName);
 		editStaffAdapter.setTextChangedPhoneHandler(edtPhone);
@@ -204,15 +278,29 @@ public class EditCustomer extends Activity implements OnClickListener{
 		linRefresh.setOnClickListener(this);
 		linRefresh.setVisibility(View.GONE);
 		
+		linAddStaff = (LinearLayout) findViewById(R.id.linAddStaff);
+		linAddStaff.setOnClickListener(this);
+		linStaff = (LinearLayout) findViewById(R.id.linStaff);
+		linRemoveStaff = (LinearLayout) findViewById(R.id.linRemoveStaff);
+		linRemoveStaff.setOnClickListener(this);
+		
 		btnUpdate = (Button) findViewById(R.id.btnUpdate);
 		btnUpdate.setOnClickListener(this);
 		btnLineChange = (Button) findViewById(R.id.btnLineChange);
 		btnLineChange.setOnClickListener(this);
 		
+		spDay = (Spinner) findViewById(R.id.spDay);
+		spMonth = (Spinner) findViewById(R.id.spMonth);
+		spYear = (Spinner) findViewById(R.id.spYear);
+		
 		edtStoreName = (EditText) findViewById(R.id.edtStoreName);
 		edtStorePhone = (EditText) findViewById(R.id.edtStorePhone);
 		edtStoreAddress = (EditText) findViewById(R.id.edtStoreAddress);		
 	
+		edtNameOwner = (EditText) findViewById(R.id.edtNameOwner);
+		edtPhoneOwner = (EditText) findViewById(R.id.edtPhoneOwner);
+		edtNoteOwner = (EditText) findViewById(R.id.edtNoteOwner);
+		
 		ckVipA = (CheckBox) findViewById(R.id.ckVipA);	
 		ckVipA.setOnCheckedChangeListener(new CheckBoxChecked());
 		ckVipB = (CheckBox) findViewById(R.id.ckVipB);
@@ -241,6 +329,32 @@ public class EditCustomer extends Activity implements OnClickListener{
 		ckTimeFour.setOnCheckedChangeListener(new CheckBoxChecked());
 	
 		lvAddStaff = (ListView) findViewById(R.id.lvAddStaff);
+		
+		radioOwner = (RadioButton) findViewById(R.id.radioOwner);
+		radioStaff = (RadioButton) findViewById(R.id.radioStaff);		
+		radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {			
+				switch (checkedId) {
+				case R.id.radioOwner:
+					if(radioOwner.isChecked()){					
+						role = "owner";			
+					}
+					break;
+						
+				case R.id.radioStaff:
+					if(radioStaff.isChecked()){						
+						role = "employee";	
+					}
+					break;
+					
+				default:
+					break;
+				}
+			}
+		});
 	}
 	
 	private int validateInput() {
@@ -368,12 +482,77 @@ public class EditCustomer extends Activity implements OnClickListener{
 		}
 	};
     
+	OnClickListener onItemClickDelete = new OnClickListener()
+	{
+        @Override
+        public void onClick(View v)
+        {
+        	positionDelete = ((ItemEditCustomer) v).get_position();        	
+        	arrStaff.remove(positionDelete);
+        	editStaffAdapter = new EditStaffAdapter(EditCustomer.this, arrStaff);
+        	editStaffAdapter.setOnItemClickHandler(onItemClickDelete);
+//        	editStaffAdapter.setTextChangedHandler(edtNote);
+//    		editStaffAdapter.setTextChangedNameHandler(edtName);
+//    		editStaffAdapter.setTextChangedPhoneHandler(edtPhone);
+//    		editStaffAdapter.setTextChangedBirthDayHandler(edtBirthDay);
+			lvAddStaff.setAdapter(editStaffAdapter);
+			app.setListViewHeight(lvAddStaff, editStaffAdapter);
+			
+			if (arrStaff.size() == 0) {
+				linStaff.setVisibility(View.GONE);
+				linRemoveStaff.setVisibility(View.GONE);
+			}
+        }
+    };
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		
 		case R.id.linBack:
 			finish();
+			break;
+			
+		case R.id.linAddStaff:
+			linStaff.setVisibility(View.VISIBLE);
+			linRemoveStaff.setVisibility(View.VISIBLE);
+			enStaff = new EnStaff();
+			enStaff.setId(String.valueOf(arrStaff.size()));
+			enStaff.setFullname(edtNameOwner.getEditableText().toString());
+			enStaff.setBirthday(dayOwner + "-" + monthOwner + "-" + yearOwner);
+			enStaff.setPhone(edtPhoneOwner.getEditableText().toString());
+			enStaff.setRole(role);
+			enStaff.setNote(edtNoteOwner.getEditableText().toString());			
+			arrStaff.add(enStaff);
+			
+			editStaffAdapter = new EditStaffAdapter(this, arrStaff);
+			editStaffAdapter.setOnItemClickHandler(onItemClickDelete);
+//			editStaffAdapter.setTextChangedHandler(edtNote);
+//    		editStaffAdapter.setTextChangedNameHandler(edtName);
+//    		editStaffAdapter.setTextChangedPhoneHandler(edtPhone);
+//    		editStaffAdapter.setTextChangedBirthDayHandler(edtBirthDay);
+			lvAddStaff.setAdapter(editStaffAdapter);
+			app.setListViewHeight(lvAddStaff, editStaffAdapter);
+			
+			edtNameOwner.setText("");
+			edtPhoneOwner.setText("");
+			edtNoteOwner.setText("");
+			spDay.setSelection(0);
+			spMonth.setSelection(0);
+			spYear.setSelection(40);
+			
+			break;
+		case R.id.linRemoveStaff:
+			
+			if (!remove) {
+				sm.saveString(GlobalParams.DELETE, GlobalParams.TRUE);
+				remove = true;
+			} else {
+				sm.saveString(GlobalParams.DELETE, GlobalParams.FALSE);
+				remove = false;
+			}
+//			
+			lvAddStaff.setAdapter(editStaffAdapter);	
 			break;
 			
 		case R.id.btnUpdate:

@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.customerline.ItemEditCustomer;
 import com.viviproject.entities.EnStaff;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.GlobalParams;
 
 public class EditStaffAdapter extends BaseAdapter {
 	private List<EnStaff> _data;
@@ -84,6 +86,15 @@ public class EditStaffAdapter extends BaseAdapter {
         	holder.tvBirthDay.setText(items.getBirthday());
         	holder.tvRole.setText(items.getRole());
         	holder.tvNote.setText(items.getNote());
+        	
+        	if (BuManagement.Instance.getCheckDeleteEditCustomer(mActivity).toString().equals(GlobalParams.TRUE))
+	        {            
+        		holder.btnDelete.setVisibility(View.VISIBLE);
+			}
+	        else
+	        {
+        		holder.btnDelete.setVisibility(View.GONE);
+			}
 		}
         
         ((ItemEditCustomer) convertView).set_position(position);

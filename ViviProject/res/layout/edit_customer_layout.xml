@@ -377,6 +377,214 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radioOwner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/OWNER"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/radioStaff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/STAFF_FULL"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NAME"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtNameOwner"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/BLANK"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/DAY_OF_BIRTH"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:background="@drawable/bg_spinner_day"
+                    android:gravity="center"
+                    android:paddingRight="22dp"
+                    android:prompt="@string/SELECT_DAY"
+                    android:scrollbars="none" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="/"
+                    android:textColor="@color/BLACK" />
+
+                <Spinner
+                    android:id="@+id/spMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_spinner_day"
+                    android:gravity="center"
+                    android:paddingRight="22dp"
+                    android:prompt="@string/SELECT_MONTH"
+                    android:scrollbars="none" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="/"
+                    android:textColor="@color/BLACK" />
+
+                <Spinner
+                    android:id="@+id/spYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_spinner_year"
+                    android:gravity="center"
+                    android:paddingRight="22dp"
+                    android:prompt="@string/SELECT_YEAR"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/PHONE_NUMBER_DETAILS"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtPhoneOwner"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/BLANK"
+                    android:inputType="phone"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NOTE_TWO_DOTS"
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtNoteOwner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_note"
+                    android:hint="@string/BLANK"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text=""
+                    android:textColor="@color/BLACK"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linAddStaff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/BLANK"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_union" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:text="@string/ADD_STAFF"
+                    android:textColor="@color/TEXT_COLOR_SKYBLUE"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -410,15 +618,42 @@
                     android:background="@color/BLACK" />
             </LinearLayout>
 
-            <TextView 
+            <LinearLayout
+                android:id="@+id/linRemoveStaff"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="visible" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/BLANK"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/icon_union"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/REMOVE_STAFF"
+                    android:textColor="@color/TEXT_COLOR_SKYBLUE"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="@string/EDIT_HUMAN_RESOURCE"
                 android:textColor="@color/BLACK"
-                android:layout_marginTop="4dp"
-                android:textStyle="italic"
-                android:textSize="14sp"/>
-            
+                android:textSize="14sp"
+                android:textStyle="italic" />
+
             <Button
                 android:id="@+id/btnUpdate"
                 android:layout_width="88dp"

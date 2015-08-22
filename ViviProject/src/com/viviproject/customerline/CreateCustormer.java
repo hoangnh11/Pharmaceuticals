@@ -222,8 +222,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
 			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				//radioDay = (RadioButton) findViewById(checkedId);		
+			public void onCheckedChanged(RadioGroup group, int checkedId) {			
 				switch (checkedId) {
 				case R.id.radioOwner:
 					if(radioOwner.isChecked()){					
