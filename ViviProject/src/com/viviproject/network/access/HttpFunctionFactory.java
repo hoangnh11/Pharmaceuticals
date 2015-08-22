@@ -337,6 +337,14 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
+	public static HttpFunctionInfo searchDelivedOrder(NetParameter[] netParameters) {
+		HttpFunctionInfo functionInfo = createGetMethod("search");
+		String params = funcLogParams(netParameters);
+		Log.e("search", "search: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/search?" + params);
+		return functionInfo;
+	}
+	
 	public static HttpFunctionInfo search(NetParameter[] netParameters) {
 		HttpFunctionInfo functionInfo = createGetMethod("search");
 		String params = funcLogParams(netParameters);

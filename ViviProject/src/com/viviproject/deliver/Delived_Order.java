@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -166,6 +167,11 @@ public class Delived_Order extends Activity implements OnClickListener{
 			
 		case R.id.imgDelete:
 			edtFilter.setText("");
+			break;
+		
+		case R.id.linSearch:
+			Intent intentSearch = new Intent(Delived_Order.this, AcdelivedOrderSearch.class);
+			startActivity(intentSearch);
 			break;
 			
 		case R.id.imgBackToTop:

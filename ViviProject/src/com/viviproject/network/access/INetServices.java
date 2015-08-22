@@ -42,4 +42,5 @@ public interface INetServices {
 	String getStoreWaitApprove(NetParameter[] netParameters) throws Exception;
 	String lineChange(NetParameter[] netParameters, String token) throws Exception;
 	String search(NetParameter[] netParameters) throws Exception;
+	String searchDelivedOrder(NetParameter[] netParameters) throws Exception;
 }
