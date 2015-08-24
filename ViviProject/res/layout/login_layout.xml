@@ -37,8 +37,8 @@
                 android:padding="12dp" >
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
                     android:padding="12dp"
@@ -48,12 +48,13 @@
                 <EditText
                     android:id="@+id/edtUsername"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:background="@color/WHITE"
                     android:digits="@string/USERNAME_REQUIRE"
                     android:hint="@string/USERNAME"
                     android:padding="12dp"
-                    android:textSize="14sp" />
+                    android:gravity="center_vertical"
+                    android:textSize="18dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,8 +68,8 @@
                 android:paddingRight="12dp" >
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:background="@color/BLUE"
                     android:contentDescription="@string/BLANK"
                     android:padding="12dp"
@@ -78,13 +79,14 @@
                 <EditText
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:background="@color/WHITE"
                     android:hint="@string/PASSWORD"
                     android:inputType="textPassword"
                     android:padding="12dp"
+                    android:gravity="center_vertical"
                     android:imeOptions="actionDone"
-                    android:textSize="14sp" />
+                    android:textSize="18dp" />
             </LinearLayout>
 
             <Button

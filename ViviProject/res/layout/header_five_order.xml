@@ -24,7 +24,7 @@
             android:background="@color/BLACK" />
 
         <TextView
-            android:layout_width="40dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="4dp"

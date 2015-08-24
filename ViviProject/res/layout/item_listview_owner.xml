@@ -14,7 +14,7 @@
         android:paddingBottom="4dp" >
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="@string/OWNER_PHARMACY_TWO_DOTS"
             android:textColor="@color/GRAY88"
@@ -37,7 +37,7 @@
         android:paddingBottom="4dp" >
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="@string/BIRTHDAY"
             android:textColor="@color/GRAY88"
@@ -60,7 +60,7 @@
         android:paddingBottom="4dp" >
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="@string/PHONE_NUMBER"
             android:textColor="@color/GRAY88"
@@ -83,7 +83,7 @@
         android:paddingBottom="4dp" >
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="@string/NOTE"
             android:textColor="@color/GRAY88"

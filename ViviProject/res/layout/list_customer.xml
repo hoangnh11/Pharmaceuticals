@@ -63,6 +63,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:singleLine="true"
+            android:textSize="16dp"
             android:background="@color/WHITE"
             android:hint="@string/COMMON_FILTER"
             android:paddingLeft="8dp" />

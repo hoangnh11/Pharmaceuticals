@@ -120,6 +120,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 		showSetting = true;
 		linRefresh = (LinearLayout) findViewById(R.id.linRefresh);
 		linRefresh.setOnClickListener(this);
+		linRefresh.setVisibility(View.GONE);
 		imgSetting = (ImageView) findViewById(R.id.imgSetting);
 		imgSetting.setOnClickListener(this);
 		linSetting = (LinearLayout) findViewById(R.id.linSetting);
