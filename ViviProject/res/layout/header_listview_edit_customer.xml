@@ -27,7 +27,7 @@
             android:padding="4dp"
             android:text="@string/NAME"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -42,7 +42,7 @@
             android:padding="4dp"
             android:text="@string/PHONE_NUMBER_DETAILS"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -57,7 +57,7 @@
             android:padding="4dp"
             android:text="@string/DAY_OF_BIRTH"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -72,7 +72,7 @@
             android:padding="4dp"
             android:text="@string/ROLE"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -88,7 +88,7 @@
             android:padding="4dp"
             android:text="@string/NOTE_TWO_DOTS"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View

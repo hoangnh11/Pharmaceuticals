@@ -7,5 +7,6 @@
     android:gravity="center"
     android:layout_gravity="center"
     android:padding="4dp"
+    android:textSize="14dp"
     android:orientation="vertical"
     android:singleLine="true" />

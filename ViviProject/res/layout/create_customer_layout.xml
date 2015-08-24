@@ -20,14 +20,14 @@
             android:padding="8dp" >
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/PHARMACY_NAME_TWO_DOTS"
                     android:textColor="@color/BLACK"
@@ -36,8 +36,9 @@
 
                 <EditText
                     android:id="@+id/edtStoreName"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/BLANK"
                     android:text=""
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
@@ -45,14 +46,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/ADDRESS_TWO_DOTS"
                     android:textColor="@color/BLACK"
@@ -61,8 +62,9 @@
 
                 <EditText
                     android:id="@+id/edtStoreAddress"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/BLANK"
                     android:text=""
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
@@ -70,14 +72,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/PHONE_NUMBER_DETAILS"
                     android:textColor="@color/BLACK"
@@ -86,7 +88,7 @@
 
                 <EditText
                     android:id="@+id/edtStorePhone"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:text=""
@@ -103,7 +105,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/LINE"
                     android:textColor="@color/BLACK"
@@ -116,7 +118,7 @@
                     android:layout_marginRight="15dp"
                     android:text="@string/T2"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -125,7 +127,7 @@
                     android:layout_marginRight="15dp"
                     android:text="@string/T3"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -134,7 +136,7 @@
                     android:layout_marginRight="15dp"
                     android:text="@string/T4"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -143,7 +145,7 @@
                     android:layout_marginRight="15dp"
                     android:text="@string/T5"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -152,7 +154,7 @@
                     android:layout_marginRight="15dp"
                     android:text="@string/T6"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -160,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/T7"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -174,7 +176,7 @@
                     android:id="@+id/ckT2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="113dp" />
+                    android:layout_marginLeft="153dp" />
 
                 <CheckBox
                     android:id="@+id/ckT3"
@@ -210,7 +212,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/PERIOR"
                     android:textColor="@color/BLACK"
@@ -223,7 +225,7 @@
                     android:layout_marginRight="8dp"
                     android:text="@string/ONE_LAN"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -232,7 +234,7 @@
                     android:layout_marginRight="8dp"
                     android:text="@string/TWO_LAN"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -241,7 +243,7 @@
                     android:layout_marginRight="8dp"
                     android:text="@string/THREE_LAN"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -250,7 +252,7 @@
                     android:layout_marginRight="8dp"
                     android:text="@string/FOUR_LAN"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -264,7 +266,7 @@
                     android:id="@+id/ckTimeOne"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="124dp"
+                    android:layout_marginLeft="164dp"
                     android:checked="true" />
 
                 <CheckBox
@@ -293,13 +295,13 @@
                 android:orientation="horizontal" >
 
                 <Button
-                    android:layout_width="110dp"
-                    android:layout_height="24dp"
+                    android:layout_width="150dp"
+                    android:layout_height="32dp"
                     android:background="@drawable/bg_blue_gray"
                     android:gravity="center"
                     android:text="@string/REQUEST_CHANGE_LINE"
                     android:textColor="@color/WHITE"
-                    android:textSize="12sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -319,7 +321,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/VIP"
                     android:textColor="@color/BLACK"
@@ -331,7 +333,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/A"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <CheckBox
@@ -345,7 +347,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="@string/B"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <CheckBox
@@ -359,7 +361,7 @@
                     android:layout_marginLeft="20dp"
                     android:text="@string/C"
                     android:textColor="@color/BLACK"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <CheckBox
@@ -402,14 +404,14 @@
             </RadioGroup>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/NAME"
                     android:textColor="@color/BLACK"
@@ -418,7 +420,7 @@
 
                 <EditText
                     android:id="@+id/edtNameOwner"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/BLANK"
                     android:singleLine="true"
@@ -436,7 +438,7 @@
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/DAY_OF_BIRTH"
                     android:textColor="@color/BLACK"
@@ -495,14 +497,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/PHONE_NUMBER_DETAILS"
                     android:textColor="@color/BLACK"
@@ -511,7 +513,7 @@
 
                 <EditText
                     android:id="@+id/edtPhoneOwner"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/BLANK"
                     android:inputType="phone"
@@ -523,14 +525,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="@string/NOTE_TWO_DOTS"
                     android:textColor="@color/BLACK"
@@ -539,7 +541,7 @@
 
                 <EditText
                     android:id="@+id/edtNoteOwner"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_note"
                     android:hint="@string/BLANK"
@@ -579,7 +581,7 @@
             <LinearLayout
                 android:id="@+id/linStaff"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"              
+                android:layout_height="wrap_content"
                 android:background="@color/BG_GRAY_LIGHT"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
@@ -640,7 +642,7 @@
                 android:gravity="center"
                 android:text="@string/SEND_REQUEST"
                 android:textColor="@color/WHITE"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -672,7 +674,7 @@
                     android:gravity="center"
                     android:text="@string/HERE"
                     android:textColor="@color/WHITE"
-                    android:textSize="12sp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
