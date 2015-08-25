@@ -18,31 +18,77 @@
 		    android:orientation="vertical"
 		    android:padding="@dimen/padding_body_screen">
 		    
-		    <LinearLayout 
-		        android:id="@+id/linTimeFilter"
+		    <!-- select time -->
+		    <LinearLayout
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:gravity="center_vertical"
-		        android:orientation="horizontal">
-		        
-		        <TextView 
-	               android:id="@+id/tvGimicStatisticTime"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:textSize="13sp"
-	               android:textColor="@color/TEXT_COLOR_SKYBLUE1"
-	               android:text="@string/BLANK"/>
-		        
-		        <ImageView 
-		            android:id="@+id/imgIconCalendar"
+		        android:orientation="horizontal" >
+
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="5dp"
+		            android:text="Từ "
+		            android:textColor="@color/TEXT_COLOR_SKYBLUE1"
+		            android:textSize="13sp" />
+
+		        <TextView
+		            android:id="@+id/tvTimeFrom"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="5dp"
+		            android:text="15/3/2015"
+		            android:textColor="@color/TEXT_COLOR_SKYBLUE1"
+		            android:textSize="13sp" />
+
+		        <ImageView
+		            android:id="@+id/imgIconCalendarFrom"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="5dp"
+		            android:background="@drawable/bg_img_calendar"
+		            android:padding="5dp"
+		            android:src="@drawable/ic_calenda_new" />
+
+		        <TextView
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_marginLeft="10dp"
-		            android:padding="5dp"
+		            android:layout_marginTop="5dp"
+		            android:text="- "
+		            android:textColor="@color/TEXT_COLOR_SKYBLUE1"
+		            android:textSize="13sp" />
+
+		        <TextView
+		            android:id="@+id/tvTimeTo"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="5dp"
+		            android:text="15/4/2015"
+		            android:textColor="@color/TEXT_COLOR_SKYBLUE1"
+		            android:textSize="13sp" />
+
+		        <ImageView
+		            android:id="@+id/imgIconCalendarTo"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="10dp"
 		            android:background="@drawable/bg_img_calendar"
-		            android:src="@drawable/ic_calenda_new"/>
+		            android:padding="5dp"
+		            android:src="@drawable/ic_calenda_new" />
+
+		        <Button
+		            android:id="@+id/btRevalueSearchOK"
+		            android:layout_width="25dp"
+		            android:layout_height="25dp"
+		            android:layout_marginLeft="15dp"
+		            android:background="@drawable/bg_button_ok"
+		            android:gravity="center"
+		            android:text="@string/COMMON_OK_EN"
+		            android:textColor="@color/WHITE"
+		            android:textSize="13sp" />
 		    </LinearLayout>
-	
+        
 		    <!-- <TableLayout
 		        android:id="@+id/tblReportProfit"
 		        android:layout_width="match_parent"

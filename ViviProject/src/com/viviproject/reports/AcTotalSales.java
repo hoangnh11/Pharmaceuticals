@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,8 +39,9 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 	private LinearLayout linBack;
 	private TextView tvHeader;
 	private LinearLayout linOptionSearch, linOptionFilter, linOptionRefresh;
-	private TextView tvFromTo;
-	private ImageView imgCalenDa;
+	private TextView tvTimeFrom,tvTimeTo;
+	private ImageView imgIconCalendarFrom, imgIconCalendarTo;
+	private Button btRevalueSearchOK;
 	private LinearLayout linReportProfit;
 	private TextView tvTotalSales;
 	
@@ -82,12 +84,20 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 		linOptionRefresh.setVisibility(View.VISIBLE);
 		linOptionRefresh.setOnClickListener(this);
 		
-		tvFromTo = (TextView) findViewById(R.id.tvGimicStatisticTime);
-		String time = getResources().getString(R.string.FROM_TO_TIME);
-		tvFromTo.setText(String.format(time, strDateFrom, strDateTo));
+		tvTimeFrom = (TextView) findViewById(R.id.tvTimeFrom);
+		tvTimeFrom.setText("" + strDateFrom);
 		
-		imgCalenDa = (ImageView) findViewById(R.id.imgIconCalendar);
-		imgCalenDa.setOnClickListener(this);
+		tvTimeTo = (TextView) findViewById(R.id.tvTimeTo);
+		tvTimeTo.setText("" + strDateTo);
+		
+		imgIconCalendarFrom = (ImageView) findViewById(R.id.imgIconCalendarFrom);
+		imgIconCalendarFrom.setOnClickListener(this);
+		
+		imgIconCalendarTo = (ImageView) findViewById(R.id.imgIconCalendarTo);
+		imgIconCalendarTo.setOnClickListener(this);
+		
+		btRevalueSearchOK = (Button) findViewById(R.id.btRevalueSearchOK);
+		btRevalueSearchOK.setOnClickListener(this);
 		
 		linReportProfit = (LinearLayout) findViewById(R.id.linReportProfit);
 		tvTotalSales = (TextView) findViewById(R.id.tvTotalSales);
@@ -174,13 +184,23 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 		case R.id.linBack:
 			AcTotalSales.this.finish();
 			break;
+		
+		case R.id.btRevalueSearchOK:
+			refreshData();
+			break;
 			
-		case R.id.imgIconCalendar:
-			showCalender();
+		case R.id.imgIconCalendarFrom:
+			showCalender(R.id.imgIconCalendarFrom);
 			break;
 		
+		case R.id.imgIconCalendarTo:
+			showCalender(R.id.imgIconCalendarTo);
+			break;
+			
 		case R.id.linRefresh:
 			getCurrentDate();
+			tvTimeFrom.setText("" + strDateFrom);
+			tvTimeTo.setText("" + strDateTo);
 			refreshData();
 			break;
 			
@@ -191,24 +211,28 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 	}
 	
 	@SuppressLint("SimpleDateFormat")
-	private void showCalender() {
+	private void showCalender(final int viewId) {
 		listener = new CaldroidListener() {
 
 			@Override
 			public void onSelectDate(Date date, View view) {
 				dialogCaldroidFragment.dismiss();
 				
-				strDateTo = formatter.format(date);
+				switch (viewId) {
+				case R.id.imgIconCalendarTo:
+					strDateTo = formatter.format(date);
+					tvTimeTo.setText("" + strDateTo);
+					break;
+					
+				case R.id.imgIconCalendarFrom:
+					strDateFrom = formatter.format(date);
+					tvTimeFrom.setText("" + strDateFrom);
+					break;
+
+				default:
+					break;
+				}
 				
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(date);
-				calendar.add(Calendar.MONTH, -1);
-				
-				strDateFrom = formatter.format(calendar.getTime());
-				String time = getResources().getString(R.string.FROM_TO_TIME);
-				tvFromTo.setText(String.format(time, strDateFrom, strDateTo));
-				
-				refreshData();
 			}
 
 			@Override
