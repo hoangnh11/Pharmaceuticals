@@ -320,6 +320,47 @@ public final class BuManagement {
 	}
 
 	/**
+	 * valid date
+	 * @param mDate date to check valid
+	 * @return return true if date before to day and false otherwise
+	 */
+	public static boolean compareDateWithToDay(Date mDate){
+		boolean isBefore = false;
+		try {
+			Calendar calendar = Calendar.getInstance();
+			if(mDate.compareTo(calendar.getTime()) > 0){
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isBefore;
+	}
+	
+	/**
+	 * valid date
+	 * @param mDate date to check valid
+	 * @return return true if date before to day and false otherwise
+	 */
+	public static boolean compareDateWithDay(Date mDate, Date mDate2){
+		boolean isBefore = false;
+		try {
+			if(mDate.compareTo(mDate2) > 0){
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isBefore;
+	}
+	
+	/**
 	 * Returns a string that describes the number of days between dateOne and
 	 * dateTwo.
 	 * 

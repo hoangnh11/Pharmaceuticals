@@ -48,7 +48,8 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
  	private CaldroidListener listener;
 	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	private CaldroidFragment dialogCaldroidFragment;
-	private String strDateFrom, strDateTo;
+	private Date strDateFrom;
+	private Date strDateTo;
 	private static RestAdapter restAdapter;
 	private ProgressDialog dialog;
 	
@@ -85,10 +86,10 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 		linOptionRefresh.setOnClickListener(this);
 		
 		tvTimeFrom = (TextView) findViewById(R.id.tvTimeFrom);
-		tvTimeFrom.setText("" + strDateFrom);
+		tvTimeFrom.setText("" + formatter.format(strDateFrom));
 		
 		tvTimeTo = (TextView) findViewById(R.id.tvTimeTo);
-		tvTimeTo.setText("" + strDateTo);
+		tvTimeTo.setText("" + formatter.format(strDateTo));
 		
 		imgIconCalendarFrom = (ImageView) findViewById(R.id.imgIconCalendarFrom);
 		imgIconCalendarFrom.setOnClickListener(this);
@@ -110,12 +111,10 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 	public void getCurrentDate(){
 		try {
 			Calendar calendar = Calendar.getInstance();
-			Date toDate = calendar.getTime();
-			strDateTo = formatter.format(toDate);
+			strDateTo = calendar.getTime();
 			
 			calendar.add(Calendar.MONTH, -1);
-			Date fromDate = calendar.getTime();
-			strDateFrom = formatter.format(fromDate);
+			strDateFrom = calendar.getTime();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -199,8 +198,8 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 			
 		case R.id.linRefresh:
 			getCurrentDate();
-			tvTimeFrom.setText("" + strDateFrom);
-			tvTimeTo.setText("" + strDateTo);
+			tvTimeFrom.setText("" + formatter.format(strDateFrom));
+			tvTimeTo.setText("" + formatter.format(strDateTo));
 			refreshData();
 			break;
 			
@@ -218,15 +217,26 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 			public void onSelectDate(Date date, View view) {
 				dialogCaldroidFragment.dismiss();
 				
+				if(!BuManagement.compareDateWithToDay(date)){
+					BuManagement.alertErrorMessageString(getResources().getString(R.string.MSG_OVER_CURRENT_DATE)
+							, "Error", AcTotalSales.this);
+					return;
+				}
+				
 				switch (viewId) {
 				case R.id.imgIconCalendarTo:
-					strDateTo = formatter.format(date);
-					tvTimeTo.setText("" + strDateTo);
+					strDateTo = date;
+					tvTimeTo.setText("" + formatter.format(strDateTo));
 					break;
 					
 				case R.id.imgIconCalendarFrom:
-					strDateFrom = formatter.format(date);
-					tvTimeFrom.setText("" + strDateFrom);
+					if(BuManagement.compareDateWithDay(date, strDateTo)){
+						strDateFrom = date;
+						tvTimeFrom.setText("" + formatter.format(strDateFrom));
+					} else {
+						BuManagement.alertErrorMessageString(getResources().getString(R.string.MSG_OVER_TO_DATE)
+								, "Error", AcTotalSales.this);
+					}
 					break;
 
 				default:
@@ -286,7 +296,10 @@ public class AcTotalSales extends FragmentActivity implements OnClickListener{
 		}
 		dialog.show();
 		
-		restAdapter.create(ViviApi.class).getTotalSale(token,strDateFrom, strDateTo, myCallback);
+		String fromStr = formatter.format(strDateFrom);
+		String toStr = formatter.format(strDateTo);
+		
+		restAdapter.create(ViviApi.class).getTotalSale(token, fromStr, toStr, myCallback);
 		
 	}
 	
