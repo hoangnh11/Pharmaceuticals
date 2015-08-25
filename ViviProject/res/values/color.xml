@@ -31,6 +31,8 @@
     <color name="GREEN">#74cc52</color>
     <color name="TEXT_COLOR_GREY">#afb0ac</color>
     <color name="WHITE">#FFFFFF</color>
+    <color name="WHITEF9">#F9F9F9</color>
+    <color name="WHITED8">#D8D8D8</color>
     <color name="BLACK">#000000</color>
     <color name="BLUE">#2d3e50</color>
     <color name="BLUE_BORDER">#16202b</color>

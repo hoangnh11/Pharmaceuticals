@@ -30,6 +30,7 @@
             android:hint="@string/BLANK"
             android:inputType="textNoSuggestions"
             android:padding="4dp"
+            android:textSize="16sp"
             android:textColorHighlight="@color/WHITE" />
 
         <ImageView
@@ -67,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:hint="@string/COMMON_FILTER"
+            android:textSize="16sp"
             android:paddingLeft="32dp" />
 
         <ImageView

@@ -330,7 +330,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 				netParameter[2] = new NetParameter("per_page", per_page);
 				try {
 					data = HttpNetServices.Instance.getSales(netParameter);					
-					responseOrders = DataParser.getResponseOrders(data);			
+					responseOrders = DataParser.getResponseOrders(data);
 					return GlobalParams.TRUE;
 				} catch (Exception e) {
 					return GlobalParams.FALSE;
