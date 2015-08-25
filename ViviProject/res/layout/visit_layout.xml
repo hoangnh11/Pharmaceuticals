@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:hint="@string/COMMON_FILTER"
+            android:textSize="16sp"
             android:paddingLeft="32dp" />
 
         <ImageView
@@ -63,6 +64,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:background="@color/WHITE"
+            android:textSize="16sp"
             android:hint="@string/COMMON_FILTER"
             android:paddingLeft="8dp"
             android:singleLine="true" />

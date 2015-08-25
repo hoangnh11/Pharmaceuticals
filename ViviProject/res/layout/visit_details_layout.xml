@@ -118,7 +118,7 @@
 
             <LinearLayout
                 android:id="@+id/linCustomerInformation"
-                android:layout_width="160dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/BLUE"
@@ -138,7 +138,7 @@
 
             <LinearLayout
                 android:id="@+id/linBuyHistory"
-                android:layout_width="160dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/BG_GRAY9E"
@@ -273,7 +273,8 @@
                     android:background="@color/WHITE"
                     android:fadingEdge="none"
                     android:scrollbarSize="3dp" />
-                <View
+
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginLeft="8dp"
@@ -284,6 +285,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -315,7 +317,7 @@
                     android:background="@color/WHITE"
                     android:fadingEdge="none"
                     android:scrollbarSize="3dp" />
-                
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
@@ -326,7 +328,7 @@
 
             <LinearLayout
                 android:id="@+id/linCheckWarehouse"
-                android:layout_width="160dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/BLUE"
@@ -420,13 +422,13 @@
 
                     <Button
                         android:id="@+id/btnSendReport"
-                        android:layout_width="64dp"
-                        android:layout_height="24dp"
+                        android:layout_width="80dp"
+                        android:layout_height="32dp"
                         android:layout_marginLeft="48dp"
                         android:background="@drawable/bg_blue_gray"
                         android:text="@string/UPDATE"
                         android:textColor="@color/WHITE"
-                        android:textSize="12sp"
+                        android:textSize="10sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -440,7 +442,7 @@
                 <TextView
                     android:id="@+id/tvBuy"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:background="@drawable/bg_blue_gray"
                     android:drawablePadding="2dp"
                     android:drawableRight="@drawable/icon_dathang"
@@ -454,7 +456,7 @@
                 <TextView
                     android:id="@+id/tvGivegimic"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_marginLeft="18dp"
                     android:layout_toRightOf="@+id/tvBuy"
                     android:background="@drawable/bg_blue_gray"
@@ -470,7 +472,7 @@
                 <TextView
                     android:id="@+id/tvCloseDoor"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_marginRight="18dp"
                     android:layout_toLeftOf="@+id/tvFeedback"
                     android:background="@drawable/bg_blue_gray"
@@ -486,7 +488,7 @@
                 <TextView
                     android:id="@+id/tvFeedback"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/bg_blue_gray"
                     android:drawablePadding="2dp"
@@ -502,7 +504,7 @@
             <Button
                 android:id="@+id/btnImport"
                 android:layout_width="120dp"
-                android:layout_height="24dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_blue_gray"

@@ -61,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:textSize="16sp"
             android:hint="@string/COMMON_FILTER"
             android:paddingLeft="32dp" />
 
@@ -92,6 +93,7 @@
             android:layout_height="28dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:textSize="16sp"
             android:layout_marginRight="8dp"
             android:background="@color/WHITE"
             android:hint="@string/COMMON_FILTER"

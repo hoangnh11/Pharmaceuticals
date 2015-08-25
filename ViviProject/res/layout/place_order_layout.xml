@@ -29,7 +29,7 @@
                 <TextView
                     android:id="@+id/tvNameStore"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"                    
+                    android:layout_height="wrap_content"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -37,7 +37,7 @@
                 <TextView
                     android:id="@+id/tvAddressStores"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"                 
+                    android:layout_height="wrap_content"
                     android:textColor="@color/BLACK"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -51,12 +51,12 @@
 
             <TextView
                 android:id="@+id/tvCreateOrder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="32dp"
                 android:layout_marginLeft="8dp"
+                android:gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@color/BLUE"
-                android:padding="8dp"
                 android:text="@string/CREATE_ORDER"
                 android:textColor="@color/WHITE"
                 android:textSize="12sp"
@@ -90,13 +90,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="200dp"
+                        android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:layout_height="wrap_content"                    
                         android:text="@string/SUM_TWO_DOTS"
                         android:textColor="@color/BLACK"
                         android:textSize="12sp"
@@ -105,16 +106,17 @@
                     <TextView
                         android:id="@+id/tvSubTotal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"                    
+                        android:layout_height="wrap_content"
                         android:textColor="@color/BLACK"
-                        android:textSize="12sp"                        
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"                 
-                    android:layout_marginTop="4dp"                 
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -129,16 +131,17 @@
                     <TextView
                         android:id="@+id/tvCK"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"                                         
+                        android:layout_height="wrap_content"
                         android:textColor="@color/BLACK"
-                        android:textSize="12sp"                     
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"                   
-                    android:layout_marginTop="4dp"             
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -153,7 +156,7 @@
                     <TextView
                         android:id="@+id/tvDiscount"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"                                        
+                        android:layout_height="wrap_content"
                         android:textColor="@color/BLACK"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -161,11 +164,12 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"           
-                    android:layout_marginTop="4dp"         
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="horizontal" >
 
-                    <TextView             
+                    <TextView
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -177,7 +181,7 @@
                     <TextView
                         android:id="@+id/tvTotal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"                                     
+                        android:layout_height="wrap_content"
                         android:textColor="@color/BLACK"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -217,19 +221,19 @@
 
                 <Button
                     android:id="@+id/btnOk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
                     android:background="@drawable/bg_gray9e_blue"
+                    android:enabled="false"
                     android:text="@string/OK"
                     android:textColor="@color/WHITE"
                     android:textSize="12sp"
-                    android:enabled="false"
                     android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btnCancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
                     android:layout_marginLeft="8dp"
                     android:background="@drawable/bg_blue_gray"
                     android:text="@string/CANCEL"

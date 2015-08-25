@@ -101,8 +101,8 @@
 
                 <Button
                     android:id="@+id/btnOk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
                     android:background="@drawable/bg_blue_gray"
                     android:text="@string/OK"
                     android:textColor="@color/WHITE"

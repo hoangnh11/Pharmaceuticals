@@ -30,7 +30,8 @@
             android:hint="@string/BLANK"
             android:inputType="textNoSuggestions"
             android:padding="4dp"
-            android:textColorHighlight="@color/WHITE" />
+            android:textColorHighlight="@color/WHITE"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/imgSearchTop"
@@ -67,7 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:hint="@string/COMMON_FILTER"
-            android:paddingLeft="32dp" />
+            android:paddingLeft="32dp"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/imgDelete"
@@ -101,7 +103,8 @@
             android:background="@color/WHITE"
             android:hint="@string/COMMON_FILTER"
             android:paddingLeft="8dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/imgDel"
@@ -128,7 +131,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/icon_search" />
     </RelativeLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

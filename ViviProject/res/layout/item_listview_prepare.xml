@@ -28,7 +28,7 @@
             android:padding="4dp"
             android:text="1"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -46,7 +46,7 @@
             android:singleLine="true"
             android:ellipsize="end"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -61,7 +61,7 @@
             android:gravity="center"
             android:padding="4dp"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -76,7 +76,7 @@
             android:gravity="center"
             android:padding="4dp"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -91,7 +91,7 @@
             android:gravity="center"
             android:padding="4dp"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -106,7 +106,7 @@
             android:gravity="center"
             android:padding="4dp"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View
@@ -124,7 +124,7 @@
             android:layout_weight="1"
             android:padding="4dp"
             android:textColor="@color/BLACK"
-            android:textSize="8sp"
+            android:textSize="8dp"
             android:textStyle="bold" />
 
         <View

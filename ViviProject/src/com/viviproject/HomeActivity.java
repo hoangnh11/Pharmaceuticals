@@ -67,7 +67,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 	private LinearLayout linGimic;
 	private LinearLayout linReport, linSubReport, linSumProfit, linProfitFollowCustomer, linProfitGraphic, linPosterCamera,
 							linUnfriendCamera, linTradeMarketingCamera;
-	private TextView tvChangePassword, tvName;
+	private TextView tvChangePassword, tvName, tvJob;
 	private ScrollView scrollView;
 	private boolean showSetting;
 	private boolean checkScrollBottom = false;
@@ -144,6 +144,8 @@ public class HomeActivity extends Activity implements OnClickListener{
 			imgAvata.setImageResource(R.drawable.ic_stub);
 		}
 		
+		tvJob = (TextView) findViewById(R.id.tvJob);
+		tvJob.setText(userInformation.getEducation());
 		linTongquan = (LinearLayout) findViewById(R.id.linTongquan);
 		linTongquan.setOnClickListener(this);
 		linSubTongquan = (LinearLayout) findViewById(R.id.linSubTongquan);

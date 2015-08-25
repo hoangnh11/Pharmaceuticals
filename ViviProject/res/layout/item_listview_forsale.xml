@@ -22,7 +22,7 @@
             android:gravity="center"
             android:text="@string/TD"
             android:textColor="@color/TEXT_COLOR_GREY"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textStyle="bold" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_marginRight="8dp"
             android:text="@string/CK"
             android:textColor="@color/TEXT_COLOR_GREY"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textStyle="bold" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="@string/OTHER"
             android:textColor="@color/TEXT_COLOR_GREY"
-            android:textSize="12sp"
+            android:textSize="12dp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -51,7 +51,7 @@
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="140dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@color/GREEN"
             android:gravity="center"
@@ -90,7 +90,7 @@
                 android:inputType="number"
                 android:text="0"
                 android:textColor="@color/BLACK"
-                android:textSize="12sp"
+                android:textSize="14dp"
                 android:textStyle="bold" />
 
             <ImageView

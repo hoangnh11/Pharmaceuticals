@@ -191,10 +191,11 @@ public class LoginActivity extends Activity implements OnClickListener{
 		protected String[] doInBackground(Void... params) {
 			String[] result = new String[2];
 			try {
-				NetParameter[] netParameter = new NetParameter[3];					
+				NetParameter[] netParameter = new NetParameter[4];					
 				netParameter[0] = new NetParameter("username", username);
 				netParameter[1] = new NetParameter("password", password);
 				netParameter[2] = new NetParameter("deviceUUID", app.getIMEI(LoginActivity.this));
+				netParameter[3] = new NetParameter("deviceIMEI", app.getIMEI(LoginActivity.this));
 				data = HttpNetServices.Instance.login(netParameter);
 				responseLogin = DataParser.getLogin(data);
 			

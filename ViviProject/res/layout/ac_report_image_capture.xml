@@ -84,7 +84,7 @@
 		            android:layout_height="wrap_content"
 		            android:padding="10dp"
 		            android:background="@drawable/bg_btn_blue"
-		            android:textColor="@color/BLACK"
+		            android:textColor="@color/WHITE"
 		            android:textSize="14sp"
 		            android:text="@string/SEND_IMAGE"/>
 		    </LinearLayout>

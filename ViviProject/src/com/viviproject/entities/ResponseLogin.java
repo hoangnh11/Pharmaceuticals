@@ -13,7 +13,21 @@ public class ResponseLogin implements Serializable{
 	private String code;
 	private String message;
 	private String status;
+	private int gps_interval;
 	
+		
+	/**
+	 * @return the gps_interval
+	 */
+	public int getGps_interval() {
+		return gps_interval;
+	}
+	/**
+	 * @param gps_interval the gps_interval to set
+	 */
+	public void setGps_interval(int gps_interval) {
+		this.gps_interval = gps_interval;
+	}
 	@SerializedName("access-token")
 	private String accessToken;
 	
