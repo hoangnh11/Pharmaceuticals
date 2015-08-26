@@ -16,7 +16,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -84,7 +83,6 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 		
 		listFrgProducts = new ArrayList<Fragment>();
 		
-		
 		adapterFrgProducts = new AdapterFrgProducts(getSupportFragmentManager(), listFrgProducts);
 		productPager.setAdapter(adapterFrgProducts);
 		productIndicator.setViewPager(productPager);
@@ -94,7 +92,7 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 				Logger.error("select page:" + pageSelected);
 				currentFragment = pageSelected;
 				EnProduct enProduct = ((FrgBaseFragmentProducts) adapterFrgProducts.getItem(pageSelected)).getEnProduct();
-				getImageListFromServer(enProduct, 0, 10);
+				getImageListFromServer(enProduct, 1, 15);
 			}
 			
 			@Override
@@ -145,7 +143,7 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 	}
 
 	/**
-	 * get data from server
+	 * get list products from server
 	 */
 	private void getDataFromServer() {
 		if(null == restAdapter ){
@@ -171,8 +169,12 @@ public class AcProducts extends FragmentActivity implements OnClickListener{
 					imageCatogoryCallback.failure(null);
 				}
 			});
+			dialog.show();
+		} else {
+			if(!dialog.isShowing()){
+				dialog.show();
+			}
 		}
-		dialog.show();
 		
 		restAdapter.create(ViviApi.class).getProductImageCategory(token, imageCatogoryCallback);
 	}
