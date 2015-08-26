@@ -11,13 +11,18 @@
 	    android:padding="@dimen/padding_body_screen"
 	    android:orientation="vertical">
 	    
-	    <TextView 
+	    <!-- <TextView 
 	        android:id="@+id/tvPromotionContents"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textColor="@color/BLACK"
-	        android:textSize="14sp"/>
-	    
+	        android:textSize="14sp"/> -->
+	    <WebView
+	        android:id="@+id/webDetail"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_marginTop="5dp" />
+		    
 	    <!-- <TextView 
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
