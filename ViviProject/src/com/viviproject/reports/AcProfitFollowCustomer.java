@@ -635,7 +635,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 				EnStoreReport enStoreReport = DataParser.getEnStoreReport(strData);
 				if(null != enStoreReport){
 					if(null != enStoreReport.getStores()){
-						if(page == 0){
+						if(page == 1){
 							updateStoreReportScreen(enStoreReport.getStores(), true);
 						} else {
 							updateStoreReportScreen(enStoreReport.getStores(), false);

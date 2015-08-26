@@ -122,7 +122,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		scrollViewGimicCustomer.setScrollViewListener(this);
 		tblGimicCustomer = (TableLayout) findViewById(R.id.tlGimicGridTable);
 		
-		refreshData(0, dateFrom, dateTo);
+		refreshData(page, dateFrom, dateTo);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		}
 		
 		ArrayList<EnGimicItem> listGimicItems = enGimicManager.getGimics();
-		if(page == 0){
+		if(page == 1){
 			// refresh new data
 			adapterGimicStatistic.setListGimic(listGimicItems);
 			adapterGimicStatistic.notifyDataSetChanged();
@@ -279,15 +279,15 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 		
 		case R.id.linRefresh:
 			getCurrentDate();
-			page = 0;
+			page = 1;
 			tvGimicTimeFrom.setText(dateFrom);
 			tvGimicTimeTo.setText(dateTo);
-			refreshData(0, dateFrom, dateTo);
+			refreshData(page, dateFrom, dateTo);
 			break;
 		
 		case R.id.btGimicSearchOK:
-			page = 0;
-			refreshData(0, dateFrom, dateTo);
+			page = 1;
+			refreshData(page, dateFrom, dateTo);
 			break;
 			
 		default:

@@ -231,6 +231,13 @@ public class LoginActivity extends Activity implements OnClickListener{
 				BuManagement.saveToken(LoginActivity.this, responseLogin.getAccessToken());		
 				saveStatusLoginningCompleted();
 				
+				int timeTracking = 10;
+				try {
+					timeTracking = responseLogin.getGps_interval();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				Logger.error("----------------------------");
 				Intent i = new Intent(LoginActivity.this, TrackingLocationService.class);
 				// In reality, you would want to have a static variable for the request code instead of 192837
@@ -238,7 +245,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 				 
 				// Get the AlarmManager service
 				AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-				am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 5 * 60 * 1000, sender); // 1 menute
+				am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), timeTracking * 60 * 1000, sender); // 1 menute
 				Logger.error("--------------END--------------") ;
 				
 				DataStorage dataStorage = DataStorage.getInstance();
