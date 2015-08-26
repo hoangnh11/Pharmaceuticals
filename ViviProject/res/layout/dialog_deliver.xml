@@ -28,22 +28,22 @@
         <Button
             android:id="@+id/btnOk"
             android:layout_width="80dp"
-            android:layout_height="32dp"
+            android:layout_height="36dp"
             android:layout_marginRight="8dp"
             android:drawableRight="@drawable/icon_ok"
             android:text="@string/OK"
             android:textColor="@color/WHITE"
-            android:textSize="12sp" />
+            android:textSize="12dp" />
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="80dp"
-            android:layout_height="32dp"
+            android:layout_height="36dp"
             android:layout_marginLeft="8dp"
             android:drawableRight="@drawable/icon_delete"
             android:text="@string/CANCEL"
             android:textColor="@color/WHITE"
-            android:textSize="12sp" />
+            android:textSize="12dp" />
     </LinearLayout>
 
 </LinearLayout>

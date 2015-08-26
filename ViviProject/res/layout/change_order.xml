@@ -109,6 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:layout_marginLeft="120dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -133,6 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:layout_marginLeft="120dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -157,6 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:layout_marginLeft="120dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -181,6 +184,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:layout_marginLeft="120dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -235,8 +239,8 @@
 
                 <Button
                     android:id="@+id/btnOk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
                     android:background="@drawable/bg_gray9e_blue"
                     android:text="@string/OK"
                     android:textColor="@color/WHITE"
@@ -245,8 +249,8 @@
 
                 <Button
                     android:id="@+id/btnCancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
+                    android:layout_width="80dp"
+                    android:layout_height="32dp"
                     android:layout_marginLeft="8dp"
                     android:background="@drawable/bg_blue_gray"
                     android:text="@string/CANCEL"
