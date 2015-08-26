@@ -52,6 +52,7 @@ public class SubOrderDeliverAdapter extends BaseAdapter{
             convertView = new ItemSubOrder(mActivity.getApplicationContext());
             holder = new ViewHolder();
          
+            holder.tvDotOne = (TextView) convertView.findViewById(R.id.tvDotOne);
             holder.tvNameOne = (TextView) convertView.findViewById(R.id.tvNameOne);
             holder.tvQuantityOne = (TextView) convertView.findViewById(R.id.tvQuantityOne);
             holder.tvNameTwo = (TextView) convertView.findViewById(R.id.tvNameTwo);
@@ -113,6 +114,28 @@ public class SubOrderDeliverAdapter extends BaseAdapter{
 					
 				}
 			}
+        	
+        	if (holder.tvQuantityOne.getText().equals("0") || holder.tvQuantityOne.getText().equals("")
+        			|| holder.tvQuantityOne.getText() == null) {
+        		holder.tvDotOne.setVisibility(View.GONE);
+        		holder.tvNameOne.setVisibility(View.GONE);
+        		holder.tvQuantityOne.setVisibility(View.GONE);
+			} else {
+				holder.tvDotOne.setVisibility(View.VISIBLE);
+        		holder.tvNameOne.setVisibility(View.VISIBLE);
+				holder.tvQuantityOne.setVisibility(View.VISIBLE);
+			}
+        	
+        	if (holder.tvQuantityTwo.getText().equals("0") || holder.tvQuantityTwo.getText().equals("")
+        			|| holder.tvQuantityTwo.getText() == null) {
+        		holder.tvDotTwo.setVisibility(View.GONE);
+        		holder.tvNameTwo.setVisibility(View.GONE);
+        		holder.tvQuantityTwo.setVisibility(View.GONE);
+			} else {
+				holder.tvDotTwo.setVisibility(View.VISIBLE);
+        		holder.tvNameTwo.setVisibility(View.VISIBLE);
+				holder.tvQuantityTwo.setVisibility(View.VISIBLE);
+			}
 		}
         
         ((ItemSubOrder) convertView).set_position(position);
@@ -121,6 +144,6 @@ public class SubOrderDeliverAdapter extends BaseAdapter{
 	
 	static class ViewHolder
     {      
-        TextView tvNameOne, tvQuantityOne, tvNameTwo, tvQuantityTwo, tvDotTwo;
+        TextView tvDotOne, tvNameOne, tvQuantityOne, tvNameTwo, tvQuantityTwo, tvDotTwo;
     }
 }

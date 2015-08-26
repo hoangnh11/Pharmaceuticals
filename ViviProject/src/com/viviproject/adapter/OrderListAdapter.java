@@ -101,7 +101,7 @@ public class OrderListAdapter extends BaseAdapter implements Filterable{
 			}
         	
         	if (items.getProducts() != null && items.getProducts().size() > 0) {
-        		subOrderAdapter = new SubOrderAdapter(mActivity, items.getProducts());		
+        		subOrderAdapter = new SubOrderAdapter(mActivity, items.getProducts());
             	holder.lvSubOrder.setAdapter(subOrderAdapter);
             	app.setListViewHeight(holder.lvSubOrder, subOrderAdapter);
 			}
