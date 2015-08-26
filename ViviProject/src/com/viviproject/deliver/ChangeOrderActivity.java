@@ -179,19 +179,19 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 						enBasket.setQuantity(Integer.parseInt(enOrder.getProducts().get(i).getTempProductQty()));
 						
 							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null) {
-								enBasket.setPoint(Integer.parseInt(products.get(i).getDiscount().getPoint().get(0).getDiscount_id()));
+								enBasket.setPoint(Integer.parseInt(products.get(i).getDiscount().getPoint().getDiscount_id()));
 							} else {
 								enBasket.setPoint(Integer.parseInt("0"));
 							}
 						
 							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null ) {
-								enBasket.setSale(Integer.parseInt(products.get(i).getDiscount().getSale().get(0).getDiscount_id()));
+								enBasket.setSale(Integer.parseInt(products.get(i).getDiscount().getSale().getDiscount_id()));
 							} else {
 								enBasket.setSale(Integer.parseInt("0"));
 							}
 						
 							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null ) {
-								enBasket.setOther(Integer.parseInt(products.get(i).getDiscount().getOther().get(0).getDiscount_id()));
+								enBasket.setOther(Integer.parseInt(products.get(i).getDiscount().getOther().getDiscount_id()));
 							} else {
 								enBasket.setOther(Integer.parseInt("0"));
 							}
@@ -209,11 +209,11 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 							
 							if (products.get(i).getDiscount() != null) {
 								if (products.get(i).getDiscount().getPoint() != null 
-										&& products.get(i).getDiscount().getPoint().get(0).getPoint() != null) {
+										&& products.get(i).getDiscount().getPoint().getPoint() != null) {
 									enBasket.setDiscount_point(Float.parseFloat("0"));
 								}
 								if (products.get(i).getDiscount().getSale() != null 
-										&& products.get(i).getDiscount().getSale().get(0).getDiscount() != null) {
+										&& products.get(i).getDiscount().getSale().getDiscount() != null) {
 									enBasket.setDiscount_sale(Integer.parseInt("0"));
 								}								
 							}							
@@ -311,7 +311,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
             	if (items.getCode() != null && items.getCode().equals(products.get(i).getCode())) {
             		if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null) {
                     	if (products.get(i).getDiscount().getOther() != null) {
-                    		if (products.get(i).getDiscount().getOther().get(0).getWith_point().equals("0")) {
+                    		if (products.get(i).getDiscount().getOther().getWith_point().equals("0")) {
                             	if (products.get(i).getCheckTD() != null) {            	
                                 	if (products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
                                 		products.get(i).setCheckTD(GlobalParams.FALSE);            		
@@ -319,7 +319,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
                     					products.get(i).setCheckTD(GlobalParams.TRUE);					
                     				}
                     			}
-                			} else if (products.get(i).getDiscount().getOther().get(0).getWith_point().equals("1")) {
+                			} else if (products.get(i).getDiscount().getOther().getWith_point().equals("1")) {
                 				if (products.get(i).getCheckOther() != null) {
                 					if (products.get(i).getDiscount().getPoint() != null) {
                 						if (products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
@@ -339,7 +339,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
                 				}
                 			}
         				} else if (products.get(i).getDiscount().getSale() != null) {
-                    		if (products.get(i).getDiscount().getSale().get(0).getWith_point().equals("0")) {
+                    		if (products.get(i).getDiscount().getSale().getWith_point().equals("0")) {
                             	if (products.get(i).getCheckTD() != null) {            	
                                 	if (products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
                                 		products.get(i).setCheckTD(GlobalParams.FALSE);            		
@@ -347,7 +347,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
                     					products.get(i).setCheckTD(GlobalParams.TRUE);					
                     				}
                     			}
-                			} else if (products.get(i).getDiscount().getSale().get(0).getWith_point().equals("1")) {
+                			} else if (products.get(i).getDiscount().getSale().getWith_point().equals("1")) {
                 				if (products.get(i).getCheckCK() != null) {
                 					if (products.get(i).getDiscount().getPoint() != null) {
                 						if (products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
@@ -400,7 +400,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
             for (int i = 0; i < products.size(); i++) {
             	if (items.getCode() != null && items.getCode().equals(products.get(i).getCode())) {
             		if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null) {
-                    	if (products.get(i).getDiscount().getSale().get(0).getWith_point().equals("0")) {
+                    	if (products.get(i).getDiscount().getSale().getWith_point().equals("0")) {
                     		if (products.get(i).getCheckCK() != null) {            
                             	if (products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
                             		products.get(i).setCheckCK(GlobalParams.FALSE);            		
@@ -408,7 +408,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
                 					products.get(i).setCheckCK(GlobalParams.TRUE);					
                 				}
                 			}
-                    	} else if (products.get(i).getDiscount().getSale().get(0).getWith_point().equals("1")) {
+                    	} else if (products.get(i).getDiscount().getSale().getWith_point().equals("1")) {
                     		if (products.get(i).getCheckCK() != null) {							
         						if (products.get(i).getDiscount().getPoint() != null) {
         							if (products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
@@ -452,7 +452,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
             for (int i = 0; i < products.size(); i++) {
             	if (items.getCode() != null && items.getCode().equals(products.get(i).getCode())) {
             		if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null) {
-        				if (products.get(i).getDiscount().getOther().get(0).getWith_point().equals("0")) {
+        				if (products.get(i).getDiscount().getOther().getWith_point().equals("0")) {
         	            	if (products.get(i).getCheckOther() != null) {            	
         	            		if (products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
         	            			products.get(i).setCheckOther(GlobalParams.FALSE);            		
@@ -460,7 +460,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
         	     					products.get(i).setCheckOther(GlobalParams.TRUE);					
         	     				}
         	     			}
-        				} else if (products.get(i).getDiscount().getOther().get(0).getWith_point().equals("1")) {
+        				} else if (products.get(i).getDiscount().getOther().getWith_point().equals("1")) {
         					if (products.get(i).getCheckOther() != null) {							
         						if (products.get(i).getDiscount().getPoint() != null) {
         							if (products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {

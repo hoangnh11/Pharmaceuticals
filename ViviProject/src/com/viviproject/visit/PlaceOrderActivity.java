@@ -163,21 +163,21 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					
 					if (enProducts.getProducts().get(i).getDiscount() != null 
 						&& enProducts.getProducts().get(i).getDiscount().getPoint() != null) {
-						enBasket.setPoint(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getPoint().get(0).getDiscount_id()));
+						enBasket.setPoint(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getPoint().getDiscount_id()));
 					} else {
 						enBasket.setPoint(Integer.parseInt("0"));
 					}
 					
 					if (enProducts.getProducts().get(i).getDiscount() != null 
 						&& enProducts.getProducts().get(i).getDiscount().getSale() != null ) {
-						enBasket.setSale(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getSale().get(0).getDiscount_id()));
+						enBasket.setSale(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getSale().getDiscount_id()));
 					} else {
 						enBasket.setSale(Integer.parseInt("0"));
 					}
 					
 					if (enProducts.getProducts().get(i).getDiscount() != null 
 						&& enProducts.getProducts().get(i).getDiscount().getOther() != null ) {
-						enBasket.setOther(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getOther().get(0).getDiscount_id()));
+						enBasket.setOther(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getOther().getDiscount_id()));
 					} else {
 						enBasket.setOther(Integer.parseInt("0"));
 					}
@@ -268,7 +268,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
             
             if (items.getDiscount() != null && items.getDiscount().getPoint() != null) {
             	if (items.getDiscount().getOther() != null) {
-            		if (items.getDiscount().getOther().get(0).getWith_point().equals("0")) {
+            		if (items.getDiscount().getOther().getWith_point().equals("0")) {
                     	if (items.getCheckTD() != null) {            	
                         	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
                         		enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);            		
@@ -276,7 +276,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
             					enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);					
             				}
             			}
-        			} else if (items.getDiscount().getOther().get(0).getWith_point().equals("1")) {
+        			} else if (items.getDiscount().getOther().getWith_point().equals("1")) {
         				if (items.getCheckOther() != null) {
         					if (items.getDiscount().getPoint() != null) {
         						if (items.getCheckOther().equals(GlobalParams.TRUE)) {
@@ -296,7 +296,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
         				}
         			}
 				} else if (items.getDiscount().getSale() != null) {
-            		if (items.getDiscount().getSale().get(0).getWith_point().equals("0")) {
+            		if (items.getDiscount().getSale().getWith_point().equals("0")) {
                     	if (items.getCheckTD() != null) {            	
                         	if (items.getCheckTD().equals(GlobalParams.TRUE)) {
                         		enProducts.getProducts().get(position).setCheckTD(GlobalParams.FALSE);            		
@@ -304,7 +304,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
             					enProducts.getProducts().get(position).setCheckTD(GlobalParams.TRUE);					
             				}
             			}
-        			} else if (items.getDiscount().getSale().get(0).getWith_point().equals("1")) {
+        			} else if (items.getDiscount().getSale().getWith_point().equals("1")) {
         				if (items.getCheckCK() != null) {
         					if (items.getDiscount().getPoint() != null) {
         						if (items.getCheckCK().equals(GlobalParams.TRUE)) {
@@ -354,7 +354,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
             items = enProducts.getProducts().get(position);
             
             if (items.getDiscount() != null && items.getDiscount().getSale() != null) {
-            	if (items.getDiscount().getSale().get(0).getWith_point().equals("0")) {
+            	if (items.getDiscount().getSale().getWith_point().equals("0")) {
             		if (items.getCheckCK() != null) {            
                     	if (items.getCheckCK().equals(GlobalParams.TRUE)) {
                     		enProducts.getProducts().get(position).setCheckCK(GlobalParams.FALSE);            		
@@ -362,7 +362,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
         					enProducts.getProducts().get(position).setCheckCK(GlobalParams.TRUE);					
         				}
         			}
-            	} else if (items.getDiscount().getSale().get(0).getWith_point().equals("1")) {
+            	} else if (items.getDiscount().getSale().getWith_point().equals("1")) {
             		if (items.getCheckCK() != null) {							
 						if (items.getDiscount().getPoint() != null) {
 							if (items.getCheckCK().equals(GlobalParams.TRUE)) {
@@ -402,7 +402,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
         	int position = ((ItemListViewForsale) v).get_position();
             items = enProducts.getProducts().get(position);
 			if (items.getDiscount() != null && items.getDiscount().getOther() != null) {
-				if (items.getDiscount().getOther().get(0).getWith_point().equals("0")) {
+				if (items.getDiscount().getOther().getWith_point().equals("0")) {
 	            	if (items.getCheckOther() != null) {            	
 	            		if (items.getCheckOther().equals(GlobalParams.TRUE)) {
 	                 		enProducts.getProducts().get(position).setCheckOther(GlobalParams.FALSE);            		
@@ -410,7 +410,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	     					enProducts.getProducts().get(position).setCheckOther(GlobalParams.TRUE);					
 	     				}
 	     			}
-				} else if (items.getDiscount().getOther().get(0).getWith_point().equals("1")) {
+				} else if (items.getDiscount().getOther().getWith_point().equals("1")) {
 					if (items.getCheckOther() != null) {							
 						if (items.getDiscount().getPoint() != null) {
 							if (items.getCheckOther().equals(GlobalParams.TRUE)) {

@@ -1,7 +1,6 @@
 package com.viviproject.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class EnDiscount implements Serializable {
 
@@ -9,14 +8,14 @@ public class EnDiscount implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6472687065777772906L;
-	private ArrayList<EnPoint> point;
-	private ArrayList<EnOther> other;
-	private ArrayList<EnSale> sale;
+	private EnPoint point;
+	private EnOther other;
+	private EnSale sale;
 
 	/**
 	 * @return the point
 	 */
-	public ArrayList<EnPoint> getPoint() {
+	public EnPoint getPoint() {
 		return point;
 	}
 
@@ -24,14 +23,14 @@ public class EnDiscount implements Serializable {
 	 * @param point
 	 *            the point to set
 	 */
-	public void setPoint(ArrayList<EnPoint> point) {
+	public void setPoint(EnPoint point) {
 		this.point = point;
 	}
 
 	/**
 	 * @return the other
 	 */
-	public ArrayList<EnOther> getOther() {
+	public EnOther getOther() {
 		return other;
 	}
 
@@ -39,14 +38,14 @@ public class EnDiscount implements Serializable {
 	 * @param other
 	 *            the other to set
 	 */
-	public void setOther(ArrayList<EnOther> other) {
+	public void setOther(EnOther other) {
 		this.other = other;
 	}
 
 	/**
 	 * @return the sale
 	 */
-	public ArrayList<EnSale> getSale() {
+	public EnSale getSale() {
 		return sale;
 	}
 
@@ -54,7 +53,8 @@ public class EnDiscount implements Serializable {
 	 * @param sale
 	 *            the sale to set
 	 */
-	public void setSale(ArrayList<EnSale> sale) {
+	public void setSale(EnSale sale) {
 		this.sale = sale;
 	}
+
 }
