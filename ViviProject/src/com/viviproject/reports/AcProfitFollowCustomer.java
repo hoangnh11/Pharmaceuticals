@@ -666,7 +666,7 @@ public class AcProfitFollowCustomer extends FragmentActivity implements OnClickL
 						, "Error", AcProfitFollowCustomer.this);
 			} else {
 				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
-						, "Error", AcProfitFollowCustomer .this);
+						, "Error", AcProfitFollowCustomer.this);
 			}
 		}
 	};

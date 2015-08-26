@@ -41,6 +41,7 @@ import com.viviproject.entities.EnGimicStoreItem;
 import com.viviproject.entities.EnStoreItem;
 import com.viviproject.network.access.HttpFunctionFactory;
 import com.viviproject.network.access.ViviApi;
+import com.viviproject.reports.AcProfitFollowCustomer;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.Logger;
@@ -386,9 +387,13 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 	
 	Callback<String> myCallback = new Callback<String>() {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void failure(RetrofitError retrofitError) {
+			Logger.error("==Get gimc faill==");
+			if(null == retrofitError) return;
 			retrofitError.printStackTrace();
+			
 			if(null != AcGimicMangager.this && null != dialog){
 				if(dialog.isShowing()) dialog.dismiss();
 			}
@@ -396,6 +401,14 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 			flagOnBottomOfScroolView = false;
 			if(page > 0){
 				page--;
+			}
+			
+			if(retrofitError.isNetworkError()){
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_INTERNET_CONNECTION)
+						, "Error", AcGimicMangager.this);
+			} else {
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcGimicMangager.this);
 			}
 		}
 
@@ -412,6 +425,9 @@ public class AcGimicMangager extends FragmentActivity implements OnClickListener
 				EnGimicManager enGimicManager = DataParser.getEnGimicManager(strData);
 				updateDataScreen(enGimicManager);
 			} catch (Exception e) {
+				BuManagement.alertErrorMessageString(getResources().getString(R.string.COMMON_ERROR_MSG)
+						, "Error", AcGimicMangager.this);
+				
 				e.printStackTrace();
 			}
 		}
