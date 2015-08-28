@@ -54,9 +54,9 @@
                 android:layout_width="200dp"
                 android:layout_height="32dp"
                 android:layout_marginLeft="8dp"
-                android:gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@color/BLUE"
+                android:gravity="center"
                 android:text="@string/CREATE_ORDER"
                 android:textColor="@color/WHITE"
                 android:textSize="12sp"
@@ -115,8 +115,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginLeft="40dp"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -140,8 +140,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginLeft="40dp"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -165,8 +165,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_marginLeft="40dp"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -226,17 +226,6 @@
                     android:background="@drawable/bg_gray9e_blue"
                     android:enabled="false"
                     android:text="@string/OK"
-                    android:textColor="@color/WHITE"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btnCancel"
-                    android:layout_width="80dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="8dp"
-                    android:background="@drawable/bg_blue_gray"
-                    android:text="@string/CANCEL"
                     android:textColor="@color/WHITE"
                     android:textSize="12sp"
                     android:textStyle="bold" />

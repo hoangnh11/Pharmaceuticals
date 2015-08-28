@@ -28,8 +28,8 @@ import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.visit.PlaceOrderActivity;
 import com.viviproject.visit.SearchVisitAdapter;
-import com.viviproject.visit.VisitDetailsActivity;
 
 public class SearchSales extends Activity implements OnClickListener{
 	private LinearLayout linBack, linRefresh;
@@ -143,7 +143,7 @@ public class SearchSales extends Activity implements OnClickListener{
         { 
         	int position = ((ItemListCustomer) v).get_position();
             items = enStores.getStores().get(position);
-            intent = new Intent(SearchSales.this, VisitDetailsActivity.class);
+            intent = new Intent(SearchSales.this, PlaceOrderActivity.class);
             intent.putExtra(GlobalParams.STORES, items);
             startActivity(intent);
         }

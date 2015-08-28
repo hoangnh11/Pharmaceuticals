@@ -43,7 +43,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
 	private TextView tvHeader;
 	
-	private ImageView imgBackToTop, imgSearchTop, imgDelete;	
+	private ImageView imgBackToTop, imgSearchTop, imgDelete;
 	private ListView lvOrder;
 	private EditText edtSearch;
 	private Button btnOk, btnCancel;
@@ -63,9 +63,9 @@ public class OrderActivity extends Activity implements OnClickListener{
 	private int qtyPage, qtyPerPage;
 	private String tempFilter;
 	private boolean checkFilter;
-		
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_list_layout);
 		app = new AppPreferences(this);

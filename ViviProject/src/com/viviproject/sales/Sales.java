@@ -40,7 +40,7 @@ import com.viviproject.network.access.HttpNetServices;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
-import com.viviproject.visit.VisitDetailsActivity;
+import com.viviproject.visit.PlaceOrderActivity;
 
 public class Sales extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
@@ -224,7 +224,7 @@ public class Sales extends Activity implements OnClickListener{
         {
         	int position = ((ItemListCustomer) v).get_position();
             items = arrEnStores.get(position);
-            intent = new Intent(Sales.this, VisitDetailsActivity.class);            
+            intent = new Intent(Sales.this, PlaceOrderActivity.class);            
             intent.putExtra(GlobalParams.STORES, items);
             startActivity(intent);
         }

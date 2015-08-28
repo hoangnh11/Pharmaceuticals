@@ -81,7 +81,13 @@ public class InventoryAdapter extends BaseAdapter{
         	holder.tvName.setText(items.getName());
         	        	
         	if (items.getUnit() != null) {
-        		holder.tvQuantity.setText(items.getUnit());
+        		
+        		if (items.getUnit().equals("-1")) {
+        			holder.tvQuantity.setText("-");
+				} else {
+					holder.tvQuantity.setText(items.getUnit());
+				}
+        		
         		holder.tvQuantity.addTextChangedListener(new TextWatcher() {
 					
 					@Override
@@ -106,7 +112,7 @@ public class InventoryAdapter extends BaseAdapter{
 						} else {
 							temp.getProducts().get(holder.ref).setUnit("0");
 							VisitDetailsActivity.enProducts.getProducts().get(holder.ref).setUnit("0");	
-							
+								
 							enReport = new EnReport();
 							enReport.setProduct_id(Integer.parseInt(VisitDetailsActivity.enProducts.getProducts().get(holder.ref).getId()));
 							enReport.setQuantity(Integer.parseInt(VisitDetailsActivity.enProducts.getProducts().get(holder.ref).getUnit()));

@@ -45,7 +45,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 	private ListView lvForsale;
 	private TextView tvSubTotal, tvCK, tvDiscount, tvTotal;
 	private CheckBox ckDiliver;
-	private Button btnOk, btnCancel;
+	private Button btnOk;
 	
 	private AppPreferences app;
 	private Bundle bundle;
@@ -139,9 +139,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 			}
 		});
 		btnOk = (Button) findViewById(R.id.btnOk);
-		btnOk.setOnClickListener(this);
-		btnCancel = (Button) findViewById(R.id.btnCancel);
-		btnCancel.setOnClickListener(this);
+		btnOk.setOnClickListener(this);	
 	}
 	
 	@Override
@@ -199,13 +197,6 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 		case R.id.btnOk:
 			createSale = new CreateSale();
 			createSale.execute();
-			break;
-			
-		case R.id.btnCancel:
-			btnOk.setEnabled(false);
-			btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
-			linSubCreateOrder.setVisibility(View.GONE);
-			tvCreateOrder.setBackgroundResource(R.color.BLUE);
 			break;
 			
 		default:
@@ -537,7 +528,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				
 				try {
 					data = HttpNetServices.Instance.prepareSale(netParameter, BuManagement.getToken(PlaceOrderActivity.this));					
-					responsePrepare = DataParser.prepareSale(data);				
+					responsePrepare = DataParser.prepareSale(data);					
 					return GlobalParams.TRUE;
 				} catch (Exception e) {
 					return GlobalParams.FALSE;

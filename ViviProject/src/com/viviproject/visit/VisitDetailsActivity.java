@@ -246,43 +246,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 		default:
 			break;
 		}
-	}	
-
-//	TextWatcher onTextWatcher = new TextWatcher() {
-//		
-//		@Override
-//		public void onTextChanged(CharSequence s, int start, int before, int count) {
-//			if (indexWareHouse > 0) {
-//				if (s.length() > 0) {
-//					enProducts.getProducts().get(indexWareHouse).setUnit(s.toString());
-//					
-//	    			enReport = new EnReport();
-//	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(indexWareHouse).getId()));
-//	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(indexWareHouse).getUnit()));
-//	    			arrReport.set(indexWareHouse, enReport);
-//				}
-//			} else if (indexWareHouse == 0) {
-//				if (s.length() > 0 && checkIndex) {
-//					enProducts.getProducts().get(0).setUnit(s.toString());
-//					
-//	    			enReport = new EnReport();
-//	    			enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(0).getId()));
-//	    			enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(0).getUnit()));
-//	    			arrReport.set(0, enReport);
-//				}
-//			}
-//		}
-//		
-//		@Override
-//		public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
-//			
-//		}
-//		
-//		@Override
-//		public void afterTextChanged(Editable s) {
-//			
-//		}
-//	};
+	}
 	
 	OnClickListener onMinusClickHandler = new OnClickListener() 
 	{		
@@ -377,7 +341,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 				if (result.equals(GlobalParams.TRUE) && enProducts != null && enProducts.getStatus().equalsIgnoreCase("success")) {
 					
 					for (int i = 0; i < enProducts.getProducts().size(); i++) {
-						enProducts.getProducts().get(i).setUnit("0");
+						enProducts.getProducts().get(i).setUnit("-1");
 						enReport = new EnReport();
 						enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(i).getId()));
 						enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(i).getUnit()));
@@ -446,7 +410,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 							getString(R.string.COMMON_MESSAGE), VisitDetailsActivity.this);
 					
 					for (int i = 0; i < enProducts.getProducts().size(); i++) {
-						enProducts.getProducts().get(i).setUnit("0");
+						enProducts.getProducts().get(i).setUnit("-1");
 						enReport = new EnReport();
 						enReport.setProduct_id(Integer.parseInt(enProducts.getProducts().get(i).getId()));
 						enReport.setQuantity(Integer.parseInt(enProducts.getProducts().get(i).getUnit()));
