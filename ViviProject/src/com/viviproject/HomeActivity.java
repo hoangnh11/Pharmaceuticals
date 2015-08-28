@@ -301,12 +301,14 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linVisit:
-			intent = new Intent(this, VisitAcitvity.class);
+			intent = new Intent(this, Sales.class);
+			intent.putExtra(GlobalParams.MENU_NAME, "Visit");
 			startActivity(intent);
 			break;
 			
 		case R.id.linSales:
 			intent = new Intent(this, Sales.class);
+			intent.putExtra(GlobalParams.MENU_NAME, "Sales");
 			startActivity(intent);
 			break;
 			

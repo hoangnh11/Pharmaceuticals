@@ -156,25 +156,29 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				arrBasket = new ArrayList<EnBasket>();
 				for (int i = 0; i < enProducts.getProducts().size(); i++) {
 					enBasket = new EnBasket();
-					enBasket.setProduct_id(Integer.parseInt(enProducts.getProducts().get(i).getId()));
+
+					enBasket.setProduct_id(Integer.parseInt(enProducts.getProducts().get(i).getId()));				
 					enBasket.setQuantity(Integer.parseInt(enProducts.getProducts().get(i).getUnit()));
-					
+
 					if (enProducts.getProducts().get(i).getDiscount() != null 
-						&& enProducts.getProducts().get(i).getDiscount().getPoint() != null) {
+						&& enProducts.getProducts().get(i).getDiscount().getPoint() != null
+						&& enProducts.getProducts().get(i).getCheckTD().equals(GlobalParams.TRUE)) {
 						enBasket.setPoint(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getPoint().getDiscount_id()));
 					} else {
 						enBasket.setPoint(Integer.parseInt("0"));
 					}
 					
 					if (enProducts.getProducts().get(i).getDiscount() != null 
-						&& enProducts.getProducts().get(i).getDiscount().getSale() != null ) {
+						&& enProducts.getProducts().get(i).getDiscount().getSale() != null
+						&& enProducts.getProducts().get(i).getCheckCK().equals(GlobalParams.TRUE)) {
 						enBasket.setSale(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getSale().getDiscount_id()));
 					} else {
 						enBasket.setSale(Integer.parseInt("0"));
 					}
 					
 					if (enProducts.getProducts().get(i).getDiscount() != null 
-						&& enProducts.getProducts().get(i).getDiscount().getOther() != null ) {
+						&& enProducts.getProducts().get(i).getDiscount().getOther() != null
+						&& enProducts.getProducts().get(i).getCheckOther().equals(GlobalParams.TRUE)) {
 						enBasket.setOther(Integer.parseInt(enProducts.getProducts().get(i).getDiscount().getOther().getDiscount_id()));
 					} else {
 						enBasket.setOther(Integer.parseInt("0"));

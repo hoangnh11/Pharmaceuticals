@@ -42,6 +42,7 @@ public final class GlobalParams {
     public static final String SPLASH_STRING = "/";    
     public static final int THUMBNAIL_SIZE = 160;
     public static final String TEMP_SCALE_IMG_FOR_SENDING_NAME = "tmpScaledForSending.jpg";
+    public static final String MENU_NAME = "menu name";
     public static final String APP_NAME = "Pharmacy";
     public static final String STORES = "STORES";
     public static final String CHANGE_ORDER = "CHANGE_ORDER";

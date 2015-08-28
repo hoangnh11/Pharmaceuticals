@@ -178,19 +178,22 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 						
 						enBasket.setQuantity(Integer.parseInt(enOrder.getProducts().get(i).getTempProductQty()));
 						
-							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null) {
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null
+									&& products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
 								enBasket.setPoint(Integer.parseInt(products.get(i).getDiscount().getPoint().getDiscount_id()));
 							} else {
 								enBasket.setPoint(Integer.parseInt("0"));
 							}
 						
-							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null ) {
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null
+									&& products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
 								enBasket.setSale(Integer.parseInt(products.get(i).getDiscount().getSale().getDiscount_id()));
 							} else {
 								enBasket.setSale(Integer.parseInt("0"));
 							}
 						
-							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null ) {
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null
+									&& products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
 								enBasket.setOther(Integer.parseInt(products.get(i).getDiscount().getOther().getDiscount_id()));
 							} else {
 								enBasket.setOther(Integer.parseInt("0"));
@@ -198,15 +201,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 													
 						if (products != null && products.size() > 0) {
 							enBasket.setProduct_id(Integer.parseInt(products.get(i).getId()));
-							
-//							if (products.get(i).getName() != null) {
-//								enBasket.setName(products.get(i).getName());
-//							}
-							
-//							if (products.get(i).getPrice() != null) {
-//								enBasket.setPrice(products.get(i).getPrice());
-//							}
-							
+
 							if (products.get(i).getDiscount() != null) {
 								if (products.get(i).getDiscount().getPoint() != null 
 										&& products.get(i).getDiscount().getPoint().getPoint() != null) {
@@ -222,9 +217,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 						if (enOrder.getTotal() != null) {
 							enBasket.setTotal(Integer.parseInt(enOrder.getTotal()));
 						}
-						
-//						enBasket.setNote("");
-//						enBasket.setDiscountGift(new ArrayList<EnDiscountGift>());
+
 						arrBasket.add(enBasket);
 					}													
 				}

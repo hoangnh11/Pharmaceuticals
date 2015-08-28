@@ -2,6 +2,7 @@ package com.viviproject.sales;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,10 +38,12 @@ import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.visit.PlaceOrderActivity;
+import com.viviproject.visit.VisitDetailsActivity;
 
 public class Sales extends Activity implements OnClickListener{
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh;
@@ -64,11 +67,18 @@ public class Sales extends Activity implements OnClickListener{
 	public static ArrayList<EnStores> arrEnStores;
 	private String tempFilter;
 	private boolean checkFilter;
+	private AppPreferences app;
+	private Bundle bundle;
+	private String key;
+	Calendar c;
+	int day;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sale_layout);
+		app = new AppPreferences(this);
+		bundle = app.getBundle(this);
 		enStores = new EnArrayStores();
 		items = new EnStores();
 		arrEnStores = new ArrayList<EnStores>();
@@ -76,6 +86,10 @@ public class Sales extends Activity implements OnClickListener{
 		qtyPerPage = 10;
 		tempFilter = "";
 		checkFilter = false;
+		c = Calendar.getInstance();
+		day = c.get(Calendar.DAY_OF_WEEK);
+		key = bundle.getString(GlobalParams.MENU_NAME);
+		
 		initLayout();
 		
 		mapDay = new HashMap<String, String>();		
@@ -88,6 +102,7 @@ public class Sales extends Activity implements OnClickListener{
 		
 		ArrayAdapter<String> weekAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner_items, listWeek);
 		spLine.setAdapter(weekAdapter);
+		spLine.setSelection(day - 1);
 		spLine.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -118,7 +133,13 @@ public class Sales extends Activity implements OnClickListener{
 		linBack.setVisibility(View.VISIBLE);
 		
 		tvHeader = (TextView) findViewById(R.id.tvHeader);
-		tvHeader.setText(getResources().getString(R.string.SALE));
+		
+		if (key.equals("Visit")) {
+			tvHeader.setText(getResources().getString(R.string.VISIT));
+		} else {
+			tvHeader.setText(getResources().getString(R.string.SALE));
+		}
+		
 		tvHeader.setVisibility(View.VISIBLE);
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
@@ -136,7 +157,7 @@ public class Sales extends Activity implements OnClickListener{
 		imgBackToTop.setOnClickListener(this);
 		imgBackToTop.setVisibility(View.GONE);		
 		
-		spLine = (Spinner) findViewById(R.id.spLine);		
+		spLine = (Spinner) findViewById(R.id.spLine);
 		
 		lvCustomer = (ListView) findViewById(R.id.lvCustomer);
 		
@@ -224,9 +245,17 @@ public class Sales extends Activity implements OnClickListener{
         {
         	int position = ((ItemListCustomer) v).get_position();
             items = arrEnStores.get(position);
-            intent = new Intent(Sales.this, PlaceOrderActivity.class);            
+            
+            if (key.equals("Visit")) {
+            	intent = new Intent(Sales.this, VisitDetailsActivity.class);
+			} else {
+				intent = new Intent(Sales.this, PlaceOrderActivity.class);
+			} 
+            
             intent.putExtra(GlobalParams.STORES, items);
             startActivity(intent);
+            
+           
         }
     };
     
