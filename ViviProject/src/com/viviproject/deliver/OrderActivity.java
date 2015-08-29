@@ -54,7 +54,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 	private ProgressDialog progressDialog;
 	private GetSales getSales;
 	private ResponseOrders responseOrders;
-	public static ArrayList<EnOrder> arrEnOrders;
+	public static ArrayList<EnOrder> arrEnOrders;	
 	private EnOrder items;
 	private Delivery delivery;
 	private Dialog dialog;
@@ -70,7 +70,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.order_list_layout);
 		app = new AppPreferences(this);
 		responseOrders = new ResponseOrders();
-		arrEnOrders = new ArrayList<EnOrder>();
+		arrEnOrders = new ArrayList<EnOrder>();	
 		items = new EnOrder();
 		dialog = new Dialog(this);
 		responseDelivery = new ResponseDelivery();
@@ -95,7 +95,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 		
 		linSearch = (LinearLayout) findViewById(R.id.linSearch);
 		linSearch.setOnClickListener(this);	
-		linSearch.setVisibility(View.VISIBLE);
+		linSearch.setVisibility(View.GONE);
 		
 		linUpdate = (LinearLayout) findViewById(R.id.linUpdate);
 		linUpdate.setOnClickListener(this);
@@ -220,6 +220,7 @@ public class OrderActivity extends Activity implements OnClickListener{
             items = arrEnOrders.get(position);
             intent = new Intent(OrderActivity.this, ChangeOrderActivity.class);
             intent.putExtra(GlobalParams.CHANGE_ORDER, items);
+            intent.putExtra(GlobalParams.CHANGE_ORDER_INDEX, position);
             intent.putExtra(GlobalParams.PRODUCTS, responseOrders.getProducts());
             startActivity(intent);
         }

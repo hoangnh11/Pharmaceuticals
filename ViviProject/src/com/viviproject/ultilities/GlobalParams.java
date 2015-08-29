@@ -46,6 +46,7 @@ public final class GlobalParams {
     public static final String APP_NAME = "Pharmacy";
     public static final String STORES = "STORES";
     public static final String CHANGE_ORDER = "CHANGE_ORDER";
+    public static final String CHANGE_ORDER_INDEX = "CHANGE_ORDER_INDEX";
     public static final String PRODUCTS = "PRODUCTS";
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";

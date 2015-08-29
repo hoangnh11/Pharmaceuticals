@@ -25,7 +25,7 @@ import com.viviproject.ultilities.GlobalParams;
 @SuppressLint("DefaultLocale") 
 public class OrderListAdapter extends BaseAdapter implements Filterable{
 	private ArrayList<EnOrder> _data, arraylist;
-    private EnOrder items;
+    private EnOrder items, temp;
     private Activity mActivity;
     private OnClickListener _onItemClick, _onCheckboxClick;
     private SubOrderAdapter subOrderAdapter;    
@@ -36,8 +36,8 @@ public class OrderListAdapter extends BaseAdapter implements Filterable{
     public OrderListAdapter(Activity activity, ArrayList<EnOrder> data) 
 	{
 		 mActivity = activity;
-        _data = data;
-        arraylist = data;
+        _data = data;   
+        arraylist = data;       
         app = new AppPreferences(mActivity);
         crtUn = new ConvertUnsigned();
 	}
@@ -87,9 +87,9 @@ public class OrderListAdapter extends BaseAdapter implements Filterable{
             holder = (ViewHolder) convertView.getTag();
         }
         
-        items = _data.get(position);
+        items = _data.get(position);      
         
-        if (items != null) {        
+        if (items != null) {        	
         	holder.tvNameStore.setText(items.getName());
         	holder.tvAddressStore.setText(items.getAddress());
         	holder.tvDateBook.setText(items.getDate_book());
@@ -101,14 +101,23 @@ public class OrderListAdapter extends BaseAdapter implements Filterable{
 			}
         	
         	if (items.getProducts() != null && items.getProducts().size() > 0) {
-        		subOrderAdapter = new SubOrderAdapter(mActivity, items.getProducts());
+        		temp = items;
+        		for (int i = 0; i < items.getProducts().size(); i++) {
+        			if (items.getProducts().get(i).getProduct_qty().equals("0")        					
+            				|| items.getProducts().get(i).getProduct_qty().equals("")
+                			|| items.getProducts().get(i).getProduct_qty() == null) {
+        				temp.getProducts().remove(i);
+        			}
+				}
+        		
+    			subOrderAdapter = new SubOrderAdapter(mActivity, temp.getProducts());
             	holder.lvSubOrder.setAdapter(subOrderAdapter);
             	app.setListViewHeight(holder.lvSubOrder, subOrderAdapter);
 			}
         	
         	holder.tvTotal.setText(items.getTotal() + GlobalParams.BLANK_CHARACTER + "(vnd)");
 		}
-        
+       
         ((ItemOrderList) convertView).set_position(position);
         return convertView;
 	}

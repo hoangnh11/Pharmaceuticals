@@ -25,6 +25,7 @@ import com.viviproject.entities.EnOrder;
 import com.viviproject.entities.EnProductSales;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.ResponseCreateSales;
+import com.viviproject.entities.ResponseOrders;
 import com.viviproject.entities.ResponsePrepare;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
@@ -62,6 +63,9 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 	private ResponseCreateSales responseCreateSales;
 	private String nowDelivery = "0";
 	private ArrayList<EnProducts> products;
+	private int index;
+	private GetSales getSales;
+	private ResponseOrders responseOrders;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -77,30 +81,36 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 		responseCreateSales = new ResponseCreateSales();	
 		products = new ArrayList<EnProducts>();
 		bundle = app.getBundle(this);
-		enOrder = (EnOrder) bundle.getSerializable(GlobalParams.CHANGE_ORDER);
-		products = (ArrayList<EnProducts>) bundle.getSerializable(GlobalParams.PRODUCTS);
+//		enOrder = (EnOrder) bundle.getSerializable(GlobalParams.CHANGE_ORDER);
+//		products = (ArrayList<EnProducts>) bundle.getSerializable(GlobalParams.PRODUCTS);
 		
-		initLayout();
+		index = bundle.getInt(GlobalParams.CHANGE_ORDER_INDEX);
+		responseOrders = new ResponseOrders();		
 		
-		tvNameStore.setText(enOrder.getName());
-		tvChangeOrder.setText("- thay đổi đơn hàng ngày " + enOrder.getDate_book());
-		tvAddressStore.setText(enOrder.getAddress());
-		for (int i = 0; i < enOrder.getProducts().size(); i++) {
-			enOrder.getProducts().get(i).setTempProductQty("0");
-		}
-		for (int i = 0; i < products.size(); i++) {
-			products.get(i).setCheckTD(GlobalParams.FALSE);
-			products.get(i).setCheckCK(GlobalParams.FALSE);
-			products.get(i).setCheckOther(GlobalParams.FALSE);
-		}
-		changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
-		changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
-		changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
-		changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
-		changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
-		changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
-		lvChangeOrder.setAdapter(changeOrderAdapter);
-		app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
+//		initLayout();
+		
+		getSales = new GetSales();
+		getSales.execute();
+		
+//		tvNameStore.setText(enOrder.getName());
+//		tvChangeOrder.setText("- thay đổi đơn hàng ngày " + enOrder.getDate_book());
+//		tvAddressStore.setText(enOrder.getAddress());
+//		for (int i = 0; i < enOrder.getProducts().size(); i++) {
+//			enOrder.getProducts().get(i).setTempProductQty("0");
+//		}
+//		for (int i = 0; i < products.size(); i++) {
+//			products.get(i).setCheckTD(GlobalParams.FALSE);
+//			products.get(i).setCheckCK(GlobalParams.FALSE);
+//			products.get(i).setCheckOther(GlobalParams.FALSE);
+//		}
+//		changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
+//		changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
+//		changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
+//		changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
+//		changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
+//		changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
+//		lvChangeOrder.setAdapter(changeOrderAdapter);
+//		app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
 	}
 	
 	public void initLayout(){
@@ -634,6 +644,79 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 					} catch (Exception e) {
 						Logger.error("responseCreateSales: " + e);
 					}
+				}
+			}
+		}
+	}
+    
+    class GetSales extends AsyncTask<Void, Void, String> {
+    	String data;
+    	
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(ChangeOrderActivity.this);
+			progressDialog.setMessage(getResources().getString(R.string.LOADING));
+			progressDialog.show();
+			progressDialog.setCancelable(true);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					getSales.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[1];
+				netParameter[0] = new NetParameter("access-token", BuManagement.getToken(ChangeOrderActivity.this));
+			
+				try {
+					data = HttpNetServices.Instance.getSales(netParameter);					
+					responseOrders = DataParser.getResponseOrders(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && responseOrders != null && responseOrders.getOrders() != null
+						&& responseOrders.getOrders().size() > 0
+						&& responseOrders.getStatus().equalsIgnoreCase("success")) {
+					
+					enOrder = responseOrders.getOrders().get(index);
+					products = responseOrders.getProducts();
+					
+					initLayout();
+					
+					tvNameStore.setText(enOrder.getName());
+					tvChangeOrder.setText("- thay đổi đơn hàng ngày " + enOrder.getDate_book());
+					tvAddressStore.setText(enOrder.getAddress());
+					for (int i = 0; i < enOrder.getProducts().size(); i++) {
+						enOrder.getProducts().get(i).setTempProductQty("0");
+					}
+					for (int i = 0; i < products.size(); i++) {
+						products.get(i).setCheckTD(GlobalParams.FALSE);
+						products.get(i).setCheckCK(GlobalParams.FALSE);
+						products.get(i).setCheckOther(GlobalParams.FALSE);
+					}
+					changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
+					changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
+					changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
+					changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
+					changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
+					changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
+					lvChangeOrder.setAdapter(changeOrderAdapter);
+					app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
+					
 				}
 			}
 		}

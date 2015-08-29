@@ -24,7 +24,7 @@ import com.viviproject.ultilities.GlobalParams;
 @SuppressLint("DefaultLocale") 
 public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
 	private ArrayList<EnOrder> _data, arraylist;
-    private EnOrder items;
+    private EnOrder items, temp;
     private Activity mActivity;
     private OnClickListener _onItemClick;
     private SubOrderDeliverAdapter subOrderDeliverAdapter;
@@ -85,14 +85,23 @@ public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
         
         items = _data.get(position);
         
-        if (items != null) {
+        if (items != null) {        
         	holder.tvNameStore.setText(items.getName());
         	holder.tvAddressStore.setText(items.getAddress());
         	holder.tvDateBook.setText(items.getDate_book());
         	holder.tvTotal.setText(items.getTotal() + GlobalParams.BLANK_CHARACTER + "(vnd)");
         	
         	if (items.getProducts() != null && items.getProducts().size() > 0) {
-        		subOrderDeliverAdapter = new SubOrderDeliverAdapter(mActivity, items.getProducts());
+        		temp = items;
+        		for (int i = 0; i < items.getProducts().size(); i++) {
+        			if (items.getProducts().get(i).getProduct_qty().equals("0")        					
+            				|| items.getProducts().get(i).getProduct_qty().equals("")
+                			|| items.getProducts().get(i).getProduct_qty() == null) {
+        				temp.getProducts().remove(i);
+        			}
+				}
+        		
+        		subOrderDeliverAdapter = new SubOrderDeliverAdapter(mActivity, temp.getProducts());
             	holder.lvSubOrderDeliver.setAdapter(subOrderDeliverAdapter);
             	app.setListViewHeight(holder.lvSubOrderDeliver, subOrderDeliverAdapter);
 			}
