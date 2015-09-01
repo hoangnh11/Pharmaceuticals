@@ -1,5 +1,7 @@
 package com.viviproject.customerline;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -622,21 +624,26 @@ public class EditCustomer extends Activity implements OnClickListener{
 
 		@Override
 		protected String doInBackground(Void... params) {
-			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[13];				
-				netParameter[0] = new NetParameter("uid", app.getIMEI(EditCustomer.this) + "|" + app.getCurrentTimeStamp());
-				netParameter[1] = new NetParameter("code", app.getIMEI(EditCustomer.this));
-				netParameter[2] = new NetParameter("name", edtStoreName.getEditableText().toString());
-				netParameter[3] = new NetParameter("address", edtStoreAddress.getEditableText().toString());
-				netParameter[4] = new NetParameter("phone", edtStorePhone.getEditableText().toString());
-				netParameter[5] = new NetParameter("longitude", BuManagement.getLongitude(EditCustomer.this));
-				netParameter[6] = new NetParameter("latitude", BuManagement.getLatitude(EditCustomer.this));
-				netParameter[7] = new NetParameter("region_id", store.getCode());
-				netParameter[8] = new NetParameter("district", store.getDistrict());
-				netParameter[9] = new NetParameter("vip", vip);
-				netParameter[10] = new NetParameter("staff", DataParser.convertObjectToString(arrStaff));
-				netParameter[11] = new NetParameter("lines", DataParser.convertObjectToString(line));
-				netParameter[12] = new NetParameter("repeat", times);
+			if (!isCancelled()) {
+				NetParameter[] netParameter = new NetParameter[13];
+				try {						
+					netParameter[0] = new NetParameter("uid", app.getIMEI(EditCustomer.this) + "|" + app.getCurrentTimeStamp());
+					netParameter[1] = new NetParameter("code", store.getCode());				
+					netParameter[2] = new NetParameter("name", URLEncoder.encode(edtStoreName.getEditableText().toString(), "utf-8"));				
+					netParameter[3] = new NetParameter("address", URLEncoder.encode(edtStoreAddress.getEditableText().toString(), "utf-8"));
+					netParameter[4] = new NetParameter("phone", edtStorePhone.getEditableText().toString());
+					netParameter[5] = new NetParameter("longitude", BuManagement.getLongitude(EditCustomer.this));
+					netParameter[6] = new NetParameter("latitude", BuManagement.getLatitude(EditCustomer.this));
+					netParameter[7] = new NetParameter("region_id", store.getRegion_id());
+					netParameter[8] = new NetParameter("district", URLEncoder.encode(store.getDistrict(), "utf-8"));
+					netParameter[9] = new NetParameter("vip", vip);
+					netParameter[10] = new NetParameter("staff", DataParser.convertObjectToStringEncode(arrStaff));
+					netParameter[11] = new NetParameter("lines", DataParser.convertObjectToStringEncode(line));
+					netParameter[12] = new NetParameter("repeat", times);
+				} catch (UnsupportedEncodingException e1) {					
+					e1.printStackTrace();
+				}
+				
 				try {
 					data = HttpNetServices.Instance.updateStores(netParameter, BuManagement.getToken(EditCustomer.this),
 							store.getStore_id());

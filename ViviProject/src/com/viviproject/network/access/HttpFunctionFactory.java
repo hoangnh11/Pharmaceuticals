@@ -94,6 +94,20 @@ public final class HttpFunctionFactory {
 		return func;
 	}
 
+	public static String funcLogParamsNonEncode(NetParameter[] netParameters) {
+		String params = "";
+		for (int i = 0; i < netParameters.length; i++) {
+			if (i == netParameters.length - 1) {
+				params = params + netParameters[i].getName() + "="
+						+ netParameters[i].getValue().trim();
+			} else {
+				params = params + netParameters[i].getName() + "="
+						+ netParameters[i].getValue().trim() + "&";
+			}
+		}	
+		return params;
+	}
+	
 	public static String funcLogParams(NetParameter[] netParameters) {
 		String params = "";
 		for (int i = 0; i < netParameters.length; i++) {
@@ -170,7 +184,7 @@ public final class HttpFunctionFactory {
 	
 	public static HttpFunctionInfo updateStores(NetParameter[] netParameters, String token, String id) {
 		HttpFunctionInfo functionInfo = createPutBodyMethod("updateStores");
-		String params = funcLogParams(netParameters);
+		String params = funcLogParamsNonEncode(netParameters);
 		Log.e("updateStores", "updateStores: " + params);
 		functionInfo.setUrl(viviHostURLshort + "/v1/stores/" + id + "?access-token=" + token);
 		functionInfo.setParams(netParameters);

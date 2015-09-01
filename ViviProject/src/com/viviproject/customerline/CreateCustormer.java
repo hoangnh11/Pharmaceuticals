@@ -394,7 +394,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 			if (!isCancelled()) {				
 				NetParameter[] netParameter = new NetParameter[13];				
 				netParameter[0] = new NetParameter("uid", app.getIMEI(CreateCustormer.this) + "|" + app.getCurrentTimeStamp());
-				netParameter[1] = new NetParameter("code", app.getIMEI(CreateCustormer.this));
+				netParameter[1] = new NetParameter("code", "");
 				netParameter[2] = new NetParameter("name", edtStoreName.getEditableText().toString());
 				netParameter[3] = new NetParameter("address", edtStoreAddress.getEditableText().toString());
 				netParameter[4] = new NetParameter("phone", edtStorePhone.getEditableText().toString());

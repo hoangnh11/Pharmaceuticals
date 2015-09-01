@@ -7,7 +7,9 @@
  */
 package com.viviproject.ultilities;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -63,8 +65,25 @@ public final class DataParser {
 		}
 
 		String json;
-		initGson();
+		initGson();		
 		json = mGson.toJson(jsonData);
+		
+		return json;
+	}
+	
+	public static String convertObjectToStringEncode(Object jsonData) throws JsonSyntaxException {
+		if (jsonData == null) {
+			return null;
+		}
+
+		String json;
+		initGson();
+		try {
+			json = URLEncoder.encode(mGson.toJson(jsonData), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			json = "";
+		}
 		return json;
 	}
 	
