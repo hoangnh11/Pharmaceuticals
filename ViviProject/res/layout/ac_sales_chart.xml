@@ -142,7 +142,7 @@
             
             <Button 
                 android:id="@+id/btOK"
-                android:layout_width="25dp"
+                android:layout_width="36dp"
                 android:layout_height="25dp"
                 android:gravity="center"
                 android:layout_marginLeft="15dp"

@@ -79,7 +79,7 @@
 
 		        <Button
 		            android:id="@+id/btRevalueSearchOK"
-		            android:layout_width="25dp"
+		            android:layout_width="36dp"
 		            android:layout_height="25dp"
 		            android:layout_marginLeft="15dp"
 		            android:background="@drawable/bg_button_ok"

@@ -51,7 +51,7 @@
             android:inputType="number"
             android:text="0"
             android:textColor="@color/BLACK"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <ImageView

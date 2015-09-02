@@ -41,7 +41,6 @@ import com.viviproject.entities.EnGimicStoreItem;
 import com.viviproject.entities.EnStoreItem;
 import com.viviproject.network.access.HttpFunctionFactory;
 import com.viviproject.network.access.ViviApi;
-import com.viviproject.reports.AcProfitFollowCustomer;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.Logger;
