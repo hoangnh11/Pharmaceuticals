@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="16dp"
             android:gravity="center"
             android:text="@string/TD"
             android:textColor="@color/TEXT_COLOR_GREY"
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="12dp"
             android:text="@string/CK"
             android:textColor="@color/TEXT_COLOR_GREY"
             android:textSize="12dp"
@@ -38,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/OTHER"
+            android:paddingRight="8dp"
             android:textColor="@color/TEXT_COLOR_GREY"
             android:textSize="12dp"
             android:textStyle="bold" />
