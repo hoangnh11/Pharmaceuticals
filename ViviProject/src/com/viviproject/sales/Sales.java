@@ -71,7 +71,7 @@ public class Sales extends Activity implements OnClickListener{
 	private Bundle bundle;
 	private String key;
 	Calendar c;
-	int day;
+	int day;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -321,7 +321,8 @@ public class Sales extends Activity implements OnClickListener{
 						lvCustomer.setVisibility(View.VISIBLE);						
 					}
 					
-					lvCustomer.setAdapter(listVisitAdapter);
+//					lvCustomer.setAdapter(listVisitAdapter);
+					app.keepPositionListView(lvCustomer, listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
 					lvCustomer.setOnScrollListener(new OnScrollListener() {
 						
@@ -430,7 +431,8 @@ public class Sales extends Activity implements OnClickListener{
 						lvCustomer.setVisibility(View.VISIBLE);						
 					}
 					
-					lvCustomer.setAdapter(listVisitAdapter);
+//					lvCustomer.setAdapter(listVisitAdapter);
+					app.keepPositionListView(lvCustomer, listVisitAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
 					lvCustomer.setOnScrollListener(new OnScrollListener() {
 						

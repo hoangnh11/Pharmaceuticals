@@ -29,6 +29,7 @@ import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
@@ -51,11 +52,13 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 	public static ArrayList<EnStores> arrEnStores;
 	private String tempFilter;
 	private boolean checkFilter;
+	private AppPreferences app;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.list_customer_pending_layout);		
+		setContentView(R.layout.list_customer_pending_layout);
+		app = new AppPreferences(this);
 		items = new EnStores();
 		enStores = new EnArrayStores();
 		arrEnStores = new ArrayList<EnStores>();
@@ -239,7 +242,8 @@ public class ListCustomerPending extends Activity implements OnClickListener{
 							
 						}
 						
-						lvCustomer.setAdapter(listCustomerPendingAdapter);
+//						lvCustomer.setAdapter(listCustomerPendingAdapter);
+						app.keepPositionListView(lvCustomer, listCustomerPendingAdapter);
 						imgBackToTop.setVisibility(View.VISIBLE);
 						lvCustomer.setOnScrollListener(new OnScrollListener() {
 							

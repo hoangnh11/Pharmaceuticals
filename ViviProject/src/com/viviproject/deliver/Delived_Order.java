@@ -281,7 +281,8 @@ public class Delived_Order extends Activity implements OnClickListener{
 						lvOrder.setVisibility(View.VISIBLE);						
 					}
 					
-					lvOrder.setAdapter(delivedOrderAdapter);
+//					lvOrder.setAdapter(delivedOrderAdapter);
+					app.keepPositionListView(lvOrder, delivedOrderAdapter);
 					lvOrder.setOnScrollListener(new OnScrollListener() {
 						
 						@Override

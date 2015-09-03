@@ -360,7 +360,8 @@ public class OrderActivity extends Activity implements OnClickListener{
 						lvOrder.setVisibility(View.VISIBLE);						
 					}
 					
-					lvOrder.setAdapter(orderListAdapter);
+//					lvOrder.setAdapter(orderListAdapter);
+					app.keepPositionListView(lvOrder, orderListAdapter);
 					lvOrder.setOnScrollListener(new OnScrollListener() {
 						
 						@Override

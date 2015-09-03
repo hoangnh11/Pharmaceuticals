@@ -30,6 +30,7 @@ import com.viviproject.entities.EnArrayStores;
 import com.viviproject.entities.EnStores;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
@@ -52,11 +53,13 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 	private int qtyPage, qtyPerPage;
 	private String tempFilter;
 	private boolean checkFilter;
+	private AppPreferences app;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.customer_layout);
+		app = new AppPreferences(this);
 		enStores = new EnArrayStores();	
 		arrEnStores = new ArrayList<EnStores>();	
 		items = new EnStores();
@@ -238,7 +241,8 @@ public class CustomerProfitActivity extends Activity implements OnClickListener{
 						lvCustomer.setVisibility(View.VISIBLE);						
 					}
 					
-					lvCustomer.setAdapter(customerAdapter);
+//					lvCustomer.setAdapter(customerAdapter);
+					app.keepPositionListView(lvCustomer, customerAdapter);
 					imgBackToTop.setVisibility(View.VISIBLE);
 					lvCustomer.setOnScrollListener(new OnScrollListener() {
 						
