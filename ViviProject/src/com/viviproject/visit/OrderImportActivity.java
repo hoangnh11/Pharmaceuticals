@@ -312,7 +312,7 @@ public class OrderImportActivity extends Activity implements OnClickListener{
 			progressDialog.dismiss();
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && Response != null) {
-					app.alertErrorMessageString(Response.getStatus(),
+					app.alertErrorMessageString(Response.getMessage(),
 							getString(R.string.COMMON_MESSAGE), OrderImportActivity.this);
 					
 					for (int i = 0; i < enProducts.getProducts().size(); i++) {
