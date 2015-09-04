@@ -1,5 +1,7 @@
 package com.viviproject.deliver;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.adapter.OrderListAdapter;
 import com.viviproject.core.ItemOrderList;
+import com.viviproject.customerline.EditCustomer;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.entities.ResponseDelivery;
 import com.viviproject.entities.ResponseOrders;
@@ -263,8 +266,15 @@ public class OrderActivity extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
+				NetParameter[] netParameter = new NetParameter[1];
+				try {						
+					netParameter[0] = new NetParameter("id", items.getId());
+				} catch (Exception e1) {					
+					e1.printStackTrace();
+				}
+				
 				try {
-					data = HttpNetServices.Instance.delivery(BuManagement.getToken(OrderActivity.this), items.getId());					
+					data = HttpNetServices.Instance.delivery(netParameter, BuManagement.getToken(OrderActivity.this), items.getId());					
 					responseDelivery = DataParser.getResponseDelivery(data);					
 					return GlobalParams.TRUE;
 				} catch (Exception e) {

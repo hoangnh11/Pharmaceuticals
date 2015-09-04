@@ -625,7 +625,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {
-				NetParameter[] netParameter = new NetParameter[13];
+				NetParameter[] netParameter = new NetParameter[14];
 				try {						
 					netParameter[0] = new NetParameter("uid", app.getIMEI(EditCustomer.this) + "|" + app.getCurrentTimeStamp());
 					netParameter[1] = new NetParameter("code", store.getCode());				
@@ -640,6 +640,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 					netParameter[10] = new NetParameter("staff", DataParser.convertObjectToStringEncode(arrStaff));
 					netParameter[11] = new NetParameter("lines", DataParser.convertObjectToStringEncode(line));
 					netParameter[12] = new NetParameter("repeat", times);
+					netParameter[13] = new NetParameter("id", store.getStore_id());
 				} catch (UnsupportedEncodingException e1) {					
 					e1.printStackTrace();
 				}

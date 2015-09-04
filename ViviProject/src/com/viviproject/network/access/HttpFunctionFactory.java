@@ -20,7 +20,7 @@ import com.viviproject.network.NetParameter;
  * @author hoangnh11
  */
 public final class HttpFunctionFactory {
-	public static String viviHostURLshort = "http://api.tm.vivi.vn";
+	public static String viviHostURLshort = "http://api.thaiminh.vivi.vn";
 
 	/**
 	 * 
@@ -183,10 +183,18 @@ public final class HttpFunctionFactory {
 	}
 	
 	public static HttpFunctionInfo updateStores(NetParameter[] netParameters, String token, String id) {
-		HttpFunctionInfo functionInfo = createPutBodyMethod("updateStores");
+		/**Manh comment*/
+		/*HttpFunctionInfo functionInfo = createPutBodyMethod("updateStores");
 		String params = funcLogParamsNonEncode(netParameters);
 		Log.e("updateStores", "updateStores: " + params);
 		functionInfo.setUrl(viviHostURLshort + "/v1/stores/" + id + "?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;*/
+		
+		HttpFunctionInfo functionInfo = createPostBodyMethod("updateStores");
+		String params = funcLogParamsNonEncode(netParameters);
+		Log.e("updateStores", "updateStores: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/change" + "?access-token=" + token);
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
@@ -275,10 +283,10 @@ public final class HttpFunctionFactory {
 		return functionInfo;
 	}
 	
-	public static HttpFunctionInfo delivery(String token, String id) {
-		HttpFunctionInfo functionInfo = createPutMethod("delivery");
+	public static HttpFunctionInfo delivery(NetParameter[] netParameters, String token, String id) {
+		HttpFunctionInfo functionInfo = createPostMethod("delivery");
 		Log.e("delivery", "delivery: " + id);
-		functionInfo.setUrl(viviHostURLshort + "/v1/sales/delivery/" + id + "?access-token=" + token);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/delivery" + "?access-token=" + token);
 		return functionInfo;
 	}
 	

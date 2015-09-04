@@ -172,8 +172,8 @@ public final class HttpNetServices implements INetServices {
 	}
 	
 	@Override
-	public String delivery(String token, String id) throws Exception {
-		HttpFunctionInfo functionInfo = HttpFunctionFactory.delivery(token, id);
+	public String delivery(NetParameter[] netParameters, String token, String id) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.delivery(netParameters, token, id);
 		return executer(functionInfo);
 	}
 	

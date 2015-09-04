@@ -32,7 +32,7 @@ public interface INetServices {
 	String getGimics(NetParameter[] netParameters) throws Exception;
 	String createGimic(NetParameter[] netParameters, String token) throws Exception;
 	String getSales(NetParameter[] netParameters) throws Exception;
-	String delivery(String token, String id) throws Exception;
+	String delivery(NetParameter[] netParameters, String token, String id) throws Exception;
 	String getSalesOrder(NetParameter[] netParameters, String id) throws Exception;
 	String createSale(NetParameter[] netParameters, String token, String id) throws Exception;
 	String getListDelivery(NetParameter[] netParameters) throws Exception;
