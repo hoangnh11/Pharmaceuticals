@@ -302,10 +302,18 @@ public final class HttpFunctionFactory {
 	}
 	
 	public static HttpFunctionInfo createSale(NetParameter[] netParameters, String token, String id) {
-		HttpFunctionInfo functionInfo = createPutBodyMethod("createSale");
+		/*HttpFunctionInfo functionInfo = createPutBodyMethod("createSale");
 		String params = funcLogParams(netParameters);
 		Log.e("createSale", "createSale: " + params);
 		functionInfo.setUrl(viviHostURLshort + "/v1/sales/" + id + "?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;*/
+		
+		//Update to POST
+		HttpFunctionInfo functionInfo = createPostMethod("createSale");
+		String params = funcLogParams(netParameters);
+		Log.e("createSale", "createSale: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/sales/change" + "?access-token=" + token);
 		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}

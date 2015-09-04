@@ -600,7 +600,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {				
-				NetParameter[] netParameter = new NetParameter[7];		
+				NetParameter[] netParameter = new NetParameter[8];		
 				netParameter[0] = new NetParameter("store_id", enOrder.getStore_id());
 				netParameter[1] = new NetParameter("delivery", nowDelivery);
 				netParameter[2] = new NetParameter("discount_point_value", String.valueOf(responsePrepare.getTotal_point()));
@@ -608,6 +608,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 				netParameter[4] = new NetParameter("subtotal", String.valueOf(responsePrepare.getSubtotal()));
 				netParameter[5] = new NetParameter("total", String.valueOf(responsePrepare.getTotal()));
 				netParameter[6] = new NetParameter("basket", DataParser.convertObjectToString(arrBasket));
+				netParameter[7] = new NetParameter("id", enOrder.getId());
 				
 				try {
 					data = HttpNetServices.Instance.createSale(netParameter,
