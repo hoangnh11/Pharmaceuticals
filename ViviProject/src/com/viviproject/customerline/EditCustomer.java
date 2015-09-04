@@ -587,7 +587,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 				if (ckT7.isChecked()) {						
 					line.add(7);
 				}
-				
+			
 				updateStores = new UpdateStores();
 				updateStores.execute();
 			} else {				
@@ -699,7 +699,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		String data;
 
 		@Override
-		protected void onPreExecute() {
+		protected void onPreExecute() {			
 			progressDialog = new ProgressDialog(EditCustomer.this);
 			progressDialog.setMessage(getResources().getString(R.string.PROCESSING));
 			progressDialog.show();
@@ -715,6 +715,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 		@Override
 		protected String doInBackground(Void... params) {
 			if (!isCancelled()) {
+				Logger.error("333333333: " + store.getStore_id());
 				NetParameter[] netParameter = new NetParameter[14];									
 				netParameter[0] = new NetParameter("uid", app.getIMEI(EditCustomer.this) + "|" + app.getCurrentTimeStamp());
 				netParameter[1] = new NetParameter("code", store.getCode());				
@@ -724,16 +725,23 @@ public class EditCustomer extends Activity implements OnClickListener{
 				netParameter[5] = new NetParameter("longitude", BuManagement.getLongitude(EditCustomer.this));
 				netParameter[6] = new NetParameter("latitude", BuManagement.getLatitude(EditCustomer.this));
 				netParameter[7] = new NetParameter("region_id", store.getRegion_id());
-				netParameter[8] = new NetParameter("district", store.getDistrict());
+				
+				if (store.getDistrict() != null) {
+					netParameter[8] = new NetParameter("district", store.getDistrict());
+				} else {
+					netParameter[8] = new NetParameter("district", "");
+				}
+				
 				netParameter[9] = new NetParameter("vip", vip);
 				netParameter[10] = new NetParameter("staff", DataParser.convertObjectToString(arrStaff));
 				netParameter[11] = new NetParameter("lines", DataParser.convertObjectToString(line));
 				netParameter[12] = new NetParameter("repeat", times);
-				netParameter[13] = new NetParameter("id", store.getStore_id());				
-				
+				netParameter[13] = new NetParameter("id", store.getStore_id());
 				try {
+					Logger.error("4444444: " + store.getStore_id());
 					data = HttpNetServices.Instance.updateStores(netParameter, BuManagement.getToken(EditCustomer.this),
 							store.getStore_id());
+					Logger.error("555555555: ");
 					Logger.error(":         "+data);
 					responseUpdateStores = DataParser.updateStores(data);
 					return GlobalParams.TRUE;
@@ -751,7 +759,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && responseUpdateStores != null
 						&& String.valueOf(responseUpdateStores.getStatus()).equalsIgnoreCase("success")) {
-					app.alertErrorMessageString(String.valueOf(responseUpdateStores.getStatus()),
+					app.alertErrorMessageString(String.valueOf(responseUpdateStores.getMessage()),
 							getString(R.string.COMMON_MESSAGE), EditCustomer.this);
 				} else {
 					try {

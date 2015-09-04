@@ -289,7 +289,7 @@ public class GiveGimic extends Activity implements OnClickListener{
 			progressDialog.dismiss();
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && responseCreateGimics != null) {
-					app.alertErrorMessageString(responseCreateGimics.getStatus(),
+					app.alertErrorMessageString(responseCreateGimics.getMessage(),
 							getString(R.string.COMMON_MESSAGE), GiveGimic.this);
 					
 					for (int i = 0; i < elements.getElements().size(); i++) {

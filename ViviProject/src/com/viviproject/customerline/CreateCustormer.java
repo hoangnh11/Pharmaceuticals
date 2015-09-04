@@ -426,7 +426,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 			if (!isCancelled()) {
 				if (result.equals(GlobalParams.TRUE) && responseCreateStores != null
 						&& String.valueOf(responseCreateStores.getStatus()).equalsIgnoreCase("success")) {
-					app.alertErrorMessageString(String.valueOf(responseCreateStores.getStatus()),
+					app.alertErrorMessageString(String.valueOf(responseCreateStores.getMessage()),
 							getString(R.string.COMMON_MESSAGE), CreateCustormer.this);
 				} else {
 					try {

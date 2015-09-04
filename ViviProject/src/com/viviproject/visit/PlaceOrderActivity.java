@@ -636,7 +636,7 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 				if (result.equals(GlobalParams.TRUE) && responseCreateSales != null 
 						&& responseCreateSales.getStatus() != null
 						&& responseCreateSales.getStatus().equalsIgnoreCase("success")) {					
-					app.alertErrorMessageString(responseCreateSales.getStatus(),
+					app.alertErrorMessageString(responseCreateSales.getMessage(),
 							getString(R.string.COMMON_MESSAGE), PlaceOrderActivity.this);
 					btnOk.setEnabled(false);
 					btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
