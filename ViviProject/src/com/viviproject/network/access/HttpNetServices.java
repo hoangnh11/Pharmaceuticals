@@ -236,4 +236,10 @@ public final class HttpNetServices implements INetServices {
 		HttpFunctionInfo functionInfo = HttpFunctionFactory.searchDelivedOrder(netParameters);
 		return executer(functionInfo);
 	}
+	
+	@Override
+	public String locationChange(NetParameter[] netParameters, String token) throws Exception {
+		HttpFunctionInfo functionInfo = HttpFunctionFactory.locationChange(netParameters, token);
+		return executer(functionInfo);
+	}
 }

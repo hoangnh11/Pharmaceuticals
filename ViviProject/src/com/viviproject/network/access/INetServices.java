@@ -43,4 +43,5 @@ public interface INetServices {
 	String lineChange(NetParameter[] netParameters, String token) throws Exception;
 	String search(NetParameter[] netParameters) throws Exception;
 	String searchDelivedOrder(NetParameter[] netParameters) throws Exception;
+	String locationChange(NetParameter[] netParameters, String token) throws Exception;
 }

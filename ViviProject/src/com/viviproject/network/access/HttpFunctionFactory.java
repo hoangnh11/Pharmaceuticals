@@ -385,4 +385,13 @@ public final class HttpFunctionFactory {
 		functionInfo.setUrl(viviHostURLshort + "/v1/stores/search?" + params);
 		return functionInfo;
 	}
+	
+	public static HttpFunctionInfo locationChange(NetParameter[] netParameters, String token) {
+		HttpFunctionInfo functionInfo = createPostBodyMethod("locationChange");
+		String params = funcLogParams(netParameters);
+		Log.e("locationChange", "locationChange: " + params);
+		functionInfo.setUrl(viviHostURLshort + "/v1/stores/location_change?access-token=" + token);
+		functionInfo.setParams(netParameters);
+		return functionInfo;
+	}
 }

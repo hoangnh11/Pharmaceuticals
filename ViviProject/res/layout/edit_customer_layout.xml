@@ -665,6 +665,34 @@
                 android:textColor="@color/WHITE"
                 android:textSize="14dp"
                 android:textStyle="bold" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/DES_UPDATE_GPS"
+                    android:textColor="@color/TEXT_COLOR_GREY"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/btnUpdateGPS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/bg_blue_gray"
+                    android:gravity="center"
+                    android:text="@string/UPDATE_GPS"
+                    android:textColor="@color/WHITE"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

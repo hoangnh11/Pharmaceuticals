@@ -1,7 +1,5 @@
 package com.viviproject.deliver;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -30,7 +28,6 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.adapter.OrderListAdapter;
 import com.viviproject.core.ItemOrderList;
-import com.viviproject.customerline.EditCustomer;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.entities.ResponseDelivery;
 import com.viviproject.entities.ResponseOrders;

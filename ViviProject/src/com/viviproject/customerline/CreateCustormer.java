@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.StaffAdapter;
-import com.viviproject.customerline.EditCustomer.LineChange;
 import com.viviproject.entities.EnCreateStaff;
 import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.network.NetParameter;

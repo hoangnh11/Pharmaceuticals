@@ -20,6 +20,7 @@ import com.viviproject.deliver.Delived_Order;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.StringUtils;
 
 @SuppressLint("DefaultLocale") 
 public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
@@ -89,7 +90,7 @@ public class DelivedOrderAdapter extends BaseAdapter implements Filterable{
         	holder.tvNameStore.setText(items.getName());
         	holder.tvAddressStore.setText(items.getAddress());
         	holder.tvDateBook.setText(items.getDate_book());
-        	holder.tvTotal.setText(items.getTotal() + GlobalParams.BLANK_CHARACTER + "(vnd)");
+        	holder.tvTotal.setText(StringUtils.formatEnglishValueNumber(items.getTotal()) + GlobalParams.BLANK_CHARACTER + "(vnd)");
         	
         	if (items.getProducts() != null && items.getProducts().size() > 0) {
         		temp = items;

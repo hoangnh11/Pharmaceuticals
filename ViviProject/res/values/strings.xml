@@ -167,6 +167,8 @@
     <string name="ROLE">Vai trò</string>
     <string name="OWNER">Chủ nhà thuốc</string>
     <string name="STAFF_FULL">Nhân viên nhà thuốc</string>
+    <string name="DES_UPDATE_GPS">Nếu bạn muốn cập nhật tọa độ nhà thuốc thì nhấn vào</string>
+    <string name="UPDATE_GPS">Cập nhật tọa độ GPS</string>
 
     <!-- ================================= Ghe tham screen ================================ -->
     <string name="DEFAULT_FILTER_LOCATIONEST">Mặc định sắp xếp theo vị trí gần nhất</string>

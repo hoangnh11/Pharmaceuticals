@@ -49,7 +49,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 	public static int indexEditCustomer = -1;
 	private LinearLayout linBack, linSearch, linUpdate, linRefresh, linStaff, linRemoveStaff, linAddStaff;
 	private TextView tvHeader;
-	private Button btnUpdate, btnLineChange;
+	private Button btnUpdate, btnLineChange, btnUpdateGPS;
 	private EditText edtStoreName, edtStorePhone, edtStoreAddress;		
 
 	private EditStaffAdapter editStaffAdapter;
@@ -80,6 +80,7 @@ public class EditCustomer extends Activity implements OnClickListener{
 	private boolean remove;
 	private SharedPreferenceManager sm;
 	private String role;
+	private UpdateGPS updateGPS;
  	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -288,6 +289,8 @@ public class EditCustomer extends Activity implements OnClickListener{
 		btnUpdate.setOnClickListener(this);
 		btnLineChange = (Button) findViewById(R.id.btnLineChange);
 		btnLineChange.setOnClickListener(this);
+		btnUpdateGPS = (Button) findViewById(R.id.btnUpdateGPS);
+		btnUpdateGPS.setOnClickListener(this);
 		
 		spDay = (Spinner) findViewById(R.id.spDay);
 		spMonth = (Spinner) findViewById(R.id.spMonth);
@@ -623,12 +626,75 @@ public class EditCustomer extends Activity implements OnClickListener{
 			lineChange = new LineChange();
 			lineChange.execute();
 			break;
+		
+		case R.id.btnUpdateGPS:
+			updateGPS = new UpdateGPS();
+			updateGPS.execute();
+			break;
 			
 		default:
 			break;
 		}
 	}
 
+	class UpdateGPS extends AsyncTask<Void, Void, String> {
+		String data;
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(EditCustomer.this);
+			progressDialog.setMessage(getResources().getString(R.string.PROCESSING));
+			progressDialog.show();
+			progressDialog.setCancelable(false);
+			progressDialog.setOnCancelListener(new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					updateGPS.cancel(true);
+				}
+			});
+		}
+
+		@Override
+		protected String doInBackground(Void... params) {
+			if (!isCancelled()) {
+				NetParameter[] netParameter = new NetParameter[3];									
+				netParameter[0] = new NetParameter("store_id", store.getStore_id());
+				netParameter[1] = new NetParameter("lat", BuManagement.getLatitude(EditCustomer.this));				
+				netParameter[2] = new NetParameter("lng", BuManagement.getLongitude(EditCustomer.this));					
+				
+				try {
+					data = HttpNetServices.Instance.locationChange(netParameter, BuManagement.getToken(EditCustomer.this));
+					Logger.error(":         " + data);
+					responseUpdateStores = DataParser.updateStores(data);
+					return GlobalParams.TRUE;
+				} catch (Exception e) {
+					return GlobalParams.FALSE;
+				}
+			} else {
+				return GlobalParams.FALSE;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			if (!isCancelled()) {
+				if (result.equals(GlobalParams.TRUE) && responseUpdateStores != null
+						&& String.valueOf(responseUpdateStores.getStatus()).equalsIgnoreCase("success")) {
+					app.alertErrorMessageString(String.valueOf(responseUpdateStores.getMessage()),
+							getString(R.string.COMMON_MESSAGE), EditCustomer.this);
+				} else {
+					try {
+						app.alertErrorMessageString(responseUpdateStores.getMessage(),
+								getString(R.string.COMMON_MESSAGE), EditCustomer.this);
+					} catch (Exception e) {
+						Logger.error("responseUpdateStores: " + e);
+					}					
+				}
+			}
+		}
+	}
+	
 	class UpdateStores extends AsyncTask<Void, Void, String> {
 		String data;
 

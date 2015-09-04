@@ -21,6 +21,7 @@ import com.viviproject.deliver.OrderActivity;
 import com.viviproject.entities.EnOrder;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.StringUtils;
 
 @SuppressLint("DefaultLocale") 
 public class OrderListAdapter extends BaseAdapter implements Filterable{
@@ -115,7 +116,7 @@ public class OrderListAdapter extends BaseAdapter implements Filterable{
             	app.setListViewHeight(holder.lvSubOrder, subOrderAdapter);
 			}
         	
-        	holder.tvTotal.setText(items.getTotal() + GlobalParams.BLANK_CHARACTER + "(vnd)");
+        	holder.tvTotal.setText(StringUtils.formatEnglishValueNumber(items.getTotal()) + GlobalParams.BLANK_CHARACTER + "(vnd)");
 		}
        
         ((ItemOrderList) convertView).set_position(position);
