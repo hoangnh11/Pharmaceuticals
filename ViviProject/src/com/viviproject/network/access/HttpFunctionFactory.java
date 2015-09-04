@@ -285,8 +285,11 @@ public final class HttpFunctionFactory {
 	
 	public static HttpFunctionInfo delivery(NetParameter[] netParameters, String token, String id) {
 		HttpFunctionInfo functionInfo = createPostMethod("delivery");
+		String params = funcLogParams(netParameters);
+		Log.e("delivery", "params: " + params);
 		Log.e("delivery", "delivery: " + id);
 		functionInfo.setUrl(viviHostURLshort + "/v1/sales/delivery" + "?access-token=" + token);
+		functionInfo.setParams(netParameters);
 		return functionInfo;
 	}
 	
