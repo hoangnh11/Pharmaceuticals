@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.adapter.StaffAdapter;
+import com.viviproject.customerline.EditCustomer.LineChange;
 import com.viviproject.entities.EnCreateStaff;
 import com.viviproject.entities.ResponseCreateStores;
 import com.viviproject.network.NetParameter;
@@ -165,7 +166,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 		linRefresh.setVisibility(View.GONE);
 		
 		btnHere = (Button) findViewById(R.id.btnHere);
-		btnHere.setOnClickListener(this);
+		btnHere.setOnClickListener(this);		
 		
 		btnSendRequest = (Button) findViewById(R.id.btnSendRequest);
 		btnSendRequest.setOnClickListener(this);
@@ -292,7 +293,7 @@ public class CreateCustormer extends Activity implements OnClickListener {
 			linRemoveStaff.setVisibility(View.VISIBLE);
 			enCreateStaff = new EnCreateStaff();
 			enCreateStaff.setFullname(edtNameOwner.getEditableText().toString());
-			enCreateStaff.setBirthday(dayOwner + "-" + monthOwner + "-" + yearOwner);
+			enCreateStaff.setBirthday(yearOwner + "-" + monthOwner + "-" + dayOwner);
 			enCreateStaff.setPhone(edtPhoneOwner.getEditableText().toString());
 			enCreateStaff.setRole(role);
 			enCreateStaff.setNote(edtNoteOwner.getEditableText().toString());			
@@ -366,12 +367,12 @@ public class CreateCustormer extends Activity implements OnClickListener {
 			intent = new Intent(this, ListCustomerPending.class);
 			startActivity(intent);
 			break;	
-			
+
 		default:
 			break;
 		}
 	}
-	
+		
 	class CreateStores extends AsyncTask<Void, Void, String> {
 		String data;
 

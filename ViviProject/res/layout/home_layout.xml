@@ -72,6 +72,7 @@
                     android:background="@drawable/bg_item_press"
                     android:gravity="center"
                     android:padding="8dp"
+                    android:visibility="gone"
                     android:text="@string/CHANGE_PASSWORD"
                     android:textColor="@color/BLACK"
                     android:textSize="14sp" />
@@ -79,6 +80,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
+                    android:visibility="gone"
                     android:background="@color/GREY_BACKGROUND_SCREEN" />
 
                 <LinearLayout

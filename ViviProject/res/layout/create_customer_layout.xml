@@ -292,9 +292,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal" >
-
+				
                 <Button
+                    android:id="@+id/btnLineChange"
                     android:layout_width="150dp"
                     android:layout_height="32dp"
                     android:background="@drawable/bg_blue_gray"

@@ -52,7 +52,6 @@ import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.SharedPreferenceManager;
 import com.viviproject.ultilities.StringUtils;
 import com.viviproject.visit.PictureReportActivity;
-import com.viviproject.visit.VisitAcitvity;
 
 public class HomeActivity extends Activity implements OnClickListener{
 	public static final String LOGIN_SHARE_PREFERENT_KEY = "login complete";

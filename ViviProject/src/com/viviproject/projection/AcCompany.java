@@ -72,6 +72,7 @@ public class AcCompany  extends Activity implements OnClickListener, OnItemClick
 		linOptionFilter.setVisibility(View.INVISIBLE);
 		
 		linOptionRefresh = (LinearLayout) findViewById(R.id.linRefresh);
+		linOptionRefresh.setOnClickListener(this);
 		linOptionRefresh.setVisibility(View.VISIBLE);
 		
 		lvNews = (ListView) findViewById(R.id.lvNews);
@@ -107,7 +108,11 @@ public class AcCompany  extends Activity implements OnClickListener, OnItemClick
 		case R.id.linBack:
 			AcCompany.this.finish();
 			break;
-		
+			
+		case R.id.linRefresh:
+			refreshData();
+			break;
+			
 		default:
 			break;
 		}
