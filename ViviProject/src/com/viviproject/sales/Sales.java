@@ -43,6 +43,7 @@ import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.visit.PlaceOrderActivity;
+import com.viviproject.visit.SearchVisit;
 import com.viviproject.visit.VisitDetailsActivity;
 
 public class Sales extends Activity implements OnClickListener{
@@ -194,8 +195,13 @@ public class Sales extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.linSearch:
-			intent = new Intent(this, SearchSales.class);
-			startActivity(intent);
+			if (key.equals("Visit")) {
+				intent = new Intent(this, SearchVisit.class);
+				startActivity(intent);
+			} else {
+				intent = new Intent(this, SearchSales.class);
+				startActivity(intent);
+			}			
 			break;
 			
 		case R.id.linUpdate:

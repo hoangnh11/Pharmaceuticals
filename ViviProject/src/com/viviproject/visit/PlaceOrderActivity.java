@@ -34,6 +34,7 @@ import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.StringUtils;
 
 public class PlaceOrderActivity extends Activity implements OnClickListener{
 	
@@ -558,10 +559,14 @@ public class PlaceOrderActivity extends Activity implements OnClickListener{
 					btnOk.setBackgroundResource(R.drawable.bg_blue_gray);
 					
 					try {						
-						tvSubTotal.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getSubtotal()));
-						tvCK.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal_discount()));
-						tvDiscount.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal_point()));
-						tvTotal.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal()));
+						tvSubTotal.setText(GlobalParams.SPACE_CHARACTER 
+								+ StringUtils.formatEnglishValueNumber(responsePrepare.getSubtotal()));
+						tvCK.setText(GlobalParams.SPACE_CHARACTER 
+								+ StringUtils.formatEnglishValueNumber(responsePrepare.getTotal_discount()));
+						tvDiscount.setText(GlobalParams.SPACE_CHARACTER 
+								+ StringUtils.formatEnglishValueNumber(responsePrepare.getTotal_point()));						
+						tvTotal.setText(GlobalParams.SPACE_CHARACTER 
+								+ StringUtils.formatEnglishValueNumber(responsePrepare.getTotal()));
 					} catch (Exception e) {
 						Logger.error("responsePrepare: " + e);
 					}

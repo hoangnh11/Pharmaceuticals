@@ -34,6 +34,7 @@ import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
 import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.StringUtils;
 
 public class ChangeOrderActivity extends Activity implements OnClickListener{
 	
@@ -181,56 +182,61 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 			btnOk.setBackgroundResource(R.drawable.bg_gray9e_blue);
 			if (linSubCreateOrder.getVisibility() == View.GONE) {
 				arrBasket = new ArrayList<EnBasket>();
-				
-				for (int i = 0; i < enOrder.getProducts().size(); i++) {
-					if (enOrder != null && enOrder.getProducts() != null && enOrder.getProducts().size() > 0) {
-						enBasket = new EnBasket();
-						
-						enBasket.setQuantity(Integer.parseInt(enOrder.getProducts().get(i).getTempProductQty()));
-						
-							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null
-									&& products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
-								enBasket.setPoint(Integer.parseInt(products.get(i).getDiscount().getPoint().getDiscount_id()));
-							} else {
-								enBasket.setPoint(Integer.parseInt("0"));
-							}
-						
-							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null
-									&& products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
-								enBasket.setSale(Integer.parseInt(products.get(i).getDiscount().getSale().getDiscount_id()));
-							} else {
-								enBasket.setSale(Integer.parseInt("0"));
-							}
-						
-							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null
-									&& products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
-								enBasket.setOther(Integer.parseInt(products.get(i).getDiscount().getOther().getDiscount_id()));
-							} else {
-								enBasket.setOther(Integer.parseInt("0"));
-							}
-													
-						if (products != null && products.size() > 0) {
-							enBasket.setProduct_id(Integer.parseInt(products.get(i).getId()));
-
-							if (products.get(i).getDiscount() != null) {
-								if (products.get(i).getDiscount().getPoint() != null 
-										&& products.get(i).getDiscount().getPoint().getPoint() != null) {
-									enBasket.setDiscount_point(Float.parseFloat("0"));
+				try {
+					for (int i = 0; i < enOrder.getProducts().size(); i++) {
+						if (enOrder != null && enOrder.getProducts() != null && enOrder.getProducts().size() > 0) {
+							enBasket = new EnBasket();
+							
+							enBasket.setQuantity(Integer.parseInt(enOrder.getProducts().get(i).getTempProductQty()));
+							if (products != null && products.size() > 0 && products.get(i) != null ) {		
+							
+								if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null
+										&& products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
+									enBasket.setPoint(Integer.parseInt(products.get(i).getDiscount().getPoint().getDiscount_id()));
+								} else {
+									enBasket.setPoint(Integer.parseInt("0"));
 								}
-								if (products.get(i).getDiscount().getSale() != null 
-										&& products.get(i).getDiscount().getSale().getDiscount() != null) {
-									enBasket.setDiscount_sale(Integer.parseInt("0"));
-								}								
-							}							
-						}						
-						
-						if (enOrder.getTotal() != null) {
-							enBasket.setTotal(Integer.parseInt(enOrder.getTotal()));
-						}
+							
+								if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null
+										&& products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
+									enBasket.setSale(Integer.parseInt(products.get(i).getDiscount().getSale().getDiscount_id()));
+								} else {
+									enBasket.setSale(Integer.parseInt("0"));
+								}
+							
+								if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null
+										&& products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
+									enBasket.setOther(Integer.parseInt(products.get(i).getDiscount().getOther().getDiscount_id()));
+								} else {
+									enBasket.setOther(Integer.parseInt("0"));
+								}
+							}						
+							if (products != null && products.size() > 0) {
+								enBasket.setProduct_id(Integer.parseInt(products.get(i).getId()));
 
-						arrBasket.add(enBasket);
-					}													
+								if (products.get(i).getDiscount() != null) {
+									if (products.get(i).getDiscount().getPoint() != null 
+											&& products.get(i).getDiscount().getPoint().getPoint() != null) {
+										enBasket.setDiscount_point(Float.parseFloat("0"));
+									}
+									if (products.get(i).getDiscount().getSale() != null 
+											&& products.get(i).getDiscount().getSale().getDiscount() != null) {
+										enBasket.setDiscount_sale(Integer.parseInt("0"));
+									}								
+								}							
+							}						
+							
+							if (enOrder.getTotal() != null) {
+								enBasket.setTotal(Integer.parseInt(enOrder.getTotal()));
+							}
+
+							arrBasket.add(enBasket);
+						}													
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+				
 				prepareSale = new PrepareSale();
 				prepareSale.execute();
 				tvCreateOrder.setBackgroundResource(R.color.BG_GRAY9E);
@@ -553,10 +559,14 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 					btnOk.setBackgroundResource(R.drawable.bg_blue_gray);
 					
 					try {						
-						tvSubTotal.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getSubtotal()));
-						tvCK.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal_discount()));
-						tvDiscount.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal_point()));
-						tvTotal.setText(GlobalParams.SPACE_CHARACTER + String.valueOf(responsePrepare.getTotal()));
+						tvSubTotal.setText(GlobalParams.SPACE_CHARACTER 
+								+ StringUtils.formatEnglishValueNumber(responsePrepare.getSubtotal()));
+						tvCK.setText(GlobalParams.SPACE_CHARACTER 
+								+ StringUtils.formatEnglishValueNumber(responsePrepare.getTotal_discount()));
+						tvDiscount.setText(GlobalParams.SPACE_CHARACTER 
+								+ StringUtils.formatEnglishValueNumber(responsePrepare.getTotal_point()));
+						tvTotal.setText(GlobalParams.SPACE_CHARACTER 
+								+ StringUtils.formatEnglishValueNumber(responsePrepare.getTotal()));
 					} catch (Exception e) {
 						Logger.error("responsePrepare: " + e);
 					}

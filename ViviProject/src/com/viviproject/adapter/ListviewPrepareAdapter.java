@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.viviproject.R;
 import com.viviproject.entities.EnSalePrepare;
 import com.viviproject.entities.ResponsePrepare;
+import com.viviproject.ultilities.StringUtils;
 import com.viviproject.visit.ItemListviewPrepare;
 
 public class ListviewPrepareAdapter extends BaseAdapter{
@@ -70,10 +71,14 @@ public class ListviewPrepareAdapter extends BaseAdapter{
         if (items != null) {        
         	holder.tvSTT.setText(String.valueOf(items.getProduct_id()));
         	holder.tvName.setText(items.getName());
-        	holder.tvPrice.setText(items.getPrice());
+        	
+        	if (items.getPrice() != null) {
+        		holder.tvPrice.setText(StringUtils.formatEnglishValueNumber(items.getPrice()));
+			}
+        	
         	holder.tvQuantity.setText(String.valueOf(items.getQuantity()));
         	holder.tvDiscount.setText(String.valueOf(items.getDiscount_sale()));
-        	holder.tvTotal.setText(String.valueOf(items.getTotal()));
+    		holder.tvTotal.setText(StringUtils.formatEnglishValueNumber(items.getTotal()));
         	if (items.getNote() != null) {
         		holder.tvNote.setText(items.getNote());
 			}        	

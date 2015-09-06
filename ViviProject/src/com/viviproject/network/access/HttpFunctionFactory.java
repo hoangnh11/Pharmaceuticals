@@ -21,6 +21,7 @@ import com.viviproject.network.NetParameter;
  */
 public final class HttpFunctionFactory {
 	public static String viviHostURLshort = "http://api.thaiminh.vivi.vn";
+//	public static String viviHostURLshort = "http://api.tm.vivi.vn";
 
 	/**
 	 * 
