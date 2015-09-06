@@ -42,6 +42,7 @@ import com.viviproject.projection.AcProjectionClip;
 import com.viviproject.projection.AcPromotions;
 import com.viviproject.reports.AcProfitFollowCustomer;
 import com.viviproject.reports.AcSalesChart;
+import com.viviproject.reports.AcSenImageToServer;
 import com.viviproject.reports.AcTotalSales;
 import com.viviproject.sales.Sales;
 import com.viviproject.service.TrackingLocationService;
@@ -410,19 +411,27 @@ public class HomeActivity extends Activity implements OnClickListener{
 			
 		case R.id.linPosterCamera:
 			Logger.error("Tracking PosterCamera");
-			Intent intentPictureReport = new Intent(HomeActivity.this, PictureReportActivity.class);
+			/*Intent intentPictureReport = new Intent(HomeActivity.this, PictureReportActivity.class);
+			intentPictureReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_POSTER);
+			startActivity(intentPictureReport);*/
+			
+			Intent intentPictureReport = new Intent(HomeActivity.this, AcSenImageToServer.class);
 			intentPictureReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_POSTER);
 			startActivity(intentPictureReport);
 			break;
 			
 		case R.id.linUnfriendCamera:
-			Intent intentPictureRevalReport = new Intent(HomeActivity.this, PictureReportActivity.class);
+			/*Intent intentPictureRevalReport = new Intent(HomeActivity.this, PictureReportActivity.class);
+			intentPictureRevalReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_RIVAL);
+			startActivity(intentPictureRevalReport);*/
+			
+			Intent intentPictureRevalReport = new Intent(HomeActivity.this, AcSenImageToServer.class);
 			intentPictureRevalReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_RIVAL);
 			startActivity(intentPictureRevalReport);
 			break;	
 			
 		case R.id.linTradeMarketingCamera:
-			Intent intentPictureMaketingReport = new Intent(HomeActivity.this, PictureReportActivity.class);
+			Intent intentPictureMaketingReport = new Intent(HomeActivity.this, AcSenImageToServer.class);
 			intentPictureMaketingReport.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_TRADE_MARKETING);
 			startActivity(intentPictureMaketingReport);
 			break;		

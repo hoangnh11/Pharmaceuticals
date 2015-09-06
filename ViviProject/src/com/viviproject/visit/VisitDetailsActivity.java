@@ -28,6 +28,7 @@ import com.viviproject.entities.Products;
 import com.viviproject.entities.ResponseReport;
 import com.viviproject.network.NetParameter;
 import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.reports.AcSenImageToServer;
 import com.viviproject.ultilities.AppPreferences;
 import com.viviproject.ultilities.BuManagement;
 import com.viviproject.ultilities.DataParser;
@@ -221,7 +222,7 @@ public class VisitDetailsActivity extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.tvCloseDoor:
-			intent = new Intent(VisitDetailsActivity.this, PictureReportActivity.class);
+			intent = new Intent(VisitDetailsActivity.this, AcSenImageToServer.class);
 			intent.putExtra(GlobalParams.EXTRA_PICTURE_REPORT_TYPE, GlobalParams.CAPTURE_TYPE_CLOSE);
 			startActivity(intent);
 			break;

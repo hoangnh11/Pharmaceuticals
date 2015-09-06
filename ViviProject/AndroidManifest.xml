@@ -10,7 +10,8 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	
     <permission
         android:name="com.viviproject.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -222,7 +223,12 @@
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-
+		<activity
+            android:name="com.viviproject.reports.AcSenImageToServer"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        
         <receiver android:name="com.activetrak.android.receiver.AutoUpdateReceiver" />
 
         <service android:name="com.viviproject.service.TrackingLocationService" >

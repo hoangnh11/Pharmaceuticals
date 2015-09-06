@@ -319,5 +319,6 @@
 	<string name="REPORTING">Gửi báo cáo..</string>
 	<string name="REPORT_WARNING_TITLE">Vui lòng nhập tiêu đề.</string>
 	<string name="REPORT_SUCCESS">Gửi báo cáo thành công.</string>
+	<string name="CAPTURE_FAIL">Đã có lỗi xảy ra trong quá trình xử lý.Vui lòng thử lại</string>
 	<string name="REPORT_FAILE">Gửi báo cáo không thành công. Vui lòng gửi lại!</string>
 </resources>
