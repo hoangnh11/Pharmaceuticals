@@ -686,6 +686,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 				try {
 					data = HttpNetServices.Instance.getSales(netParameter);					
 					responseOrders = DataParser.getResponseOrders(data);
+					Logger.error("hoangnh11: ", data);
 					return GlobalParams.TRUE;
 				} catch (Exception e) {
 					return GlobalParams.FALSE;
