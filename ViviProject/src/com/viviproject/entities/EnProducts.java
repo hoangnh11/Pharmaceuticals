@@ -19,8 +19,21 @@ public class EnProducts implements Serializable{
 	private String checkTD;
 	private String checkCK;
 	private String checkOther;
+	private String tempProductQty;
 	
 	
+	/**
+	 * @return the tempProductQty
+	 */
+	public String getTempProductQty() {
+		return tempProductQty;
+	}
+	/**
+	 * @param tempProductQty the tempProductQty to set
+	 */
+	public void setTempProductQty(String tempProductQty) {
+		this.tempProductQty = tempProductQty;
+	}
 	/**
 	 * @return the checkCK
 	 */

@@ -221,7 +221,7 @@ public class OrderActivity extends Activity implements OnClickListener{
             intent = new Intent(OrderActivity.this, ChangeOrderActivity.class);
             intent.putExtra(GlobalParams.CHANGE_ORDER, items);
             intent.putExtra(GlobalParams.CHANGE_ORDER_INDEX, position);
-            intent.putExtra(GlobalParams.PRODUCTS, responseOrders.getProducts());
+            intent.putExtra(GlobalParams.PRODUCTS, responseOrders.getProducts());          
             startActivity(intent);
         }
     };

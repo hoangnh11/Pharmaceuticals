@@ -14,14 +14,13 @@ import android.widget.TextView;
 
 import com.viviproject.R;
 import com.viviproject.entities.EnOrder;
-import com.viviproject.entities.EnProductSales;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.ultilities.GlobalParams;
 
 public class ChangeOrderAdapter extends BaseAdapter{
 	private ArrayList<EnProducts> _products;
-	private EnOrder _data;
-    private EnProductSales items;
+	private EnOrder _data;   
+    private EnProducts itemProduct;
     private Activity mActivity;
     private OnClickListener _onTDClick, _onCKClick, _onOtherClick, _onMinusClick, _onPlusClick;   
 	
@@ -35,7 +34,7 @@ public class ChangeOrderAdapter extends BaseAdapter{
     @Override
 	public int getCount()
 	{
-		 return (_data == null ? 0 : _data.getProducts().size());
+		 return (_products == null ? 0 : _products.size());
 	}
 
 	@Override
@@ -79,75 +78,69 @@ public class ChangeOrderAdapter extends BaseAdapter{
         else
         {
             holder = (ViewHolder) convertView.getTag();
-        }
-        
-        items = _data.getProducts().get(position);
-        
-        if (items != null) {
-        	
+        }        
+
+        itemProduct = _products.get(position);
+        if (itemProduct != null) {
         	if (position == 0) {
-        		holder.linHeader.setVisibility(View.VISIBLE);
+    		holder.linHeader.setVisibility(View.VISIBLE);
 			} else {
 				holder.linHeader.setVisibility(View.GONE);
 			}
         	
-        	holder.tvName.setText(items.getName());
-
-    		for (int i = 0; i < _products.size(); i++) {
-				if (items.getCode() != null && items.getCode().equals(_products.get(i).getCode())) {
-					if (_products.get(i).getColor() != null) {
-						try {
-			    			holder.tvName.setBackgroundColor(Color.parseColor("#"+_products.get(i).getColor()));
-						} catch (Exception e) {
-							holder.tvName.setBackgroundColor(mActivity.getResources().getColor(R.color.GREEN));
-						}
-					} else {
-						holder.tvName.setBackgroundColor(mActivity.getResources().getColor(R.color.GREEN));
-					}
-					
-					if (_products.get(i).getDiscount() != null) {
-		        		if (_products.get(i).getDiscount().getPoint() != null) {
-		            		if (_products.get(i).getCheckTD() != null) {
-		                    	if (_products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
-		                    		holder.imgTD.setImageResource(R.drawable.checkbox_true);
-		        				} else {
-		        					holder.imgTD.setImageResource(R.drawable.checkbox_false);
-		        				}
-		        			}
-		    			}
-		            	
-		            	if (_products.get(i).getDiscount().getSale() != null) {
-		            		if (_products.get(i).getCheckCK() != null) {
-		                    	if (_products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
-		                    		holder.imgCK.setImageResource(R.drawable.checkbox_true);
-		        				} else {
-		        					holder.imgCK.setImageResource(R.drawable.checkbox_false);
-		        				}
-		        			}         		
-		    			}
-		            	
-		            	if (_products.get(i).getDiscount().getOther() != null) {
-		            		if (_products.get(i).getCheckOther() != null) {
-		                    	if (_products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
-		                    		holder.imgOther.setImageResource(R.drawable.checkbox_true);                        		
-		        				} else {
-		        					holder.imgOther.setImageResource(R.drawable.checkbox_false);        					
-		        				}
-		        			}         		
-		    			}
-					}
+        	holder.tvName.setText(itemProduct.getName());
+        	
+        	if (itemProduct.getColor() != null) {
+				try {
+	    			holder.tvName.setBackgroundColor(Color.parseColor("#" + itemProduct.getColor()));
+				} catch (Exception e) {
+					holder.tvName.setBackgroundColor(mActivity.getResources().getColor(R.color.GREEN));
 				}
+			} else {
+				holder.tvName.setBackgroundColor(mActivity.getResources().getColor(R.color.GREEN));
 			}
         	
-        	if (items.getProduct_qty() != null) {
-    			holder.tvOldQuantity.setText(items.getProduct_qty());       		
+        	if (itemProduct.getDiscount() != null) {
+        		if (itemProduct.getDiscount().getPoint() != null) {
+            		if (itemProduct.getCheckTD() != null) {
+                    	if (itemProduct.getCheckTD().equals(GlobalParams.TRUE)) {
+                    		holder.imgTD.setImageResource(R.drawable.checkbox_true);
+        				} else {
+        					holder.imgTD.setImageResource(R.drawable.checkbox_false);
+        				}
+        			}
+    			}
+            	
+            	if (itemProduct.getDiscount().getSale() != null) {
+            		if (itemProduct.getCheckCK() != null) {
+                    	if (itemProduct.getCheckCK().equals(GlobalParams.TRUE)) {
+                    		holder.imgCK.setImageResource(R.drawable.checkbox_true);
+        				} else {
+        					holder.imgCK.setImageResource(R.drawable.checkbox_false);
+        				}
+        			}         		
+    			}
+            	
+            	if (itemProduct.getDiscount().getOther() != null) {
+            		if (itemProduct.getCheckOther() != null) {
+                    	if (itemProduct.getCheckOther().equals(GlobalParams.TRUE)) {
+                    		holder.imgOther.setImageResource(R.drawable.checkbox_true);                        		
+        				} else {
+        					holder.imgOther.setImageResource(R.drawable.checkbox_false);        					
+        				}
+        			}         		
+    			}
 			}
         	
-        	if (items.getTempProductQty() != null) {
-        		holder.tvQuantity.setText(items.getTempProductQty());
-			}        	
+        	for (int i = 0; i < _data.getProducts().size(); i++) {
+        		if (itemProduct.getId().equals(_data.getProducts().get(i).getProduct_id())) {
+        			holder.tvOldQuantity.setText(_data.getProducts().get(i).getProduct_qty());
+        		}
+        	}
+        	
+        	holder.tvQuantity.setText(itemProduct.getTempProductQty());
 		}
-        
+
         ((ItemListViewOrder) convertView).set_position(position);
         return convertView;
 	}

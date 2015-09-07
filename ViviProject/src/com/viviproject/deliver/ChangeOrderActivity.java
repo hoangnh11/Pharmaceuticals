@@ -22,7 +22,6 @@ import com.viviproject.R;
 import com.viviproject.adapter.ListviewPrepareAdapter;
 import com.viviproject.entities.EnBasket;
 import com.viviproject.entities.EnOrder;
-import com.viviproject.entities.EnProductSales;
 import com.viviproject.entities.EnProducts;
 import com.viviproject.entities.ResponseCreateSales;
 import com.viviproject.entities.ResponseOrders;
@@ -51,7 +50,8 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 	private Bundle bundle;
 	private AppPreferences app;
 	private EnOrder enOrder;
-	private EnProductSales items;
+//	private EnProductSales items;
+	private EnProducts itemProduct;
 	private ChangeOrderAdapter changeOrderAdapter;
 	private ProgressDialog progressDialog;
 	private PrepareSale prepareSale;
@@ -67,15 +67,15 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 	private int index;
 	private GetSales getSales;
 	private ResponseOrders responseOrders;
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.change_order);
 		app = new AppPreferences(this);
+		itemProduct = new EnProducts();
 		enOrder = new EnOrder(); 
-		items = new EnProductSales();
+//		items = new EnProductSales();
 		responsePrepare = new ResponsePrepare();
 		enBasket = new EnBasket();
 		arrBasket = new ArrayList<EnBasket>();
@@ -183,48 +183,45 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 			if (linSubCreateOrder.getVisibility() == View.GONE) {
 				arrBasket = new ArrayList<EnBasket>();
 				try {
-					for (int i = 0; i < enOrder.getProducts().size(); i++) {
-						if (enOrder != null && enOrder.getProducts() != null && enOrder.getProducts().size() > 0) {
+					for (int i = 0; i < products.size(); i++) {
+						if (products != null && products.size() > 0) {
 							enBasket = new EnBasket();
 							
-							enBasket.setQuantity(Integer.parseInt(enOrder.getProducts().get(i).getTempProductQty()));
-							if (products != null && products.size() > 0 && products.get(i) != null ) {		
+							enBasket.setQuantity(Integer.parseInt(products.get(i).getTempProductQty()));							
 							
-								if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null
-										&& products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
-									enBasket.setPoint(Integer.parseInt(products.get(i).getDiscount().getPoint().getDiscount_id()));
-								} else {
-									enBasket.setPoint(Integer.parseInt("0"));
-								}
-							
-								if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null
-										&& products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
-									enBasket.setSale(Integer.parseInt(products.get(i).getDiscount().getSale().getDiscount_id()));
-								} else {
-									enBasket.setSale(Integer.parseInt("0"));
-								}
-							
-								if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null
-										&& products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
-									enBasket.setOther(Integer.parseInt(products.get(i).getDiscount().getOther().getDiscount_id()));
-								} else {
-									enBasket.setOther(Integer.parseInt("0"));
-								}
-							}						
-							if (products != null && products.size() > 0) {
-								enBasket.setProduct_id(Integer.parseInt(products.get(i).getId()));
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null
+									&& products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
+								enBasket.setPoint(Integer.parseInt(products.get(i).getDiscount().getPoint().getDiscount_id()));
+							} else {
+								enBasket.setPoint(Integer.parseInt("0"));
+							}
+						
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null
+									&& products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
+								enBasket.setSale(Integer.parseInt(products.get(i).getDiscount().getSale().getDiscount_id()));
+							} else {
+								enBasket.setSale(Integer.parseInt("0"));
+							}
+						
+							if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null
+									&& products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
+								enBasket.setOther(Integer.parseInt(products.get(i).getDiscount().getOther().getDiscount_id()));
+							} else {
+								enBasket.setOther(Integer.parseInt("0"));
+							}													
+						
+							enBasket.setProduct_id(Integer.parseInt(products.get(i).getId()));
 
-								if (products.get(i).getDiscount() != null) {
-									if (products.get(i).getDiscount().getPoint() != null 
-											&& products.get(i).getDiscount().getPoint().getPoint() != null) {
-										enBasket.setDiscount_point(Float.parseFloat("0"));
-									}
-									if (products.get(i).getDiscount().getSale() != null 
-											&& products.get(i).getDiscount().getSale().getDiscount() != null) {
-										enBasket.setDiscount_sale(Integer.parseInt("0"));
-									}								
-								}							
-							}						
+							if (products.get(i).getDiscount() != null) {
+								if (products.get(i).getDiscount().getPoint() != null 
+										&& products.get(i).getDiscount().getPoint().getPoint() != null) {
+									enBasket.setDiscount_point(Float.parseFloat("0"));
+								}
+								if (products.get(i).getDiscount().getSale() != null 
+										&& products.get(i).getDiscount().getSale().getDiscount() != null) {
+									enBasket.setDiscount_sale(Integer.parseInt("0"));
+								}								
+							}							
 							
 							if (enOrder.getTotal() != null) {
 								enBasket.setTotal(Integer.parseInt(enOrder.getTotal()));
@@ -270,10 +267,10 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
         public void onClick(View v)
         {
         	int position = ((ItemListViewOrder) v).get_position();        
-            items = enOrder.getProducts().get(position);           
+        	itemProduct = products.get(position);           
             	
-            if (Integer.parseInt(items.getTempProductQty()) > 0) {
-            	enOrder.getProducts().get(position).setTempProductQty(String.valueOf(Integer.parseInt(items.getTempProductQty()) - 1));            	
+            if (Integer.parseInt(itemProduct.getTempProductQty()) > 0) {
+            	products.get(position).setTempProductQty(String.valueOf(Integer.parseInt(itemProduct.getTempProductQty()) - 1));            	
 				
             	changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
     			changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
@@ -283,8 +280,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
     			changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
     			lvChangeOrder.setAdapter(changeOrderAdapter);
     			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
-			}
-			
+			}			
         }
     };
     
@@ -293,10 +289,10 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
         @Override
         public void onClick(View v)
         {
-        	int position = ((ItemListViewOrder) v).get_position();        
-            items = enOrder.getProducts().get(position);
+        	int position = ((ItemListViewOrder) v).get_position();
+        	itemProduct = products.get(position);
           
-            enOrder.getProducts().get(position).setTempProductQty(String.valueOf(Integer.parseInt(items.getTempProductQty()) + 1));
+        	products.get(position).setTempProductQty(String.valueOf(Integer.parseInt(itemProduct.getTempProductQty()) + 1));
         	
             changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
             changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
@@ -315,87 +311,83 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
         public void onClick(View v)
         {
         	int position = ((ItemListViewOrder) v).get_position();        
-            items = enOrder.getProducts().get(position);
-            for (int i = 0; i < products.size(); i++) {
-            	if (items.getCode() != null && items.getCode().equals(products.get(i).getCode())) {
-            		if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getPoint() != null) {
-                    	if (products.get(i).getDiscount().getOther() != null) {
-                    		if (products.get(i).getDiscount().getOther().getWith_point().equals("0")) {
-                            	if (products.get(i).getCheckTD() != null) {            	
-                                	if (products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
-                                		products.get(i).setCheckTD(GlobalParams.FALSE);            		
-                    				} else {
-                    					products.get(i).setCheckTD(GlobalParams.TRUE);					
-                    				}
-                    			}
-                			} else if (products.get(i).getDiscount().getOther().getWith_point().equals("1")) {
-                				if (products.get(i).getCheckOther() != null) {
-                					if (products.get(i).getDiscount().getPoint() != null) {
-                						if (products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
-                							products.get(i).setCheckOther(GlobalParams.FALSE);  
-                							products.get(i).setCheckTD(GlobalParams.TRUE);  
-                	    				} else {
-                	    					products.get(i).setCheckOther(GlobalParams.TRUE);  
-                	    					products.get(i).setCheckTD(GlobalParams.FALSE);
-                	    				}	            		
-                	            	} else {
-                	            		if (products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
-                	            			products.get(i).setCheckOther(GlobalParams.FALSE);                  	
-                	    				} else {
-                	    					products.get(i).setCheckOther(GlobalParams.TRUE);				
-                	    				}
-                					}                 	
-                				}
-                			}
-        				} else if (products.get(i).getDiscount().getSale() != null) {
-                    		if (products.get(i).getDiscount().getSale().getWith_point().equals("0")) {
-                            	if (products.get(i).getCheckTD() != null) {            	
-                                	if (products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
-                                		products.get(i).setCheckTD(GlobalParams.FALSE);            		
-                    				} else {
-                    					products.get(i).setCheckTD(GlobalParams.TRUE);					
-                    				}
-                    			}
-                			} else if (products.get(i).getDiscount().getSale().getWith_point().equals("1")) {
-                				if (products.get(i).getCheckCK() != null) {
-                					if (products.get(i).getDiscount().getPoint() != null) {
-                						if (products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
-                							products.get(i).setCheckCK(GlobalParams.FALSE);  
-                							products.get(i).setCheckTD(GlobalParams.TRUE);  
-                	    				} else {
-                	    					products.get(i).setCheckCK(GlobalParams.TRUE);  
-                	    					products.get(i).setCheckTD(GlobalParams.FALSE);
-                	    				}	            		
-                	            	} else {
-                	            		if (products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
-                	            			products.get(i).setCheckCK(GlobalParams.FALSE);                  	
-                	    				} else {
-                	    					products.get(i).setCheckCK(GlobalParams.TRUE);				
-                	    				}
-                					}                 	
-                				}
-                			}
-        				} else {
-        					if (products.get(i).getCheckTD() != null) {            	
-                            	if (products.get(i).getCheckTD().equals(GlobalParams.TRUE)) {
-                            		products.get(i).setCheckTD(GlobalParams.FALSE);            		
-                				} else {
-                					products.get(i).setCheckTD(GlobalParams.TRUE);					
-                				}
-                			}
+        	itemProduct = products.get(position);         
+    		if (itemProduct.getDiscount() != null && itemProduct.getDiscount().getPoint() != null) {
+            	if (itemProduct.getDiscount().getOther() != null) {
+            		if (itemProduct.getDiscount().getOther().getWith_point().equals("0")) {
+                    	if (itemProduct.getCheckTD() != null) {            	
+                        	if (itemProduct.getCheckTD().equals(GlobalParams.TRUE)) {
+                        		itemProduct.setCheckTD(GlobalParams.FALSE);            		
+            				} else {
+            					itemProduct.setCheckTD(GlobalParams.TRUE);					
+            				}
+            			}
+        			} else if (itemProduct.getDiscount().getOther().getWith_point().equals("1")) {
+        				if (itemProduct.getCheckOther() != null) {
+        					if (itemProduct.getDiscount().getPoint() != null) {
+        						if (itemProduct.getCheckOther().equals(GlobalParams.TRUE)) {
+        							itemProduct.setCheckOther(GlobalParams.FALSE);  
+        							itemProduct.setCheckTD(GlobalParams.TRUE);  
+        	    				} else {
+        	    					itemProduct.setCheckOther(GlobalParams.TRUE);  
+        	    					itemProduct.setCheckTD(GlobalParams.FALSE);
+        	    				}	            		
+        	            	} else {
+        	            		if (itemProduct.getCheckOther().equals(GlobalParams.TRUE)) {
+        	            			itemProduct.setCheckOther(GlobalParams.FALSE);                  	
+        	    				} else {
+        	    					itemProduct.setCheckOther(GlobalParams.TRUE);				
+        	    				}
+        					}                 	
         				}
-                    	
-                    	changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
-                        changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
-                        changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
-                        changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
-                        changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
-                        changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
-                        lvChangeOrder.setAdapter(changeOrderAdapter);
-            			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);                    	
         			}
-            	}
-			}            
+				} else if (itemProduct.getDiscount().getSale() != null) {
+            		if (itemProduct.getDiscount().getSale().getWith_point().equals("0")) {
+                    	if (itemProduct.getCheckTD() != null) {            	
+                        	if (itemProduct.getCheckTD().equals(GlobalParams.TRUE)) {
+                        		itemProduct.setCheckTD(GlobalParams.FALSE);            		
+            				} else {
+            					itemProduct.setCheckTD(GlobalParams.TRUE);					
+            				}
+            			}
+        			} else if (itemProduct.getDiscount().getSale().getWith_point().equals("1")) {
+        				if (itemProduct.getCheckCK() != null) {
+        					if (itemProduct.getDiscount().getPoint() != null) {
+        						if (itemProduct.getCheckCK().equals(GlobalParams.TRUE)) {
+        							itemProduct.setCheckCK(GlobalParams.FALSE);  
+        							itemProduct.setCheckTD(GlobalParams.TRUE);  
+        	    				} else {
+        	    					itemProduct.setCheckCK(GlobalParams.TRUE);  
+        	    					itemProduct.setCheckTD(GlobalParams.FALSE);
+        	    				}	            		
+        	            	} else {
+        	            		if (itemProduct.getCheckCK().equals(GlobalParams.TRUE)) {
+        	            			itemProduct.setCheckCK(GlobalParams.FALSE);                  	
+        	    				} else {
+        	    					itemProduct.setCheckCK(GlobalParams.TRUE);				
+        	    				}
+        					}                 	
+        				}
+        			}
+				} else {
+					if (itemProduct.getCheckTD() != null) {            	
+                    	if (itemProduct.getCheckTD().equals(GlobalParams.TRUE)) {
+                    		itemProduct.setCheckTD(GlobalParams.FALSE);            		
+        				} else {
+        					itemProduct.setCheckTD(GlobalParams.TRUE);					
+        				}
+        			}
+				}
+            	
+            	changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
+                changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
+                changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
+                changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
+                changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
+                changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
+                lvChangeOrder.setAdapter(changeOrderAdapter);
+    			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);                    	
+			}
         }
     };
     
@@ -405,49 +397,46 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
         public void onClick(View v)
         {
         	int position = ((ItemListViewOrder) v).get_position();
-            items = enOrder.getProducts().get(position);
-            for (int i = 0; i < products.size(); i++) {
-            	if (items.getCode() != null && items.getCode().equals(products.get(i).getCode())) {
-            		if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getSale() != null) {
-                    	if (products.get(i).getDiscount().getSale().getWith_point().equals("0")) {
-                    		if (products.get(i).getCheckCK() != null) {            
-                            	if (products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
-                            		products.get(i).setCheckCK(GlobalParams.FALSE);            		
-                				} else {
-                					products.get(i).setCheckCK(GlobalParams.TRUE);					
-                				}
-                			}
-                    	} else if (products.get(i).getDiscount().getSale().getWith_point().equals("1")) {
-                    		if (products.get(i).getCheckCK() != null) {							
-        						if (products.get(i).getDiscount().getPoint() != null) {
-        							if (products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
-        								products.get(i).setCheckCK(GlobalParams.FALSE);  
-        								products.get(i).setCheckTD(GlobalParams.TRUE);  
-        		    				} else {
-        		    					products.get(i).setCheckCK(GlobalParams.TRUE);  
-        		    					products.get(i).setCheckTD(GlobalParams.FALSE);
-        		    				}	            		
-        		            	} else {
-        		            		if (products.get(i).getCheckCK().equals(GlobalParams.TRUE)) {
-        		            			products.get(i).setCheckCK(GlobalParams.FALSE);                  	
-        		    				} else {
-        		    					products.get(i).setCheckCK(GlobalParams.TRUE);				
-        		    				}
-        						}                 	
-        					}
-                    	}            	
-                        
-                    	changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
-                        changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
-                        changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
-                        changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
-                        changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
-                        changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
-                        lvChangeOrder.setAdapter(changeOrderAdapter);
-            			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
-                    } 
-            	}
-            }                       
+        	itemProduct = products.get(position);
+        
+    		if (itemProduct.getDiscount() != null && itemProduct.getDiscount().getSale() != null) {
+            	if (itemProduct.getDiscount().getSale().getWith_point().equals("0")) {
+            		if (itemProduct.getCheckCK() != null) {            
+                    	if (itemProduct.getCheckCK().equals(GlobalParams.TRUE)) {
+                    		itemProduct.setCheckCK(GlobalParams.FALSE);            		
+        				} else {
+        					itemProduct.setCheckCK(GlobalParams.TRUE);					
+        				}
+        			}
+            	} else if (itemProduct.getDiscount().getSale().getWith_point().equals("1")) {
+            		if (itemProduct.getCheckCK() != null) {							
+						if (itemProduct.getDiscount().getPoint() != null) {
+							if (itemProduct.getCheckCK().equals(GlobalParams.TRUE)) {
+								itemProduct.setCheckCK(GlobalParams.FALSE);  
+								itemProduct.setCheckTD(GlobalParams.TRUE);  
+		    				} else {
+		    					itemProduct.setCheckCK(GlobalParams.TRUE);  
+		    					itemProduct.setCheckTD(GlobalParams.FALSE);
+		    				}	            		
+		            	} else {
+		            		if (itemProduct.getCheckCK().equals(GlobalParams.TRUE)) {
+		            			itemProduct.setCheckCK(GlobalParams.FALSE);                  	
+		    				} else {
+		    					itemProduct.setCheckCK(GlobalParams.TRUE);				
+		    				}
+						}                 	
+					}
+            	}            	
+                
+            	changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
+                changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
+                changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
+                changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
+                changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
+                changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
+                lvChangeOrder.setAdapter(changeOrderAdapter);
+    			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
+            }                     
         }
     };
     
@@ -457,49 +446,46 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
         public void onClick(View v)
         {
         	int position = ((ItemListViewOrder) v).get_position();
-            items = enOrder.getProducts().get(position);
-            for (int i = 0; i < products.size(); i++) {
-            	if (items.getCode() != null && items.getCode().equals(products.get(i).getCode())) {
-            		if (products.get(i).getDiscount() != null && products.get(i).getDiscount().getOther() != null) {
-        				if (products.get(i).getDiscount().getOther().getWith_point().equals("0")) {
-        	            	if (products.get(i).getCheckOther() != null) {            	
-        	            		if (products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
-        	            			products.get(i).setCheckOther(GlobalParams.FALSE);            		
-        	     				} else {
-        	     					products.get(i).setCheckOther(GlobalParams.TRUE);					
-        	     				}
-        	     			}
-        				} else if (products.get(i).getDiscount().getOther().getWith_point().equals("1")) {
-        					if (products.get(i).getCheckOther() != null) {							
-        						if (products.get(i).getDiscount().getPoint() != null) {
-        							if (products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
-        								products.get(i).setCheckOther(GlobalParams.FALSE);  
-        								products.get(i).setCheckTD(GlobalParams.TRUE); 								
-        		    				} else {
-        		    					products.get(i).setCheckOther(GlobalParams.TRUE);  
-        		    					products.get(i).setCheckTD(GlobalParams.FALSE);								
-        		    				}	            		
-        		            	} else {
-        		            		if (products.get(i).getCheckOther().equals(GlobalParams.TRUE)) {
-        		            			products.get(i).setCheckOther(GlobalParams.FALSE);                  	
-        		    				} else {
-        		    					products.get(i).setCheckOther(GlobalParams.TRUE);				
-        		    				}
-        						}                 	
-        					}
-        				}           
-        	            
-        				changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
-                        changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
-                        changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
-                        changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
-                        changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
-                        changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
-                        lvChangeOrder.setAdapter(changeOrderAdapter);
-            			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
-        			}
-            	}
-            }			            
+        	itemProduct = products.get(position);
+     
+    		if (itemProduct.getDiscount() != null && itemProduct.getDiscount().getOther() != null) {
+				if (itemProduct.getDiscount().getOther().getWith_point().equals("0")) {
+	            	if (itemProduct.getCheckOther() != null) {            	
+	            		if (itemProduct.getCheckOther().equals(GlobalParams.TRUE)) {
+	            			itemProduct.setCheckOther(GlobalParams.FALSE);            		
+	     				} else {
+	     					itemProduct.setCheckOther(GlobalParams.TRUE);					
+	     				}
+	     			}
+				} else if (itemProduct.getDiscount().getOther().getWith_point().equals("1")) {
+					if (itemProduct.getCheckOther() != null) {							
+						if (itemProduct.getDiscount().getPoint() != null) {
+							if (itemProduct.getCheckOther().equals(GlobalParams.TRUE)) {
+								itemProduct.setCheckOther(GlobalParams.FALSE);  
+								itemProduct.setCheckTD(GlobalParams.TRUE); 								
+		    				} else {
+		    					itemProduct.setCheckOther(GlobalParams.TRUE);  
+		    					itemProduct.setCheckTD(GlobalParams.FALSE);								
+		    				}	            		
+		            	} else {
+		            		if (itemProduct.getCheckOther().equals(GlobalParams.TRUE)) {
+		            			itemProduct.setCheckOther(GlobalParams.FALSE);                  	
+		    				} else {
+		    					itemProduct.setCheckOther(GlobalParams.TRUE);				
+		    				}
+						}                 	
+					}
+				}           
+	            
+				changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
+                changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
+                changeOrderAdapter.setOnCKClickHandler(onCKClickHandler);
+                changeOrderAdapter.setOnOtherClickHandler(onOtherClickHandler);
+                changeOrderAdapter.setOnMinusClickHandler(onMinusClickHandler);
+                changeOrderAdapter.setOnPlusClickHandler(onPlusClickHandler);
+                lvChangeOrder.setAdapter(changeOrderAdapter);
+    			app.setListViewHeight(lvChangeOrder, changeOrderAdapter);
+			}	            
         }
     };
     
@@ -712,13 +698,15 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 					tvNameStore.setText(enOrder.getName());
 					tvChangeOrder.setText("- thay đổi đơn hàng ngày " + enOrder.getDate_book());
 					tvAddressStore.setText(enOrder.getAddress());
-					for (int i = 0; i < enOrder.getProducts().size(); i++) {
-						enOrder.getProducts().get(i).setTempProductQty("0");
-					}
+//					for (int i = 0; i < enOrder.getProducts().size(); i++) {
+//						enOrder.getProducts().get(i).setTempProductQty("0");
+//					}
+					
 					for (int i = 0; i < products.size(); i++) {
 						products.get(i).setCheckTD(GlobalParams.FALSE);
 						products.get(i).setCheckCK(GlobalParams.FALSE);
 						products.get(i).setCheckOther(GlobalParams.FALSE);
+						products.get(i).setTempProductQty("0");
 					}
 					changeOrderAdapter = new ChangeOrderAdapter(ChangeOrderActivity.this, enOrder, products);
 					changeOrderAdapter.setOnTDClickHandler(onTDClickHandler);
