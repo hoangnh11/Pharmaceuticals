@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.viviproject.R;
@@ -54,6 +55,8 @@ public class SubOrderAdapter extends BaseAdapter{
            
             holder = new ViewHolder();
          
+            holder.linColumOne = (LinearLayout) convertView.findViewById(R.id.linColumOne);
+            holder.linColumTwo = (LinearLayout) convertView.findViewById(R.id.linColumTwo);
             holder.tvDotOne = (TextView) convertView.findViewById(R.id.tvDotOne);
             holder.tvNameOne = (TextView) convertView.findViewById(R.id.tvNameOne);
             holder.tvQuantityOne = (TextView) convertView.findViewById(R.id.tvQuantityOne);
@@ -96,9 +99,7 @@ public class SubOrderAdapter extends BaseAdapter{
         			holder.tvNameTwo.setText(_data.get(position + index + 1).getName());
     	        	holder.tvQuantityTwo.setText(_data.get(position + index + 1).getProduct_qty());
 				} catch (Exception e) {
-					holder.tvDotTwo.setVisibility(View.GONE);
-					holder.tvNameTwo.setVisibility(View.GONE);
-					holder.tvQuantityTwo.setVisibility(View.GONE);
+					holder.linColumTwo.setVisibility(View.GONE);				
 				}
 			} else if (((double)_data.size() % 2) == 0.0){
 				indexTwo++;
@@ -119,33 +120,27 @@ public class SubOrderAdapter extends BaseAdapter{
         	
         	if (holder.tvQuantityOne.getText().equals("0") || holder.tvQuantityOne.getText().equals("")
         			|| holder.tvQuantityOne.getText() == null) {
-        		holder.tvDotOne.setVisibility(View.GONE);
-        		holder.tvNameOne.setVisibility(View.GONE);
-        		holder.tvQuantityOne.setVisibility(View.GONE);
+        		holder.linColumOne.setVisibility(View.GONE);        	
 			} else {
-				holder.tvDotOne.setVisibility(View.VISIBLE);
-        		holder.tvNameOne.setVisibility(View.VISIBLE);
-				holder.tvQuantityOne.setVisibility(View.VISIBLE);
+				holder.linColumOne.setVisibility(View.VISIBLE);        		
 			}
         	
         	if (holder.tvQuantityTwo.getText().equals("0") || holder.tvQuantityTwo.getText().equals("")
         			|| holder.tvQuantityTwo.getText() == null) {
-        		holder.tvDotTwo.setVisibility(View.GONE);
-        		holder.tvNameTwo.setVisibility(View.GONE);
-        		holder.tvQuantityTwo.setVisibility(View.GONE);
+        		holder.linColumTwo.setVisibility(View.GONE);        
 			} else {
-				holder.tvDotTwo.setVisibility(View.VISIBLE);
-        		holder.tvNameTwo.setVisibility(View.VISIBLE);
-				holder.tvQuantityTwo.setVisibility(View.VISIBLE);
+				holder.linColumTwo.setVisibility(View.VISIBLE);        	
 			}
 		}
         
         ((ItemSubOrder) convertView).set_position(position);
+       
         return convertView;
 	}
 	
 	static class ViewHolder
     {      
         TextView tvDotOne, tvNameOne, tvQuantityOne, tvNameTwo, tvQuantityTwo, tvDotTwo;
+        LinearLayout linColumOne, linColumTwo; 
     }
 }

@@ -368,7 +368,7 @@ public class OrderActivity extends Activity implements OnClickListener{
 					}
 					
 //					lvOrder.setAdapter(orderListAdapter);
-					app.keepPositionListView(lvOrder, orderListAdapter);
+					app.keepPositionListView(lvOrder, orderListAdapter);				
 					lvOrder.setOnScrollListener(new OnScrollListener() {
 						
 						@Override
