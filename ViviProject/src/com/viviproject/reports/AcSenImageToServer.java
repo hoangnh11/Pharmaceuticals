@@ -7,6 +7,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import com.viviproject.R;
+import com.viviproject.entities.UserInformation;
+import com.viviproject.network.NetParameter;
+import com.viviproject.network.access.HttpNetServices;
+import com.viviproject.service.GPSTracker;
+import com.viviproject.ultilities.BuManagement;
+import com.viviproject.ultilities.DataParser;
+import com.viviproject.ultilities.DataStorage;
+import com.viviproject.ultilities.GlobalParams;
+import com.viviproject.ultilities.Logger;
+import com.viviproject.ultilities.ResponeCodeInf;
+import com.viviproject.ultilities.StringUtils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -15,6 +28,8 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,19 +44,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.viviproject.R;
-import com.viviproject.entities.UserInformation;
-import com.viviproject.network.NetParameter;
-import com.viviproject.network.access.HttpNetServices;
-import com.viviproject.service.GPSTracker;
-import com.viviproject.ultilities.BuManagement;
-import com.viviproject.ultilities.DataParser;
-import com.viviproject.ultilities.DataStorage;
-import com.viviproject.ultilities.GlobalParams;
-import com.viviproject.ultilities.Logger;
-import com.viviproject.ultilities.ResponeCodeInf;
-import com.viviproject.ultilities.StringUtils;
 
 public class AcSenImageToServer extends Activity implements OnClickListener {
 	private static final int CAMERA_REQUEST = 1888; 
@@ -131,6 +133,33 @@ public class AcSenImageToServer extends Activity implements OnClickListener {
 				options.inSampleSize = 2;
 				Bitmap bitmap = BitmapFactory.decodeFile(
 						fileUri.getPath(), options);
+				
+				ExifInterface ei = new ExifInterface(fileUri.getPath());
+				int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+				
+				switch (orientation) {
+				case ExifInterface.ORIENTATION_ROTATE_90:
+					//rotate image 90
+					try{
+						bitmap = rotateImage(bitmap, 90);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					break;
+				
+				case ExifInterface.ORIENTATION_ROTATE_180:
+					//rotate image 180
+					try{
+						bitmap = rotateImage(bitmap, 180);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					break;
+					
+				default:
+					break;
+				}
+				
 				imageView.setImageBitmap(bitmap);
 				imageBase64  = base64Imate(bitmap);
 				galleryAddPic();
@@ -155,6 +184,18 @@ public class AcSenImageToServer extends Activity implements OnClickListener {
         }
     } 
 	
+	/**
+	 * rotate bitmap image
+	 * @param bitmap
+	 * @param i 
+	 */
+	private Bitmap rotateImage(Bitmap bmp, int i) throws Exception{
+		Matrix mat = new Matrix();
+		mat.postRotate(i);
+		Bitmap bmpRotate = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), mat, true);
+		return bmpRotate;
+	}
+
 	private void galleryAddPic() {
 		if(null != fileUri){
 			Intent mediaScanIntent = new Intent(
