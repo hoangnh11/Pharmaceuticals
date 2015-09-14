@@ -19,7 +19,7 @@ import com.viviproject.ultilities.GlobalParams;
 import com.viviproject.ultilities.Logger;
 import com.viviproject.ultilities.ResponeCodeInf;
 import com.viviproject.ultilities.StringUtils;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -45,6 +45,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+@SuppressLint("SimpleDateFormat")
 public class AcSenImageToServer extends Activity implements OnClickListener {
 	private static final int CAMERA_REQUEST = 1888; 
 	public static final int MEDIA_TYPE_IMAGE = 1;
@@ -160,6 +161,12 @@ public class AcSenImageToServer extends Activity implements OnClickListener {
 					break;
 				}
 				
+				try {
+					bitmap = getResizedBitmap(bitmap, 800, 400);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				imageView.setImageBitmap(bitmap);
 				imageBase64  = base64Imate(bitmap);
 				galleryAddPic();
@@ -194,6 +201,42 @@ public class AcSenImageToServer extends Activity implements OnClickListener {
 		mat.postRotate(i);
 		Bitmap bmpRotate = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), mat, true);
 		return bmpRotate;
+	}
+
+	/**
+	 * getResizedBitmap
+	 * @param bm
+	 * @param newHeight
+	 * @param newWidth
+	 * @return
+	 */
+	public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+
+		int width = bm.getWidth();
+
+		int height = bm.getHeight();
+
+		float scaleWidth = ((float) newWidth) / width;
+
+		float scaleHeight = ((float) newHeight) / height;
+
+		// CREATE A MATRIX FOR THE MANIPULATION
+
+		Matrix matrix = new Matrix();
+
+		// RESIZE THE BIT MAP
+		
+		if(height >= width){
+			matrix.postScale(scaleHeight, scaleHeight);
+		} else {
+			matrix.postScale(scaleWidth, scaleWidth);
+		}
+		// RECREATE THE NEW BITMAP
+
+		Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+		return resizedBitmap;
+
 	}
 
 	private void galleryAddPic() {
