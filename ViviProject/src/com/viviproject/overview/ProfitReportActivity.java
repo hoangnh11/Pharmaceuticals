@@ -148,7 +148,7 @@ public class ProfitReportActivity extends Activity implements OnClickListener{
 		View todayCustomer = createCustommerView(enPlanSale.getToday().getRow_customer());
 		linPlanSaleToDay.addView(todayCustomer);
 		
-		//to day data
+		//cumulative data
 		View summary = createSummaryView(enPlanSale.getSumary().getRow_sumary());
 		linPlanSaleSummary.addView(summary);
 		if(null != enPlanSale && null != enPlanSale.getToday() 

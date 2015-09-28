@@ -97,6 +97,9 @@ public class AdapterProfitFollowCustomer extends ArrayAdapter<EnStoreReportItem>
 		if(null != item){
 			holder.tvNamePharmacyName.setText(item.getName());
 			holder.tvPrice.setText(item.getSumary());
+			holder.tvAddress.setText(item.getAddress());
+		} else {
+			holder.tvAddress.setText("");
 		}
 		return convertView;
 	}
