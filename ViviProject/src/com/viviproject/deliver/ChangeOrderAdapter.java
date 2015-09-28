@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,7 +55,7 @@ public class ChangeOrderAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		ViewHolder holder;
+		final ViewHolder holder;
         if (convertView == null)
         {
             convertView = new ItemListViewOrder(mActivity.getApplicationContext());
@@ -66,7 +69,7 @@ public class ChangeOrderAdapter extends BaseAdapter{
             holder.linHeader = (LinearLayout) convertView.findViewById(R.id.linHeader);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
             holder.tvOldQuantity = (TextView) convertView.findViewById(R.id.tvOldQuantity);
-            holder.tvQuantity = (TextView) convertView.findViewById(R.id.tvQuantity);
+            holder.tvQuantity = (EditText) convertView.findViewById(R.id.tvQuantity);
             holder.imgTD = (ImageView) convertView.findViewById(R.id.imgTD);
             holder.imgCK = (ImageView) convertView.findViewById(R.id.imgCK);
             holder.imgOther = (ImageView) convertView.findViewById(R.id.imgOther);
@@ -81,9 +84,11 @@ public class ChangeOrderAdapter extends BaseAdapter{
         }        
 
         itemProduct = _products.get(position);
+        holder.ref = position;
+        
         if (itemProduct != null) {
         	if (position == 0) {
-    		holder.linHeader.setVisibility(View.VISIBLE);
+        		holder.linHeader.setVisibility(View.VISIBLE);
 			} else {
 				holder.linHeader.setVisibility(View.GONE);
 			}
@@ -132,13 +137,39 @@ public class ChangeOrderAdapter extends BaseAdapter{
     			}
 			}
         	
+        	if (itemProduct.getTempProductQty() != null) {
+        		holder.tvQuantity.setText(itemProduct.getTempProductQty());
+        		holder.tvQuantity.addTextChangedListener(new TextWatcher() {
+					
+					@Override
+					public void onTextChanged(CharSequence s, int start, int before, int count) {
+						
+					}
+					
+					@Override
+					public void beforeTextChanged(CharSequence s, int start, int count,	int after) {						
+					}
+					
+					@Override
+					public void afterTextChanged(Editable s) {
+						if (s.length() > 0) {								
+							_products.get(holder.ref).setTempProductQty(s.toString());
+							ChangeOrderActivity.products.get(holder.ref).setTempProductQty(s.toString());
+						} else {
+							_products.get(holder.ref).setTempProductQty("0");
+							ChangeOrderActivity.products.get(holder.ref).setTempProductQty("0");
+						}
+					}
+				});
+			}
+        	
         	for (int i = 0; i < _data.getProducts().size(); i++) {
         		if (itemProduct.getId().equals(_data.getProducts().get(i).getProduct_id())) {
         			holder.tvOldQuantity.setText(_data.getProducts().get(i).getProduct_qty());
         		}
         	}
         	
-        	holder.tvQuantity.setText(itemProduct.getTempProductQty());
+//        	holder.tvQuantity.setText(itemProduct.getTempProductQty());
 		}
 
         ((ItemListViewOrder) convertView).set_position(position);
@@ -148,8 +179,10 @@ public class ChangeOrderAdapter extends BaseAdapter{
 	static class ViewHolder
     {      
         LinearLayout linHeader;
-        TextView tvName, tvQuantity, tvOldQuantity;
+        EditText tvQuantity;
+        TextView tvName, tvOldQuantity;
         ImageView imgTD, imgCK, imgOther, imgMinus, imgPlus;
+        int ref;
     }
 	
 	OnClickListener onTDClickHandler = new OnClickListener() 

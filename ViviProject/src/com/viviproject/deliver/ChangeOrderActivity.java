@@ -63,7 +63,7 @@ public class ChangeOrderActivity extends Activity implements OnClickListener{
 	private CreateSale createSale;
 	private ResponseCreateSales responseCreateSales;
 	private String nowDelivery = "0";
-	private ArrayList<EnProducts> products;
+	public static ArrayList<EnProducts> products;
 	private int index;
 	private GetSales getSales;
 	private ResponseOrders responseOrders;
