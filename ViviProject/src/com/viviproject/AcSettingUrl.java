@@ -20,7 +20,7 @@ public class AcSettingUrl extends Activity implements OnClickListener{
 		initLayout();
 		
 	}
-
+///update 23-12-2-15
 	/**
 	 * initial layout of screen
 	 */
